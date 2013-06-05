@@ -51,7 +51,7 @@ source $ZSH/oh-my-zsh.sh
 # 如果需要绑定额外 shell命令，需要 -s选项
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
-#stty intr ^X # 将C-x当成中断键,C-c映射成 <Esc>#{{{
+stty intr ^X # 将C-x当成中断键,C-c映射成 <Esc>#{{{
 #bindkey -s ',;' ';' 
 bindkey -v
 bindkey -s '^c' ''
@@ -66,6 +66,8 @@ bindkey -M viins '' kill-line
 bindkey -M viins '' backward-kill-line
 bindkey -M viins '^P' up-line-or-history
 bindkey -M viins '^N' down-line-or-history
+bindkey -M viins 'f' emacs-forward-word
+bindkey -M viins 'b' emacs-backward-word
 
 bindkey -M viins '' history-incremental-search-backward
 bindkey -M vicmd '' history-incremental-search-backward
