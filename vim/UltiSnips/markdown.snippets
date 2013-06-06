@@ -1,0 +1,162 @@
+#@ ==============================================================================
+#@ Snippets                                                   *markdown-snippets*
+#@
+#@ ------------------------------------------------------------------------------
+#@ Headers                                            *markdown-snippets-headers*
+#@
+snippet ==
+${1:header 1}
+$1
+
+${2}
+endsnippet
+#@ * Heading levels 3 to 6:
+#@   Snippet: #3<TAB>
+#@            #4<TAB>
+#@            #5<TAB>
+#@            #6<TAB>
+#@   Result : ### header 3
+#@            #### header 4
+#@            ##### header 5
+#@            ###### header 6
+snippet #3
+### ${1:header 3}
+
+${2}
+endsnippet
+snippet #4
+#### ${1:header 4}
+
+${2}
+endsnippet
+snippet #5
+##### ${1:header 5}
+
+${2}
+endsnippet
+snippet #6
+###### ${1:header 6}
+
+${2}
+endsnippet
+#@
+#@ ------------------------------------------------------------------------------
+#@ Links and images                                     *markdown-snippets-links*
+#@
+#@ * Link using only reference:
+#@   Snippet: []<TAB>
+#@   Result : [reference][]
+snippet []
+	[${1:reference}][]${2}
+endsnippet
+#@
+#@ * Link using text point to reference:
+#@   Snippet: [[<TAB>
+#@   Result : [text][reference]
+snippet [[
+[${1:text}][${2:reference}]${3}
+endsnippet
+#@
+#@ * Link text point to URL:
+#@   Snippet: [(<TAB>
+#@   Result : [[text](http://url)
+snippet [(
+[${1:text}](http://${2:url})${3}
+endsnippet
+#@
+#@ * Link to email address:
+#@   Snippet: [@<TAB>
+#@   Result : [text](mailto:email)
+snippet [@
+[${1:text}](mailto:${2:email})${3}
+endsnippet
+#@
+#@ * Link using text and title:
+#@   Snippet: [("<TAB>
+#@   Result : [text link](url "title")
+snippet [("
+[${1:text}](${2:url} "${3:title}")${4}
+endsnippet
+#@
+#@ * Create link reference:
+#@   Snippet: [:<TAB>
+#@   Result : [reference]: http://url
+#@              "title"
+snippet [:
+[${1:reference}]: http://${2:url}
+	"${3:title}"
+	${4}
+endsnippet
+#@
+#@ * Create link to email reference:
+#@   Snippet: [:@<TAB>
+#@   Result : [reference]: email
+#@              "title"
+snippet [:@
+[${1:reference}]: mailto:${2:url}
+	"${3:title}"
+	${4}
+endsnippet
+#@
+#@ * Create link to image:
+#@   Snippet: ![<TAB>
+#@   Result : ![text][reference]
+snippet ![
+![${1:text}][${2:reference}]${3}
+endsnippet
+#@
+#@ * Create link to image using url source:
+#@   Snippet: !(<TAB>
+#@   Result : ![text](url)
+snippet !(
+![${1:text}](${2:url})${3}
+endsnippet
+#@
+#@ * Create link to image using url, source and title:
+#@   Snippet: !("<TAB>
+#@   Result : ![text](url "title")
+snippet !("
+![${1:text}](${2:url} "${3:title}")${4}
+endsnippet
+#@
+#@ ------------------------------------------------------------------------------
+#@ Styles                                               *markdown-snippets-styles*
+#@
+#@ * Emphasis:
+#@   Snippet: *<TAB> or _<TAB>
+#@   Result : "*emphasis*" or _emphasis_
+#@   Notes  : Ignore double quotes.
+snippet *
+*${1:emphasis}*${2}
+endsnippet
+snippet _
+_${1:emphasis}_${2}
+endsnippet
+#@
+#@ * Strong:
+#@   Snippet: **<TAB> or __<TAB>
+#@   Result : **text** or __text__
+snippet **
+**${1:strong}**${2}
+endsnippet
+snippet __
+__${1:strong}__${2}
+endsnippet
+#@
+#@ * Strong emphasized:
+#@   Snippet: *_<TAB> or _*<TAB>
+#@   Result : **_text_** or __*text*__
+snippet *_
+**_${1:strong emphasized}_**${2}
+endsnippet
+snippet _*
+__*${1:strong emphasized}*__${2}
+endsnippet
+#@
+#@ * Code:
+#@   Snippet: `<TAB>
+#@   Result : `code`
+snippet `
+`${1:code}`${2}
+`${1}\`${2}
+endsnippet

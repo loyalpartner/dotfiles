@@ -1,0 +1,16 @@
+snippet main "VC WinMain" b
+int WINAPI _tWinMain(HINSTANCE hInstExe, HINSTANCE, PTSTR pszCmdLine, int)
+{
+   ${1:/*code*/}  
+
+   return(0);
+}
+endsnippet
+
+snippet msg "MessageBox" b
+MessageBox(${1:NULL},${2:TEXT("${3:msg}")},${4:TEXT("${5:msg}")},MB_${6:OK});$0
+endsnippet
+
+snippet txt "TEXT" !b
+TEXT("${1:text}")$0
+endsnippet
