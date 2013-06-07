@@ -6,7 +6,7 @@ echo $script_dir
 
 if [[ ! -a ~/.zshrc ]]
 then
-  ln -s $script_dir/zshrc.zsh ~/.zshrc
+  ln -s $script_dir/zsh/zshrc.zsh ~/.zshrc
 fi
 
 if [[ ! -a ~/.vimrc ]]
@@ -17,3 +17,5 @@ fi
 if [[ ! -a ~/.tmux.conf ]]; then
   ln -s $script_dir/tmux/tmux.conf ~/.tmux.conf
 fi
+
+source $script_dir/git/gitconfig.sh
