@@ -51,7 +51,7 @@ source $ZSH/oh-my-zsh.sh
 # 如果需要绑定额外 shell命令，需要 -s选项
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
-stty intr ^X # 将C-x当成中断键,C-c映射成 <Esc>#{{{
+#stty intr ^X # 将C-x当成中断键,C-c映射成 <Esc>#{{{
 #bindkey -s ',;' ';' 
 bindkey -v
 bindkey -s '^c' ''
@@ -76,5 +76,17 @@ bindkey -M vicmd '^S' history-incremental-search-forward
 #}}}
 
 function share(){ sudo mount.cifs $1 $2 -o user=GaoPP,pass=a }
+
+# man 彩色化
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+
+alias tmux='tmux -2'
+alias ins='sudo pacman -S'
 
 # vim:set ft=sh foldmethod=marker foldenable:

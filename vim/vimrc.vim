@@ -37,13 +37,12 @@ func! Init() "{{{
   Bundle 'https://github.com/scturtle/vim-instant-markdown-py.git'
   Bundle 'https://github.com/tsaleh/vim-align.git'
   Bundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
-  Bundle 'https://github.com/vim-scripts/doxygen-support.vim.git'
+  "Bundle 'https://github.com/vim-scripts/doxygen-support.vim.git'
   Bundle 'https://github.com/mattn/zencoding-vim.git'
   Bundle 'https://github.com/scrooloose/nerdcommenter.git'
   Bundle 'https://github.com/kien/ctrlp.vim.git'
   Bundle 'https://github.com/Valloric/YouCompleteMe.git'
   Bundle 'https://github.com/scrooloose/syntastic.git'
-  Bundle 'https://github.com/lilydjwg/colorizer.git'
   Bundle 'https://github.com/tpope/vim-fugitive.git'
   Bundle 'https://github.com/Valloric/vim-operator-highlight.git'
   Bundle 'https://github.com/Valloric/ListToggle.git'
@@ -54,15 +53,17 @@ func! Init() "{{{
   Bundle 'https://github.com/sjl/gundo.vim.git'
   Bundle 'https://github.com/majutsushi/tagbar.git'
   Bundle 'https://github.com/vim-scripts/fcitx.vim.git'
-  Bundle 'https://github.com/vim-scripts/AutoClose.git'
   Bundle 'https://github.com/tpope/vim-unimpaired.git'
-  Bundle 'https://github.com/c9s/colorselector.vim.git'
+  Bundle 'https://github.com/lilydjwg/colorizer.git'
   Bundle 'https://github.com/ap/vim-css-color.git'
+  Bundle 'https://github.com/c9s/colorselector.vim.git'
+  Bundle 'https://github.com/vim-scripts/showcolor.vim'
   Bundle 'https://github.com/michaeljsmith/vim-indent-object.git'
   Bundle 'https://github.com/tomtom/viki_vim.git'
   Bundle 'https://github.com/tomtom/tlib_vim.git'
   Bundle 'https://github.com/Valloric/MatchTagAlways.git'
   Bundle 'git@github.com:loyalpartner/mystyle.vim.git'
+  Bundle 'https://github.com/wojtekmach/vim-rename.git'
 
   filetype plugin indent on     " required!
   "
@@ -119,6 +120,9 @@ augroup End
 if !exists('s:plugin_loaded') || s:plugin_loaded == 0
   let s:plugin_loaded = 1
   call Init()
+
+  set rtp+=~/dotfiles/vim
+
   " 设置主题
   colorscheme valloric
   syntax enable
@@ -862,7 +866,6 @@ endfunc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  插件设置                               "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 "{{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  CtrlP                                  "
@@ -901,7 +904,8 @@ let g:indent_guides_auto_colors = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                UltiSnips                                "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:UltiSnipsSnippetsDir         = $HOME . '/dotfiles/vim/UltiSnips'
+let g:UltiSnipsSnippetsDir         = $HOME . '/dotfiles/vim/UltiSnips/'
+"let g:UltiSnipsSnippetDirectories = ["UltiSnips"]
 let g:UltiSnipsEditSplit           = "vertical"
 let g:UltiSnipsListSnippets        = "<C-z>"
 let g:UltiSnipsExpandTrigger       = "<tab>"
@@ -933,8 +937,6 @@ let g:ycm_key_invoke_completion = '<C-L>'
 "let g:ycm_filetype_blacklist = {
       "\ 'vim' : 1,
       "\}
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
 "inoremap <Tab> <C-x><C-o>
 "inoremap <S-Tab> <Tab>
 let g:ycm_semantic_triggers =  {
@@ -1084,8 +1086,8 @@ let g:tagbar_left = 1
 "                                autopair                                 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autopair 有个bug,下面的映射可以避免"
-inoremap <cr> <space>a<c-h><cr>
-inoremap <c-b> <del>
+"inoremap <cr> <space>a<c-h><cr>
+"inoremap <c-b> <del>
 "}}}
 
 " vim: set foldmethod=marker tabstop=2 shiftwidth=2 softtabstop=2 expandtab:
