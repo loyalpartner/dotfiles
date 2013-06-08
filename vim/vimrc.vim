@@ -1,8 +1,12 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                初始配置                                 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                初始配置                                 "
 "{{{
 func! Init() "{{{
+  if !isdirectory($HOME."/.vim/bundle/vundle")
+    return
+  endif
+
   set nocompatible               " be iMproved
   filetype off                   " required!
 
@@ -11,6 +15,7 @@ func! Init() "{{{
 
   " let Vundle manage Vundle
   " required! 
+  " git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
   Bundle 'gmarik/vundle'
 
   " My Bundles here:
@@ -64,6 +69,9 @@ func! Init() "{{{
   Bundle 'https://github.com/Valloric/MatchTagAlways.git'
   Bundle 'git@github.com:loyalpartner/mystyle.vim.git'
   Bundle 'https://github.com/wojtekmach/vim-rename.git'
+  Bundle 'https://github.com/terryma/vim-multiple-cursors.git'
+  "Bundle 'https://github.com/xolox/vim-lua-ftplugin.git'
+  "Bundle 'https://github.com/xolox/vim-lua-inspect.git'
 
   filetype plugin indent on     " required!
   "
@@ -75,6 +83,16 @@ func! Init() "{{{
   "
   " see :h vundle for more details or wiki for FAQ
   " NOTE: comments after Bundle command are not allowed..
+
+  " 设置主题
+  colorscheme valloric
+  syntax enable
+
+  augroup Unmap
+    au!
+    au vimenter * unmap <leader>w=
+    au vimenter * unmap <leader>rwp
+  augroup End
 endfunc
 "}}}
 
@@ -102,11 +120,6 @@ augroup ReloadVimrc
   au BufWritePost .vimrc let s:currenttab = tabpagenr() | exec 'tabnew' | source $MYVIMRC | exec 'bd' | exec "tabnext ".s:currenttab | set timeoutlen=3000
 augroup END
 
-augroup Unmap
-  au!
-  au vimenter * unmap <leader>w=
-  au vimenter * unmap <leader>rwp
-augroup End
 
 " 自动保存视图"
 augroup ReloadView
@@ -123,9 +136,6 @@ if !exists('s:plugin_loaded') || s:plugin_loaded == 0
 
   set rtp+=~/dotfiles/vim
 
-  " 设置主题
-  colorscheme valloric
-  syntax enable
 endif
 "}}}
 
@@ -584,9 +594,10 @@ nmap t ]<space>
 nmap T [<space>
 
 "编辑配置文件
-Alt nnoremap 1 :tabnew!\ $MYVIMRC<cr>
-Alt nnoremap 2 :tabnew!\ $HOME/.zshrc<cr>
-Alt nnoremap 3 :tabnew!\ $HOME/.tmux.conf<cr>
+Alt nnoremap ! :tabnew!\ $MYVIMRC<cr>
+Alt nnoremap @ :tabnew!\ $HOME/.zshrc<cr>
+Alt nnoremap # :tabnew!\ $HOME/.tmux.conf<cr>
+Alt nnoremap $ :tabnew!\ $HOME/.config/awesome/rc.lua<cr>
 
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
@@ -1088,6 +1099,14 @@ let g:tagbar_left = 1
 " autopair 有个bug,下面的映射可以避免"
 "inoremap <cr> <space>a<c-h><cr>
 "inoremap <c-b> <del>
-"}}}
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              multi_cursor                               "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:multi_cursor_next_key='<c-n>'
+let g:multi_cursor_prev_key='<c-p>'
+let g:multi_cursor_skip_key='<c-x>'
+let g:multi_cursor_quit_key='<c-c>'
+
+"}}}
 " vim: set foldmethod=marker tabstop=2 shiftwidth=2 softtabstop=2 expandtab:
