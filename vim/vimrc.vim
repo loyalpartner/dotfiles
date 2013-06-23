@@ -1,6 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                初始配置                                 "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "{{{
 func! Init() "{{{
   if !isdirectory($HOME."/.vim/bundle/vundle")
@@ -13,25 +13,7 @@ func! Init() "{{{
   set rtp+=~/.vim/bundle/vundle/
   call vundle#rc()
 
-  " let Vundle manage Vundle
-  " required! 
-  " git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
   Bundle 'gmarik/vundle'
-
-  " My Bundles here:
-  "
-  " original repos on github
-  "Bundle 'tpope/vim-fugitive'
-  "Bundle 'Lokaltog/vim-easymotion'
-  "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-  "Bundle 'tpope/vim-rails.git'
-  " vim-scripts repos
-  "Bundle 'L9'
-  "Bundle 'FuzzyFinder'
-  " non github repos
-  "Bundle 'git://git.wincent.com/command-t.git'
-  " ...
-
   Bundle 'https://github.com/plasticboy/vim-markdown.git'
   Bundle 'https://github.com/Lokaltog/vim-powerline.git'
   Bundle 'https://github.com/vim-scripts/UltiSnips.git'
@@ -51,7 +33,6 @@ func! Init() "{{{
   Bundle 'https://github.com/tpope/vim-fugitive.git'
   Bundle 'https://github.com/Valloric/vim-operator-highlight.git'
   Bundle 'https://github.com/Valloric/ListToggle.git'
-  "Bundle 'https://github.com/myusuf3/numbers.vim.git'
   Bundle 'https://github.com/tsaleh/vim-matchit.git'
   Bundle 'https://github.com/vim-scripts/TaskList.vim.git'
   Bundle 'https://github.com/klen/python-mode.git'
@@ -70,19 +51,12 @@ func! Init() "{{{
   Bundle 'git@github.com:loyalpartner/mystyle.vim.git'
   Bundle 'https://github.com/wojtekmach/vim-rename.git'
   Bundle 'https://github.com/terryma/vim-multiple-cursors.git'
+  "Bundle 'https://github.com/vim-scripts/lua.vim.git'
   "Bundle 'https://github.com/xolox/vim-lua-ftplugin.git'
+  "Bundle 'https://github.com/xolox/vim-misc.git'
   "Bundle 'https://github.com/xolox/vim-lua-inspect.git'
 
   filetype plugin indent on     " required!
-  "
-  " Brief help
-  " :BundleList          - list configured bundles
-  " :BundleInstall(!)    - install(update) bundles
-  " :BundleSearch(!) foo - search(or refresh cache first) for foo
-  " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-  "
-  " see :h vundle for more details or wiki for FAQ
-  " NOTE: comments after Bundle command are not allowed..
 
   " 设置主题
   colorscheme valloric
@@ -90,8 +64,8 @@ func! Init() "{{{
 
   augroup Unmap
     au!
-    au vimenter * unmap <leader>w=
-    au vimenter * unmap <leader>rwp
+    au vimenter * map <leader>w= <nop> | unmap <leader>w=
+    au vimenter * map <leader>rwp <nop> | unmap <leader>rwp
   augroup End
 endfunc
 "}}}
@@ -107,9 +81,12 @@ endif
 " mode    : map,noremap ....
 " key     : a-z0-9
 " command : 命令的字符串模式
-func! Alt(mode, key, command)
+func! Alt(mode, key, command, ...)
   let l:key =has('gui_running') ? "<M-". a:key . ">" : "" . a:key
   let l:command = a:mode . ' '. l:key . ' ' . escape(a:command, '\')
+  if a:0 == 1
+    echo l:command
+  endif
   exec l:command
 endfunc 
 command! -nargs=* Alt call Alt(<f-args>)
@@ -585,7 +562,6 @@ cnoremap ,(( \(\)<left><left>
 cnoremap ,{{ \{\}<left><left>
 cnoremap ,<< \<\><left><left>
 
-
 nnoremap f za
 nnoremap <silent> F :1,$foldc<cr>
 
@@ -599,14 +575,27 @@ Alt nnoremap @ :tabnew!\ $HOME/.zshrc<cr>
 Alt nnoremap # :tabnew!\ $HOME/.tmux.conf<cr>
 Alt nnoremap $ :tabnew!\ $HOME/.config/awesome/rc.lua<cr>
 
+" 在命令行模式下使用类emacs的按键风格
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
+cnoremap <c-f> <right>
+cnoremap <c-b> <left>
+Alt cnoremap b <s-left>
+Alt cnoremap f <s-right>
+
+" 插入模式使用类emacs的操作
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <c-f> <right>
+inoremap <c-b> <left>
+Alt inoremap b <s-left>
+Alt inoremap f <s-right>
 
 "" 切换缓冲"{{{
-"noremap L :bnext<cr>
-"noremap H :bprevious<cr>
-"noremap A :bfirst<cr>
-"noremap E :blast<cr>
+noremap L :bnext<cr>
+noremap H :bprevious<cr>
+noremap A :bfirst<cr>
+noremap E :blast<cr>
 ""}}}
 
 " 切换选项卡"{{{
@@ -787,8 +776,11 @@ endif
 "}}}
 
 "autocmd BufRead *.py,*.c,*.sh,*.coffee map <silent> <leader><F5> :call Debug()<CR>
-autocmd FileType c,python,sh,coffee noremap <buffer> <leader>r :call Run()<CR>
-autocmd BufRead *.py noremap <buffer> <silent> <leader>bp :call SetBP()<CR>
+augroup Run
+  au!
+  autocmd! FileType c,python,sh,coffee,lua noremap <buffer> <leader>r :call Run()<CR>
+  autocmd! BufRead *.py noremap <buffer> <silent> <leader>bp :call SetBP()<CR>
+augroup End
 
 func! Run() "{{{"
   exec "w"
@@ -808,6 +800,8 @@ func! Run() "{{{"
     exec "!python ".expand("%:p")
   elseif &ft == "coffee"
     echo system("coffee -s", join(getline(1,"$"),"\n"))
+  elseif &ft == "lua"
+    echo system("lua ". expand('%:p'))
   endif
 endfunc "}}}"
 
@@ -945,9 +939,9 @@ let g:ycm_key_list_select_completion = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_key_invoke_completion = '<C-L>'
-"let g:ycm_filetype_blacklist = {
-      "\ 'vim' : 1,
-      "\}
+"let g:ycm_filetype_specific_completion_to_disable = {'lua':1}
+let g:ycm_filetype_blacklist = {
+      \}
 "inoremap <Tab> <C-x><C-o>
 "inoremap <S-Tab> <Tab>
 let g:ycm_semantic_triggers =  {
@@ -966,8 +960,10 @@ let g:ycm_semantic_triggers =  {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_stl_path_style = 'full'
-"let g:Powerline_mode_n = 'NORMAL'
-
+let g:Powerline_mode_n = 'N'
+let g:Powerline_mode_i = 'I'
+let g:Powerline_mode_s = 'S'
+let g:Powerline_mode_v = 'V'
 
 "{{{ Syntastic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1048,14 +1044,6 @@ au FileType python nnoremap <buffer> gd :RopeGotoDefinition<cr>
 cnoremap ;pl PyLintAuto<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 number                                  "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"cabbr ;nt NumbersToggle
-let g:enable_numbers = 0
-cnoremap ;nt NumbersToggle<cr>
-cnoremap ;nn set nu<cr>:set nonu<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              coffeescript                               "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:coffee_linter = ''
@@ -1103,10 +1091,16 @@ let g:tagbar_left = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              multi_cursor                               "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:multi_cursor_next_key='<c-n>'
-let g:multi_cursor_prev_key='<c-p>'
-let g:multi_cursor_skip_key='<c-x>'
-let g:multi_cursor_quit_key='<c-c>'
+let g:multi_cursor_next_key = '<c-n>'
+let g:multi_cursor_prev_key = '<c-p>'
+let g:multi_cursor_skip_key = '<c-x>'
+let g:multi_cursor_quit_key = '<c-c>'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   lua                                   "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"au FileType lua setlocal omnifunc=xolox#lua#completefunc
+let g:lua_complete_omni = 1
 "}}}
+
 " vim: set foldmethod=marker tabstop=2 shiftwidth=2 softtabstop=2 expandtab:
