@@ -778,7 +778,7 @@ endif
 "autocmd BufRead *.py,*.c,*.sh,*.coffee map <silent> <leader><F5> :call Debug()<CR>
 augroup Run
   au!
-  autocmd! FileType c,python,sh,coffee,lua noremap <buffer> <leader>r :call Run()<CR>
+  autocmd! FileType c,cpp,python,sh,coffee,lua noremap <buffer> <leader>r :call Run()<CR>
   autocmd! BufRead *.py noremap <buffer> <silent> <leader>bp :call SetBP()<CR>
 augroup End
 
@@ -791,6 +791,11 @@ func! Run() "{{{"
     "使用system执行gcc"
     call system("gcc ".expand("%:p")." -g -o ".expand("%:p:r"))
     echo "gcc ".expand("%:p")." -g -o ".expand("%:p:r")
+    echo system(expand('%:p:r'))
+  elseif &ft == "cpp"
+    "使用system执行gcc"
+    let l:output =  system("g++ ".expand("%:p")." -g -o ".expand("%:p:r"))
+    echo l:output
     echo system(expand('%:p:r'))
   elseif &ft == "sh"
     call system("chmod +x ".expand('%:p'))
