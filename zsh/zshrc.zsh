@@ -1,43 +1,23 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/source/oh-my-zsh
 
-export EDITOR=vim
+export EDITOR=$(which vim)
 export MAIL=loyalpartner@163.com
-
-setopt nocorrect
-setopt listrowsfirst
 
 # oh-my-zsh #{{{
 ZSH_THEME="ys"
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Uncomment following line if you want to disable colors in ls
 # DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
 DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-#COMPLETION_WAITING_DOTS="true"
-
 export LANG="zh_CN.UTF-8"
-
 #export PATH=/home/lee/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git autojump python node gem tmuxinator)
-
-
+plugins=(git autojump archlinux web-search colored-man python node gem tmuxinator extract)
 source $ZSH/oh-my-zsh.sh
 #}}}
+
+autoload zmv
+setopt nocorrectall
+setopt listrowsfirst
 
 #source $HOME/.bash_aliases
 #PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
@@ -52,9 +32,16 @@ source $ZSH/oh-my-zsh.sh
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 #stty intr ^X # 将C-x当成中断键,C-c映射成 <Esc>#{{{
-#bindkey -s ',;' ';' 
+#bindkey -s '^c' ''
 bindkey -v
-bindkey -s '^c' ''
+#bindkey -s ',;' ';' 
+bindkey -s '\el' 'ls'
+bindkey -s '\eh' 'cd ~'
+bindkey -s '\e-' 'cd -'
+
+bindkey '\eq' push-line-or-edit
+bindkey '' accept-line-and-down-history
+bindkey '\e.' insert-last-word
 
 bindkey -M vicmd v edit-command-line
 bindkey -M viins '' beginning-of-line
@@ -77,16 +64,39 @@ bindkey -M vicmd '^S' history-incremental-search-forward
 
 function share(){ sudo mount.cifs $1 $2 -o user=GaoPP,pass=a }
 
-# man 彩色化
-export LESS_TERMCAP_mb=$'\E[01;31m'
-export LESS_TERMCAP_md=$'\E[01;31m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;32m'
-
 alias tmux='tmux -2'
+alias mux='tmuxinator'
+alias .='cd ~/dotfiles'
 alias ins='sudo pacman -S'
 
-# vim:set ft=sh foldmethod=marker foldenable:
+# 备份
+bp(){ 
+  cp $1{,.bak}
+}
+# 恢复
+rt(){
+  zmv -f "($1).bak" "\$1"
+}
+
+sx(){
+  if [[ -a ~/gtkrc-2.0 ]]; then
+    mv ~/{gtkrc-2.0,.gtkrc-2.0}
+  fi
+  startx
+}
+
+sx4(){
+  if [[ -a ~/.gtkrc-2.0 ]]; then
+    mv ~/{.gtkrc-2.0,gtkrc-2.0}
+  fi
+  if [[ -n `which brew` ]]; then
+      startxfce4
+  fi
+}
+
+s(){
+    dig "$*.jianbing.org" +short txt | perl -pe's/\\(\d{1,3})/chr $1/eg; s/(^"|"$)//g'
+}
+
+export PATH=$HOME/source/tmuxinator/bin:$PATH
+# vim:set ft=zsh foldmethod=marker foldenable:
