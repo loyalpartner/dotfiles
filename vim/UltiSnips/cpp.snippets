@@ -1,4 +1,8 @@
-snippet main "VC WinMain" b
+snippet using "using namespace xxx;" w
+using namespace ${1:name};
+endsnippet
+
+snippet mainvc "VC WinMain" b
 int WINAPI _tWinMain(HINSTANCE hInstExe, HINSTANCE, PTSTR pszCmdLine, int)
 {
    ${1:/*code*/}  
