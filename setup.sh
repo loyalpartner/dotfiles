@@ -4,15 +4,17 @@ script_dir="$( cd "$( dirname "$0" )" && pwd )"
 echo $script_dir
 
 
-if [[ ! -a ~/.zshrc ]]
-then
-  ln -s $script_dir/zsh/zshrc.zsh ~/.zshrc
+if [ -e ~/.zshrc ]; then
+#  mv ~/.zshrc ~/.zshrc.bak
+  echo exists
 fi
+#ln -s $script_dir/zsh/zshrc.zsh ~/.zshrc
 
 
-if [[ ! -a ~/.tmux.conf ]]; then
-  ln -s $script_dir/tmux/tmux.conf ~/.tmux.conf
+if [ -e ~/.tmux.conf ]; then
+  echo exists
 fi
+#ln -s $script_dir/tmux/tmux.conf ~/.tmux.conf
 
 #if [[ ! -a ~/.w3m/keymap ]]; then
   #ln -s $script_dir/w3m/keymap ~/.w3m/keymap

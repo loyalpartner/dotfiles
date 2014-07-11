@@ -59,7 +59,7 @@ DISABLE_AUTO_TITLE="true"
 plugins=( \
   git autojump archlinux web-search colored-man colorize \
   coffee cake python node gem \
-  tmuxinator extract vi-mode myconfig xfce4)
+  tmuxinator extract myconfig xfce4)
 
 source $ZSH/oh-my-zsh.sh
 
