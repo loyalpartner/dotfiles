@@ -3,18 +3,17 @@
 script_dir="$( cd "$( dirname "$0" )" && pwd )"
 echo $script_dir
 
+# 如果存在～/.zshrc先备份
+[ -e ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.bak -v
+ln -s $script_dir/zsh/zshrc.zsh ~/.zshrc
 
-if [ -e ~/.zshrc ]; then
-#  mv ~/.zshrc ~/.zshrc.bak
-  echo exists
-fi
-#ln -s $script_dir/zsh/zshrc.zsh ~/.zshrc
+# 如果存在～/.tmux.conf先备份
+[ -e ~/.tmux.conf ] && mv ~/.tmux.conf ~/.tmux.conf.bak -v
+ln -s $script_dir/tmux/tmux.conf ~/.tmux.conf
 
-
-if [ -e ~/.tmux.conf ]; then
-  echo exists
-fi
-#ln -s $script_dir/tmux/tmux.conf ~/.tmux.conf
+# 如果存在 ~/.vimperatorrc先备份
+[ -e ~/.vimperatorrc ] && mv ~/.vimperatorrc ~/.vimperatorrc.bak -v
+ln -s $script_dir/vimperator/vimperatorrc.vim ~/.vimperatorrc
 
 #if [[ ! -a ~/.w3m/keymap ]]; then
   #ln -s $script_dir/w3m/keymap ~/.w3m/keymap
