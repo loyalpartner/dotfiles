@@ -7,8 +7,8 @@ git_clone()
     echo 'choose ssh or https:'
     echo '1) ssh'
     echo '2) https'
-    
-    url_no=$1
+
+    read url_no
     
     case url_no in
         1)
