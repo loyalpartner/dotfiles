@@ -10,6 +10,7 @@ ZSH_THEME="robbyrussell"
 export EDITOR=$(which vim)
 export MAIL=loyalpartner@163.com
 export LANG="zh_CN.UTF-8"
+export TERM=xterm-256color
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -18,6 +19,17 @@ alias tmux='tmux -2'
 alias mux='tmuxinator'
 #alias .='cd ~/dotfiles'
 alias ins='sudo pacman -S'
+
+alias rg='rake generate'
+alias rd='rake deploy'
+alias rgd='rake gen_deploy'
+alias rp='rake preview'
+
+alias apti='sudo apt-get install'
+alias aptu='sudo apt-get update'
+alias aptup='sudo apt-get upgrade'
+alias aptr='sudo apt-get remove'
+alias aptar='sudo apt-get autoremove'
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"

@@ -15,6 +15,10 @@ ln -s $script_dir/tmux/tmux.conf ~/.tmux.conf
 [ -e ~/.vimperatorrc ] && mv ~/.vimperatorrc ~/.vimperatorrc.bak -v
 ln -s $script_dir/vimperator/vimperatorrc.vim ~/.vimperatorrc
 
+# 如果存在 ~/.pentadactylrc先备份
+[ -e ~/.pentadactylrc ] && mv ~/.pentadactylrc ~/.pentadactylrc.bak -v
+ln -s $script_dir/pentadactyl/pentadactylrc.vim ~/.pentadactylrc
+
 #if [[ ! -a ~/.w3m/keymap ]]; then
   #ln -s $script_dir/w3m/keymap ~/.w3m/keymap
   #ln -s $script_dir/w3m/bookmark.html ~/.w3m/bookmark.html
