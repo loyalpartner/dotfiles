@@ -26,6 +26,7 @@ git_clone()
     fi
 }
 
-[ -d dotfiles ] && mv dotfiles dotfiles.bak -fv 
+[ -d dotfiles ] && [ -d dotfiles.bak ] && rm dotfiles -rf
+[ -d dotfiles ] && mv dotfiles dotfiles.bak -v
 git_clone
 
