@@ -10,7 +10,7 @@ git_clone()
 
     read url_no
     
-    case url_no in
+    case $url_no in
         1)
             url=git@github.com:loyalpartner/dotfiles.git
             ;;
