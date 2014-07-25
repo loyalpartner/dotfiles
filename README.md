@@ -11,3 +11,6 @@ wegt https://j.mp/spf13-vim3 -O ~/spf13-vim.sh && sh ~/spf13-vim.sh
 wget  https://raw.githubusercontent.com/loyalpartner/dotfiles/master/install.sh -O install.sh && sh install.sh
 ```
 
+```bash
+wget https://raw.githubusercontent.com/loyalpartner/dotfiles/master/pentadactyl/pentadactylrc.vim -O <USERFOLDER>\_pentadactylrc
+```
