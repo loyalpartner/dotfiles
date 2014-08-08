@@ -30,6 +30,19 @@ alias aptu='sudo apt-get update'
 alias aptup='sudo apt-get upgrade'
 alias aptr='sudo apt-get remove'
 alias aptar='sudo apt-get autoremove'
+#alias sshs=''
+
+function tel () {
+    adb -d forward tcp:8080 tcp:8080 
+    telnet 127.0.0.1:8080
+}
+function sshs () {
+    ssh ${1:=192.168.1.103} -p 8090 -l username -t /data/data/com.spartacusrex.spartacuside/files/system/bin/bash -init-file /data/data/com.spartacusrex.spartacuside/files/.init
+}
+function wadb(){
+    #adb disconnect ${1:=192.168.1.103}
+    adb connect ${1:=192.168.1.103} && sleep 2 && adb shell
+}
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -98,3 +111,8 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/g
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 PAGER='less -X -M' export LESSOPEN="| $(which src-hilite-lesspipe.sh) %s" export LESS=' -R '
+
+alias -s png=eog
+alias -s jpg=eog
+alias -s jpeg=eog
+alias -s gif=eog
