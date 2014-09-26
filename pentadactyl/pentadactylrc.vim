@@ -1,4 +1,4 @@
-set go=bCsm
+set go=bCs
 
 " 设置上一页，下一页跳转
 set nextpattern=下一章,下一篇,下一张,下一节,下一版,下一页,下一頁,下页,后页,\bnext,^>$,^(>>|»)$,^(>|»),(>|»)$,\bmore\b
@@ -33,4 +33,7 @@ abbr lee charlselee
 
 "用户自定义命令格式
 command! -nargs=? foo echo 'Same as above but simpler' + <q-args>
+
+autocmd LocationChange www.hnradio.com :set encoding=gbk
+autocmd LocationChange www.0735.com :set encoding=gbk
 "vim: set ft=vim

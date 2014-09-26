@@ -4,7 +4,7 @@ script_dir="$( cd "$( dirname "$0" )" && pwd )"
 echo $script_dir
 
 # 如果存在～/.zshrc先备份
-[ -h ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.bak -v
+[ -h ~/.zshrc ] || [ -e ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.bak -v
 ln -s $script_dir/zsh/zshrc.zsh ~/.zshrc
 
 # 如果存在～/.tmux.conf先备份
@@ -27,4 +27,5 @@ ln -s $script_dir/pentadactyl/pentadactylrc.vim ~/.pentadactylrc
   #ln -s $script_dir/w3m/bookmark.html ~/.w3m/bookmark.html
 #fi
 
+echo $script_dir/git/gitconfig.sh
 source $script_dir/git/gitconfig.sh

@@ -83,8 +83,8 @@ DISABLE_AUTO_TITLE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=( \
   git autojump archlinux web-search colored-man colorize \
-  coffee cake python node gem \
-  tmuxinator extract myconfig xfce4)
+  coffee cake python node gem pip \
+  tmuxinator extract cheat)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -116,3 +116,14 @@ alias -s png=eog
 alias -s jpg=eog
 alias -s jpeg=eog
 alias -s gif=eog
+
+function copy (){
+    if which xsel > /dev/null; then
+        echo "$1" | xsel -bi
+    else
+        echo xsel not exist
+    fi
+}
+
+#echo "Did you know that:"; whatis $(ls /bin | shuf -n 1)
+cowsay -f $(ls /usr/share/cowsay/cows | shuf -n 1 | cut -d. -f1) $(whatis $(ls /bin) 2> /dev/null | shuf -n 1)
