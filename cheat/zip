@@ -1,0 +1,11 @@
+# 压缩文件夹
+zip -r target.zip src/
+
+# 解压文件
+unzip target.zip
+
+# 解压到指定的文件夹
+unzip target.zip -d fold/
+
+# 不解压文件，直接查看文件结构
+unzip -l target.zip

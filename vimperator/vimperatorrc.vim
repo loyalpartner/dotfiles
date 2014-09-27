@@ -14,6 +14,8 @@ highlight HintActive border-radius: 8px; background:red;
 cnoremap<S-Return> <End>.org<Home><C-Right>www.<CR>
 cnoremap<C-Return> <End>.com<Home><C-Right>www.<CR>
 
+noremap d D
+noremap D d
 noremap ,s :source ~/.vimperatorrc<CR>
 noremap ,S <silent> :!gvim ~/.vimperatorrc<CR>
 noremap ,p :preferences<CR>

@@ -1,0 +1,2 @@
+# 将所有txt编码由gbk转换成utf8
+find -name "*.txt" |xargs -i{} iconv -f GBK -t UTF8 {} -o {}.bak

@@ -1,4 +1,4 @@
-set go=bCs
+set go=b
 
 " 设置上一页，下一页跳转
 set nextpattern=下一章,下一篇,下一张,下一节,下一版,下一页,下一頁,下页,后页,\bnext,^>$,^(>>|»)$,^(>|»),(>|»)$,\bmore\b
@@ -19,6 +19,8 @@ map -ex <A-u> :set guioptions!=T
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 
+noremap d D
+noremap D d
 noremap ; :
 noremap : ;
 noremap ,s :source ~/.pentadactylrc<CR>

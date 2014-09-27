@@ -11,6 +11,9 @@ ln -s $script_dir/zsh/zshrc.zsh ~/.zshrc
 [ -h ~/.tmux.conf ] && mv ~/.tmux.conf ~/.tmux.conf.bak -v
 ln -s $script_dir/tmux/tmux.conf ~/.tmux.conf
 
+[ -h ~/.cheat ] || [ -e ~/.cheat ] && mv ~/.cheat ~/.cheat.bak -v
+ln -s $script_dir/cheat ~/.cheat
+
 ## 如果存在 ~/.vimperatorrc先备份
 ## 已升级到 pentadactyl
 #[ -h ~/.vimperatorrc ] && mv ~/.vimperatorrc ~/.vimperatorrc.bak -v
