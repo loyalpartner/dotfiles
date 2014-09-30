@@ -31,4 +31,4 @@ ln -s $script_dir/pentadactyl/pentadactylrc.vim ~/.pentadactylrc
 #fi
 
 echo $script_dir/git/gitconfig.sh
-source $script_dir/git/gitconfig.sh
+bash $script_dir/git/gitconfig.sh
