@@ -1,0 +1,28 @@
+if has("unix")
+  set guifont=Ubuntu\ Mono\ 11
+endif
+
+noremap <C-c> <Esc>
+
+" Fcitx输入法在Normal模式切换为英文状态"{{{
+if has("unix")
+  function! FcitxNormal()
+    if system("fcitx-remote")==2
+      call system("fcitx-remote -c")
+    endif
+  endfunction
+
+  autocmd InsertLeave * :call FcitxNormal() | execute "set timeoutlen&"
+  autocmd InsertEnter * execute "set timeoutlen=50"
+endif"}}}
+
+" 解决textobj_quote在markdown的输入Bug""{{{
+augroup textobj_quote
+  autocmd!
+  autocmd FileType markdown call textobj#quote#init({ 'double': '""', 'single': "''"})
+  autocmd FileType textile call textobj#quote#init()
+  autocmd FileType text call textobj#quote#init({'educate': 0})
+augroup END"}}}
+
+
+" vim: set foldmethod=marker tabstop=2 shiftwidth=2 softtabstop=2 expandtab:

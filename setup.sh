@@ -11,6 +11,12 @@ ln -s $script_dir/zsh/zshrc.zsh ~/.zshrc
 [ -h ~/.tmux.conf ] && mv ~/.tmux.conf ~/.tmux.conf.bak -v
 ln -s $script_dir/tmux/tmux.conf ~/.tmux.conf
 
+[ -h ~/.vimrc.local ] || [ -e ~/.vimrc.local ] && mv ~/.vimrc.local ~/.vimrc.local.bak -v
+ln -s $script_dir/vim/.vimrc.local ~/.vimrc.local
+
+[ -h ~/.vimrc.bundles.local ] || [ -e ~/.vimrc.bundles.local ] && mv ~/.vimrc.bundles.local ~/.vimrc.bundles.local.bak -v
+ln -s $script_dir/vim/.vimrc.bundles.local ~/.vimrc.bundles.local
+
 [ -h ~/.cheat ] || [ -e ~/.cheat ] && mv ~/.cheat ~/.cheat.bak -v
 ln -s $script_dir/cheat ~/.cheat
 

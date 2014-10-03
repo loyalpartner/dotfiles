@@ -1,0 +1,8 @@
+"Bundle 'bouzuya/vim-ibus'
+"Bundle 'takiyu/ibus-switcher.vim'
+
+"UnBundle 'vim-m'
+
+UnBundle 'tpope/vim-markdown'
+
+" vim: set foldmethod=marker tabstop=2 shiftwidth=2 softtabstop=2 expandtab:
