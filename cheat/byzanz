@@ -1,0 +1,2 @@
+# 录制gif图片,持续10s
+byzanz-record -d 10 -x 0 -y 0 -w 1024 -h 768 demo.gif

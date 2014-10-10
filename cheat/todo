@@ -3,3 +3,6 @@
 # 孙拼音yue打不出http://forum.ubuntu.org.cn/viewtopic.php?t=457956
 # 改键：http://www.zhihu.com/question/20830530
 # firefox 书签搜索
+# 键盘节点 cat /dev/input/event4 ,键盘输入会有乱码出现
+# 把Linux变成蓝牙键盘和鼠标 http://anselm.hoffmeister.be/computer/hidclient/index.html.en | http://askubuntu.com/questions/229287/how-do-i-make-ubuntu-appear-as-a-bluetooth-keyboard
+# Linux 中文man sudo apt-get install manpages-zh

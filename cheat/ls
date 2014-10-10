@@ -16,4 +16,13 @@ ls -l | grep ^-
 # 查看目录
 ls -l | grep ^d
 
+# 关于atime，ctime的说明
+# http://blog.sina.com.cn/s/blog_5980699f0100zkgz.html
+# 显示内容最后修改时间
+ls -l  | ls -lt
 
+# 现实状态最后修改时间，按名称排序|最后修改时间排序
+ls -lc | ls -lct
+
+# 显示最后访问时间，按名称排序|最后访问时间排序
+ls -lu | ls -ltu
