@@ -7,7 +7,7 @@ import re
 import sys
 import os
 
-def get_connect_time(ipaddress, port):   
+def get_connect_time(ipaddress, port):
     try:
         socket.setdefaulttimeout(1)
         s=socket.socket()
@@ -20,7 +20,7 @@ def get_connect_time(ipaddress, port):
         end='error'
         s.close()
         return '3000'
-    
+
     try:
         socket.setdefaulttimeout(1)
         s=socket.socket()
@@ -33,10 +33,10 @@ def get_connect_time(ipaddress, port):
         end='error'
         s.close()
         return '3000'
-        
+
     if end!='error':
         connect_time=end-start
-	print 'found ip %s Á¬½ÓÊ±¼ä:%s ms' %(ipaddress,str(int(connect_time*1000)))
+	print 'found ip %s è¿æ¥æ—¶é—´:%s ms' %(ipaddress,str(int(connect_time*1000)))
        # print connect_time
         connect_time=int(connect_time*1000)
         return connect_time
@@ -44,7 +44,7 @@ def get_connect_time(ipaddress, port):
         return '3000'
 
 
-def get_host_file(html):                     
+def get_host_file(html):
 
     #print html
     text=r'\d+\.\d+\.\d+\.\d+'
@@ -56,21 +56,21 @@ def get_host_file(html):
             pass
         else:
             iplist.append(a)
-    
+
     if '127.0.0.1' in iplist:
         iplist.remove('127.0.0.1')
         return iplist
-    
+
     return iplist
 
 def banner():
-    print '²ÎÊı´íÎó'
+    print 'å‚æ•°é”™è¯¯'
     print '---------------------------------------------------------------------------------'
-    print '---  ±¾³ÌĞòÖ§³Ö´ÓÎÄ¼şµ¼Èëip£¬Ò²Ö§³Ö´ÓÍøÒ³ÕıÔòÌáÈ¡ip                           ---'
-    print '---  ÓÃ·¨£º                                                                   ---'
+    print '---  æœ¬ç¨‹åºæ”¯æŒä»æ–‡ä»¶å¯¼å…¥ipï¼Œä¹Ÿæ”¯æŒä»ç½‘é¡µæ­£åˆ™æå–ip                           ---'
+    print '---  ç”¨æ³•ï¼š                                                                   ---'
     print '---  python google.py http://www.freebuf.com/articles/others-articles/36452.html-'
     print '---  python google.py ip.txt                                                  ---'
-    print '---                                                  by ÓğÒô                  ---' 
+    print '---                                                  by ç¾½éŸ³                  ---'
     print '---------------------------------------------------------------------------------'
 
 def main():
@@ -88,15 +88,15 @@ def main():
             urladdress=argv[argv.index('-u')+1]
         if '-f' in argv:
             filename=argv[argv.index('-f')+1]
-        
+
         if urladdress=='':
             handle=open(filename)
             html=handle.read()
-        
+
         else:
             html=urllib2.urlopen(urladdress)
             html=html.read()
-        
+
         ip=get_host_file(html)
         print 'found %s ip' %(str(len(ip)))
         print 'starting connect...'
@@ -113,16 +113,12 @@ def main():
             ip.append(min_time_ip)
             usefulip.remove(min_time_ip)
         print ip
-        handle=open('output.txt', 'w')
+        #handle=open('output.txt', 'w')
         text=''
         for a in ip:
             text=text+'|'+a[1]
-        
-	handle.write(text)
-        handle.close()
-
-	os.popen('output.txt')
-	
+        print '\nç»“æœ:%s' % text[1:]
+        #handle.close()
 
 
 if __name__ == '__main__':
