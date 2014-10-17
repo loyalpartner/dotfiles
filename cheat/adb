@@ -1,0 +1,36 @@
+安装软件
+adb install apk文件名称.apk
+重新安装该软件
+adb install -r apk文件名称.apk
+卸载apk软件
+adb uninstall apk包名.apk
+查看手机上的运行日志，此项可以用来查错
+adb logcat
+查看手机是否连接，以及连接了几台手机
+adb devices
+A为手机路径，B为电脑路径，意思为：把文件从手机中复制到电脑上
+adb pull <A> <B>
+A为手机路径，B为电脑路径，意思为：把文件从电脑复制到手机上
+adb push <B> <A>
+进入手机的超级终端Terminal
+adb shell
+重新挂载文件系统
+adb remount
+重启手机
+adb reboot
+重启到Recovery界面
+adb reboot recovery
+重启到bootloader界面
+adb reboot bootloader
+adb wait-for-device #等待设备
+adb reboot-bootloader #这个是重启到bootloader界面 默认是fastboot。可以先重启到这里再刷入boot.img
+fastboot flash boot boot.img #这个是刷入boot的命令。官解的要手动刷一次。
+fastboot flash recovery recovery.img #刷入recovery 已有recovery的可以跳过。
+fastboot erase boot #擦除boot分区
+以下两个是一样的 有加-w 跟 没有加-w 的区别
+fastboot erase system -w #擦除system分区 擦除 userdata分区和cache分区
+fastboot erase system #擦除system分区
+fastboot erase cache #擦除cache分区
+fastboot erase userdata #擦除userdata分区
+fastboot update update.zip #将update.zip刷入
+fastboot reboot #重启手机

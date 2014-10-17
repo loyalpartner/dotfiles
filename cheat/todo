@@ -6,3 +6,27 @@
 # 键盘节点 cat /dev/input/event4 ,键盘输入会有乱码出现
 # 把Linux变成蓝牙键盘和鼠标 http://anselm.hoffmeister.be/computer/hidclient/index.html.en | http://askubuntu.com/questions/229287/how-do-i-make-ubuntu-appear-as-a-bluetooth-keyboard
 # Linux 中文man sudo apt-get install manpages-zh
+# 红米安装botbrew
+#   su
+#   mount -o remount rw /system/
+#   busybox --install -s /system/xbin/
+#   wget http://repo.botbrew.com/anise/bootstrap/install.sh -O- | su
+# 上海 昆山 返程 4006969000
+# Failed to start emulator: Cannot run program
+# sudo apt-get install libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 lib32z1
+# 模拟器黑屏 ： 皮肤选择HVGA
+# Failed to parse <uses-sdk minSdkVersion='L'>: must be an integer number or codename.
+# In your app/build.gradle file, change
+compile 'com.android.support:support-v4:+'
+to
+compile 'com.android.support:support-v4:19.1.0'
+
+# http://www.ubuntugeek.com/how-to-create-desktop-launchers-in-ubuntu-11-10oneiric.html
+sudo cp /home/lee/Desktop/eclipse-1.desktop /usr/share/applications/
+
+sudo cp /etc/hosts /etc/hosts.bak
+sudo wget https://smarthosts.googlecode.com/svn/trunk/hosts -O /etc/hosts
+
+http://www.freebuf.com/tools/36637.html
+
+http://www.freebuf.com/

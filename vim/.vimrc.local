@@ -3,6 +3,10 @@ if has("unix")
 endif
 
 noremap <C-c> <Esc>
+noremap <Leader>w :w<CR>
+
+" java 自动补全"
+au! FileType java set omnifunc=eclim#java#complete#CodeComplete
 
 " Fcitx输入法在Normal模式切换为英文状态"{{{
 if has("unix")
@@ -20,8 +24,6 @@ endif"}}}
 augroup textobj_quote
   autocmd!
   autocmd FileType markdown call textobj#quote#init({ 'double': '""', 'single': "''"})
-  autocmd FileType textile call textobj#quote#init()
-  autocmd FileType text call textobj#quote#init({'educate': 0})
 augroup END"}}}
 
 

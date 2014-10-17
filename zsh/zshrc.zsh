@@ -84,12 +84,13 @@ DISABLE_AUTO_TITLE="true"
 plugins=( \
   git autojump archlinux web-search colored-man colorize \
   coffee cake python node gem pip \
-  tmuxinator extract cheat)
+  tmuxinator extract gradle cheat)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+export ANDROID_HOME="/home/lee/src/android-sdk-linux"
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -126,4 +127,4 @@ function copy (){
 }
 
 #echo "Did you know that:"; whatis $(ls /bin | shuf -n 1)
-cowsay -f $(ls /usr/share/cowsay/cows | shuf -n 1 | cut -d. -f1) $(whatis $(ls /bin) 2> /dev/null | shuf -n 1)
+#cowsay -f $(ls /usr/share/cowsay/cows | shuf -n 1 | cut -d. -f1) $(whatis $(ls /bin) 2> /dev/null | shuf -n 1)
