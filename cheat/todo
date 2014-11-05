@@ -1,11 +1,7 @@
-# 日志：cheat 安装，输入法设置,中文设置
 # 中文字体 sudo apt-get remove fonts-arphic-ukai fonts-arphic-uming
-# 孙拼音yue打不出http://forum.ubuntu.org.cn/viewtopic.php?t=457956
 # 改键：http://www.zhihu.com/question/20830530
 # firefox 书签搜索
 # 键盘节点 cat /dev/input/event4 ,键盘输入会有乱码出现
-# 把Linux变成蓝牙键盘和鼠标 http://anselm.hoffmeister.be/computer/hidclient/index.html.en | http://askubuntu.com/questions/229287/how-do-i-make-ubuntu-appear-as-a-bluetooth-keyboard
-# Linux 中文man sudo apt-get install manpages-zh
 # 红米安装botbrew
 #   su
 #   mount -o remount rw /system/
@@ -21,12 +17,19 @@ compile 'com.android.support:support-v4:+'
 to
 compile 'com.android.support:support-v4:19.1.0'
 
-# http://www.ubuntugeek.com/how-to-create-desktop-launchers-in-ubuntu-11-10oneiric.html
-sudo cp /home/lee/Desktop/eclipse-1.desktop /usr/share/applications/
-
 sudo cp /etc/hosts /etc/hosts.bak
 sudo wget https://smarthosts.googlecode.com/svn/trunk/hosts -O /etc/hosts
 
 http://www.freebuf.com/tools/36637.html
 
 http://www.freebuf.com/
+
+The requested URL /_gh/ was not found on this server？
+
+https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface_%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29#UEFI
+
+Luckv Twice - Me And You
+
+http://www.mobanwang.com/mb/201409/12255.html
+高效程序员的45个习惯：敏捷开发修炼之道 
+http://blog.csdn.net/woowindice/article/details/3977911
