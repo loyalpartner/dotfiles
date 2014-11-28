@@ -1,6 +1,6 @@
 "Bundle 'bouzuya/vim-ibus'
 "Bundle 'takiyu/ibus-switcher.vim'
-
+Bundle 'vim-ruby/vim-ruby'
 "UnBundle 'vim-m'
 
 "UnBundle 'tpope/vim-markdown'

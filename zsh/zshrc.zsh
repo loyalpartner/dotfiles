@@ -5,25 +5,25 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+ZSH_THEME="kolo"
 
 export EDITOR=$(which vim)
 export MAIL=loyalpartner@163.com
-export LANG="zh_CN.UTF-8"
+#export LANG="zh_CN.UTF-8"
 export TERM=xterm-256color
 
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
+alias zshconfig="vim ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias tmux='tmux -2'
 alias mux='tmuxinator'
 #alias .='cd ~/dotfiles'
 alias ins='sudo pacman -S'
 
-alias rg='rake generate'
-alias rd='rake deploy'
-alias rgd='rake gen_deploy'
-alias rp='rake preview'
+#alias rg='rake generate'
+#alias rd='rake deploy'
+#alias rgd='rake gen_deploy'
+#alias rp='rake preview'
 
 alias apti='sudo apt-get install'
 alias aptu='sudo apt-get update'
@@ -82,9 +82,15 @@ DISABLE_AUTO_TITLE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=( \
-  git autojump archlinux web-search colored-man colorize \
-  coffee cake python node gem pip \
-  tmuxinator extract gradle cheat)
+  autojump \
+  archlinux web-search \
+  colored-man colorize \
+  gem cake coffee \
+  node \
+  python pip tmuxinator \
+  extract gradle \
+  #web-search   \
+  cheat git hub)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -95,7 +101,7 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/g
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+ export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then

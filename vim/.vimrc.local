@@ -2,28 +2,39 @@ if has("unix")
   set guifont=Ubuntu\ Mono\ 11
 endif
 
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+
 noremap <C-c> <Esc>
 noremap <Leader>w :w<CR>
 
+let g:ctrlp_custom_ignore = {
+            \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+            \ 'file': '\v\.(exe|so|dll)$',
+            \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+            \ }
+
 " java 自动补全"
 au! FileType java set omnifunc=eclim#java#complete#CodeComplete
+"au! FileType ruby set omnifunc=rubycomplete#Complete
 
 " Fcitx输入法在Normal模式切换为英文状态"{{{
-if has("unix")
-  function! FcitxNormal()
-    if system("fcitx-remote")==2
-      call system("fcitx-remote -c")
-    endif
-  endfunction
+"if has("unix")
+  "function! FcitxNormal()
+    "if system("fcitx-remote")==2
+      "call system("fcitx-remote -c")
+    "endif
+  "endfunction
 
-  autocmd InsertLeave * :call FcitxNormal() | execute "set timeoutlen&"
-  autocmd InsertEnter * execute "set timeoutlen=50"
-endif"}}}
+  "autocmd InsertLeave * :call FcitxNormal() | execute "set timeoutlen&"
+  "autocmd InsertEnter * execute "set timeoutlen=50"
+"endif"}}}
 
 " 解决textobj_quote在markdown的输入Bug""{{{
 augroup textobj_quote
   autocmd!
-  autocmd FileType markdown call textobj#quote#init({ 'double': '""', 'single': "''"})
+  "autocmd FileType markdown call textobj#quote#init({ 'double': '""', 'single': "''"})
 augroup END"}}}
 
 
