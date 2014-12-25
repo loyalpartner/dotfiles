@@ -5,39 +5,68 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="kolo"
+ZSH_THEME="miloshadzic"
 
 export EDITOR=$(which vim)
+export TERMINAL=$(which gnome-terminal)
 export MAIL=loyalpartner@163.com
 #export LANG="zh_CN.UTF-8"
 export TERM=xterm-256color
 
 # Example aliases
 alias zshconfig="vim ~/.zshrc"
+alias vimconfig="vim -p ~/.vimrc.{local,bundles.local,before.fork}"
+alias tmuxconfig="vim ~/.tmux.conf"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias tmux='tmux -2'
 alias mux='tmuxinator'
 #alias .='cd ~/dotfiles'
 alias ins='sudo pacman -S'
 
+#rake_spec='gnome-terminal -e "bash -c \"rake spec;sleep 1000\""'
+#alias br='tmux bind F5 run-shell "$rake_spec"'
+rake_spec='gnome-terminal -e "bash -c \"rake spec;sleep 1000\""'
+alias br='tmux bind F5 run-shell "tmux split-window -h;tmux send \"rake spec\""'
+
+alias -s png=eog
+alias -s jpg=eog
+alias -s jpeg=eog
+alias -s gif=eog
+
+if test -e `which xdotool`; then
+fi
+
 #alias rg='rake generate'
 #alias rd='rake deploy'
 #alias rgd='rake gen_deploy'
 #alias rp='rake preview'
 
-alias apti='sudo apt-get install'
-alias aptu='sudo apt-get update'
-alias aptup='sudo apt-get upgrade'
-alias aptr='sudo apt-get remove'
-alias aptar='sudo apt-get autoremove'
+alias agi='sudo apt-get install'
+alias agu='sudo apt-get update'
+alias agug='sudo apt-get upgrade'
+alias agr='sudo apt-get remove'
+alias agar='sudo apt-get autoremove'
 #alias sshs=''
+
+bindkey -s "\er" "rake spec"
+
+function copy (){
+    if which xsel > /dev/null; then
+        echo "$1" | xsel -bi
+    else
+        echo xsel not exist
+    fi
+}
 
 function tel () {
     adb -d forward tcp:8080 tcp:8080 
     telnet 127.0.0.1:8080
 }
+
 function sshs () {
-    ssh ${1:=192.168.1.103} -p 8090 -l username -t /data/data/com.spartacusrex.spartacuside/files/system/bin/bash -init-file /data/data/com.spartacusrex.spartacuside/files/.init
+    ssh ${1:=192.168.1.103} -p 8090 -l username \
+      -t /data/data/com.spartacusrex.spartacuside/files/system/bin/bash \
+      -init-file /data/data/com.spartacusrex.spartacuside/files/.init
 }
 function wadb(){
     #adb disconnect ${1:=192.168.1.103}
@@ -85,12 +114,12 @@ plugins=( \
   autojump \
   archlinux web-search \
   colored-man colorize \
-  gem cake coffee \
-  node \
+  gem rails bundler rake rvm \
+  node cake coffee \
   python pip tmuxinator \
   extract gradle \
   #web-search   \
-  cheat git hub)
+  cheat gitignore git hub)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -98,6 +127,7 @@ source $ZSH/oh-my-zsh.sh
 
 export ANDROID_HOME="/home/lee/src/android-sdk-linux"
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -117,20 +147,22 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/g
 
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-PAGER='less -X -M' export LESSOPEN="| $(which src-hilite-lesspipe.sh) %s" export LESS=' -R '
+#PAGER='less -X -M' export LESSOPEN="| $(which src-hilite-lesspipe.sh) %s" export LESS=' -R '
 
-alias -s png=eog
-alias -s jpg=eog
-alias -s jpeg=eog
-alias -s gif=eog
-
-function copy (){
-    if which xsel > /dev/null; then
-        echo "$1" | xsel -bi
-    else
-        echo xsel not exist
-    fi
-}
 
 #echo "Did you know that:"; whatis $(ls /bin | shuf -n 1)
 #cowsay -f $(ls /usr/share/cowsay/cows | shuf -n 1 | cut -d. -f1) $(whatis $(ls /bin) 2> /dev/null | shuf -n 1)
+
+# Setup zsh-autosuggestions
+source /home/lee/.zsh-autosuggestions/autosuggestions.zsh
+
+# Enable autosuggestions automatically
+zle-line-init() {
+    zle autosuggest-start
+}
+
+zle -N zle-line-init
+
+# use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
+# zsh-autosuggestions is designed to be unobtrusive)
+bindkey '^T' autosuggest-toggle

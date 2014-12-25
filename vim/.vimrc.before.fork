@@ -1,0 +1,2 @@
+"let g:spf13_bundle_groups=['general', 'writing', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc']
+let g:spf13_noninvasive_completion={}

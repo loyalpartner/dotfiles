@@ -1,0 +1,2 @@
+# ctags
+ctags -R --exclude=*.js . `rvm gemdir`

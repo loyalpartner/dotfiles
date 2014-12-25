@@ -1,25 +1,53 @@
-"Bundle 'bouzuya/vim-ibus'
-"Bundle 'takiyu/ibus-switcher.vim'
-Bundle 'vim-ruby/vim-ruby'
-"UnBundle 'vim-m'
-
-"UnBundle 'tpope/vim-markdown'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-"let g:UltiSnipsExpandTrigger       = "<c-t>"
-"let g:UltiSnipsListSnippets        = ""
-"let g:UltiSnipsJumpForwardTrigger  = "<c-t>"
-"let g:UltiSnipsJumpBackwardTrigger = "<c-j>"
+" vim 配置文件
+"
+"   1. 插件配置
+"
+" @author : 李凯
+" @date : 2014-12-06 18:21
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"Bundle 'Shougo/neocomplcache'
+"Bundle 'Shougo/neosnippet'
+"Bundle 'Shougo/neosnippet-snippets'
+"UnBundle 'vim-scripts/sqlplus.vim'
+"UnBundle 'tpope/vim-markdown'
+
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'mkitt/tabline.vim'
+Bundle 'mattn/emmet-vim'
+
+
+" 插件配置 {{{
 " Eclim"
-
-nnoremap <leader>S mz^vg_y:execute @@<CR>`z
-vnoremap <leader>S mzy:execute @@<CR>`z
-
+au! FileType java set omnifunc=eclim#java#complete#CodeComplete
 augroup java_config
   autocmd!
   au FileType java nnoremap <silent> <buffer> <leader>ii :JavaImport<cr>
   au FileType java nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
   au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 augroup END
+
+let g:autoclose_on = 0
+
+
+let g:multi_cursor_quit_key='<C-c>'
+
+let g:ctrlp_custom_ignore = {
+            \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+            \ 'file': '\v\.(exe|so|dll)$',
+            \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+            \ }
+
+"let g:skipview_files = ['*\.vim']
+
+" 解决textobj_quote在markdown的输入Bug""{{{
+augroup textobj_quote
+  autocmd!
+  autocmd FileType markdown call textobj#quote#init({ 'double': '""', 'single': "''"})
+augroup END"}}}
+"}}}
 
 " vim: set foldmethod=marker tabstop=2 shiftwidth=2 softtabstop=2 expandtab:
