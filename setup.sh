@@ -27,7 +27,7 @@ ln -s $script_dir/tmux/tmux.conf ~/.tmux.conf
 ln -s $script_dir/vim/.vimrc.local ~/.vimrc.local
 [ -h ~/.vimrc.bundles.local ] || [ -e ~/.vimrc.bundles.local ] && mv ~/.vimrc.bundles.local ~/.vimrc.bundles.local.bak -v
 ln -s $script_dir/vim/.vimrc.bundles.local ~/.vimrc.bundles.local
-[ -h ~/.vimrc.before.fork ] || [ -e ~/.vimrc.before.fork ] && mv ~/.vimrc.before.for ~/.vimrc.before.fork.bak -v
+[ -h ~/.vimrc.before.fork ] || [ -e ~/.vimrc.before.fork ] && mv ~/.vimrc.before.fork ~/.vimrc.before.fork.bak -v
 ln -s $script_dir/vim/.vimrc.before.fork ~/.vimrc.before.fork
 
 # cheat
@@ -42,6 +42,12 @@ ln -s $script_dir/cheat ~/.cheat
 [ -h ~/.pentadactylrc ] && mv ~/.pentadactylrc ~/.pentadactylrc.bak -v
 ln -s $script_dir/pentadactyl/pentadactylrc.vim ~/.pentadactylrc
 
+# snippets
+snippets_directory=~/.vim/bundle/vim-snippets/snippets/
+if test -d $snippets_directory;then
+  rm $snippets_directory*.snip
+  ln -s snippets/*.snip $snippets_directory
+fi
 # wget https://j.mp/spf13-vim3 -O ~/spf13-vim.sh && sh ~/spf13-vim.sh
 
 #if [[ ! -a ~/.w3m/keymap ]]; then

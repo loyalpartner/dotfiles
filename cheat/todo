@@ -1,13 +1,6 @@
 # 中文字体 sudo apt-get remove fonts-arphic-ukai fonts-arphic-uming
 # 改键：http://www.zhihu.com/question/20830530
-# firefox 书签搜索
 # 键盘节点 cat /dev/input/event4 ,键盘输入会有乱码出现
-# 红米安装botbrew
-#   su
-#   mount -o remount rw /system/
-#   busybox --install -s /system/xbin/
-#   wget http://repo.botbrew.com/anise/bootstrap/install.sh -O- | su
-# 上海 昆山 返程 4006969000
 # Failed to start emulator: Cannot run program
 # sudo apt-get install libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 lib32z1
 # 模拟器黑屏 ： 皮肤选择HVGA
@@ -40,9 +33,6 @@ https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes
 vim :tab ball
 
 
-node
-npm install unit.js
-
 phantomjs http://phantomjs.org/
 https://gorails.com/setup/ubuntu/14.10
 curl https://raw.githubusercontent.com/twilson63/cakefile-template/master/Cakefile >> Cakefile
@@ -59,3 +49,18 @@ http://www.ibm.com/developerworks/cn/views/linux/libraryview.jsp?search_by=%E4%B
 http://ihower.tw/rails3/testing.html
 http://myronmars.to/n/dev-blog/2012/06/rspecs-new-expectation-syntax
 
+[Exuberant Ctags中文手册 | 易水博客](http://easwy.com/blog/archives/exuberant-ctags-chinese-manual/)
+[ctags 生成系统头文件、第三方库头文件的 tag - I love this game! - 博客频道 - CSDN.NET](http://blog.csdn.net/zklth/article/details/7027798)
+
+
+web
+[前端观察 | 专注于网站前端设计与前端开发](http://www.qianduan.net/)
+[ZeroZ](http://www.zerozz.com/blog/)
+[Turbolinks 向导 - Rei](http://chloerei.com/2013/07/14/turbolinks-guide/)
+
+
+css
+
+box-sizing: 
+outline: color style width
+http://www.ido321.com/1214.html

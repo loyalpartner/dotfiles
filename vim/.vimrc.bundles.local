@@ -9,45 +9,96 @@
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"Bundle 'Shougo/neocomplcache'
-"Bundle 'Shougo/neosnippet'
-"Bundle 'Shougo/neosnippet-snippets'
-"UnBundle 'vim-scripts/sqlplus.vim'
-"UnBundle 'tpope/vim-markdown'
-
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'mkitt/tabline.vim'
 Bundle 'mattn/emmet-vim'
-
+Bundle 'vim-scripts/ShowMarks'
+"Bundle 'vim-scripts/dbext.vim'
+Bundle 'slim-template/vim-slim'
+Bundle 'AndrewRadev/splitjoin.vim'
+Bundle 'TimothyYe/vim-tips'
 
 " 插件配置 {{{
-" Eclim"
-au! FileType java set omnifunc=eclim#java#complete#CodeComplete
-augroup java_config
-  autocmd!
-  au FileType java nnoremap <silent> <buffer> <leader>ii :JavaImport<cr>
-  au FileType java nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
-  au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
-augroup END
 
-let g:autoclose_on = 0
+  "let g:autoclose_on = 0
 
+  " multi cursor 设置退出热键"
+  let g:multi_cursor_quit_key='<C-c>'
 
-let g:multi_cursor_quit_key='<C-c>'
+  nnoremap <C-p> :<C-U>CtrlPMixed<CR>
+  let g:ctrlp_custom_ignore = {
+              \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+              \ 'file': '\v\.(exe|so|dll)$',
+              \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+              \ }
 
-let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-            \ 'file': '\v\.(exe|so|dll)$',
-            \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-            \ }
+  "let g:skipview_files = ['*\.vim']
 
-"let g:skipview_files = ['*\.vim']
+  " Eclim"
+  augroup java_config
+    autocmd!
+    au FileType java set omnifunc=eclim#java#complete#CodeComplete
+    au FileType java nnoremap <silent> <buffer> <leader>ii :JavaImport<cr>
+    au FileType java nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
+    au FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+  augroup END
 
-" 解决textobj_quote在markdown的输入Bug""{{{
-augroup textobj_quote
-  autocmd!
-  autocmd FileType markdown call textobj#quote#init({ 'double': '""', 'single': "''"})
-augroup END"}}}
-"}}}
+  " 解决textobj_quote在markdown的输入Bug
+  augroup textobj_quote
+    autocmd!
+    autocmd FileType markdown call textobj#quote#init({ 'double': '""', 'single': "''"})
+  augroup END
+
+  " rails.vim"
+  autocmd! BufEnter * call s:rails_cabbr()
+
+  " sqlcomplete"
+  let g:sql_type_default = 'mysql'
+  let g:ftplugin_sql_omni_key = '<C-g>'
+  autocmd! FileType sql call s:sql_completion_map()
+
+  " 函数"
+
+  " sql 补全快捷键"{{{
+  function! s:sql_completion_map()
+    imap <buffer> <Leader><Leader>a <C-\><C-O>:call sqlcomplete#Map('syntax')<CR><C-X><C-O>
+    imap <buffer> <Leader><Leader>k <C-\><C-O>:call sqlcomplete#Map('sqlKeyword\w*')<CR><C-X><C-O>
+    imap <buffer> <Leader><Leader>f <C-\><C-O>:call sqlcomplete#Map('sqlFunction')<CR><C-X><C-O>
+    imap <buffer> <Leader><Leader>o <C-\><C-O>:call sqlcomplete#Map('sqlOption')<CR><C-X><C-O>
+    imap <buffer> <Leader><Leader>T <C-\><C-O>:call sqlcomplete#Map('sqlType')<CR><C-X><C-O>
+    imap <buffer> <Leader><Leader>s <C-\><C-O>:call sqlcomplete#Map('sqlStatement')<CR><C-X><C-O>
+  endfunction"}}}
+
+  " rails 的命令太多太长，定义一些缩写方便输入""{{{
+  function! s:rails_cabbr()
+    if exists(":Econtroller")
+      cabbr <buffer> ec Econtroller 
+      cabbr <buffer> ee Eenvironment 
+      cabbr <buffer> ef Efixtures 
+      cabbr <buffer> eft Efunctionaltest 
+      cabbr <buffer> eh Ehelper 
+      cabbr <buffer> ei Einitializer 
+      cabbr <buffer> ein Eintegrationtes 
+      cabbr <buffer> ej Ejavascript 
+      cabbr <buffer> el Elayout 
+      cabbr <buffer> el Elib 
+      cabbr <buffer> elo Elocale 
+      cabbr <buffer> em Emailer 
+      cabbr <buffer> emi Emigration 
+      cabbr <buffer> emo Emodel 
+      cabbr <buffer> es Eschema 
+      cabbr <buffer> esp Espec 
+      cabbr <buffer> est Estylesheet 
+      cabbr <buffer> et Etask 
+      cabbr <buffer> eu Eunittest 
+      cabbr <buffer> ev Eview 
+    endif
+  endfunction"}}}
+
+  " neosnippet
+  let g:neosnippet#snippets_directory+="~/.vim/bundle/vim-snippets/UltiSnips/"
+  let g:neosnippet#scope_aliases['ruby'] = 'ruby,rails,ruby-rails'
+  "let g:neosnippet#scope_aliases['sass'] = 'sass,css'
+  "}}}
 
 " vim: set foldmethod=marker tabstop=2 shiftwidth=2 softtabstop=2 expandtab:

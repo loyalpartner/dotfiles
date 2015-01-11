@@ -19,6 +19,9 @@
     colorscheme molokai
     set guioptions-=r
     set guioptions-=L
+  else
+    colorscheme molokai
+    "colorscheme tango-desert
   endif
 
   set dictionary+=/usr/share/dict/words
@@ -31,7 +34,13 @@
 
   " 改键
   noremap <Space> :
-  noremap <C-c> <Esc>
+
+  noremap <C-c> <Esc><Esc>
+  inoremap <C-c> <Esc><Esc>
+  snoremap <C-c> <Esc><Esc>
+  inoremap <nowait>  hh <Esc><Esc>
+  snoremap <nowait>  hh <Esc><Esc>
+
   imap <C-g><C-A> <Home>
   imap <C-g><C-E> <End>
 
@@ -52,21 +61,9 @@
   vnoremap <leader>S mzy:execute @@<CR>`z
 "}}}
 
-" 解决textobj_quote在markdown的输入Bug""{{{
-  autocmd! FileType markdown call textobj#quote#init({ 'double': '""', 'single': "''"})
-"}}}
+" 解决textobj_quote在markdown的输入Bug""
+autocmd! FileType markdown call textobj#quote#init({ 'double': '""', 'single': "''"})
 
-" Fcitx输入法在Normal模式切换为英文状态"{{{
-if has("unix")
-  function! FcitxNormal()
-    if system("fcitx-remote")==2
-      call system("fcitx-remote -c")
-    endif
-  endfunction
-
-  autocmd InsertLeave * :call FcitxNormal() | execute "set timeoutlen&"
-  autocmd InsertEnter * execute "set timeoutlen=50"
-endif"}}}
 
 ""{{{ Tab匹配(,{,<
 " @see http://www.ibm.com/developerworks/cn/linux/l-vim-script-3/index.html
@@ -137,9 +134,23 @@ function! SmartComplete ()
 endfunction
 
 " Remap <TAB> for smart completion on various characters...
-inoremap <silent> <TAB>   <C-R>=SmartComplete()<CR>
+"inoremap <silent> <TAB>   <C-R>=SmartComplete()<CR>
 "}}}
+" Fcitx输入法在Normal模式切换为英文状态"{{{
+if has("unix")
+  function! FcitxNormal()
+    if system("fcitx-remote")==2
+      call system("fcitx-remote -c")
+    endif
+  endfunction
 
+  " 按键都会有一个延迟, 最开始由于对 vim 理解不够, 想到每次离开插入模式的
+  " 时候把 timeoutlen 设置成一个很小的值，其实不需要这样，
+  "  noremap hh <Esc><Esc>
+  autocmd InsertLeave * :call FcitxNormal()
+  "autocmd InsertLeave * :call FcitxNormal() | execute "set timeoutlen&"
+  "autocmd InsertEnter * execute "set timeoutlen=300"
+endif"}}}
 " 自定义 Tabline {{{ 
 
 hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
@@ -157,9 +168,13 @@ endfunction
 nnoremap <silent> gT :GotoTabpage<CR>
 "}}}
 
-nnoremap ,sr :NeoSnippetSource ~/.vim/bundle/vim-snippets/snippets/rails.snippets<Cr>
-nnoremap ,sk :NeoSnippetSource ~/.vim/bundle/vim-snippets/snippets/
-nnoremap ,sv :vs ~/.vim/bundle/vim-snippets/snippets/
+nnoremap ,ns :vs ~/.vim/bundle/vim-snippets/snippets/<C-r>=&filetype<CR>.snip<CR>
+nnoremap ,nS :vs ~/.vim/bundle/vim-snippets/snippets/<C-r>=&filetype<CR>.snippets<CR>
+nnoremap ,ne :vs ~/.vim/bundle/vim-snippets/snippets/
+nnoremap ,nl :NeoSnippetSource ~/.vim/bundle/vim-snippets/snippets/
 
 nnoremap <F5> :silent so ~/.vimrc.local<cr>
+noremap <Leader>= :execute "normal! ggVG=``"<CR>
+"nnoremap <C-p> :<C-U>CtrlPMixed<CR>
+
 " vim: set foldmethod=marker tabstop=2 shiftwidth=2 softtabstop=2 expandtab:
