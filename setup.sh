@@ -15,31 +15,31 @@ script_dir="$( cd "$( dirname "$0" )" && pwd )"
 echo $script_dir
 
 # zsh
-[ -h ~/.zshrc ] || [ -e ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.bak -v
+[ -h ~/.zshrc ] || [ -e ~/.zshrc ] && mv -v ~/.zshrc ~/.zshrc.bak
 ln -s $script_dir/zsh/zshrc.zsh ~/.zshrc
 
 # Tmux
-[ -h ~/.tmux.conf ] && mv ~/.tmux.conf ~/.tmux.conf.bak -v
+[ -h ~/.tmux.conf ] && mv -v ~/.tmux.conf ~/.tmux.conf.bak
 ln -s $script_dir/tmux/tmux.conf ~/.tmux.conf
 
 # vim
-[ -h ~/.vimrc.local ] || [ -e ~/.vimrc.local ] && mv ~/.vimrc.local ~/.vimrc.local.bak -v
+[ -h ~/.vimrc.local ] || [ -e ~/.vimrc.local ] && mv -v ~/.vimrc.local ~/.vimrc.local.bak
 ln -s $script_dir/vim/.vimrc.local ~/.vimrc.local
-[ -h ~/.vimrc.bundles.local ] || [ -e ~/.vimrc.bundles.local ] && mv ~/.vimrc.bundles.local ~/.vimrc.bundles.local.bak -v
+[ -h ~/.vimrc.bundles.local ] || [ -e ~/.vimrc.bundles.local ] && mv -v ~/.vimrc.bundles.local ~/.vimrc.bundles.local.bak
 ln -s $script_dir/vim/.vimrc.bundles.local ~/.vimrc.bundles.local
-[ -h ~/.vimrc.before.fork ] || [ -e ~/.vimrc.before.fork ] && mv ~/.vimrc.before.fork ~/.vimrc.before.fork.bak -v
+[ -h ~/.vimrc.before.fork ] || [ -e ~/.vimrc.before.fork ] && mv -v ~/.vimrc.before.fork ~/.vimrc.before.fork.bak
 ln -s $script_dir/vim/.vimrc.before.fork ~/.vimrc.before.fork
 
 # cheat
-[ -h ~/.cheat ] || [ -e ~/.cheat ] && mv ~/.cheat ~/.cheat.bak -v
+[ -h ~/.cheat ] || [ -e ~/.cheat ] && mv -v ~/.cheat ~/.cheat.bak
 ln -s $script_dir/cheat ~/.cheat
 
 # vimperator
-#[ -h ~/.vimperatorrc ] && mv ~/.vimperatorrc ~/.vimperatorrc.bak -v
+#[ -h ~/.vimperatorrc ] && mv -v ~/.vimperatorrc ~/.vimperatorrc.bak
 #ln -s $script_dir/vimperator/vimperatorrc.vim ~/.vimperatorrc
 
 # pentadactyl
-[ -h ~/.pentadactylrc ] && mv ~/.pentadactylrc ~/.pentadactylrc.bak -v
+[ -h ~/.pentadactylrc ] && mv -v ~/.pentadactylrc ~/.pentadactylrc.bak
 ln -s $script_dir/pentadactyl/pentadactylrc.vim ~/.pentadactylrc
 
 # snippets
