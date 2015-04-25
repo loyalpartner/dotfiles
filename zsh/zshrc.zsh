@@ -7,35 +7,45 @@ export ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="miloshadzic"
 
-export EDITOR=$(which vim)
-export TERMINAL=$(which gnome-terminal)
+#export EDITOR=$(which vim)
+#export TERMINAL=$(which gnome-terminal)
 export MAIL=loyalpartner@163.com
 #export LANG="zh_CN.UTF-8"
 #export TERM=xterm-256color
 #export TERM=screen-256color
 
-# Example aliases
-alias zshconfig="vim ~/.zshrc"
-alias vimconfig="vim -p ~/.vimrc.{local,bundles.local,before.fork}"
-alias tmuxconfig="vim ~/.tmux.conf"
+if [[ $(uname) == Darwin ]]; then
+    if [[ "$(which mvim)" == "" ]]; then
+        export EDITOR=$(which vim)
+    else
+        export EDITOR=$(which mvim)
+    fi
+fi
+
+alias zshconfig="$EDITOR ~/.zshrc"
+alias vimconfig="$EDITOR -p ~/.vimrc.{local,bundles.local,before.fork}"
+alias tmuxconfig="$EDITOR ~/.tmux.conf"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias tmux='tmux -2'
+#alias tmux='tmux -2'
 alias mux='tmuxinator'
 #alias .='cd ~/dotfiles'
-alias ins='sudo pacman -S'
+#alias ins='sudo pacman -S'
 
 #rake_spec='gnome-terminal -e "bash -c \"rake spec;sleep 1000\""'
 #alias br='tmux bind F5 run-shell "$rake_spec"'
-rake_spec='gnome-terminal -e "bash -c \"rake spec;sleep 1000\""'
-alias br='tmux bind F5 run-shell "tmux split-window -h;tmux send \"rake spec\""'
+#rake_spec='gnome-terminal -e "bash -c \"rake spec;sleep 1000\""'
+#alias br='tmux bind F5 run-shell "tmux split-window -h;tmux send \"rake spec\""'
 
-alias -s png=eog
-alias -s jpg=eog
-alias -s jpeg=eog
-alias -s gif=eog
-
-if test -e `which xdotool`; then
+if [[ $(uname) == Darwin ]]; then
+else
+    alias -s png=eog
+    alias -s jpg=eog
+    alias -s jpeg=eog
+    alias -s gif=eog
 fi
+
+#if test -e `which xdotool`; then
+#fi
 
 #alias rg='rake generate'
 #alias rd='rake deploy'
@@ -47,9 +57,8 @@ alias agu='sudo apt-get update'
 alias agug='sudo apt-get upgrade'
 alias agr='sudo apt-get remove'
 alias agar='sudo apt-get autoremove'
-#alias sshs=''
 
-bindkey -s "\er" "rake spec"
+#bindkey -s "\er" "rake spec"
 
 function copy (){
     if which xsel > /dev/null; then
@@ -122,6 +131,10 @@ plugins=( \
   #web-search   \
   cheat gitignore git hub)
 
+if [[ $(uname) == Darwin ]]; then
+    plugins=( $plugins brew brew-cask)
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -155,15 +168,15 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/g
 #cowsay -f $(ls /usr/share/cowsay/cows | shuf -n 1 | cut -d. -f1) $(whatis $(ls /bin) 2> /dev/null | shuf -n 1)
 
 # Setup zsh-autosuggestions
-source /home/lee/.zsh-autosuggestions/autosuggestions.zsh
+#source /home/lee/.zsh-autosuggestions/autosuggestions.zsh
 
 # Enable autosuggestions automatically
-zle-line-init() {
-    zle autosuggest-start
-}
+#zle-line-init() {
+    #zle autosuggest-start
+#}
 
-zle -N zle-line-init
+#/*zle -N zle-line-init*/
 
 # use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
 # zsh-autosuggestions is designed to be unobtrusive)
-bindkey '^T' autosuggest-toggle
+#bindkey '^T' autosuggest-toggle
