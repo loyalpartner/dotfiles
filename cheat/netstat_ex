@@ -1,5 +1,0 @@
-# 查询各网卡接口参数信息
-netstat -in
-
-# 显示路由表
-netstat -r

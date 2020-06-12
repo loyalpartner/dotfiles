@@ -1,2 +1,0 @@
-# 查询ssh程序的端口号
-grep ssh /etc/services

@@ -1,4 +1,0 @@
-# 安装 apt-get install pv
-sudo apt-get install pv
-
-echo hello | pv -qL 10
