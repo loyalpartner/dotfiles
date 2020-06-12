@@ -1,0 +1,2 @@
+ctrl + alt + {h, t, n}
+  ~/.config/sxhkd/switcher.sh {emacs,chromium,konsole}
