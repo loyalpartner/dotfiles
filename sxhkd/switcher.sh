@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-wid=$(xdotool search --class $1 | tail -1)
+# wid=$(xdotool search --class $1 | tail -1)
 
 # if [[ -z "$wid" ]]; then 
 #   nohup $1 &
@@ -10,4 +10,5 @@ wid=$(xdotool search --class $1 | tail -1)
 #   xdotool windowactivate $wid 
 # fi
 
-[[ -z "$wid" ]] && nohup $1 || [[ "$wid" == "$(xdotool getactivewindow)" ]] && xdotool windowminimize $wid || xdotool windowactivate $wid 
+# [[ -z "$wid" ]] && nohup $1 || [[ "$wid" == "$(xdotool getactivewindow)" ]] && xdotool windowminimize $wid || xdotool windowactivate $wid 
+xdotool search --onlyvisible --class $1 windowactivate || $1 &
