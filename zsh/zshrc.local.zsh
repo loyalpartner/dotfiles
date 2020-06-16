@@ -37,7 +37,7 @@ function select_alias_run
 	# command=${command#\'}
 	# command=${command%\'}
 	# $SHELL -c "$command"
-  eval $alias
+	eval $alias
 	echo $command
 }
 # sudo updatedb --add-prunepaths /home/lee/.emacs.d/.local/cache
@@ -46,4 +46,14 @@ function edit_select_locate
 {
 	local file=$(locate /|fzf -q "$*")
 	[[ -e $file ]] && $EDITOR $file
+}
+
+alias mfc=file_copy "$@"
+function file_copy
+{
+	local file=$(find . -name "*$1*" | fzf | tr -d '\n')
+	local mime_type=$(file -b --mime-type "$file")
+
+	xclip -selection clipboard -t $mime_type -i $file
+	echo "copy file $file to clipboard"
 }
