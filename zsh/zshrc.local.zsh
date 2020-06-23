@@ -51,7 +51,7 @@ function edit_select_locate
 alias mfc=file_copy "$@"
 function file_copy
 {
-	local file=$(find . -name "*$1*")
+	local file=$(find . -name "*$1*" | fzf)
 	local mime_type=$(file -b --mime-type "$file")
 
 	xclip -selection clipboard -t $mime_type -i $file

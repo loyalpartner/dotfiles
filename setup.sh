@@ -11,3 +11,4 @@ if [[  "$OSTYPE" == "linux-gnu"*  ]]; then
   ln -vfs $script_dir/xprofile $HOME/.xprofile
 fi
 
+source "$script_dir/init-git.sh"

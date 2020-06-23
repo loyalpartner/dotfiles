@@ -11,3 +11,4 @@ alias ml="mpc listall"
 alias mls="mpc ls"
 alias mm="mpc repeat 1;mpc toggle"
 
+alias xclip="xclip -selection clipboard"
