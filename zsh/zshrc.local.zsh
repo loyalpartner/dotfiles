@@ -2,8 +2,19 @@
 
 [[ "$OSTYPE" == "linux-gnu"* ]] && source $script_dir/zshrc.linux.zsh
 
+alias mux=tmuxinator
 alias vim=nvim
 alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package'
+
+alias zshe="vim ~/.zshrc"
+alias zshel="vim ~/dot/dotfiles/zsh/zshrc.local.zsh"
+alias zsheli="vim ~/dot/dotfiles/zsh/zshrc.linux.zsh"
+
+alias tmuxe="vim ~/.tmux.conf"
+
+alias cdg="cd $(git rev-parse --show-toplevel)"
+
+alias cpl="history -n | tail -n 1 | xclip"
 
 bindkey -s '' fg
 bindkey -s '' clear
