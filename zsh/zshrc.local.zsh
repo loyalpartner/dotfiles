@@ -3,7 +3,7 @@
 [[ "$OSTYPE" == "linux-gnu"* ]] && source $script_dir/zshrc.linux.zsh
 
 alias mux=tmuxinator
-alias vim=nvim
+alias vim="emacs -nw"
 alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package'
 
 alias zshe="vim ~/.zshrc"
@@ -12,7 +12,7 @@ alias zsheli="vim ~/dot/dotfiles/zsh/zshrc.linux.zsh"
 
 alias tmuxe="vim ~/.tmux.conf"
 
-alias cdg="cd $(git rev-parse --show-toplevel)"
+# alias cdg="cd \\$(git rev-parse --show-toplevel)"
 
 alias cpl="history -n | tail -n 1 | xclip"
 
