@@ -11,4 +11,6 @@ if [[  "$OSTYPE" == "linux-gnu"*  ]]; then
   ln -vfs $script_dir/xprofile $HOME/.xprofile
 fi
 
+ln -vfs $script_dir/tmux.conf ~/.tmux.conf
+
 source "$script_dir/init-git.sh"
