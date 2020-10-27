@@ -16,7 +16,7 @@ export ZSH="/home/lee/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -99,8 +99,8 @@ source $ZSH/oh-my-zsh.sh
 
 export script_dir=$(dirname "$(realpath -e ~/.zshrc)")
 
+
 [[ -f $script_dir/zshrc.local.zsh ]] && source $script_dir/zshrc.local.zsh
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
