@@ -11,4 +11,4 @@
 # fi
 
 # [[ -z "$wid" ]] && nohup $1 || [[ "$wid" == "$(xdotool getactivewindow)" ]] && xdotool windowminimize $wid || xdotool windowactivate $wid 
-xdotool search --onlyvisible --class $1 windowactivate || $1 &
+xdotool search --desktop "$(xdotool get_desktop)" --onlyvisible --class $1 windowactivate || $1 &
