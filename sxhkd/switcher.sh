@@ -27,5 +27,5 @@ nwid="$(xdotool search --desktop $desktop --onlyvisible --class $1 | tail -1)" #
 if [[ $awid == $nwid  ]]; then
   xdotool search --desktop "$(xdotool get_desktop)" --onlyvisible --class $1 windowactivate || $1 &
 else
-  xdotool windowactivate $nwid
+  xdotool windowactivate $nwid || $1 &
 fi
