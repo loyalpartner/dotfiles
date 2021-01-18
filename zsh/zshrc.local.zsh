@@ -3,7 +3,8 @@
 [[ "$OSTYPE" == "linux-gnu"* ]] && source $script_dir/zshrc.linux.zsh
 
 alias mux=tmuxinator
-alias vim="emacs -nw"
+alias vim="emacsclient -nw -s terminal"
+alias man="$script_dir/man"
 alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package'
 
 alias zshe="vim ~/.zshrc"

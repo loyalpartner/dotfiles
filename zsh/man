@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+emacsclient -nw -s terminal -e "(man \"$1\")(delete-other-windows)"
