@@ -75,7 +75,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump pip npm history fzf)
+plugins=(git autojump pip npm history fzf repo)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -96,8 +96,7 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-export PATH=~/depot_tools/:$PATH
-
+export PATH=$PATH:~/depot_tools
 export script_dir=$(dirname "$(realpath -e ~/.zshrc)")
 
 
