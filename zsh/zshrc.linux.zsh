@@ -5,8 +5,7 @@ export PATH=~/.yarn/bin:$PATH
 # setxkbmap dvorak
 # xset r rate 300 40
 
-export FZF_DEFAULT_OPTS="--bind 'f1:execute(less -f {}),ctrl-y:execute-silent(echo {} | xclip -selection clipboard)+abort'"
-
+export FZF_DEFAULT_OPTS="--bind 'f1:execute(less -f {}),ctrl-y:execute-silent(echo {} |sed \"s/[0-9 ]\+//\" | xclip -selection clipboard)+abort'"
 
 alias gite="git config -e --global"
 
