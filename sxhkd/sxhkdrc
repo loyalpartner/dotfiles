@@ -1,2 +1,2 @@
-ctrl + alt + {h, t, n, s}
-  ~/.config/sxhkd/switcher.sh {emacs,chromium,konsole,systemsettings5}
+ctrl + alt + {h, t, n, s, c}
+  ~/.config/sxhkd/switcher.sh {emacs,chromium,konsole,systemsettings5,jetbrains-idea}
