@@ -1,25 +1,25 @@
-let g:local = expand('~/vim-dev')
+let g:local = expand('~/vim-dev/')
 set runtimepath^=~/vim-dev/plug.nvim
 call plug#begin()
-Plug 'neoclide/coc.nvim', {'dir': g:local, 'frozen': 1}
+Plug 'neoclide/coc.nvim'
 Plug 'ryanoasis/vim-devicons'
-"Plug 'neoclide/coc-imselect', {'dir': g:local, 'frozen': 1}
-Plug 'neoclide/coc-eslint', {'dir': g:local, 'frozen': 1}
-Plug 'neoclide/coc-stylelint', {'dir': g:local, 'frozen': 1}
+"Plug 'neoclide/coc-imselect'
+Plug 'neoclide/coc-eslint'
+Plug 'neoclide/coc-stylelint'
 "Plug 'evanleck/vim-svelte'
-Plug 'neoclide/mycomment.vim', {'dir': g:local, 'frozen': 1}
-"Plug 'neoclide/vim-jsx-improve', {'dir': g:local, 'frozen': 1}
+Plug 'neoclide/mycomment.vim'
+"Plug 'neoclide/vim-jsx-improve'
 "Plug 'yuezk/vim-js'
-Plug 'neoclide/macdown.vim', {'dir': g:local, 'frozen': 1}
-Plug 'neoclide/macnote.vim', {'dir': g:local, 'frozen': 2}
+Plug 'neoclide/macdown.vim'
+Plug 'neoclide/macnote.vim'
 "Plug 'voldikss/vim-floaterm'
-Plug 'chemzqm/vim-macos', {'dir': g:local, 'frozen': 1}
-Plug 'chemzqm/vim-run', {'dir': g:local, 'frozen': 1}
-Plug 'chemzqm/wxapp.vim', {'dir': g:local, 'frozen': 1}
-Plug 'chemzqm/jsonc.vim', {'dir': g:local, 'frozen': 1}
+Plug 'chemzqm/vim-macos'
+Plug 'chemzqm/vim-run'
+Plug 'chemzqm/wxapp.vim'
+Plug 'chemzqm/jsonc.vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'lambdatoast/elm.vim'
-"Plug 'chemzqm/coc-task', {'dir': g:local, 'frozen': 1}
+"Plug 'chemzqm/coc-task'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'

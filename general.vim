@@ -94,7 +94,7 @@ else
   set background=dark
   let g:gruvbox_bold=0
   let g:gruvbox_invert_selection=0
-  colorscheme gruvbox
+  " colorscheme gruvbox
 endif
 " }}
 

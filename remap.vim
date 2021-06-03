@@ -1,6 +1,7 @@
 " vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={{,}} foldmethod=marker:
 
 " basic {{
+  inoremap hh <Esc>
   xnoremap J :m '>+1<CR>gv=gv
   xnoremap K :m '<-2<CR>gv=gv
   nnoremap Q <Nop>
@@ -26,7 +27,7 @@
 " }}
 
 " insert keymap like emacs {{
-  inoremap <C-w> <C-[>diwa
+  "inoremap <C-w> <C-[>diwa
   inoremap <C-h> <BS>
   inoremap <C-d> <Del>
   inoremap <C-u> <C-G>u<C-U>
