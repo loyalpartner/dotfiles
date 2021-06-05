@@ -9,7 +9,6 @@ augroup common
   autocmd BufWinEnter * call s:OnBufEnter()
   autocmd ColorScheme * call s:Highlight()
   autocmd FileType * call s:OnFileType(expand('<amatch>'))
-  autocmd InsertLeave <buffer> silent write
   "autocmd User CocOpenFloat call s:CloseOthers()
   if exists('##DirChanged')
     autocmd DirChanged,VimEnter * let &titlestring = pathshorten(substitute(getcwd(), $HOME, '~', ''))

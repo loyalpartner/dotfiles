@@ -2,7 +2,7 @@
 if !has('nvim')
   set notagbsearch
 endif
-set termguicolors
+"set termguicolors
 "set lazyredraw
 set hidden " allow buffer switch without saving
 set history=2000

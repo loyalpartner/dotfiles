@@ -51,6 +51,7 @@ Plug 'derekwyatt/vim-scala'
 Plug 'simnalamburt/vim-mundo'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'lambdalisue/gina.vim'
+Plug '907th/vim-auto-save'
 "Plug 'mhinz/vim-startify'
 "Plug 'w0rp/ale', {'branch': 'me'}
 "Plug 'Shougo/neco-vim'
