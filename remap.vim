@@ -88,6 +88,10 @@
   inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
   nmap <silent> <C-a> :call CocAction('runCommand', 'document.renameCurrentWord')<CR>
+  nmap <silent> [j :cn<CR>
+  nmap <silent> [k :cp<CR>
+  nmap <silent> [J :colder<CR>
+  nmap <silent> [K :cafter<CR>
   nmap <silent> <C-c> <Plug>(coc-cursors-position)
   nmap <silent> <C-d> <Plug>(coc-cursors-word)
   xmap <silent> <C-d> <Plug>(coc-cursors-range)
