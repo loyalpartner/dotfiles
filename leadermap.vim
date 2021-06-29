@@ -57,6 +57,7 @@ let g:mapleader = ','
   nmap <leader>af <Plug>(coc-codeaction)
   nmap <leader>di <Plug>(coc-diagnostic-info)
   nmap <leader>qf <Plug>(coc-fix-current)
+
   nmap <leader>te :call CocAction('runCommand', 'jest.singleTest')<CR>
   nmap <leader>dr <Plug>(coc-diagnostic-related)
   nmap <leader>ms <Plug>(coc-menu-show)
