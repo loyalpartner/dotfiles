@@ -71,12 +71,12 @@ function! s:OpenTerminal()
     unlet b:terminal
   endif
   if !exists('b:terminal')
-    belowright vs +enew
+    "botright vs +enew
     exe 'lcd '.dir
-    execute 'terminal'
+    execute 'botright terminal'
     call setbufvar(bn, 'terminal', bufnr('%'))
   else
-    execute 'belowright vertical sb '.get(b:, 'terminal', '')
+    execute 'botright sb '.get(b:, 'terminal', '')
     call feedkeys("\<C-l>", 'n')
   endif
 endfunction
