@@ -79,6 +79,8 @@ set title
 set wildignorecase
 set noruler
 "set dictionary+=/usr/share/dict/words
+" terminal size
+set termwinsize=15x0
 " }}
 
 " Special options for macvim {{
