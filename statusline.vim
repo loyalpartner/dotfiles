@@ -1,5 +1,6 @@
 function! MyStatusLine()
   return s:GetPaste()
+        \. "%{winnr()} "
         \. "%4*%{MyStatusGit()}%*"
         \. "%5*%{MyStatusGitChanges()}%* %{MyStatusCoc()} "
         \. "%6*%{get(b:, 'coc_current_function', '')}%*"
