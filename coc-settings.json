@@ -1,0 +1,14 @@
+{
+  "clangd.path": "clangd-11",
+  "coc.preferences.rootPatterns":[
+    ".git",
+    ".hg",
+    ".projections.json"
+  ],
+  "list.source.files.command": "rg",
+  "list.source.files.args":["--files"],
+  "list.source.files.defaultArgs": ["-F"],
+  "list.source.files.excludePatterns":["**/node_modules/**"],
+  "imselect.defaultInput": "com.apple.keylayout.Dvorak",
+  "tsserver.disableAutomaticTypeAcquisition": true
+}

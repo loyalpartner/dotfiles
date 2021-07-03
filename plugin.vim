@@ -209,8 +209,17 @@
   "let g:coc_disable_startup_warning = 1
   "let g:coc_quickfix_open_command = 'copen|cfirst'
   "let g:node_client_debug = 1
+  let g:coc_config_home = '~/.vim/vimrc'
   let $NVIM_COC_LOG_LEVEL = 'debug'
-  let g:coc_global_extensions = ['coc-word@1.2.0']
+  let g:coc_global_extensions = [
+        \ 'coc-word@1.2.0',
+        \ 'coc-lists',
+        \ 'coc-git',
+        \ 'coc-marketplace',
+        \ 'coc-vimlsp',
+        \ 'coc-tsserver',
+        \ 'coc-go'
+        \ ]
   let g:coc_watch_extensions = []
   "let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
   "let g:coc_node_path = '/usr/local/bin/node'
