@@ -165,6 +165,7 @@ endfunction
   nnoremap <silent><nowait> <space>h  :<C-u>CocList helptags<cr>
   nnoremap <silent><nowait> <space>g  :<C-u>CocList gstatus<CR>
   nnoremap <silent><nowait> <space>t  :<C-u>CocList buffers<cr>
+  nnoremap <silent><nowait> <space>n  :V<cr>
   nnoremap <silent><nowait> <space>y  :<C-u>CocList yank<cr>
   nnoremap <silent><nowait> <space>u  :<C-u>CocList snippets<cr>
   nnoremap <silent><nowait> <space>w  :exe 'CocList -A -I --normal --input='.expand('<cword>').' words -w'<CR>
