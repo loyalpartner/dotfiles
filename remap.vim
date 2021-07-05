@@ -181,4 +181,5 @@ endfunction
   nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
   nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
   nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+  nnoremap <silent><nowait> <space>m  :<C-u>CocList maps<cr>
 " }}
