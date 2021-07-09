@@ -3,7 +3,7 @@
 [[ "$OSTYPE" == "linux-gnu"* ]] && source $script_dir/zshrc.linux.zsh
 
 alias mux=tmuxinator
-alias vim="emacsclient -nw -s terminal"
+# alias vim="emacsclient -nw -s terminal"
 alias man="$script_dir/man"
 alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package'
 
@@ -13,11 +13,15 @@ alias zsheli="vim ~/dot/dotfiles/zsh/zshrc.linux.zsh"
 
 alias tmuxe="vim ~/.tmux.conf"
 
+export CLASSPATH=".:/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH" 
+alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
+
 # alias cdg="cd \\$(git rev-parse --show-toplevel)"
 
 alias cpl="history -n | tail -n 1 | xclip"
 
-bindkey -s '' fg
+bindkey -s "^z" "^e^ufg^m"
 bindkey -s '' clear
 
 if [[ $OSTYPE = "linux-gnu"  && -e ~/.zshrc.linux ]] then

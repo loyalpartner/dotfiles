@@ -6,5 +6,6 @@ export XMODIFIERS="@im=fcitx5"
 
 
 bash -c "cd ~/trojan; ./trojan -c config.json" &
+bash -c "cd ~/frp_0.34.1_linux_amd64; ./frpc -c frpc.ini" &
 sxhkd &
 xset r rate 300 40 &

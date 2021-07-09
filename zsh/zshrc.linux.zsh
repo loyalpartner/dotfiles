@@ -1,9 +1,10 @@
-export PATH=~/.gem/ruby/2.7.0/bin:$PATH
+export PATH=~/.gem/ruby/3.0.0/bin:$PATH
 export PATH=~/go/bin:$PATH
 export PATH=~/.yarn/bin:$PATH
 
 # setxkbmap dvorak
 # xset r rate 300 40
+source ~/Documents/work/dmpp/chromium/src/tools/bash-completion
 
 export FZF_DEFAULT_OPTS="--bind 'f1:execute(less -f {}),ctrl-y:execute-silent(echo {} |sed \"s/[0-9 ]\+//\" | xclip -selection clipboard)+abort'"
 
