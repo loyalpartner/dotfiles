@@ -18,7 +18,15 @@ alias ml="mpc listall"
 alias mls="mpc ls"
 alias mm="mpc toggle"
 alias mt="mpc repeat 1;mpc toggle"
-alias ll="locate --database /var/lib/mlocate/chromium.db"
+
+locate_file(){
+  locate --database /var/lib/mlocate/chromium.db $@
+}
+locate_fpp(){
+  locate --database /var/lib/mlocate/chromium.db $@ | fpp -c "vim --servername s --remote-tab"
+}
+alias lc="locate_file"
+alias ll="locate_fpp"
 
 alias xclip="xclip -selection clipboard"
 alias myip="echo $(curl -s http://myip.ipip.net)"

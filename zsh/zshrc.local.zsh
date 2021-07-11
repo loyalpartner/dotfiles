@@ -8,8 +8,8 @@ alias man="$script_dir/man"
 alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package'
 
 alias zshe="vim ~/.zshrc"
-alias zshel="vim ~/dot/dotfiles/zsh/zshrc.local.zsh"
-alias zsheli="vim ~/dot/dotfiles/zsh/zshrc.linux.zsh"
+alias zshel="vim $script_dir/zshrc.local.zsh"
+alias zsheli="vim $script_dir/zshrc.linux.zsh"
 
 alias tmuxe="vim ~/.tmux.conf"
 
@@ -28,7 +28,7 @@ if [[ $OSTYPE = "linux-gnu"  && -e ~/.zshrc.linux ]] then
 	source ~/.zshrc.linux
 fi
 
-export EDITOR="nvim"
+export EDITOR="vim"
 function emsclt
 {
 	emacsclient -nc "$@"
