@@ -53,6 +53,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'lambdalisue/gina.vim'
 Plug '907th/vim-auto-save'
 Plug 'chromium/vim-codesearch'
+Plug 'https://gn.googlesource.com/gn', { 'rtp': 'misc/vim' }
 "Plug 'mhinz/vim-startify'
 "Plug 'w0rp/ale', {'branch': 'me'}
 "Plug 'Shougo/neco-vim'
