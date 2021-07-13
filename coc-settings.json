@@ -1,5 +1,5 @@
 {
-  "clangd.path": "clangd-11",
+  "clangd.path": "clangd",
   "coc.preferences.rootPatterns":[
     ".git",
     ".hg",

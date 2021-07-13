@@ -1,5 +1,9 @@
 """ vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={{,}} foldmethod=marker foldlevel=0 nofen:
 
+" python {{
+  let g:pymode_python = 'python'
+" }}
+
 " startify {{
   let g:startify_change_to_dir = 0
 " }}"
@@ -250,3 +254,11 @@
 " autosave
   let g:auto_save = 1
 " }}"
+
+" codesearch {{
+  let g:codesearch_source_root = '~/Documents/work/dmpp/chromium/src'
+" }}
+
+" vimspector {{
+  let g:vimspector_enable_mappings = 'HUMAN'
+" }}

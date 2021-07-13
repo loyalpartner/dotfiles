@@ -3,8 +3,8 @@ set inccommand=nosplit
 set fillchars+=msgsep:-
 
 " speed up
-let g:python_host_prog = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
+"let g:python_host_prog = '/usr/bin/python2'
+"let g:python3_host_prog = '/usr/bin/python3'
 let g:ruby_host_prog = exepath('neovim-ruby-host')
 
 "tnoremap <Esc> <C-\><C-n>
