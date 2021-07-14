@@ -177,7 +177,7 @@ endfunction
   nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
   nnoremap <silent><nowait> <space>s  :<C-u>CocList symbols<cr>
   nnoremap <silent><nowait> <space>r  :<C-u>CocList mru<cr>
-  nnoremap <silent><nowait> <space>f  :<C-u>CocList files<cr>
+  nnoremap <silent><nowait> <space>f  :<C-u>LeaderfFile<cr>
   nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
   nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
   nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>

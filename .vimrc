@@ -55,7 +55,8 @@ Plug '907th/vim-auto-save'
 Plug 'chromium/vim-codesearch'
 Plug 'puremourning/vimspector'
 "Plug 'joe-skb7/cscope-maps'
-"Plug 'Shouqun/chromium-vim'
+Plug 'Shouqun/chromium-vim'
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 "Plug 'dradtke/vim-dap'
 "Plug 'mhinz/vim-startify'
 "Plug 'w0rp/ale', {'branch': 'me'}

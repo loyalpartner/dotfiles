@@ -1,5 +1,4 @@
 {
-  "clangd.path": "clangd",
   "coc.preferences.rootPatterns":[
     ".git",
     ".hg",
@@ -11,11 +10,4 @@
   "list.source.files.excludePatterns":["**/node_modules/**"],
   "imselect.defaultInput": "com.apple.keylayout.Dvorak",
   "tsserver.disableAutomaticTypeAcquisition": true,
-  "languageserver": {
-    "clangd": {
-      "command": "clangd",
-      "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
-      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
-    }
-  }
 }
