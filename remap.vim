@@ -192,3 +192,45 @@ endfunction
   
 
 " }}
+" debug {{
+
+let g:is_debug_mode = 0
+map <expr> <F2> <SID>toggle_debug_mode()
+autocmd! User VimspectorUICreated call s:setup_mappings()
+autocmd! User VimspectorDebugEnded call s:setdown_mappings()
+
+function s:toggle_debug_mode()
+  let g:is_debug_mode = !g:is_debug_mode
+  if g:is_debug_mode
+    echo "enable debug mode"
+    call s:setup_mappings()
+  else
+    echo "disable debug mode"
+    call s:setdown_mappings()
+  endif
+endfunction
+
+function s:setup_mappings()
+  let g:is_debug_mode = 1
+  nmap c         <Plug>VimspectorContinue
+  nmap b         <Plug>VimspectorToggleBreakpoint
+  nmap B <Plug>VimspectorToggleConditionalBreakpoint
+  nmap <C-b>         <Plug>VimspectorAddFunctionBreakpoint
+  nmap <C-r> <Plug>VimspectorRunToCursor
+  nmap n        <Plug>VimspectorStepOver
+  nmap s       <Plug>VimspectorStepInto
+  nmap o       <Plug>VimspectorStepOut
+endfunction
+
+function s:setdown_mappings()
+  let g:is_debug_mode = 0
+  unmap c
+  unmap b
+  unmap B
+  unmap <C-b>
+  unmap <C-r>
+  unmap n
+  unmap s
+  unmap o
+endfunction
+" }}
