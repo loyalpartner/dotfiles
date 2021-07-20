@@ -39,6 +39,9 @@ augroup common
   autocmd FileType typescript,python setl formatexpr=CocAction('formatSelected')
   autocmd FileType typescript let b:coc_pairs_disabled = ['<']
   autocmd FileType typescript.tsx setl iskeyword-=58
+
+
+  autocmd filetype gn,javascript,html setlocal includeexpr=<SID>html_includeexpr()
 augroup end
 
 function! EmptyBuffer()
@@ -84,6 +87,14 @@ function! s:OnBufEnter()
     setl bufhidden=delete
   endif
   unlet name
+endfunction
+
+function s:html_includeexpr() abort
+  if v:fname =~# "^//"
+    return substitute(v:fname, "^//", "", '')
+  elseif v:fname =~# '^/'
+    return substitute(v:fname, "^/", '', '')
+  endif
 endfunction
 " }}
 
