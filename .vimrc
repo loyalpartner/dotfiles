@@ -57,6 +57,8 @@ Plug 'puremourning/vimspector'
 Plug 'loyalpartner/chromium-vim', { 'do': 'rm -rf ./plugin'}
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'hari-rangarajan/CCTree'
+Plug 'preservim/tagbar'
+Plug 'liuchengxu/vista.vim'
 
 "Plug 'dradtke/vim-dap'
 "Plug 'mhinz/vim-startify'
