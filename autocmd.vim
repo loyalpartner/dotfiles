@@ -41,7 +41,7 @@ augroup common
   autocmd FileType typescript.tsx setl iskeyword-=58
 
 
-  autocmd filetype gn,javascript,html setlocal includeexpr=<SID>html_includeexpr()
+  autocmd filetype gn,javascript,html setlocal includeexpr=Html_includeexpr()
 augroup end
 
 function! EmptyBuffer()
@@ -89,11 +89,11 @@ function! s:OnBufEnter()
   unlet name
 endfunction
 
-function s:html_includeexpr() abort
+function Html_includeexpr() abort
   if v:fname =~# "^//"
     return substitute(v:fname, "^//", "", '')
   elseif v:fname =~# '^/'
-    return substitute(v:fname, "^/", '', '')
+    return substitute(v:fname, "^", expand("%:h"), '')
   endif
 endfunction
 " }}

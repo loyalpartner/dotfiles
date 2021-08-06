@@ -9,5 +9,5 @@
   "list.source.files.defaultArgs": ["-F"],
   "list.source.files.excludePatterns":["**/node_modules/**"],
   "imselect.defaultInput": "com.apple.keylayout.Dvorak",
-  "tsserver.disableAutomaticTypeAcquisition": true,
+  "tsserver.disableAutomaticTypeAcquisition": true
 }

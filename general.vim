@@ -94,6 +94,7 @@ if has('gui_running')
   set antialias
 else
   set background=dark
+  colorscheme gruvbox
   let g:gruvbox_bold=0
   let g:gruvbox_invert_selection=0
   " colorscheme gruvbox

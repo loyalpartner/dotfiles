@@ -59,6 +59,8 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'hari-rangarajan/CCTree'
 Plug 'preservim/tagbar'
 Plug 'liuchengxu/vista.vim'
+Plug 'vim-scripts/gtags.vim'
+Plug 'morhetz/gruvbox'
 
 "Plug 'dradtke/vim-dap'
 "Plug 'mhinz/vim-startify'
