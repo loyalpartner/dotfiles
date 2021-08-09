@@ -17,6 +17,8 @@ export CLASSPATH=".:/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH"
 alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
 alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
 
+export PATH=/usr/lib/icecream/bin:$PATH
+
 # alias cdg="cd \\$(git rev-parse --show-toplevel)"
 
 alias cpl="history -n | tail -n 1 | xclip"

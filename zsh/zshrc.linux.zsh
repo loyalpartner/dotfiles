@@ -23,7 +23,8 @@ locate_file(){
   locate --database /var/lib/mlocate/chromium.db $@
 }
 locate_fpp(){
-  locate --database /var/lib/mlocate/chromium.db $@ | fpp -c "vim --servername s --remote-tab"
+  #locate --database /var/lib/mlocate/chromium.db $@ | fpp -c "vim --servername s --remote-tab"
+  locate --database /var/lib/mlocate/chromium.db $@ | fpp -c "vim"
 }
 alias lc="locate_file"
 alias ll="locate_fpp"

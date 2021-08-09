@@ -3,7 +3,6 @@
 script_dir="$( cd "$( dirname "$0" )" && pwd )"
 
 
-
 ln -vfs $script_dir/zsh/zshrc.zsh ~/.zshrc
 
 if [[  "$OSTYPE" == "linux-gnu"*  ]]; then
@@ -14,6 +13,8 @@ if [[  "$OSTYPE" == "linux-gnu"*  ]]; then
 fi
 
 ln -vfs $script_dir/tmux.conf ~/.tmux.conf
+
+[[ -h "$HOME/.ctags.d" ]] && ln -vfs $(script_dir)/ctags.d/ $HOME/.ctags.d/
 
 source "$script_dir/init-git.sh"
 
