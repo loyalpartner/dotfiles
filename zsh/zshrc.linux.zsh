@@ -30,4 +30,4 @@ alias lc="locate_file"
 alias ll="locate_fpp"
 
 alias xclip="xclip -selection clipboard"
-alias myip="echo $(curl -s http://myip.ipip.net)"
+alias myip="curl -s http://myip.ipip.net"
