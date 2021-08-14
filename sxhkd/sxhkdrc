@@ -1,2 +1,9 @@
 ctrl + alt + {h, t, n, s, c, r}
   ~/.config/sxhkd/switcher.sh {emacs,google-chrome,konsole,systemsettings5,jetbrains-goland,jetbrains-idea}
+ctrl + alt + m
+  xdotool set_desktop --relative 1
+ctrl + alt + b
+  xdotool search --name "Ozone X11" windowactivate
+
+
+  
