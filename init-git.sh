@@ -9,4 +9,4 @@ git config --global core.safecrlf true
 git config --global core.excludesFile ~/.gitignore
 #git config --global http.https://github.com.proxy socks5://127.0.0.1:1080
 git config --global forge.gitee.com/api/v5.user bbblili
-# git config --global http.proxy socks5://127.0.0.1:1080
+git config --global http.proxy http://127.0.0.1:7890
