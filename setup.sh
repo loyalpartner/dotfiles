@@ -14,7 +14,7 @@ fi
 
 ln -vfs $script_dir/tmux.conf ~/.tmux.conf
 
-[[ -h "$HOME/.ctags.d" ]] && ln -vfs $(script_dir)/ctags.d/ $HOME/.ctags.d/
+[[ -h "$HOME/.ctags.d" ]] || ln -vfs $script_dir/ctags.d/ $HOME/.ctags.d
 
 source "$script_dir/init-git.sh"
 
