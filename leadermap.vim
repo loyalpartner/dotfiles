@@ -15,8 +15,8 @@ let g:mapleader = ','
   " Reload vimrc file
   nnoremap <leader>rl :source ~/.vimrc<CR>
   " Search with grep
-  nnoremap <leader>/ :vim  *<Left>
-  nnoremap <leader>* :vim <c-r>=expand("<cword>")<cr> **<cr>
+  nnoremap <leader>/ :Rg  *<Left>
+  nnoremap <leader>* :Rg <c-r>=expand("<cword>")<cr> **<cr>
   " generate doc
   nnoremap <silent> <leader>d :<C-u>call <SID>GenDoc()<CR>
   " clean some dirty charactors
