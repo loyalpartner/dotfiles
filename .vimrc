@@ -34,7 +34,7 @@ Plug 'whiteinge/diffconflicts'
 Plug 'tommcdo/vim-exchange'
 Plug 'dag/vim-fish'
 Plug 'fatih/vim-go'
-Plug 'heavenshell/vim-jsdoc'
+Plug 'heavenshell/vim-jsdoc', { 'do': 'make install' }
 Plug 'elzr/vim-json'
 Plug 'othree/xml.vim'
 Plug 'altercation/vim-colors-solarized'

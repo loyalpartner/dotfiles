@@ -38,8 +38,8 @@ let g:mapleader = ','
 
 " plugin {{
   "session helper
-  nmap <leader>ss :call <SID>SessionSave()<CR>
-  nmap <leader>sl :<C-u>SessionLoad
+  nmap <leader>ss :<C-u>CocCommand session.save<CR>
+  nmap <leader>sl :<C-u>CocCommand session.load<CR>
   nmap <leader>sr :call <SID>SessionReload()<CR>
   " svg.vim not used very often
   nmap <leader>se <Plug>SvgEdit
@@ -89,11 +89,12 @@ endfunction
 
 " functions {{
 function! s:SessionSave()
-  if !empty(v:this_session)
-    execute 'SessionSave'
-  else
-    call feedkeys(':SessionSave ')
-  endif
+  "if !empty(v:this_session)
+  "  execute 'SessionSave'
+  "else
+    "call feedkeys(':SessionSave ')
+  execute "CocCommand session.save"
+  "endif
 endfunction
 
 function! s:ToggleBackground()
