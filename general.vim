@@ -38,6 +38,7 @@ set formatoptions+=j
 set formatoptions+=o
 set diffopt=vertical
 set path+=**
+set tags^=./tags;.tags
 set tags+=gems.tags,stdlib.tags
 set showbreak=↪ 
 set shortmess=aFc
