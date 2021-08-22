@@ -16,6 +16,9 @@ ln -vfs $script_dir/tmux.conf ~/.tmux.conf
 
 [[ -h "$HOME/.ctags.d" ]] || ln -vfs $script_dir/ctags.d/ $HOME/.ctags.d
 
+[[ -h "$HOME/.config/sway" ]] || ln -vfs $script_dir/sway/ $HOME/.config/sway
+[[ -h "$HOME/.config/alacritty" ]] || ln -vfs $script_dir/alacritty/ $HOME/.config/alacritty
+
 source "$script_dir/init-git.sh"
 
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
