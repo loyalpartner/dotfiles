@@ -1,5 +1,5 @@
 --langdef=gn
---langmap=gn:.gn
+--langmap=gn:.gn.gni
 --regex-gn=/^[ \t]*([[:alnum:]_-]+)\("(.+)"/\2/v,function/
 
 

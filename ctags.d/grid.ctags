@@ -1,0 +1,3 @@
+--langdef=grid
+--langmap=grid:.grd
+--regex-grid=/message[ \t]*name="([[:alnum:]_]+)"/\1/v,variable/
