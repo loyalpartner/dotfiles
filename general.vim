@@ -95,6 +95,7 @@ if has('gui_running')
   set antialias
 else
   set background=dark
+  autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE " transparent bg
   colorscheme gruvbox
   let g:gruvbox_bold=0
   let g:gruvbox_invert_selection=0

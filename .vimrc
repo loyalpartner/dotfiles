@@ -59,7 +59,7 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'hari-rangarajan/CCTree'
 Plug 'preservim/tagbar'
 Plug 'liuchengxu/vista.vim'
-Plug 'ludovicchabant/vim-gutentags'
+"Plug 'ludovicchabant/vim-gutentags'
 Plug 'vim-scripts/gtags.vim'
 Plug 'morhetz/gruvbox'
 
