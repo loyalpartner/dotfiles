@@ -1,7 +1,7 @@
 let g:local = expand('~/vim-dev/')
 set runtimepath^=~/vim-dev/plug.nvim
 call plug#begin()
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'ryanoasis/vim-devicons'
 "Plug 'neoclide/coc-imselect'
 Plug 'neoclide/coc-eslint'
@@ -51,7 +51,7 @@ Plug 'derekwyatt/vim-scala'
 Plug 'simnalamburt/vim-mundo'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'lambdalisue/gina.vim'
-Plug '907th/vim-auto-save'
+"Plug '907th/vim-auto-save'
 Plug 'chromium/vim-codesearch'
 Plug 'puremourning/vimspector'
 Plug 'loyalpartner/chromium-vim', { 'do': 'rm -rf ./plugin'}
@@ -62,6 +62,10 @@ Plug 'liuchengxu/vista.vim'
 "Plug 'ludovicchabant/vim-gutentags'
 Plug 'vim-scripts/gtags.vim'
 Plug 'morhetz/gruvbox'
+
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+Plug 'google/vim-glaive'
 
 "Plug 'dradtke/vim-dap'
 "Plug 'mhinz/vim-startify'
@@ -88,6 +92,7 @@ Plug 'morhetz/gruvbox'
 "Plug 'mitsuse/autocomplete-swift'
 "Plug 'wellle/targets.vim'
 call plug#end()
+call glaive#Install()
 filetype plugin on
 syntax on
 

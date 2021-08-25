@@ -11,7 +11,8 @@ command! -nargs=0 Webpack                              :call     CocAction('runC
 command! -nargs=0 OR                                   :call     CocAction('runCommand', 'editor.action.organizeImport')
 command! -nargs=0 Start                                :call     CocAction('runCommand', 'npm.run', 'start')
 command! -nargs=0 RestartVim                           :call     CocAction('runCommand', 'session.restart')
-command! -nargs=0 V                                    :call     s:OpenTerminal()
+command! -nargs=0 V                                    :call     s:OpenTerminal(v:false)
+command! -nargs=0 VL                                   :call     s:OpenTerminal(v:true)
 command! -nargs=0 Cd                                   :call     s:Gcd()
 command! -nargs=0 Mouse                                :call     s:ToggleMouse()
 command! -nargs=0 Jsongen                              :call     s:Jsongen()
@@ -64,7 +65,7 @@ function! s:Gcd()
 endfunction
 
 " Open vertical spit terminal with current parent directory
-function! s:OpenTerminal()
+function! s:OpenTerminal(use_local_dir)
   let bn = bufnr('%')
   let dir = expand('%:p:h')
   if exists('b:terminal') && !buflisted(get(b:, 'terminal'))
@@ -72,9 +73,14 @@ function! s:OpenTerminal()
   endif
   if !exists('b:terminal')
     "botright vs +enew
-    exe 'lcd '.dir
-    execute 'botright terminal'
-    call setbufvar(bn, 'terminal', bufnr('%'))
+    let l:dir = expand('%:p:h')
+    if a:use_local_dir
+      execute 'botright terminal'
+      call feedkeys("cd ". l:dir . '', 'n')
+    else
+      execute 'botright terminal'
+    endif
+      call setbufvar(bn, 'terminal', bufnr('%'))
   else
     execute 'botright sb '.get(b:, 'terminal', '')
     call feedkeys("\<C-l>", 'n')
