@@ -142,6 +142,7 @@
 --regex-javascript=/^[ \t]*@Input\(\)[ \t]+([[:alnum:]_$]+)/\1/v,variable/
 --regex-javascript=/^[ \t]*(constructor)[ \t]*\(/\1/method,function/
 --regex-javascript=/^[ \t]*([[:alpha:]_$][[:alnum:]_$]*):[ \t]*storeState\./\1/v,variable/
+--regex-javascript=/^[ \t]*is[ \t]*:[ \t]*['"]([^'"]+)['"]/\1/v,variable/
 
 --regex-c=/[ \t]*DEFUN[ \t]*\([ \t]*"([^"]+)",.*/\1/method,function/
 
