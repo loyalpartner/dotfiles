@@ -5,6 +5,9 @@ iabbrev Licence License
 iabbrev accross across
 iabbrev cosnt const
 
+abbrev cbr chrome/browser/resources/
+abbrev cbi chrome/browser/ui/
+
 function! SetupCommandAbbrs(from, to)
   exec 'cnoreabbrev <expr> '.a:from
         \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'

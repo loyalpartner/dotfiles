@@ -5,7 +5,7 @@ let g:mapleader = ','
   " Edit file in current file folder
   nnoremap <leader>n :Lexplore<CR>
   nnoremap <leader>q :silent! Bdelete!<CR>
-  nnoremap <leader>e :e <C-R>=substitute(expand('%:p:h').'/', getcwd().'/', '', '')<CR><Tab>
+  nnoremap <leader>e :e <C-R>=substitute(expand('%:p:h').'/', getcwd().'/', '', '')<CR>
   "nnoremap <leader>e :LeaderfFile <C-R>=substitute(expand('%:p:h').'/', getcwd().'/', '', '')<CR><CR>
   nnoremap <leader>w :w<CR>
   nnoremap <leader>v :vs <C-R>=substitute(expand('%:p:h').'/', getcwd().'/', '', '')<CR>
