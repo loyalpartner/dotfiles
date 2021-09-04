@@ -20,7 +20,12 @@ set $right l
 set $term alacritty
 
 # chromium floating
-for_window [title="^Ozone X11$"] floating enable, resize set 1280 px 800 px, border pixel 5
+for_window [title="^Ozone X11$"] floating enable, \
+  resize set 1280 px 800 px, \
+  sticky enable, \
+  move scratchpad, \
+  scratchpad show, \
+  border pixel 5
 
 # clipboard
 #exec wl-paste -t text --watch clipman store
@@ -29,9 +34,14 @@ for_window [title="^Ozone X11$"] floating enable, resize set 1280 px 800 px, bor
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
-# set $menu dmenu_path | dmenu | xargs swaymsg exec --
-for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 50 ppt 60 ppt, border pixel 5
-set $menu exec $term --class=launcher -e sway-launcher-desktop
+set $menu dmenu_path | dmenu | xargs swaymsg exec --
+
+#for_window [app_id="^launcher$"] floating enable, \
+#  sticky enable, \
+#  resize set 50 ppt 60 ppt, \
+#  border pixel 5
+#
+#set $menu exec $term --class=launcher -e sway-launcher-desktop
 exec_always fcitx5 -d --replace
 
 default_border pixel 5
