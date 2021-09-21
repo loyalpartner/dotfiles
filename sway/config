@@ -108,6 +108,9 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     # Start your launcher
     bindsym $mod+d exec $menu
 
+    bindsym $mod+ctrl+t [class="Google-chrome"] focus
+    bindsym $mod+ctrl+n [class="Alacritty"] focus
+
     # clipboard
     # TODO:
 
