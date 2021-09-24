@@ -110,6 +110,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
     bindsym $mod+ctrl+t [class="Google-chrome"] focus
     bindsym $mod+ctrl+n [class="Alacritty"] focus
+    bindsym $mod+ctrl+h [class="Emacs"] focus
 
     # clipboard
     # TODO:

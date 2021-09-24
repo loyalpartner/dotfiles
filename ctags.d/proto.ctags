@@ -1,0 +1,3 @@
+--langdef=proto
+--langmap=proto:.proto
+--regex-proto=/^[ \t]*message[ \t]+([[:alnum:]_$]+)/\1/v,variable/
