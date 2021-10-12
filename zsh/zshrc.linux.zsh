@@ -1,6 +1,7 @@
 export PATH=~/.gem/ruby/3.0.0/bin:$PATH
 export PATH=~/go/bin:$PATH
 export PATH=~/.yarn/bin:$PATH
+export PATH=~/.local/bin:$PATH
 
 # setxkbmap dvorak
 # xset r rate 300 40
@@ -31,3 +32,16 @@ alias ll="locate_fpp"
 
 alias xclip="xclip -selection clipboard"
 alias myip="curl -s http://myip.ipip.net"
+
+toggleGateWay(){
+  gateway="192.168.31.78"
+  default_dns="218.104.111.114"
+  if grep $gateway /etc/resolv.conf > /dev/null; then 
+    sudo sed -i s/$gateway/$default_dns/ /etc/resolv.conf
+    sudo ip route delete default via $gateway dev enp5s0
+  else
+    sudo sed -i s/$default_dns/$gateway/ /etc/resolv.conf
+    sudo ip route delete default via $gateway dev enp5s0
+    sudo ip route add default via $gateway dev enp5s0
+  fi
+}
