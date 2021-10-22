@@ -81,7 +81,9 @@ set wildignorecase
 set noruler
 "set dictionary+=/usr/share/dict/words
 " terminal size
-set termwinsize=15x0
+if !has('nvim')
+  set termwinsize=15x0
+endif
 " }}
 
 " Special options for macvim {{

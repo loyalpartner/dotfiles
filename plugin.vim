@@ -287,3 +287,7 @@
     silent! call mkdir(s:vim_tags, 'p')
   endif
 " }}
+
+" pydocstring.vim {{
+  let g:pydocstring_doq_path = "~/.local/bin/doq"
+" }}

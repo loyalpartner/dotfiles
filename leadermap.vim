@@ -53,7 +53,7 @@ let g:mapleader = ','
   nmap <leader>ca <Plug>(coc-codelens-action)
   xmap <leader>x  <Plug>(coc-convert-snippet)
   xmap <leader>f  <Plug>(coc-format-selected)
-  nmap <leader>f  <Plug>(coc-format-selected)
+  nmap <leader>f :call CocAction('format')<CR>
   xmap <leader>a  <Plug>(coc-codeaction-selected)
   nmap <leader>a  <Plug>(coc-codeaction-selected)
   nmap <leader>ac <Plug>(coc-codeaction-line)

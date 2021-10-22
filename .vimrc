@@ -51,7 +51,7 @@ Plug 'derekwyatt/vim-scala'
 Plug 'simnalamburt/vim-mundo'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'lambdalisue/gina.vim'
-"Plug '907th/vim-auto-save'
+Plug '907th/vim-auto-save'
 Plug 'chromium/vim-codesearch'
 Plug 'puremourning/vimspector'
 Plug 'loyalpartner/chromium-vim', { 'do': 'rm -rf ./plugin'}
@@ -62,10 +62,11 @@ Plug 'liuchengxu/vista.vim'
 "Plug 'ludovicchabant/vim-gutentags'
 Plug 'vim-scripts/gtags.vim'
 Plug 'morhetz/gruvbox'
+Plug 'heavenshell/vim-pydocstring'
 
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
-Plug 'google/vim-glaive'
+"Plug 'google/vim-maktaba'
+"Plug 'google/vim-codefmt'
+"Plug 'google/vim-glaive'
 
 "Plug 'dradtke/vim-dap'
 "Plug 'mhinz/vim-startify'
@@ -92,7 +93,7 @@ Plug 'google/vim-glaive'
 "Plug 'mitsuse/autocomplete-swift'
 "Plug 'wellle/targets.vim'
 call plug#end()
-call glaive#Install()
+"call glaive#Install()
 filetype plugin on
 syntax on
 
