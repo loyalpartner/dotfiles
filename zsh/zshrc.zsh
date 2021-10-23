@@ -79,6 +79,7 @@ plugins=(git autojump pip npm history repo docker)
 
 source $ZSH/oh-my-zsh.sh
 
+setopt noshare_history
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
