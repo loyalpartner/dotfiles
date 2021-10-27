@@ -1,13 +1,24 @@
 {
-  "coc.preferences.rootPatterns":[
+  "coc.preferences.rootPatterns": [
     ".git",
     ".hg",
     ".projections.json"
   ],
   "list.source.files.command": "rg",
-  "list.source.files.args":["--files"],
-  "list.source.files.defaultArgs": ["-F"],
-  "list.source.files.excludePatterns":["**/node_modules/**"],
+  "list.source.files.args": [
+    "--files"
+  ],
+  "list.source.files.defaultArgs": [
+    "-F"
+  ],
+  "list.source.files.excludePatterns": [
+    "**/node_modules/**"
+  ],
+  "translator.engines": [
+    "youdao",
+    "bing",
+    "haici"
+  ],
   "imselect.defaultInput": "com.apple.keylayout.Dvorak",
-  "tsserver.disableAutomaticTypeAcquisition": true
+  "tsserver.disableAutomaticTypeAcquisition": true,
 }

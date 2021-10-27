@@ -163,7 +163,8 @@ endfunction
 " list {{
   nnoremap <silent> \r  :<C-u>CocList -N mru -A<cr>
   nnoremap <silent><nowait> <space>h  :<C-u>CocList helptags<cr>
-  nnoremap <silent><nowait> <space>g  :<C-u>CocList gstatus<CR>
+  nnoremap <silent><nowait> <space>gs  :<C-u>:CocCommand git.chunkStage<CR>
+  nnoremap <silent><nowait> <space>gg  :<C-u>:G<CR>
   nnoremap <silent><nowait> <space>t  :<C-u>CocList buffers<cr>
   nnoremap <silent><nowait> <space>n  :V<cr>
   nnoremap <silent><nowait> <space>N  :VL<cr>
@@ -178,6 +179,7 @@ endfunction
   nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
   nnoremap <silent><nowait> <space>s  :<C-u>CocList symbols<cr>
   nnoremap <silent><nowait> <space>r  :<C-u>CocList mru<cr>
+  nnoremap <silent><nowait> <space>R  :<C-u>LeaderfMru<cr>
   nnoremap <silent><nowait> <space>ff :<C-u>LeaderfFile<cr>
   nnoremap <silent><nowait> <space>fd :LeaderfFile <C-R>=substitute(expand('%:p:h').'/', getcwd().'/', '', '')<CR><CR> 
   nnoremap <silent><nowait> <space>fa  :<C-u>LeaderfFile chrome/browser/<cr>

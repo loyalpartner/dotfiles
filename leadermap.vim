@@ -27,7 +27,7 @@ let g:mapleader = ','
   nnoremap <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-  nnoremap <silent> <leader>pp "0p
+  nnoremap <silent> <leader>pp :set paste<cr>"+P:set paste!<cr>
   nnoremap <silent> <leader>o :call <SID>Open()<CR>
 " }}
 
@@ -118,7 +118,7 @@ function! s:SessionReload()
 endfunction
 
 " Simple clean utility
-function! s:Clean()
+function! s:Clean()"{{
   let view = winsaveview()
   let ft = &filetype
   " replace tab with 2 space
@@ -133,9 +133,9 @@ function! s:Clean()
   silent! execute '%s/\s\+$//'
   " remove windows `\r`
   call winrestview(view)
-endfunction
+endfunction"}}
 
-function! s:GenDoc()
+function! s:GenDoc()"{{
   if &ft ==# 'javascript' || &ft ==# 'typescript'
     exe "JsDoc"
   elseif &ft ==# 'css'
@@ -164,7 +164,7 @@ function! s:GenDoc()
     exe "normal! k$"
     startinsert!
   endif
-endfunction
+endfunction"}}
 
 function! s:Open()
   let res = CocAction('openLink')
