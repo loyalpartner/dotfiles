@@ -31,10 +31,10 @@ set nowritebackup
 set noimdisable
 set noswapfile
 set undofile
-if !exists("$HOME/.undodir")
-  call mkdir("$HOME/.undodir")
+if !isdirectory($HOME . "/.undodir/")
+  call mkdir($HOME . "/.undodir/")
 endif
-set undodir=$HOME/.undodir/
+set undodir=$HOME/.undodir
 set fileformats=unix,dos
 set display+=lastline
 set formatoptions+=j

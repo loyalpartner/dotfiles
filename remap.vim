@@ -163,7 +163,8 @@ endfunction
 " list {{
   nnoremap <silent> \r  :<C-u>CocList -N mru -A<cr>
   nnoremap <silent><nowait> <space>h  :<C-u>CocList helptags<cr>
-  nnoremap <silent><nowait> <space>g  :<C-u>CocList gstatus<CR>
+  nnoremap <silent><nowait> <space>gs  :<C-u>:CocCommand git.chunkStage<CR>
+  nnoremap <silent><nowait> <space>gg  :<C-u>:G<CR>
   nnoremap <silent><nowait> <space>t  :<C-u>CocList buffers<cr>
   nnoremap <silent><nowait> <space>n  :V<cr>
   nnoremap <silent><nowait> <space>N  :VL<cr>
