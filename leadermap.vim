@@ -17,7 +17,7 @@ let g:mapleader = ','
   " Reload vimrc file
   nnoremap <leader>rl :source ~/.vimrc<CR>
   " Search with grep
-  nnoremap <leader>/ :Rg  *<Left>
+  nnoremap <leader>/ :LeaderfRgInteractive<Cr>
   nnoremap <leader>* :Rg <c-r>=expand("<cword>")<cr> **<cr>
   " generate doc
   nnoremap <silent> <leader>d :<C-u>call <SID>GenDoc()<CR>
