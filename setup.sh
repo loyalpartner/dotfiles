@@ -2,26 +2,42 @@
 
 script_dir="$( cd "$( dirname "$0" )" && pwd )"
 
-
-ln -vfs $script_dir/zsh/zshrc.zsh ~/.zshrc
-
-if [[  "$OSTYPE" == "linux-gnu"*  ]]; then
-  if [[ ! -h  "$HOME/.config/sxhkd" ]]; then
-    ln -vfs $script_dir/sxhkd/ $HOME/.config/
+install_softs(){
+  if which pacman > /dev/null
+  then
+    sudo pacman -S --noconfirm sway \
+      alacritty vim tigervnc \
+      nerd-fonts-source-code-pro \
+      google-chrome-stable \
+      wqy-microhei bash-completion \
+      tmux ctags
+    yay -S --noconfirm clipman
   fi
-  ln -vfs $script_dir/xprofile $HOME/.xprofile
-fi
+}
 
-ln -vfs $script_dir/tmux.conf ~/.tmux.conf
+install_softs
 
-[[ -h "$HOME/.ctags.d" ]] || ln -vfs $script_dir/ctags.d/ $HOME/.ctags.d
+link_dot_configs(){
+  ln -vfs $script_dir/zsh/zshrc.zsh ~/.zshrc
+  ln -vfs $script_dir/tmux.conf ~/.tmux.conf
+}
 
-[[ -h "$HOME/.config/sway" ]] || ln -vfs $script_dir/sway/ $HOME/.config/sway
-[[ -h "$HOME/.config/alacritty" ]] || ln -vfs $script_dir/alacritty/ $HOME/.config/alacritty
+link_config_dir(){
+  [[ -h "$2" ]] || ln -vfs $script_dir/$1 $2
+}
+
+link_config_dir "$script_dir/.ctags.d" "$HOME/.ctags.d"
+link_config_dir "$script_dir/sway" "$HOME/.config/sway"
+link_config_dir "$script_dir/alacritty" "$HOME/.config/alacritty"
+
 
 source "$script_dir/init-git.sh"
 
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if [[ ! -d $HOME/.oh-my-zsh ]]
+then
+  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi
 
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-
+link_dot_configs
