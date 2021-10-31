@@ -8,7 +8,7 @@
 #
 # Logo key. Use Mod1 for Alt.
 #set $mod Mod1
-set $mod Mod1
+set $mod mod4
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -46,7 +46,7 @@ set $type_googleid \
   xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
 set $type_googlepwd \
   xdotool type --window $(xdotool search --name "Ozone X11")  '1234\"<>P!A'
-  #xdotool type --window $(xdotool search --name "Ozone X11")  1234"<>P!A
+
 #for_window [app_id="^launcher$"] floating enable, \
 #  sticky enable, \
 #  resize set 50 ppt 60 ppt, \
