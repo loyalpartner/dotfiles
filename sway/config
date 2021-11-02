@@ -20,15 +20,14 @@ set $right l
 set $term alacritty
 
 # chromium floating
-for_window [title="^Ozone X11$"] floating enable, \
-  resize set 1280 px 800 px, \
-  sticky enable, \
-  move scratchpad, \
-  scratchpad show, \
-  border pixel 5
+# for_window [title="^Ozone X11$"] \
+#   resize set 1280 px 800 px, \
+#   move scratchpad, \
+#   scratchpad show, \
+#   border pixel 5
 
-for_window [title="^DevTools - chrome://"] floating enable, \
-  sticky enable, \
+for_window [title="^DevTools - "] \
+  resize set 1280 px 800 px, \
   move scratchpad, \
   scratchpad show, \
   border pixel 5
@@ -64,10 +63,10 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-   output DP-1 scale 1
-   output DP-1 resolution 3840x2160
-   #output DVI-I-1 resolution 1920x1080
+   output HDMI-A-1 resolution 1920x1080 position 1920,0
+   #output DP-1 scale 1
+   #output DP-1 resolution 3840x2160
+   output DVI-I-1 resolution 1920x1080
    #output DVI-D-1 resolution 1920x1080 position 1920,0
 
 #
