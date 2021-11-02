@@ -1,6 +1,9 @@
 # 实时重载配置文件，不用重启测试配置选项
 live_config_reload: true
 
+env:
+  TERM: xterm-256color
+
 background_opacity: 0.8
 
 # 主题，抄肥猫的主题配色
