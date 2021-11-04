@@ -7,18 +7,25 @@ install_softs(){
   then
     sudo pacman -S --noconfirm sway \
       alacritty vim tigervnc \
-      nerd-fonts-source-code-pro \
-      google-chrome-stable \
       wqy-microhei bash-completion \
-      tmux ctags
-    yay -S --noconfirm clipman
+      tmux ctags zsh alacritty dmenu \
+      xorg-xwayland xorg-xlsclients \
+      qt5-wayland glfw-wayland \
+      fcitx5-chinese-addons fcitx5-git \
+      fcitx5-gtk fcitx5-qt \
+      fcitx5-pinyin-zhwiki \
+      fcitx5-configtool \
+      kcm-fcitx5
+    yay -S --noconfirm clipman \
+      google-chrome \
+      nerd-fonts-source-code-pro
   fi
 }
 
+install_softs
 if [[ ! -d $HOME/.oh-my-zsh ]]
 then
-  install_softs
-  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  git clone https://github.com/ohmyzsh/ohmyzsh $HOME/.oh-my-zsh && sh $HOME/.oh-my-zsh/tools/install.sh
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
   git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 fi
