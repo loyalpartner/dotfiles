@@ -40,6 +40,7 @@ exec_always wl-paste -t text --watch clipman store
 # on the original workspace that the command was run on.
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu wofi --show=drun --lines=5 --prompt=""
 
 set $type_googleid \
   xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
@@ -54,19 +55,21 @@ set $type_googlepwd \
 #set $menu exec $term --class=launcher -e sway-launcher-desktop
 exec_always fcitx5 -d --replace
 
-default_border pixel 5
+focus_follows_mouse no
+gaps inner 10
+default_border pixel 3
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg yellow_light.jpg fill
 #
 # Example configuration:
 #
-   output HDMI-A-1 resolution 1920x1080 position 1920,0
-   #output DP-1 scale 1
-   #output DP-1 resolution 3840x2160
-   output DVI-I-1 resolution 1920x1080
+   #output HDMI-A-1 resolution 1920x1080 position 1920,0
+   output DP-1 scale 1
+   output DP-1 resolution 3840x2160
+   #output DVI-I-1 resolution 1920x1080
    #output DVI-D-1 resolution 1920x1080 position 1920,0
 
 #
@@ -259,17 +262,7 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
+    swaybar_command waybar
 }
 
 include /etc/sway/config.d/*

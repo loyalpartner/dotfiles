@@ -8,14 +8,17 @@ install_softs(){
     sudo pacman -S --noconfirm sway \
       alacritty vim tigervnc \
       wqy-microhei bash-completion \
-      tmux ctags zsh alacritty dmenu \
+      tmux ctags zsh alacritty \
+      dmenu waybar wofi \
       xorg-xwayland xorg-xlsclients \
       qt5-wayland glfw-wayland \
       fcitx5-chinese-addons fcitx5-git \
       fcitx5-gtk fcitx5-qt \
       fcitx5-pinyin-zhwiki \
       fcitx5-configtool \
-      kcm-fcitx5
+      kcm-fcitx5 \
+      alsa-utils pulseaudio pamixer pavucontrol pulseaudio-alsa \
+      nodejs npm
     yay -S --noconfirm clipman \
       google-chrome \
       nerd-fonts-source-code-pro
@@ -41,6 +44,8 @@ link_config_dir(){
 # link_config_dir $script_dir/ctags.d/ $HOME/.ctags.d
 cp -rf $script_dir/ctags.d $HOME/.ctags.d
 link_config_dir $script_dir/sway/ $HOME/.config/sway
+link_config_dir $script_dir/waybar/ $HOME/.config/waybar
+link_config_dir $script_dir/wofi/ $HOME/.config/wofi
 link_config_dir $script_dir/alacritty/ $HOME/.config/alacritty
 link_dot_configs
 
