@@ -24,15 +24,15 @@ window#waybar {
 }
 
 #workspaces button {
-  padding: 0 5px;
+  padding: 5px;
   background: gray;
+  border-radius: 35px;
   color: white;
-  border-top: 2px solid transparent;
+  margin-right: 5px;
 }
 
 #workspaces button.focused {
-  color: red;
-  border-top: 2px solid red;
+  background-color: purple;
 }
 
 #tray,

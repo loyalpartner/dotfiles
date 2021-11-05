@@ -1,13 +1,12 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 34,
     "modules-left": ["sway/workspaces"],
     "modules-center": ["sway/window"],
     "modules-right": ["tray", "pulseaudio", "network", "temperature", "cpu", "memory", "battery", "custom/china"],
     "sway/workspaces": {
         "disable-scroll": true,
-        "disable-click": true,
+        "disable-click": false,
     },
     "tray": {
         "spacing": 10,
