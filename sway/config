@@ -39,8 +39,8 @@ exec_always wl-paste -t text --watch clipman store
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu wofi --show=drun --lines=5 --prompt=""
+#set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu wofi --show=drun
 
 set $type_googleid \
   xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
@@ -105,8 +105,8 @@ output * bg yellow_light.jpg fill
   input type:keyboard {
       xkb_layout us
       xkb_variant dvorak
-      repeat_delay 250
-      repeat_rate 45
+      repeat_delay 200
+      repeat_rate 35
   }
 
 ### Key bindings
@@ -122,9 +122,9 @@ output * bg yellow_light.jpg fill
     # Start your launcher
     bindsym $mod+d exec $menu
 
-    bindsym $mod+ctrl+t [class="Google-chrome"] focus
-    bindsym $mod+ctrl+n [class="Alacritty"] focus
-    bindsym $mod+ctrl+h [class="Emacs"] focus
+    bindsym $mod+ctrl+t [class="Google-chrome" workspace="__focused__"] focus
+    bindsym $mod+ctrl+n [class="Alacritty" workspace="__focused__"] focus
+    bindsym $mod+ctrl+h [class="Emacs" workspace="__focused__"] focus
 
     bindsym $mod+ctrl+comma exec $type_googleid
     bindsym $mod+ctrl+period exec $type_googlepwd
