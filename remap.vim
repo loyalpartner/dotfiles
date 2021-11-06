@@ -23,7 +23,8 @@
   nnoremap gci :Gcommit -v<CR>
   nnoremap gca :Gcommit -a -v<CR>
   nnoremap gcc :Gcommit -v -- <C-R>=expand('%')<CR><CR>
-  nnoremap gp :CocCommand git.push<CR>
+  nnoremap gP :CocCommand git.push<CR>
+  nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " }}
 
 " insert keymap like emacs {{
@@ -79,7 +80,7 @@
   nnoremap <leader>8 8gt
 
   " vim-exchange
-  xmap x <Plug>(Exchange)
+  "xmap gx <Plug>(Exchange)
 
   " coc.nvim
   "nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
