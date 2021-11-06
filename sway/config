@@ -66,10 +66,12 @@ output * bg yellow_light.jpg fill
 #
 # Example configuration:
 #
-   #output HDMI-A-1 resolution 1920x1080 position 1920,0
-   output DP-1 scale 1
-   output DP-1 resolution 3840x2160
-   #output DVI-I-1 resolution 1920x1080
+   output DVI-I-1 resolution 1920x1080
+   output HDMI-A-1 resolution 1920x1080 position 1920,0
+   output "Goldstar Company Ltd LG HDR 4K 0x0000E984" {
+    scale 1
+    resolution 3840x2160
+   }
    #output DVI-D-1 resolution 1920x1080 position 1920,0
 
 #
@@ -105,8 +107,8 @@ output * bg yellow_light.jpg fill
   input type:keyboard {
       xkb_layout us
       xkb_variant dvorak
-      repeat_delay 200
-      repeat_rate 35
+      repeat_delay 300
+      repeat_rate 40
   }
 
 ### Key bindings
