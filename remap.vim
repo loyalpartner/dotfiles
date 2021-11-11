@@ -226,6 +226,7 @@ function s:setup_mappings()
   nmap n        <Plug>VimspectorStepOver
   nmap s       <Plug>VimspectorStepInto
   nmap o       <Plug>VimspectorStepOut
+  nmap q         <Plug>VimspectorStop
 endfunction
 
 function s:setdown_mappings()
@@ -238,5 +239,6 @@ function s:setdown_mappings()
   unmap n
   unmap s
   unmap o
+  unmap q
 endfunction
 " }}
