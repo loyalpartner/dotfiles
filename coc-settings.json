@@ -19,6 +19,5 @@
     "bing",
     "haici"
   ],
-  "imselect.defaultInput": "com.apple.keylayout.Dvorak",
-  "tsserver.disableAutomaticTypeAcquisition": true,
+  "tsserver.disableAutomaticTypeAcquisition": true
 }

@@ -226,7 +226,7 @@ function s:setup_mappings()
   nmap n        <Plug>VimspectorStepOver
   nmap s       <Plug>VimspectorStepInto
   nmap o       <Plug>VimspectorStepOut
-  nmap q         <Plug>VimspectorStop
+  nmap <silent> q :<C-u>VimspectorReset<Cr>
 endfunction
 
 function s:setdown_mappings()
