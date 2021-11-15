@@ -19,5 +19,8 @@
     "bing",
     "haici"
   ],
-  "tsserver.disableAutomaticTypeAcquisition": true
+  "html.format.enable": true,
+  "html.validate.scripts": true,
+  "html.autoClosingTags": true,
+  "tsserver.disableAutomaticTypeAcquisition": true,
 }

@@ -110,7 +110,7 @@
   xmap <C-l> <Plug>(coc-snippets-select)
   nmap <silent> [c <Plug>(coc-diagnostic-prev)
   nmap <silent> ]c <Plug>(coc-diagnostic-next)
-  nmap <silent> gt :call CocActionAsync('jumpDefinition', 'tabe')<CR>
+  nmap <silent> g<Tab> :call CocActionAsync('jumpDefinition', 'tabe')<CR>
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gy :call CocActionAsync('jumpTypeDefinition', v:false)<CR>
   nmap <silent> gi :call CocActionAsync('jumpImplementation', v:false)<CR>
