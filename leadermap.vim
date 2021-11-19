@@ -67,6 +67,8 @@ let g:mapleader = ','
 
   nmap <silent> <Leader>tr <Plug>(coc-translator-p)
   vmap <silent> <Leader>tr <Plug>(coc-translator-pv)
+  nmap <silent> <Leader>tl <Plug>(coc-translator-r)
+  vmap <silent> <Leader>tl <Plug>(coc-translator-rv)
 " }}
 
 " grep by motion {{

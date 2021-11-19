@@ -15,6 +15,7 @@
     "**/node_modules/**"
   ],
   "translator.engines": [
+    "google",
     "youdao",
     "bing",
     "haici"
