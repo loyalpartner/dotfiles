@@ -227,8 +227,7 @@
         \ 'coc-clangd',
         \ 'coc-json',
         \ 'coc-html',
-        \ 'coc-translator',
-        \ 'coc-go'
+        \ 'coc-translator'
         \ ]
   let g:coc_watch_extensions = []
   "let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
