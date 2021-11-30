@@ -20,6 +20,7 @@
     "bing",
     "haici"
   ],
+  "git.signPriority": 1,
   "html.format.enable": true,
   "html.validate.scripts": true,
   "html.autoClosingTags": true,
