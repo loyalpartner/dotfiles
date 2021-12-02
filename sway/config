@@ -17,7 +17,7 @@ set $right l
 # Your preferred terminal emulator
 #set $term env WINIT_UNIX_BACKEND=x11 alacritty
 #set $term WAYLAND_DISPLAY= alacritty
-set $term alacritty
+set $term xterm
 
 # chromium floating
 for_window [title="^Ozone X11$"] \
@@ -25,6 +25,8 @@ for_window [title="^Ozone X11$"] \
    move scratchpad, \
    scratchpad show, \
    border pixel 5
+
+for_window [class="XTerm"] opacity set 0.8
 
 for_window [title="^DevTools - "] \
   resize set 1280 px 800 px, \
@@ -67,7 +69,7 @@ output * bg yellow_light.jpg fill
 #
 # Example configuration:
 #
-   output DVI-I-1 resolution 1920x1080 position 1920,0
+   output DVI-D-1 resolution 1920x1080 position 1920,0
    output HDMI-A-1 resolution 1920x1080 
    output "Goldstar Company Ltd LG HDR 4K 0x0000E984" {
     scale 1
