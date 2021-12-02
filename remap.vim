@@ -243,3 +243,39 @@ function s:setdown_mappings()
   unmap q
 endfunction
 " }}
+" gdb {{
+"au User TermdebugStartPost call s:setup_gdb_mappings()
+"au User TermdebugStopPost  call s:setdown_gdb_mappings()
+
+let g:is_gdb_mode = 0
+map <expr> <F4> <SID>toggle_gdb_mode()
+
+function s:toggle_gdb_mode()
+  let g:is_gdb_mode = !g:is_gdb_mode
+  if g:is_gdb_mode
+    echo "enable gdb mode"
+    call s:setup_gdb_mappings()
+  else
+    echo "disable gdb mode"
+    call s:setdown_gdb_mappings()
+  endif
+endfunction
+
+function s:setup_gdb_mappings()
+  let g:is_gdb_mode = 1
+  nmap c :<C-u>Continue<CR>
+  nmap b :<C-u>Break<CR>
+  nmap n :<C-u>Next<CR>
+  nmap s :<C-u>Step<CR>
+  nmap o :<C-u>Finish<CR>
+endfunction
+
+function s:setdown_gdb_mappings()
+  let g:is_gdb_mode = 0
+  unmap c
+  unmap b
+  unmap n
+  unmap s
+  unmap o
+endfunction
+" }}
