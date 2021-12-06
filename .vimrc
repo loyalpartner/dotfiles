@@ -63,6 +63,7 @@ Plug 'liuchengxu/vista.vim'
 Plug 'vim-scripts/gtags.vim'
 Plug 'morhetz/gruvbox'
 Plug 'heavenshell/vim-pydocstring'
+Plug 'vim-utils/vim-man'
 
 "Plug 'google/vim-maktaba'
 "Plug 'google/vim-codefmt'
