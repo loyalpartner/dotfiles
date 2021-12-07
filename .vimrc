@@ -64,6 +64,7 @@ Plug 'vim-scripts/gtags.vim'
 Plug 'morhetz/gruvbox'
 Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-utils/vim-man'
+Plug 'kshenoy/vim-signature'
 
 "Plug 'google/vim-maktaba'
 "Plug 'google/vim-codefmt'
