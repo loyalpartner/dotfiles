@@ -27,7 +27,6 @@ command! -nargs=? -complete=custom,s:ListVimrc         EditVimrc :call s:EditVim
 command! -nargs=? -complete=custom,s:ListDict          Dict      :call s:ToggleDictionary(<f-args>)
 command! -nargs=0 Jest :call  CocActionAsync('runCommand', 'jest.fileTest', ['%'])
 command! -nargs=0 Debug                                :call     s:DebugCoc()
-command! -nargs=0 Trans                                :call     s:en2zh()
 
 let s:cmd_map = {
       \'javascript': 'babel-node',
@@ -221,19 +220,4 @@ function! s:system(cmd)
     return
   endif
   return output
-endfunction
-
-function! s:en2zh()
-  if executable("trans")
-    echohl "trans not found"
-  endif
-  let reg='"'
-  let reg_save=getreg(reg)
-  silent normal! mqyas`q
-  let sentence = getreg(reg)
-  let sentence = substitute(sentence, "\\n", "", "g")
-  let sentence = escape(sentence, "\"")
-  let result = system("\\trans -b :zh \"" . sentence . "\"")
-  echo result
-  call setreg(reg, reg_save)
 endfunction

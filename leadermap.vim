@@ -67,8 +67,8 @@ let g:mapleader = ','
 
   nmap <silent> <Leader>tr <Plug>(coc-translator-p)
   vmap <silent> <Leader>tr <Plug>(coc-translator-pv)
-  nmap <silent> <Leader>tl :<C-u>Trans<CR>
-  vmap <silent> <Leader>tl :<C-u>Trans<CR>
+  nmap <silent> <Leader>tc :call <SID>En2zh('n')<CR>
+  vmap <silent> <Leader>tc :<C-u>call <SID>En2zh('v')<CR>
 " }}
 
 " grep by motion {{
@@ -186,6 +186,32 @@ function! s:Open()
   endif
   if v:shell_error && output !=# ""
     echoerr output
+  endif
+endfunction
+
+function! s:sentence_at_pointer(mode)
+  let reg_save=@@
+
+  if a:mode == 'v'
+    silent normal! gvy`>
+  else
+    silent normal! mqyas`q
+  endif
+
+  let sentence = substitute(@@, "\\n", "", "g")
+  let sentence = escape(sentence, "\"`")
+
+  let @@ = reg_save
+  return sentence
+endfunction
+
+function! s:En2zh(mode)
+  if !executable("trans")
+    echoerr "trans not found"
+  else
+    let sentence = s:sentence_at_pointer(a:mode)
+    let result = system("\\trans -b :zh \"" . sentence . "\"")
+    echon result
   endif
 endfunction
 " }}
