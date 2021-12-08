@@ -20,19 +20,34 @@ set $right l
 set $term xterm
 
 # chromium floating
-# for_window [title="^Ozone X11$"] \
-#   resize set 1280 px 800 px, \
-#   move scratchpad, \
-#   scratchpad show, \
-#   border pixel 5
+for_window [title="^Ozone X11$"] \
+  move scratchpad, \
+  scratchpad show, \
+  resize set 1440 px 780 px, \
+  border pixel 5, \
+  move position center
 
 for_window [class="XTerm"] opacity set 0.8
 
-for_window [title="^DevTools - "] \
-  resize set 1280 px 800 px, \
+for_window [class="Emacs"] \
   move scratchpad, \
   scratchpad show, \
-  border pixel 5
+  resize set 95 ppt 95 ppt, \
+  border pixel 5, \
+  move position center
+
+for_window [class="Google-chrome" title="(?!DevTools -)."] \
+  move scratchpad, \
+  scratchpad show, \
+  resize set 95 ppt 95 ppt, \
+  border pixel 5, \
+  move position center
+
+bindsym $mod+ctrl+t [class="Google-chrome" title="(?!DevTools -)."] scratchpad show
+bindsym $mod+ctrl+n [class="Alacritty" workspace="__focused__"] focus
+bindsym $mod+ctrl+h [class="Emacs"] scratchpad show
+bindsym $mod+ctrl+c [title="^DevTools - "] scratchpad show
+bindsym $mod+ctrl+s [title="^Ozone X11$"] scratchpad show
 
 # clipboard
 exec_always wl-paste -t text --watch clipman store
@@ -46,8 +61,6 @@ set $menu wofi --show=drun
 
 set $type_googleid \
   xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
-set $type_googlepwd \
-  xdotool type --window $(xdotool search --name "Ozone X11")  '1234\"<>P!A'
 
 #for_window [app_id="^launcher$"] floating enable, \
 #  sticky enable, \
@@ -127,12 +140,7 @@ output * bg yellow_light.jpg fill
     # Start your launcher
     bindsym $mod+d exec $menu
 
-    bindsym $mod+ctrl+t [class="Google-chrome" workspace="__focused__"] focus
-    bindsym $mod+ctrl+n [class="Alacritty" workspace="__focused__"] focus
-    bindsym $mod+ctrl+h [class="Emacs" workspace="__focused__"] focus
-
     bindsym $mod+ctrl+comma exec $type_googleid
-    bindsym $mod+ctrl+period exec $type_googlepwd
 
     # clipboard
     bindsym $mod+c exec clipman pick -t dmenu
