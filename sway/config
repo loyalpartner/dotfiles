@@ -28,6 +28,7 @@ for_window [title="^Ozone X11$"] \
   move position center
 
 for_window [class="XTerm"] opacity set 0.8
+for_window [class="Zathura"] opacity set 0.8
 
 for_window [class="Emacs"] \
   move scratchpad, \

@@ -112,7 +112,6 @@ else
   export script_dir=$(dirname "$(realpath -e ~/.zshrc)")
 fi
 
-export PATH=$PATH:~/depot_tools
 [[ -f $script_dir/zshrc.local.zsh ]] && source $script_dir/zshrc.local.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

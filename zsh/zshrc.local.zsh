@@ -1,68 +1,66 @@
 # -*- mode: sh -*-
 
-[[ "$OSTYPE" == "linux-gnu"* ]] && source $script_dir/zshrc.linux.zsh
+#[[ "$OSTYPE" == "linux-gnu"* ]] && source $script_dir/zshrc.linux.zsh
+export PATH=/usr/lib/icecream/bin:$PATH
+export PATH=~/.gem/ruby/3.0.0/bin:$PATH
+export PATH=~/go/bin:$PATH
+export PATH=~/.yarn/bin:$PATH
+export PATH=~/.local/bin:$PATH
+export PATH=$PATH:~/depot_tools
 
+export EDITOR="vim"
+export FZF_DEFAULT_COMMAND='rg --files --max-depth 3'
+COPY_COMMAND="echo {} |sed \"s/[0-9 ]\+//\" | xclip -selection clipboard"
+export FZF_DEFAULT_OPTS="\
+  --height 50% --preview \"bat --style=numbers --color=always --line-range :500 {}\" \
+  --bind 'ctrl-y:execute-silent($COPY_COMMAND)+abort' \
+  "
+bindkey -s "^z" "^e^ufg^m"
+
+alias b="echo \$(bindkey | sed -e 's/\"//g' | fzf -q \')|awk '{print \$2}'"
+alias a='select_alias_run'
 alias mux=tmuxinator
-# alias vim="emacsclient -nw -s terminal"
-#alias man="$script_dir/man"
-function _man(){
-  vim -c "Man $*" -c "only"
-}
+alias trans="trans :zh"
 alias man='_man'
+alias open="_open"
 alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package'
+alias cpl="history -n | tail -n 1 | xclip"
+alias cpf=mime_file_copy
+alias le=edit_select_locate "$@" #locate edit
+alias lc="locate_file"
+alias ll="locate_fpp"
+alias updatelocatedb="sudo updatedb --add-prunepaths ~/.emacs.d/.local/cache"
+alias myip="curl -s http://myip.ipip.net"
+alias xclip="xclip -selection clipboard"
+alias gite="git config -e --global"
 
+# mpc 
+alias ma="mpc add"
+alias mp="mpc prev"
+alias mn="mpc next"
+alias ml="mpc listall"
+alias mls="mpc ls"
+alias mm="mpc toggle"
+alias mt="mpc repeat 1;mpc toggle"
+
+# quick open config
 alias zshe="vim ~/.zshrc"
 alias zshel="vim $script_dir/zshrc.local.zsh"
 alias zsheli="vim $script_dir/zshrc.linux.zsh"
-
 alias tmuxe="vim ~/.tmux.conf"
+alias swaye="vim ~/.config/sway/config"
 
-export CLASSPATH=".:/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH" 
-alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
-alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
-
-alias trans="trans :zh"
-
-export PATH=/usr/lib/icecream/bin:$PATH
-
-# alias cdg="cd \\$(git rev-parse --show-toplevel)"
-
-alias cpl="history -n | tail -n 1 | xclip"
-
-bindkey -s "^z" "^e^ufg^m"
-bindkey -s '' clear
-
-if [[ $OSTYPE = "linux-gnu"  && -e ~/.zshrc.linux ]] then
-	source ~/.zshrc.linux
-fi
-
-export EDITOR="vim"
-function emsclt
-{
-	emacsclient -nc "$@"
-}
-
-export proxy="socks5://127.0.0.1:1080"
-alias git-proxy="git config --global http.proxy $proxy;git config --global https.proxy $proxy"
-alias git-unproxy='git config --global http.proxy "";git config --global https.proxy ""'
-
-
-alias b="echo \$(bindkey | sed -e 's/\"//g' | fzf -q \')|awk '{print \$2}'"
-
-alias a='select_alias_run $@'
-
-alias le=edit_select_locate "$@" #locate edit
-alias updatelocatedb="sudo updatedb --add-prunepaths ~/.emacs.d/.local/cache"
-
+# functions
+function locate_file(){ locate --database /var/lib/mlocate/chromium.db $@ }
+function locate_fpp(){ locate --database /var/lib/mlocate/chromium.db $@ | fpp -c "vim" }
+function emsclt { emacsclient -nc "$@" }
+function _man(){ vim -c "Man $*" -c "only" }
+function _open { tmux new -d xdg-open "$(fzf -q "$*")" }
 function select_alias_run
 {
 	local command=$(alias|fzf -q "$*")
 	local alias=${command%%=*}
-	# command=${command#\'}
-	# command=${command%\'}
-	# $SHELL -c "$command"
-	eval $alias
-	echo $command
+	eval $alias && echo $command
 }
 # sudo updatedb --add-prunepaths /home/lee/.emacs.d/.local/cache
 # locate 过滤文件夹 https://bbs.archlinuxcn.org/viewtopic.php?pid=42514#p42514
@@ -71,11 +69,9 @@ function edit_select_locate
 	local file=$(locate /|fzf -q "$*")
 	[[ -e $file ]] && $EDITOR $file
 }
-
-alias mfc=file_copy "$@"
-function file_copy
+function mime_file_copy
 {
-	local file=$(find . -name "*$1*" | fzf)
+	local file=$(fzf -q "$*")
 	local mime_type=$(file -b --mime-type "$file")
 
 	xclip -selection clipboard -t $mime_type -i $file
