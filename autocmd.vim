@@ -142,7 +142,7 @@ if executable("fcitx5-remote")
     if a:mode == "i"
       let g:fcitx_state = system("fcitx5-remote")
       call system("fcitx5-remote -c")
-    elseif a:mode . g:fcitx_state == "n2"
+    elseif a:mode == 'n' &&  g:fcitx_state == 2
       call system("fcitx5-remote -o")
     endif
   endfunction
