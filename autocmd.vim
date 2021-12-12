@@ -137,12 +137,18 @@ if executable("fcitx5-remote")
   autocmd! InsertLeavePre * call <SID>toggleInput(mode())
   autocmd! InsertEnter * call <SID>toggleInput(mode())
   " 0 close 1 inactive 2 active
-  let g:fcitx_state = 0
-  function! s:toggleInput(mode) abort
-    if a:mode == "i"
-      let g:fcitx_state = system("fcitx5-remote")
+  let g:insert_mode_input_state = 0
+  function! s:inputState() abort
+    return system("fcitx5-remote")
+  endfunction
+  function s:rememberInsertModeInputState() abort
+    let g:insert_mode_input_state = s:inputState()
+  endfunction
+  function! s:toggleInput(from) abort
+    if a:from == "i"
+      call s:rememberInsertModeInputState()
       call system("fcitx5-remote -c")
-    elseif a:mode == 'n' &&  g:fcitx_state == 2
+    elseif a:from == 'n' && g:insert_mode_input_state == 2
       call system("fcitx5-remote -o")
     endif
   endfunction
