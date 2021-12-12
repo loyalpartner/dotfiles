@@ -1,6 +1,5 @@
-# -*- mode: sh -*-
+# -*- mode: bash -*-
 
-#[[ "$OSTYPE" == "linux-gnu"* ]] && source $script_dir/zshrc.linux.zsh
 export PATH=/usr/lib/icecream/bin:$PATH
 export PATH=~/.gem/ruby/3.0.0/bin:$PATH
 export PATH=~/go/bin:$PATH
@@ -9,27 +8,29 @@ export PATH=~/.local/bin:$PATH
 export PATH=$PATH:~/depot_tools
 
 export EDITOR="vim"
-export FZF_DEFAULT_COMMAND='rg --files --max-depth 3'
-COPY_COMMAND="echo {} |sed \"s/[0-9 ]\+//\" | xclip -selection clipboard"
+export FZF_DEFAULT_COMMAND='fd --max-depth 3'
+_COPY_COMMAND="xclip -selection clipboard -t \$(file -Lb --mime-type {}) -i {}"
 export FZF_DEFAULT_OPTS="\
-  --height 50% --preview \"bat --style=numbers --color=always --line-range :500 {}\" \
-  --bind 'ctrl-y:execute-silent($COPY_COMMAND)+abort' \
+  --height 50% \
+  --preview 'bat --style=numbers --color=always --line-range :500 {}' \
+  --bind 'ctrl-y:execute-silent(echo {} | xclip -selection clipboard)+abort' \
+  --bind 'ctrl-m:execute($_COPY_COMMAND)+abort' \
   "
 bindkey -s "^z" "^e^ufg^m"
 
 alias b="echo \$(bindkey | sed -e 's/\"//g' | fzf -q \')|awk '{print \$2}'"
-alias a='run_alias'
+alias a='_run_alias'
 alias mux=tmuxinator
 alias trans="trans :zh"
 alias man='_man'
 alias open="_open"
 alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package'
-alias cpl="history -n | tail -n 1 | xclip"
-alias cpf=mime_file_copy
-alias le=edit_select_locate "$@" #locate edit
-alias lc="_locate"
-alias ll="_locate | fpp -c vim"
-alias updatelocatedb="sudo updatedb --add-prunepaths ~/.emacs.d/.local/cache"
+alias cph="history -n | fzf | xclip"
+alias cpf=_copy
+alias lc="DB=/var/lib/mlocate/chromium.db _locate"
+alias ll="_locate"
+#alias updb="sudo updatedb --add-prunepaths ~/.emacs.d/.local/cache"
+alias updb="sudo updatedb --add-prunenames '.git .cache .local .undodir'"
 alias myip="curl -s http://myip.ipip.net"
 alias xclip="xclip -selection clipboard"
 alias gite="git config -e --global"
@@ -46,33 +47,29 @@ alias mt="mpc repeat 1;mpc toggle"
 # quick open config
 alias zshe="vim ~/.zshrc"
 alias zshel="vim $script_dir/zshrc.local.zsh"
-alias zsheli="vim $script_dir/zshrc.linux.zsh"
 alias tmuxe="vim ~/.tmux.conf"
 alias swaye="vim ~/.config/sway/config"
 
 # functions
-function _locate { locate --database /var/lib/mlocate/chromium.db $@ }
-function emsclt { emacsclient -nc "$@" }
+function _locate { _auto_open $(locate --database "$DB" ${@:-""} | fzf -q "$*") }
+function _emacs { emacsclient -nc "$@" }
 function _man { vim -c "Man $*" -c "only" }
-function _open { bash -c "exec xdg-open \"$(fzf -q "$*")\" &" }
-function run_alias
+function _auto_open {
+  local mimetype = "$(file -Lb --mime-type "$1")"
+  if [[ $mimetype =~ "^text" ]]; then 
+    ${EDITOR:-vim} $1
+  else
+    bash -c "exec ${LAUNCHER:-xdg-open} $1 &" > /dev/null
+  fi
+}
+function _open { _auto_open "$(fzf -q "$*")" }
+function _run_alias
 {
 	local command=$(alias|fzf -q "$*")
-	local alias=${command%%=*}
-	eval $alias && echo $command
+	eval $command && echo $command
 }
-# sudo updatedb --add-prunepaths /home/lee/.emacs.d/.local/cache
-# locate 过滤文件夹 https://bbs.archlinuxcn.org/viewtopic.php?pid=42514#p42514
-function edit_select_locate
-{
-	local file=$(locate /|fzf -q "$*")
-	[[ -e $file ]] && $EDITOR $file
+function _auto_copy {
+  if [[ "$1" == "" ]]; then return ; fi
+	xclip -selection clipboard -t "$(file -Lb --mime-type "$1")" -i $1
 }
-function mime_file_copy
-{
-	local file=$(fzf -q "$*")
-	local mime_type=$(file -b --mime-type "$file")
-
-	xclip -selection clipboard -t $mime_type -i $file
-	echo "copy file $file to clipboard"
-}
+function _copy { _auto_copy "$(fzf -q "$*")" }
