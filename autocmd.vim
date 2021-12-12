@@ -136,7 +136,7 @@ autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 if executable("fcitx5-remote")
   autocmd! InsertLeavePre * call <SID>toggleInput(mode())
   autocmd! InsertEnter * call <SID>toggleInput(mode())
-  # 0 close 1 inactive 2 active
+  " 0 close 1 inactive 2 active
   let g:fcitx_state = 0
   function! s:toggleInput(mode) abort
     if a:mode == "i"
