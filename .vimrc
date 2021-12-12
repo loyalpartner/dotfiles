@@ -3,7 +3,6 @@ set runtimepath^=~/vim-dev/plug.nvim
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'ryanoasis/vim-devicons'
-"Plug 'neoclide/coc-imselect'
 Plug 'neoclide/coc-eslint'
 Plug 'neoclide/coc-stylelint'
 "Plug 'evanleck/vim-svelte'

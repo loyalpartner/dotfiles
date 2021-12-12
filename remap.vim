@@ -183,6 +183,7 @@ endfunction
   nnoremap <silent><nowait> <space>r  :<C-u>CocList mru<cr>
   nnoremap <silent><nowait> <space>R  :<C-u>LeaderfMru<cr>
   nnoremap <silent><nowait> <space>ff :<C-u>LeaderfFile<cr>
+  nnoremap <silent><nowait> <space>fy :<C-u>let @+="%"<CR>
   nnoremap <silent><nowait> <space>fd :LeaderfFile <C-R>=substitute(expand('%:p:h').'/', getcwd().'/', '', '')<CR><CR> 
   nnoremap <silent><nowait> <space>fa  :<C-u>LeaderfFile chrome/browser/<cr>
   nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
