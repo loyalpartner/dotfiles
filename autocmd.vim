@@ -134,16 +134,16 @@ endfunction
 autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 
 if executable("fcitx5-remote")
-  let g:fcitx_state = system("fcitx5-remote")
-  autocmd! InsertEnter * call <SID>toggleInput(mode())
   autocmd! InsertLeavePre * call <SID>toggleInput(mode())
+  autocmd! InsertEnter * call <SID>toggleInput(mode())
+  # 0 close 1 inactive 2 active
+  let g:fcitx_state = 0
   function! s:toggleInput(mode) abort
-    echo a:mode
-    if a:mode == "n" && g:fcitx_state == 2
-      call system("fcitx5-remote -o")
-    elseif a:mode == "i"
+    if a:mode == "i"
       let g:fcitx_state = system("fcitx5-remote")
       call system("fcitx5-remote -c")
+    elseif a:mode . g:fcitx_state == "n2"
+      call system("fcitx5-remote -o")
     endif
   endfunction
 endif
