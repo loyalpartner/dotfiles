@@ -18,7 +18,7 @@ export FZF_DEFAULT_OPTS="\
 bindkey -s "^z" "^e^ufg^m"
 
 alias b="echo \$(bindkey | sed -e 's/\"//g' | fzf -q \')|awk '{print \$2}'"
-alias a='select_alias_run'
+alias a='run_alias'
 alias mux=tmuxinator
 alias trans="trans :zh"
 alias man='_man'
@@ -27,8 +27,8 @@ alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-
 alias cpl="history -n | tail -n 1 | xclip"
 alias cpf=mime_file_copy
 alias le=edit_select_locate "$@" #locate edit
-alias lc="locate_file"
-alias ll="locate_fpp"
+alias lc="_locate"
+alias ll="_locate | fpp -c vim"
 alias updatelocatedb="sudo updatedb --add-prunepaths ~/.emacs.d/.local/cache"
 alias myip="curl -s http://myip.ipip.net"
 alias xclip="xclip -selection clipboard"
@@ -51,12 +51,11 @@ alias tmuxe="vim ~/.tmux.conf"
 alias swaye="vim ~/.config/sway/config"
 
 # functions
-function locate_file(){ locate --database /var/lib/mlocate/chromium.db $@ }
-function locate_fpp(){ locate --database /var/lib/mlocate/chromium.db $@ | fpp -c "vim" }
+function _locate { locate --database /var/lib/mlocate/chromium.db $@ }
 function emsclt { emacsclient -nc "$@" }
-function _man(){ vim -c "Man $*" -c "only" }
-function _open { tmux new -d xdg-open "$(fzf -q "$*")" }
-function select_alias_run
+function _man { vim -c "Man $*" -c "only" }
+function _open { bash -c "exec xdg-open \"$(fzf -q "$*")\" &" }
+function run_alias
 {
 	local command=$(alias|fzf -q "$*")
 	local alias=${command%%=*}
