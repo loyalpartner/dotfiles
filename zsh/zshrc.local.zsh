@@ -19,7 +19,7 @@ bindkey -s "^z" "^e^ufg^m"
 alias b="echo \$(bindkey | sed -e 's/\"//g' | fzf -q \')|awk '{print \$2}'"
 alias a='_run_alias'
 alias mux=tmuxinator
-alias trans="trans :zh"
+alias t="trans :zh"
 alias man='_man'
 alias open="_open"
 alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package'
