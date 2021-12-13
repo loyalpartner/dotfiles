@@ -9,12 +9,10 @@ export PATH=$PATH:~/depot_tools
 
 export EDITOR="vim"
 export FZF_DEFAULT_COMMAND='fd --max-depth 3'
-_COPY_COMMAND="xclip -selection clipboard -t \$(file -Lb --mime-type {}) -i {}"
 export FZF_DEFAULT_OPTS="\
   --height 50% \
   --preview 'bat --style=numbers --color=always --line-range :500 {}' \
   --bind 'ctrl-y:execute-silent(echo {} | xclip -selection clipboard)+abort' \
-  --bind 'ctrl-m:execute($_COPY_COMMAND)+abort' \
   "
 bindkey -s "^z" "^e^ufg^m"
 
@@ -47,20 +45,20 @@ alias mt="mpc repeat 1;mpc toggle"
 # quick open config
 alias zshe="vim ~/.zshrc"
 alias zshel="vim $script_dir/zshrc.local.zsh"
-alias tmuxe="vim ~/.tmux.conf"
-alias swaye="vim ~/.config/sway/config"
+alias tmue="vim ~/.tmux.conf"
+alias swae="vim ~/.config/sway/config"
 
 # functions
 function _locate { _auto_open $(locate --database "$DB" ${@:-""} | fzf -q "$*") }
 function _emacs { emacsclient -nc "$@" }
 function _man { vim -c "Man $*" -c "only" }
 function _auto_open {
-  local mimetype = "$(file -Lb --mime-type "$1")"
-  if [[ $mimetype =~ "^text" ]]; then 
-    ${EDITOR:-vim} $1
-  else
-    bash -c "exec ${LAUNCHER:-xdg-open} $1 &" > /dev/null
-  fi
+  if [[ "$1" == "" ]]; then return ; fi
+  case $(file -Lb --mime-type $1) in
+    text/troff) man ./ $1;;
+    text/*) ${EDITOR:-vim} $1;;
+    *) bash -c "exec ${LAUNCHER:-xdg-open} $1 &"
+  esac
 }
 function _open { _auto_open "$(fzf -q "$*")" }
 function _run_alias
