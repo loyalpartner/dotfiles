@@ -58,13 +58,13 @@ function install {
 }
 
 echo "select action to do:"
-select action in "softs" "dotfiles" "ohmyzsh" "git" "all"; do
+select action in softs dotfiles ohmyzsh git all; do
   case $action in 
-    "softs") install_softs;;
-    "dotfiles") install_dotfiles;;
-    "ohmyzsh") install_ohmyzsh;;
-    "git") git_config;;
-    "all") install;;
+    softs) install_softs;;
+    dotfiles) install_dotfiles;;
+    ohmyzsh) install_ohmyzsh;;
+    git) git_config;;
+    all) install;;
     *) break;;
   esac
 done
