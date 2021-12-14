@@ -67,8 +67,8 @@ let g:mapleader = ','
 
   nmap <silent> <Leader>tr <Plug>(coc-translator-p)
   vmap <silent> <Leader>tr <Plug>(coc-translator-pv)
-  nmap <silent> <Leader>tc :call <SID>En2zh('n')<CR>
-  vmap <silent> <Leader>tc :<C-u>call <SID>En2zh('v')<CR>
+  nmap <silent> <Leader>tc :call <SID>en2zh('n')<CR>
+  vmap <silent> <Leader>tc :<C-u>call <SID>en2zh('v')<CR>
 " }}
 
 " grep by motion {{
@@ -189,6 +189,13 @@ function! s:Open()
   endif
 endfunction
 
+function! s:strip_comments(text)
+  if &ft == "cpp" 
+    return substitute(a:text, '\v(^//|\s+//)', "", "g")
+  endif
+  return a:text
+endfunction
+
 function! s:sentence_at_pointer(mode)
   let reg_save=@@
 
@@ -199,22 +206,21 @@ function! s:sentence_at_pointer(mode)
     silent delmarks Q
   endif
 
-  let sentence = substitute(@@, "\\n", "", "g")
-  " trim comments string
-  let sentence = substitute(sentence, "\\v(^//|\s+//)", "", "g")
-
+  let sentence = @@
   let @@ = reg_save
+
   return sentence
 endfunction
 
-function! s:En2zh(mode)
+function! s:en2zh(mode)
   if !executable("trans")
     echoerr "trans not found"
   else
     let sentence = s:sentence_at_pointer(a:mode)
+    let sentence = substitute(sentence, "\\n", "", "g")
+    let sentence = s:strip_comments(sentence)
     let result = system("trans -b -no-auto :zh \"" . sentence . "\"")
     echon result
-    "echon sentence
   endif
 endfunction
 " }}
