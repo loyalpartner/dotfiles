@@ -195,11 +195,13 @@ function! s:sentence_at_pointer(mode)
   if a:mode == 'v'
     silent normal! gvy`>
   else
-    silent normal! mqyas`q
+    silent normal! mQyas`Q
+    silent delmarks Q
   endif
 
   let sentence = substitute(@@, "\\n", "", "g")
-  let sentence = escape(sentence, "\"`")
+  " trim comments string
+  let sentence = substitute(sentence, "\\v(^//|\s+//)", "", "g")
 
   let @@ = reg_save
   return sentence
@@ -210,8 +212,9 @@ function! s:En2zh(mode)
     echoerr "trans not found"
   else
     let sentence = s:sentence_at_pointer(a:mode)
-    let result = system("\\trans -no-auto -b :zh \"" . sentence . "\"")
+    let result = system("trans -b -no-auto :zh \"" . sentence . "\"")
     echon result
+    "echon sentence
   endif
 endfunction
 " }}

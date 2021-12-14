@@ -226,6 +226,9 @@
         \ 'coc-tsserver',
         \ 'coc-clangd',
         \ 'coc-json',
+        \ 'coc-go',
+        \ 'coc-pyright',
+        \ 'coc-docker',
         \ 'coc-html',
         \ 'coc-translator'
         \ ]
