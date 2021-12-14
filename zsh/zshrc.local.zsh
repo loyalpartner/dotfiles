@@ -16,7 +16,8 @@ export FZF_DEFAULT_OPTS="\
   "
 bindkey -s "^z" "^e^ufg^m"
 
-alias b="echo \$(bindkey | sed -e 's/\"//g' | fzf -q \')|awk '{print \$2}'"
+alias b="echo \$(bindkey | sed -e 's/\"//g' | fzf --no-preview -q \')|awk '{print \$2}'"
+alias tb="tmux list-keys -T prefix | fzf --no-preview"
 alias a='_run_alias'
 alias mux=tmuxinator
 alias t="trans :zh"
@@ -25,8 +26,8 @@ alias open="_open"
 alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package'
 alias cph="history -n | fzf | xclip"
 alias cpf=_copy
-alias lc="DB=/var/lib/mlocate/chromium.db _locate"
-alias ll="_locate"
+alias lo="_locate"
+alias loc="DB=/var/lib/mlocate/chromium.db _locate"
 #alias updb="sudo updatedb --add-prunepaths ~/.emacs.d/.local/cache"
 alias updb="sudo updatedb --add-prunenames '.git .cache .local .undodir'"
 alias myip="curl -s http://myip.ipip.net"
