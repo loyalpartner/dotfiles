@@ -175,13 +175,13 @@ function! s:Open()
   " match url
   let url = matchstr(line, '\vhttps?:\/\/[^)\]''" ]+')
   if !empty(url)
-    let output = system('open '. url)
+    let output = system('xdg-open '. url)
   else
     let mail = matchstr(line, '\v([A-Za-z0-9_\.-]+)\@([A-Za-z0-9_\.-]+)\.([a-z\.]+)')
     if !empty(mail)
-      let output = system('open mailto:' . mail)
+      let output = system('xdg-open mailto:' . mail)
     else
-      let output = system('open ' . expand('%:p:h'))
+      let output = system('xdg-open ' . expand('%:p:h'))
     endif
   endif
   if v:shell_error && output !=# ""
