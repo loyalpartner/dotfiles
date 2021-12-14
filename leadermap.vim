@@ -210,7 +210,7 @@ function! s:En2zh(mode)
     echoerr "trans not found"
   else
     let sentence = s:sentence_at_pointer(a:mode)
-    let result = system("\\trans -b :zh \"" . sentence . "\"")
+    let result = system("\\trans -no-auto -b :zh \"" . sentence . "\"")
     echon result
   endif
 endfunction

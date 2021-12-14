@@ -65,10 +65,6 @@ Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-utils/vim-man'
 Plug 'kshenoy/vim-signature'
 
-"Plug 'google/vim-maktaba'
-"Plug 'google/vim-codefmt'
-"Plug 'google/vim-glaive'
-
 "Plug 'dradtke/vim-dap'
 "Plug 'mhinz/vim-startify'
 "Plug 'w0rp/ale', {'branch': 'me'}
@@ -94,7 +90,6 @@ Plug 'kshenoy/vim-signature'
 "Plug 'mitsuse/autocomplete-swift'
 "Plug 'wellle/targets.vim'
 call plug#end()
-"call glaive#Install()
 filetype plugin on
 syntax on
 
