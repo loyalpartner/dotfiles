@@ -20,7 +20,7 @@ alias b="echo \$(bindkey | sed -e 's/\"//g' | fzf --no-preview -q \')|awk '{prin
 alias tb="tmux list-keys -T prefix | fzf --no-preview"
 alias a='_run_alias'
 alias mux=tmuxinator
-alias t="trans :zh"
+alias t="_trans"
 alias man='_man'
 alias open="_open"
 alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package'
@@ -50,6 +50,7 @@ alias tmue="vim ~/.tmux.conf"
 alias swae="vim ~/.config/sway/config"
 
 # functions
+function _trans { trans :zh -no-autocorrect "$*"}
 function _locate { _auto_open $(locate --database "$DB" ${@:-""} | fzf -q "$*") }
 function _emacs { emacsclient -nc "$@" }
 function _man { vim -c "Man $*" -c "only" }
