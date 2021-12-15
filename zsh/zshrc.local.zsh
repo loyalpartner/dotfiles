@@ -14,9 +14,8 @@ export FZF_DEFAULT_OPTS="\
   --preview 'bat --style=numbers --color=always --line-range :500 {}' \
   --bind 'ctrl-y:execute-silent(echo {} | xclip -selection clipboard)+abort' \
   "
-bindkey -s "^z" "^e^ufg^m"
-bindkey -s "^h" "| _stdin^m"
 
+# alias
 alias b="echo \$(bindkey | sed -e 's/\"//g' | fzf --no-preview -q \')|awk '{print \$2}'"
 alias tb="tmux list-keys -T prefix | fzf --no-preview"
 alias a='_run_alias'
@@ -34,8 +33,7 @@ alias updb="sudo updatedb --add-prunenames '.git .cache .local .undodir'"
 alias myip="curl -s http://myip.ipip.net"
 alias xclip="xclip -selection clipboard"
 alias gite="git config -e --global"
-
-# mpc 
+# -> mpc 
 alias ma="mpc add"
 alias mp="mpc prev"
 alias mn="mpc next"
@@ -43,12 +41,15 @@ alias ml="mpc listall"
 alias mls="mpc ls"
 alias mm="mpc toggle"
 alias mt="mpc repeat 1;mpc toggle"
-
-# quick open config
+# -> quick open config
 alias zshe="vim ~/.zshrc"
 alias zshel="vim $script_dir/zshrc.local.zsh"
 alias tmue="vim ~/.tmux.conf"
 alias swae="vim ~/.config/sway/config"
+
+# bindkey
+bindkey -s "^z" "^e^ufg^m"
+bindkey -s "^h" "| _stdin^m"
 
 # functions
 function _trans { trans :zh -no-autocorrect "$*"}
@@ -65,13 +66,12 @@ function _auto_open {
   esac
 }
 function _open { _auto_open "$(fzf -q "$*")" }
-function _run_alias
-{
-	local command=$(alias|fzf -q "$*")
-	eval $command && echo $command
+function _run_alias {
+  local command=$(alias|fzf -q "$*")
+  eval $command && echo $command
 }
 function _auto_copy {
   if [[ "$1" == "" ]]; then return ; fi
-	xclip -selection clipboard -t "$(file -Lb --mime-type "$1")" -i $1
+  xclip -selection clipboard -t "$(file -Lb --mime-type "$1")" -i $1
 }
 function _copy { _auto_copy "$(fzf -q "$*")" }
