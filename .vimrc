@@ -1,7 +1,13 @@
 let g:local = expand('~/vim-dev/')
+
+let s:company_path = $HOME . '/company/settings.vim'
+let s:at_company = filereadable("~/company/settings.vim")
+
 set runtimepath^=~/vim-dev/plug.nvim
 call plug#begin()
+Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'loyalpartner/coc-lists'
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc-eslint'
 Plug 'neoclide/coc-stylelint'
@@ -56,14 +62,14 @@ Plug 'puremourning/vimspector'
 Plug 'loyalpartner/chromium-vim', { 'do': 'rm -rf ./plugin'}
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'hari-rangarajan/CCTree'
-Plug 'preservim/tagbar'
-Plug 'liuchengxu/vista.vim'
+"Plug 'preservim/tagbar'
+"Plug 'liuchengxu/vista.vim'
 "Plug 'ludovicchabant/vim-gutentags'
 Plug 'vim-scripts/gtags.vim'
-Plug 'morhetz/gruvbox'
 Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-utils/vim-man'
 Plug 'kshenoy/vim-signature'
+Plug 'junegunn/fzf.vim'
 
 "Plug 'dradtke/vim-dap'
 "Plug 'mhinz/vim-startify'
@@ -81,9 +87,6 @@ Plug 'kshenoy/vim-signature'
 "Plug 'tpope/vim-projectionist'
 "Plug 'itchyny/lightline.vim'
 "Plug 'machakann/vim-highlightedyank'
-"Plug 'neoclide/denite-git', {'dir': g:local, 'frozen': 1}
-"Plug 'Shougo/denite.nvim', {'branch': 'me'}
-"Plug 'neoclide/denite-extra', {'dir': g:local, 'frozen': 1}
 "Plug 'Shougo/echodoc'
 "Plug 'Shougo/neosnippet.vim'
 "Plug 'Shougo/neosnippet-snippets'
@@ -97,3 +100,7 @@ syntax on
 for s:path in split(glob('~/.vim/vimrc/*.vim'), "\n")
   exe 'source ' . s:path
 endfor
+
+if s:at_company
+  source s:company_path
+endif
