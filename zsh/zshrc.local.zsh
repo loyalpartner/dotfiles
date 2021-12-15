@@ -15,6 +15,7 @@ export FZF_DEFAULT_OPTS="\
   --bind 'ctrl-y:execute-silent(echo {} | xclip -selection clipboard)+abort' \
   "
 bindkey -s "^z" "^e^ufg^m"
+bindkey -s "^h" "^ahlp ^m"
 
 alias b="echo \$(bindkey | sed -e 's/\"//g' | fzf --no-preview -q \')|awk '{print \$2}'"
 alias tb="tmux list-keys -T prefix | fzf --no-preview"
@@ -22,6 +23,7 @@ alias a='_run_alias'
 alias mux=tmuxinator
 alias t="_trans"
 alias man='_man'
+alias hlp='_help'
 alias open="_open"
 alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package'
 alias cph="history -n | fzf | xclip"
@@ -54,6 +56,7 @@ function _trans { trans :zh -no-autocorrect "$*"}
 function _locate { _auto_open $(locate --database "$DB" ${@:-""} | fzf -q "$*") }
 function _emacs { emacsclient -nc "$@" }
 function _man { vim -c "Man $*" -c "only" }
+function _help { vim -c "r !$@" +1 }
 function _auto_open {
   if [[ "$1" == "" ]]; then return ; fi
   case $(file -Lb --mime-type $1) in
