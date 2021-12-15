@@ -56,7 +56,7 @@ function _trans { trans :zh -no-autocorrect "$*"}
 function _locate { _auto_open $(locate --database "$DB" ${@:-""} | fzf -q "$*") }
 function _emacs { emacsclient -nc "$@" }
 function _man { vim -c "Man $*" -c "only" }
-function _help { vim -c "r !$@" +1 }
+function _help { vim -c "r !$*" +1 }
 function _auto_open {
   if [[ "$1" == "" ]]; then return ; fi
   case $(file -Lb --mime-type $1) in
