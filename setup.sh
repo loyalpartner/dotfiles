@@ -18,7 +18,8 @@ function install_softs {
       nodejs npm clash fd
     yay -S --noconfirm clipman \
       google-chrome \
-      nerd-fonts-source-code-pro
+      nerd-fonts-source-code-pro \
+      nerd-fonts-jetbrains-mono
   fi
 }
 

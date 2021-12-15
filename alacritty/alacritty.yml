@@ -31,18 +31,31 @@ background_opacity: 0.8
 #     cyan:    '0x34e2e2'
 #     white:   '0xeeeeec'
 #
+
+draw_bold_text_with_bright_colors: true
+
 # 字体设置为等宽字体，可以用命令 fc-list 查看你系统的字体
 font:
   size: 11
 
   normal:
-    family: Source Code Pro
+    family: JetBrainsMono Nerd Font
+    style: Medium
 
   bold:
-    family: Source Code Pro
+    family: JetBrainsMono Nerd Font
+    style: Bold
 
   italic:
-    family: Source Code Pro
+    family: JetBrainsMono Nerd Font
+    style: Italic
+
+  offset:
+    x: 0
+    y: 0
+  flyph_offset:
+    x: 0
+    y: 0
 
 selection:
   semantic_escape_chars: ',│`|:"'' ()[]{}<>'
