@@ -169,13 +169,12 @@ function! s:GenDoc()"{{
 endfunction"}}
 
 function! s:Open()
-  let res = CocAction('openLink')
-  if res | return | endif
   let line = getline('.')
   " match url
-  let url = matchstr(line, '\vhttps?:\/\/[^)\]''" ]+')
+  let url = matchstr(line, '\vhttps?:\/\/[^)\]>''" ]+')
   if !empty(url)
-    let output = system('xdg-open '. url)
+    echo 'xdg-open '. url
+    let output = system('xdg-open "' . url . '"')
   else
     let mail = matchstr(line, '\v([A-Za-z0-9_\.-]+)\@([A-Za-z0-9_\.-]+)\.([a-z\.]+)')
     if !empty(mail)
@@ -191,7 +190,7 @@ endfunction
 
 function! s:strip_comments(text)
   if &ft == "cpp" 
-    return substitute(a:text, '\v(^//|\s+//)', "", "g")
+    return a:text->substitute('\v(^//|\s+//)', "", "g")
   endif
   return a:text
 endfunction
@@ -217,7 +216,7 @@ function! s:en2zh(mode)
     echoerr "trans not found"
   else
     let sentence = s:sentence_at_pointer(a:mode)
-    let sentence = substitute(sentence, "\\n", "", "g")
+    let sentence = sentence->substitute("\\n", "", "g")
     let sentence = s:strip_comments(sentence)
     let result = system("trans -b -no-auto :zh \"" . sentence . "\"")
     echon result
