@@ -112,6 +112,7 @@ else
   export script_dir=$(dirname "$(realpath -e ~/.zshrc)")
 fi
 
+[[ -f $HOME/.work.sh ]] && source $HOME/.work.sh
 [[ -f $script_dir/zshrc.local.zsh ]] && source $script_dir/zshrc.local.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
