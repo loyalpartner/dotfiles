@@ -1,7 +1,7 @@
 let g:local = expand('~/vim-dev/')
 
 let s:company_path = $HOME . '/company/settings.vim'
-let s:at_company = filereadable("~/company/settings.vim")
+let s:at_company = filereadable(s:company_path)
 
 set runtimepath^=~/vim-dev/plug.nvim
 call plug#begin()
@@ -14,7 +14,7 @@ Plug 'neoclide/coc-eslint'
 Plug 'neoclide/coc-stylelint'
 Plug 'neoclide/mycomment.vim'
 Plug 'neoclide/macdown.vim'
-Plug 'neoclide/macnote.vim'
+"Plug 'neoclide/macnote.vim'
 Plug 'chemzqm/vim-macos'
 Plug 'chemzqm/vim-run'
 Plug 'chemzqm/wxapp.vim'
@@ -70,5 +70,5 @@ for s:path in split(glob('~/.vim/vimrc/*.vim'), "\n")
 endfor
 
 if s:at_company
-  source s:company_path
+  exe 'source' . s:company_path
 endif

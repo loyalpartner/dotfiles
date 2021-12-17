@@ -24,6 +24,5 @@
   "html.format.enable": true,
   "html.validate.scripts": true,
   "html.autoClosingTags": true,
-  "tsserver.trace.server": "verbose",
   "tsserver.disableAutomaticTypeAcquisition": true,
 }

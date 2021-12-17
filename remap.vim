@@ -190,7 +190,6 @@ endfunction
   nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
   nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
   nnoremap <silent><nowait> <space>m  :<C-u>CocList maps<cr>
-  nnoremap <silent><nowait> <space>b  :<C-u>VimspectorReset<Cr>
   nnoremap <silent><nowait> <space>ve  :<C-u>Vexplore<Cr>
   nnoremap <silent><nowait> <space>vv  :<C-u>e ./<Cr>
   " for normal mode - the word under the cursor
