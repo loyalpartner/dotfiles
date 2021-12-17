@@ -46,7 +46,7 @@ for_window [class="Google-chrome" title="(?!DevTools -)."] \
 
 bindsym $mod+ctrl+t [class="Google-chrome" title="(?!DevTools -)."] scratchpad show
 bindsym $mod+ctrl+n [class="Alacritty" workspace="__focused__"] focus
-bindsym $mod+ctrl+h [class="Emacs"] scratchpad show
+bindsym $mod+ctrl+h [class="Emacs"] scratchpad show, resize set 95 ppt 95 ppt
 bindsym $mod+ctrl+c [title="^DevTools - "] scratchpad show
 bindsym $mod+ctrl+s [title="^Ozone X11$"] scratchpad show
 

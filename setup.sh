@@ -15,7 +15,7 @@ function install_softs {
       fcitx5-chinese-addons fcitx5-git fcitx5-gtk fcitx5-qt \
       fcitx5-pinyin-zhwiki fcitx5-configtool kcm-fcitx5 \
       alsa-utils pulseaudio pamixer pavucontrol pulseaudio-alsa \
-      nodejs npm clash fd
+      nodejs npm clash fd nutstore-experimental
     yay -S --noconfirm clipman \
       google-chrome \
       nerd-fonts-source-code-pro \
