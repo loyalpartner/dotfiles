@@ -7,6 +7,13 @@ export PATH=~/.yarn/bin:$PATH
 export PATH=~/.local/bin:$PATH
 export PATH=$PATH:~/depot_tools
 
+if which pyenv > /dev/null 2>&1; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"    # if `pyenv` is not already on PATH
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+fi
+
 export EDITOR="vim"
 export FZF_DEFAULT_COMMAND='fd --max-depth 3'
 export FZF_DEFAULT_OPTS="\

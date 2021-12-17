@@ -81,6 +81,7 @@ plugins=(
   pip 
   npm 
   history 
+  kubectl
   repo 
   docker
   zsh-autosuggestions
