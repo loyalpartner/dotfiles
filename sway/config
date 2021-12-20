@@ -70,6 +70,7 @@ set $type_googleid \
 #
 #set $menu exec $term --class=launcher -e sway-launcher-desktop
 exec_always fcitx5 -d --replace
+exec nutstore
 
 focus_follows_mouse no
 gaps inner 10
