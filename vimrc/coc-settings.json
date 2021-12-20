@@ -1,0 +1,28 @@
+{
+  "suggest.noselect": true,
+  "coc.preferences.rootPatterns": [
+    ".git",
+    ".hg",
+    ".projections.json"
+  ],
+  "list.source.files.command": "rg",
+  "list.source.files.args": [
+    "--files"
+  ],
+  "list.source.files.defaultArgs": [
+    "-F"
+  ],
+  "list.source.files.excludePatterns": [
+    "**/node_modules/**"
+  ],
+  "translator.engines": [
+    "youdao",
+    "bing",
+    "haici"
+  ],
+  "git.signPriority": 1,
+  "html.format.enable": true,
+  "html.validate.scripts": true,
+  "html.autoClosingTags": true,
+  "tsserver.disableAutomaticTypeAcquisition": true,
+}
