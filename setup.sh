@@ -41,6 +41,13 @@ function install_dotfiles {
   link_dot_configs
 }
 
+function install_vim_config {
+  mkdir -p $HOME/.vim && link_config_dir $script_dir/vimrc/ $HOME/.vim/vimrc
+  curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs \
+	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  ln -vfs $HOME/.vim/vimrc/.vimrc $HOME/.vimrc
+}
+
 function install_ohmyzsh {
   git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh $HOME/.oh-my-zsh && sh $HOME/.oh-my-zsh/tools/install.sh
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
@@ -55,16 +62,18 @@ function install {
   install_softs
   install_dotfiles
   install_ohmyzsh
+  install_vim_config
   git_config
 }
 
 echo "select action to do:"
-select action in softs dotfiles ohmyzsh git all; do
+select action in softs dotfiles ohmyzsh git vim all; do
   case $action in 
     softs) install_softs;;
     dotfiles) install_dotfiles;;
     ohmyzsh) install_ohmyzsh;;
     git) git_config;;
+    vim) install_vim_config;;
     all) install;;
     *) break;;
   esac
