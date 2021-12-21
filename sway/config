@@ -125,6 +125,7 @@ output * bg yellow_light.jpg fill
   input type:keyboard {
       xkb_layout us
       xkb_variant dvorak
+      xkb_options altwin:swap_alt_win 
       repeat_delay 300
       repeat_rate 40
   }
