@@ -53,6 +53,7 @@ alias zshe="vim ~/.zshrc"
 alias zshel="vim $script_dir/zshrc.local.zsh"
 alias tmue="vim ~/.tmux.conf"
 alias swae="vim ~/.config/sway/config"
+alias alae="vim ~/.config/alacritty/alacritty.yml"
 
 # bindkey
 bindkey -s "^z" "^e^ufg^m"
