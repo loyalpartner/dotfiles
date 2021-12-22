@@ -6,7 +6,7 @@ function install_softs {
   if which pacman > /dev/null
   then
     sudo pacman -S --noconfirm sway \
-      alacritty vim tigervnc \
+      alacritty gvim emacs tigervnc \
       wqy-microhei bash-completion \
       tmux ctags zsh alacritty \
       dmenu waybar wofi \
@@ -15,9 +15,10 @@ function install_softs {
       fcitx5-chinese-addons fcitx5-git fcitx5-gtk fcitx5-qt \
       fcitx5-pinyin-zhwiki fcitx5-configtool kcm-fcitx5 \
       alsa-utils pulseaudio pamixer pavucontrol pulseaudio-alsa \
-      nodejs npm clash fd nutstore-experimental
+      nodejs npm clash fd sshuttle
     yay -S --noconfirm clipman \
       google-chrome \
+      nutstore-experimental \
       nerd-fonts-source-code-pro \
       nerd-fonts-jetbrains-mono
   fi
@@ -48,6 +49,11 @@ function install_vim_config {
   ln -vfs $HOME/.vim/vimrc/.vimrc $HOME/.vimrc
 }
 
+function install_doom {
+  git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+  ~/.emacs.d/bin/doom install
+}
+
 function install_ohmyzsh {
   git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh $HOME/.oh-my-zsh && sh $HOME/.oh-my-zsh/tools/install.sh
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
@@ -67,11 +73,12 @@ function install {
 }
 
 echo "select action to do:"
-select action in softs dotfiles ohmyzsh git vim all; do
+select action in softs dotfiles doom ohmyzsh git vim all; do
   case $action in 
     softs) install_softs;;
     dotfiles) install_dotfiles;;
     ohmyzsh) install_ohmyzsh;;
+    doom) install_doom;;
     git) git_config;;
     vim) install_vim_config;;
     all) install;;
