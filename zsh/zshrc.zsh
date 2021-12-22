@@ -76,6 +76,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  zsh-autosuggestions
   git 
   autojump 
   pip 
@@ -84,7 +85,6 @@ plugins=(
   kubectl
   repo 
   docker
-  zsh-autosuggestions
   )
 
 source $ZSH/oh-my-zsh.sh
