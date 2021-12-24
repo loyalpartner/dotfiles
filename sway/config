@@ -19,6 +19,11 @@ set $right l
 #set $term WAYLAND_DISPLAY= alacritty
 set $term xterm
 
+#show_marks yes
+
+for_window [class="XTerm"] opacity set 0.8
+for_window [class="Zathura"] opacity set 0.8
+
 # chromium floating
 for_window [title="^Ozone X11$"] \
   move scratchpad, \
@@ -27,9 +32,6 @@ for_window [title="^Ozone X11$"] \
   border pixel 5, \
   move position center
 
-for_window [class="XTerm"] opacity set 0.8
-for_window [class="Zathura"] opacity set 0.8
-
 for_window [class="Emacs"] \
   move scratchpad, \
   scratchpad show, \
@@ -37,18 +39,18 @@ for_window [class="Emacs"] \
   border pixel 5, \
   move position center
 
-for_window [class="Google-chrome" title="(?!DevTools -)."] \
+for_window [class="Google-chrome"] \
   move scratchpad, \
   scratchpad show, \
   resize set 95 ppt 95 ppt, \
   border pixel 5, \
   move position center
 
-bindsym $mod+ctrl+t [class="Google-chrome" title="(?!DevTools -)."] scratchpad show
+bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] focus
 bindsym $mod+ctrl+n [class="Alacritty" workspace="__focused__"] focus
 bindsym $mod+ctrl+h [class="Emacs"] scratchpad show, resize set 95 ppt 95 ppt
-bindsym $mod+ctrl+c [title="^DevTools - "] scratchpad show
-bindsym $mod+ctrl+s [title="^Ozone X11$"] scratchpad show
+bindsym $mod+ctrl+c [title="^DevTools"] focus
+bindsym $mod+ctrl+s [title="^Ozone X11$"] focus
 
 # clipboard
 exec_always wl-paste -t text --watch clipman store
