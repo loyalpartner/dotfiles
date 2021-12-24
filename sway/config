@@ -25,6 +25,7 @@ for_window [class="Zathura"] opacity set 0.8
 for_window [title="^Ozone X11$"] \
   move scratchpad, \
   scratchpad show, \
+  move to output right, \
   resize set 1440 px 780 px, \
   border pixel 5, \
   move position center
@@ -45,7 +46,7 @@ for_window [class="Google-chrome"] \
 
 bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] focus
 bindsym $mod+ctrl+n [class="Alacritty" workspace="__focused__"] focus
-bindsym $mod+ctrl+h [class="Emacs"] scratchpad show, resize set 95 ppt 95 ppt
+bindsym $mod+ctrl+h [class="Emacs"] focus, resize set 95 ppt 95 ppt
 bindsym $mod+ctrl+c [title="^DevTools"] focus
 bindsym $mod+ctrl+s [title="^Ozone X11$"] focus
 
@@ -53,12 +54,13 @@ bindsym $mod+ctrl+s [title="^Ozone X11$"] focus
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg yellow_light.jpg fill
+output HDMI-A-1 bg rain.jpg fill
 output DVI-D-1 resolution 1920x1080 position 1920,0
 output HDMI-A-1 resolution 1920x1080 
 
 output "Goldstar Company Ltd LG HDR 4K 0x0000E984" {
-scale 1
-resolution 3840x2160
+  scale 1
+  resolution 3840x2160
 }
 
 ### Idle configuration
