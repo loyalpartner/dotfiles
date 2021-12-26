@@ -45,11 +45,11 @@ for_window [class="Google-chrome"] \
   border pixel 5, \
   move position center
 
-bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)" floating] focus
+bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] focus
 bindsym $mod+ctrl+h [class="Emacs"] focus, resize set 95 ppt 95 ppt
 bindsym $mod+ctrl+c [title="^DevTools"] focus
 bindsym $mod+ctrl+s [title="^Ozone X11$"] focus
-bindsym $mod+ctrl+n scratchpad show
+bindsym $mod+ctrl+n exec hider, [class="Alacritty" workspace="__focused__"] focus
 
 ### Output configuration
 #
