@@ -45,11 +45,12 @@ for_window [class="Google-chrome"] \
   border pixel 5, \
   move position center
 
+set $hider $HOME/dotfiles/sway/hider.sh
 bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] focus
 bindsym $mod+ctrl+h [class="Emacs"] focus
 bindsym $mod+ctrl+c [title="^DevTools"] focus
 bindsym $mod+ctrl+s [title="^Ozone X11$"] focus
-bindsym $mod+ctrl+n exec hider '[class="Alacratty"] focus'
+bindsym $mod+ctrl+n exec $hider '[class="Alacritty"] focus'
 
 ### Output configuration
 #
