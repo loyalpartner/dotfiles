@@ -1,40 +1,19 @@
 * {
+  font-size: 13px;
+  color: white;
   border: none;
   border-radius: 0;
-  /*font-family: "Ubuntu Nerd Font";*/
-  font-size: 13px;
   min-height: 0;
 }
-
-window#waybar {
-  background: transparent;
-  color: white;
-  border-radius: 15px;
-  /*border: 1px solid gray;*/
-}
-
-#window {
-  /*font-family: "Ubuntu";*/
-  margin-top: 5px;
-}
-
-
-#workspaces {
-    padding: 0 5px;
-}
-
+window#waybar { background: rgba(0,0,0,0);}
+#workspaces { margin: 5px 10px 0px 10px;}
 #workspaces button {
-  padding: 5px;
-  background: gray;
-  border-radius: 35px;
-  color: white;
+  padding: 5px 5px;
+  background: rgba(128,128,128,0.7);
   margin-right: 5px;
+  border-radius: 25px;
 }
-
-#workspaces button.focused {
-  background-color: purple;
-}
-
+#workspaces button.focused { background-color: rgba(128,0,128,0.8); }
 #tray,
 #custom-china,
 #temperature,
@@ -43,39 +22,15 @@ window#waybar {
 #cpu,
 #memory,
 #network,
-#pulseaudio {
-  padding: 0 5px;
-  margin-right: 5px;
-  margin-top: 5px;
-}
-
-#temperature.critical {
-  color: red;
-}
-
-#battery icon {
-  color: red;
-}
-
-#battery.charging {
-}
-
-@keyframes blink {
-  to {
-    background-color: #ffffff;
-    color: black;
-  }
-}
-
+#pulseaudio { margin: 5px 10px 0px 0px;}
+#temperature.critical { color: red; }
+#battery icon { color: red; }
+#network.disconnected { background: #f53c3c; }
+@keyframes blink { to { background-color: #ffffff; color: black; } }
 #battery.warning:not(.charging) {
-  color: white;
   animation-name: blink;
   animation-duration: 0.5s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-}
-
-#network.disconnected {
-  background: #f53c3c;
 }
