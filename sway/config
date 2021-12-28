@@ -55,22 +55,19 @@ bindsym $mod+ctrl+s [title="^Ozone X11$"] focus
 bindsym $mod+ctrl+n exec $hider '[class="Alacritty" workspace="__focused__"] focus'
 
 ### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# company output settings
 output * bg rain.jpg fill
-#output HDMI-A-1 bg yellow_light.jpg fill
+output HDMI-A-1 bg yellow_light.jpg fill
 output DVI-D-1 resolution 1920x1080 position 1920,0
 output HDMI-A-1 resolution 1920x1080 
+workspace 10 output HDMI-A-1
+workspace 1 output DVI-D-1
+workspace number 1
 
 output "Goldstar Company Ltd LG HDR 4K 0x0000E984" {
   scale 1
   resolution 3840x2160
 }
-
-exec swayidle -w \
-       timeout 300 'swaylock -f -c 000000' \
-       timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-       before-sleep 'swaylock -f -c 000000'
 
 bindsym $mod+Return exec WAYLAND_DISPLAY= alacritty
 bindsym $mod+Shift+q kill
