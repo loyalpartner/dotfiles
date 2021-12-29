@@ -49,7 +49,7 @@ for_window [class="(Emacs|Google-chrome)"] {
 
 set $hider $HOME/dotfiles/sway/hider.sh
 bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] focus
-bindsym $mod+ctrl+h [class="Emacs"] focus
+bindsym $mod+ctrl+h [class="Emacs"] focus, resize set 95 ppt 95 ppt
 bindsym $mod+ctrl+c [title="^DevTools"] focus
 bindsym $mod+ctrl+s [title="^Ozone X11$"] focus
 bindsym $mod+ctrl+n exec $hider '[class="Alacritty" workspace="__focused__"] focus'
