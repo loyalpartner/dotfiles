@@ -68,7 +68,7 @@ function _auto_open {
   case $(file -Lb --mime-type $1) in
     text/troff) man ./ $1;;
     text/*) ${EDITOR:-vim} $1;;
-    *) bash -c "exec ${LAUNCHER:-xdg-open} $1 &"
+    *) bash -c "exec ${LAUNCHER:-xdg-open} $1 &";;
   esac
 }
 function _open { _auto_open "$(fzf -q "$*")" }

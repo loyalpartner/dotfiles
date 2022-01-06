@@ -31,10 +31,11 @@ for_window [class="Zathura"] opacity set 0.8
 
 # chromium floating
 for_window [title="^Ozone X11$"] {
-  move scratchpad
-  scratchpad show
+  #move scratchpad
+  #scratchpad show
+  floating enable
   move to output right
-  resize set 1440 px 780 px
+  resize set 1366 px 768 px
   border pixel 5
   move position center
 }
@@ -57,9 +58,11 @@ bindsym $mod+ctrl+n exec $hider '[class="Alacritty" workspace="__focused__"] foc
 ### Output configuration
 # company output settings
 output * bg rain.jpg fill
-output HDMI-A-1 bg yellow_light.jpg fill
 output DVI-D-1 resolution 1920x1080 position 1920,0
-output HDMI-A-1 resolution 1920x1080 
+output HDMI-A-1 {
+  resolution 1920x1080 
+  bg yellow_light.jpg fill
+}
 workspace 10 output HDMI-A-1
 workspace 1 output DVI-D-1
 workspace number 1
