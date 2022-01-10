@@ -15,7 +15,7 @@ if which pyenv > /dev/null 2>&1; then
 fi
 
 export EDITOR="vim"
-export FZF_DEFAULT_COMMAND='fd --max-depth 3'
+export FZF_DEFAULT_COMMAND='fd --max-depth 8'
 export FZF_DEFAULT_OPTS="\
   --height 50% \
   --preview 'bat --style=numbers --color=always --line-range :500 {}' \
@@ -68,10 +68,10 @@ function _auto_open {
   case $(file -Lb --mime-type $1) in
     text/troff) man ./ $1;;
     text/*) ${EDITOR:-vim} $1;;
-    *) bash -c "exec ${LAUNCHER:-xdg-open} $1 &";;
+    *) bash -c "exec ${LAUNCHER:-xdg-open} $1 > /dev/null 2>&1 &";;
   esac
 }
-function _open { _auto_open "$(fzf -q "$*")" }
+function _open { _auto_open "$(fzf -e -q "$*")" }
 function _run_alias {
   local command=$(alias|fzf -q "$*")
   eval $command && echo $command

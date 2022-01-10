@@ -40,8 +40,20 @@ augroup common
   autocmd FileType typescript let b:coc_pairs_disabled = ['<']
   autocmd FileType typescript.tsx setl iskeyword-=58
 
-  "autocmd filetype gn,javascript,html setlocal includeexpr=Html_includeexpr()
+  autocmd FileType javascript,html setlocal includeexpr=ExprWeb(v:fname)
+  autocmd FileType markdown setlocal includeexpr=ExprMarkdown(v:fname)
 augroup end
+
+function! ExprWeb(fname) abort
+  "if a:fname =~# "^chrome://"
+  "  return fnamemodify(a:fname, ":t")
+  "endif
+  return substitute(a:fname, '^//\|^/', '', '')
+endfunction
+
+function! ExprMarkdown(fname)
+  return substitute(a:fname, '^//\|^/', '', '')
+endfunction
 
 function! EmptyBuffer()
   if @% ==# ""
@@ -88,13 +100,6 @@ function! s:OnBufEnter()
   unlet name
 endfunction
 
-function Html_includeexpr() abort
-  if v:fname =~# "^//"
-    return substitute(v:fname, "^//", "", '')
-  elseif v:fname =~# '^/'
-    return substitute(v:fname, "^", expand("%:h"), '')
-  endif
-endfunction
 " }}
 
 function! s:CloseOthers() abort
@@ -125,7 +130,7 @@ if executable("fcitx5-remote")
   " 0 close 1 inactive 2 active
   let g:insert_mode_input_state = 0
   function! s:inputState() abort
-    return system("fcitx5-remote")
+    silent return system("fcitx5-remote")
   endfunction
   function s:rememberInsertModeInputState() abort
     let g:insert_mode_input_state = s:inputState()
@@ -133,9 +138,9 @@ if executable("fcitx5-remote")
   function! s:toggleInput(from) abort
     if a:from == "i"
       call s:rememberInsertModeInputState()
-      call system("fcitx5-remote -c")
+      silent call system("fcitx5-remote -c")
     elseif a:from == 'n' && g:insert_mode_input_state == 2
-      call system("fcitx5-remote -o")
+      silent call system("fcitx5-remote -o")
     endif
   endfunction
 endif
