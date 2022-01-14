@@ -216,8 +216,8 @@ function! s:en2zh(mode)
     echoerr "trans not found"
   else
     let sentence = s:sentence_at_pointer(a:mode)
-    let sentence = sentence->substitute('\\n', "", "g")
-    let sentence = escape(s:strip_comments(sentence), '"\')
+    let sentence = sentence->substitute('\n', "", "g")
+    let sentence = escape(s:strip_comments(sentence), '"\`')
     let result = system("trans -b -no-auto :zh \"" . sentence . "\"")
     echon result
   endif
