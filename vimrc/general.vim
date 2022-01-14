@@ -43,6 +43,7 @@ set diffopt=vertical
 set path+=**
 set tags^=jstags
 set tags+=gems.tags,stdlib.tags
+set cscopequickfix=s+,c+,d+,i+,t+,e+
 set showbreak=↪ 
 set shortmess=aFc
 set cmdheight=2
