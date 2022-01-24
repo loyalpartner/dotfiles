@@ -31,16 +31,15 @@ for_window [class="Zathura"] opacity set 0.8
 
 # chromium floating
 for_window [title="^Ozone X11$"] {
-  #move scratchpad
-  #scratchpad show
-  floating enable
+  move scratchpad
+  scratchpad show
   move to output right
   resize set 1366 px 768 px
   border pixel 5
   move position center
 }
 
-for_window [class="(Emacs|Google-chrome)"] {
+for_window [class="(Emacs|Google-chrome|Bytedance-feishu)"] {
   move scratchpad
   scratchpad show
   resize set 95 ppt 95 ppt
@@ -49,11 +48,12 @@ for_window [class="(Emacs|Google-chrome)"] {
 }
 
 set $hider $HOME/dotfiles/sway/hider.sh
-bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] focus
 bindsym $mod+ctrl+h [class="Emacs"] focus, resize set 95 ppt 95 ppt
-bindsym $mod+ctrl+c [title="^DevTools"] focus
-bindsym $mod+ctrl+s [title="^Ozone X11$"] focus
+bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] focus
 bindsym $mod+ctrl+n exec $hider '[class="Alacritty" workspace="__focused__"] focus'
+bindsym $mod+ctrl+s [title="^Ozone X11$"] focus
+bindsym $mod+ctrl+c [title="^DevTools"] focus
+bindsym $mod+ctrl+r [class="^Bytedance-feishu"] focus
 
 ### Output configuration
 # company output settings
