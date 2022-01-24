@@ -19,6 +19,8 @@ set $type_googleid \
 exec_always wl-paste -t text --watch clipman store
 exec_always fcitx5 -d --replace
 exec nutstore
+exec google-chrome-stable
+exec bytedance-feishu-beta
 
 gaps inner 10
 default_border pixel 5
@@ -48,12 +50,12 @@ for_window [class="(Emacs|Google-chrome|Bytedance-feishu)"] {
 }
 
 set $hider $HOME/dotfiles/sway/hider.sh
-bindsym $mod+ctrl+h [class="Emacs"] focus, resize set 95 ppt 95 ppt
-bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] focus
+bindsym $mod+ctrl+h [class="Emacs"] scratchpad show, resize set 95 ppt 95 ppt
+bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] scratchpad show
 bindsym $mod+ctrl+n exec $hider '[class="Alacritty" workspace="__focused__"] focus'
-bindsym $mod+ctrl+s [title="^Ozone X11$"] focus
-bindsym $mod+ctrl+c [title="^DevTools"] focus
-bindsym $mod+ctrl+r [class="^Bytedance-feishu"] focus
+bindsym $mod+ctrl+s [title="^Ozone X11$"] scratchpad show
+bindsym $mod+ctrl+c [title="^DevTools"] scratchpad show
+bindsym $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
 
 ### Output configuration
 # company output settings
