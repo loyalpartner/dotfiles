@@ -25,4 +25,5 @@
   "html.validate.scripts": true,
   "html.autoClosingTags": true,
   "tsserver.disableAutomaticTypeAcquisition": true,
+  "snippets.userSnippetsDirectory": "~/dotfiles/vimrc/snippets/"
 }
