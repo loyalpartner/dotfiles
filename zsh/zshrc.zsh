@@ -81,6 +81,7 @@ plugins=(
   autojump 
   pip 
   npm 
+  lxd
   history 
   kubectl
   repo 

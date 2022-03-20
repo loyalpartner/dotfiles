@@ -39,5 +39,5 @@ selection:
 key_bindings:
   - { key: V, mods: Shift|Control, action: Paste }
   - { key: C, mods: Shift|Control, action: Copy }
-  - { key: U, mods: Shift|Control, action: ScrollPageUp,  }
+  - { key: U, mods: Shift|Control, action: ScrollPageUp }
   - { key: D, mods: Shift|Control, action: ScrollPageDown }
