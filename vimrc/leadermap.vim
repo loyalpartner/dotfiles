@@ -13,7 +13,7 @@ let g:mapleader = ','
   nnoremap <leader>rm :Rm <C-R>=expand('%:p:h').'/'<CR>
   nnoremap <leader>mk :Mkdir <C-R>=expand('%:p:h').'/'<CR>
   " Replace all of current word
-  nnoremap <leader>s :%s/\<<C-r><C-w>\>//g<left><left>
+  nnoremap <leader>su :%s/\<<C-r><C-w>\>//g<left><left>
   " Reload vimrc file
   nnoremap <leader>rl :source ~/.vimrc<CR>
   " Search with grep
@@ -50,7 +50,7 @@ let g:mapleader = ','
   nmap <leader>x  <Plug>(coc-cursors-operator)
   nmap <leader>rn <Plug>(coc-rename)
   nmap <leader>rf <Plug>(coc-refactor)
-  nmap <leader>ca <Plug>(coc-codelens-action)
+  "nmap <leader>ca <Plug>(coc-codelens-action)
   xmap <leader>x  <Plug>(coc-convert-snippet)
   xmap <leader>f  <Plug>(coc-format-selected)
   nmap <leader>f :call CocAction('format')<CR>

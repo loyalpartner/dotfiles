@@ -20,9 +20,9 @@
   " clear highlight update diff
   nnoremap <silent> <C-l> :let @/=''<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR>
   " some shortcut for git
-  nnoremap gci :Gcommit -v<CR>
-  nnoremap gca :Gcommit -a -v<CR>
-  nnoremap gcc :Gcommit -v -- <C-R>=expand('%')<CR><CR>
+  " nnoremap gci :Gcommit -v<CR>
+  " nnoremap gca :Gcommit -a -v<CR>
+  " nnoremap gcc :Gcommit -v -- <C-R>=expand('%')<CR><CR>
   nnoremap gP :CocCommand git.push<CR>
   nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " }}
@@ -100,8 +100,8 @@
   xmap <silent> <C-s> <Plug>(coc-range-select)
   xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
   xmap <silent> <TAB> <Plug>(coc-repl-sendtext)
-  nmap s <Plug>(coc-smartf-forward)
-  nmap S <Plug>(coc-smartf-backward)
+  " nmap s <Plug>(coc-smartf-forward)
+  " nmap S <Plug>(coc-smartf-backward)
   nmap [g <Plug>(coc-git-prevchunk)
   nmap ]g <Plug>(coc-git-nextchunk)
   nmap gs <Plug>(coc-git-chunkinfo)

@@ -12,7 +12,6 @@ Plug 'loyalpartner/chromium-vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc-eslint'
 Plug 'neoclide/coc-stylelint'
-Plug 'neoclide/mycomment.vim'
 Plug 'neoclide/macdown.vim'
 "Plug 'neoclide/macnote.vim'
 Plug 'chemzqm/vim-macos'
@@ -57,8 +56,9 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'vim-scripts/gtags.vim'
 Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-utils/vim-man'
-Plug 'kshenoy/vim-signature'
+" Plug 'kshenoy/vim-signature'
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 filetype plugin on

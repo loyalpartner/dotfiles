@@ -64,7 +64,7 @@ set keywordprg=
 set showtabline=2
 set laststatus=2
 set noshowmode
-set updatetime=300
+set updatetime=1500
 set synmaxcol=300
 " Formatting
 set smarttab
