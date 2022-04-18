@@ -21,7 +21,7 @@ command! -nargs=? Fold                                 :call     CocAction('fold
 command! -nargs=* Execute                              :call     s:Execute(<q-args>)
 command! -nargs=0 Ctags                                :execute  'Nrun ctags -R .'
 command! -nargs=0 -range=%                             Prefixer  call  s:Prefixer(<line1>, <line2>)
-"command! -nargs=+ -complete=custom,s:GrepArgs          Rg        :exe 'CocList grep '.<q-args>
+command! -nargs=+ -complete=custom,s:GrepArgs          RG        :exe 'CocList grep '.<q-args>
 command! -nargs=? -complete=custom,s:ListVimrc         EditVimrc :call s:EditVimrc(<f-args>)
 command! -nargs=? -complete=custom,s:ListDict          Dict      :call s:ToggleDictionary(<f-args>)
 command! -nargs=0 Jest :call  CocActionAsync('runCommand', 'jest.fileTest', ['%'])

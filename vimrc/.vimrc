@@ -59,6 +59,7 @@ Plug 'vim-utils/vim-man'
 " Plug 'kshenoy/vim-signature'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
+Plug 'mhinz/vim-rfc'
 
 call plug#end()
 filetype plugin on

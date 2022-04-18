@@ -6,6 +6,7 @@ export PATH=~/go/bin:$PATH
 export PATH=~/.yarn/bin:$PATH
 export PATH=~/.local/bin:$PATH
 export PATH=$PATH:~/depot_tools
+export PATH=$PATH:~/icecc-chromium
 
 if which pyenv > /dev/null 2>&1; then
   export PYENV_ROOT="$HOME/.pyenv"
@@ -50,12 +51,14 @@ alias mpct="mpc toggle"
 alias zshe="vim ~/.zshrc"
 alias zshel="vim $script_dir/zshrc.local.zsh"
 alias tmue="vim ~/.tmux.conf"
+alias sshe="vim ~/.ssh/config"
+alias gite="vim ~/.gitconfig"
 alias swae="vim ~/.config/sway/config"
 alias alae="vim ~/.config/alacritty/alacritty.yml"
 
 # bindkey
 bindkey -s "^z" "^e^ufg^m"
-bindkey -s "^h" "| _stdin^m"
+#bindkey -s "^h" "| _stdin^m"
 
 # functions
 function _trans { trans :zh -no-autocorrect "$*"}
