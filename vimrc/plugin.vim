@@ -300,3 +300,6 @@
 " pydocstring.vim {{
   let g:pydocstring_doq_path = "~/.local/bin/doq"
 " }}
+" termdebug.vim {{
+  " let let g:termdebug_map_K = 0
+" }}

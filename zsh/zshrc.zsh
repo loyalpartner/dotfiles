@@ -82,6 +82,7 @@ plugins=(
   pip 
   npm 
   lxd
+  ansible
   history 
   kubectl
   repo 

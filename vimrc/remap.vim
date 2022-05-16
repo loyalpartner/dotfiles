@@ -244,8 +244,8 @@ function s:setdown_mappings()
 endfunction
 " }}
 " gdb {{
-"au User TermdebugStartPost call s:setup_gdb_mappings()
-"au User TermdebugStopPost  call s:setdown_gdb_mappings()
+au User TermdebugStartPost call s:setup_gdb_mappings()
+au User TermdebugStopPre  call s:setdown_gdb_mappings()
 
 let g:is_gdb_mode = 0
 map <expr> <F4> <SID>toggle_gdb_mode()
@@ -263,19 +263,13 @@ endfunction
 
 function s:setup_gdb_mappings()
   let g:is_gdb_mode = 1
-  nmap c :<C-u>Continue<CR>
-  nmap b :<C-u>Break<CR>
-  nmap n :<C-u>Next<CR>
-  nmap s :<C-u>Step<CR>
-  nmap o :<C-u>Finish<CR>
+  map <C-_> :<C-u>Gdb<CR>
+  tmap <C-_> <Cmd>Source<CR>
 endfunction
 
 function s:setdown_gdb_mappings()
   let g:is_gdb_mode = 0
-  unmap c
-  unmap b
-  unmap n
-  unmap s
-  unmap o
+  unmap <C-_>
+  tunmap <C-_>
 endfunction
 " }}

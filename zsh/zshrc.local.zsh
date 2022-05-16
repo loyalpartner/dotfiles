@@ -1,5 +1,5 @@
 # -*- mode: bash -*-
-
+export PATH=/usr/lib/ccache/bin:$PATH
 export PATH=/usr/lib/icecream/bin:$PATH
 export PATH=~/.gem/ruby/3.0.0/bin:$PATH
 export PATH=~/go/bin:$PATH
@@ -31,7 +31,7 @@ alias mux=tmuxinator
 alias t="_trans"
 alias man='_man'
 alias open="_open"
-alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package'
+alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple'
 alias cph="history -n | fzf | xclip"
 alias cpf=_copy
 alias lo="_locate"
