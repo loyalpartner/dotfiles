@@ -15,7 +15,7 @@ Plug 'neoclide/coc-stylelint'
 Plug 'neoclide/macdown.vim'
 "Plug 'neoclide/macnote.vim'
 Plug 'chemzqm/vim-macos'
-Plug 'chemzqm/vim-run'
+" Plug 'chemzqm/vim-run'
 Plug 'chemzqm/wxapp.vim'
 Plug 'chemzqm/jsonc.vim'
 Plug 'peitalin/vim-jsx-typescript'
@@ -60,6 +60,7 @@ Plug 'vim-utils/vim-man'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
 Plug 'mhinz/vim-rfc'
+Plug 'tpope/vim-scriptease'
 
 call plug#end()
 filetype plugin on
