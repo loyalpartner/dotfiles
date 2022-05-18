@@ -17,6 +17,21 @@
   let g:go_doc_keywordprg_enabled = 0
   let g:go_fmt_autosave = 1
   let g:go_imports_autosave = 0
+  let g:go_debug_mappings = {
+    \ '(go-debug-continue)': {'key': 'c', 'arguments': '<nowait>'},
+    \ '(go-debug-stop)': {'key': 'q'},
+    \ '(go-debug-print)': {'key': 'p'},
+    \ '(go-debug-next)': {'key': 'n', 'arguments': '<nowait>'},
+    \ '(go-debug-step)': {'key': 's'},
+    \ '(go-debug-breakpoint)': {'key': 'b'},
+  \}
+  let g:go_debug_preserve_layout = 1
+  let g:go_debug_windows = {
+            \ 'vars':       'leftabove 30vnew',
+            \ 'stack':      'leftabove 20new',
+            \ 'goroutines': 'botright 10new',
+            \ 'out':        'botright 5new',
+  \ }
 " }}"
 
 " vim-markdown {{
