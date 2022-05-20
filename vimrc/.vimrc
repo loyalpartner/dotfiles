@@ -30,6 +30,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-scriptease'
+Plug 'tpope/vim-endwise'
 Plug 'dhruvasagar/vim-zoom'
 Plug 'romainl/vim-cool' " search improve
 Plug 'mbbill/undotree'
@@ -39,6 +40,7 @@ Plug 'whiteinge/diffconflicts'
 Plug 'tommcdo/vim-exchange'
 " Plug 'dag/vim-fish'
 Plug 'fatih/vim-go'
+Plug 'loyalpartner/vim-delve'
 Plug 'heavenshell/vim-jsdoc', { 'do': 'make install' }
 Plug 'othree/xml.vim'
 Plug 'altercation/vim-colors-solarized'
@@ -64,6 +66,11 @@ Plug 'vim-utils/vim-man'
 " Plug 'kshenoy/vim-signature'
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-rfc'
+Plug 'vim-scripts/genutils'
+Plug 'vim-scripts/BreakPts'
+Plug 'liuchengxu/vista.vim'
+Plug 'loyalpartner/termdebug-go'
+packadd termdebug
 
 call plug#end()
 filetype plugin on
