@@ -31,10 +31,13 @@ set nowritebackup
 set noimdisable
 set noswapfile
 set undofile
+let vimtype = 'vim'
 if has('nvim') 
-  set undodir=expand('~/.nvim/undodir') 
+  set undodir=$HOME/.nvim/undodir
+  call mkdir($HOME . '/.nvim/undodir', 'p')
 else
-  set undodir=expand('~/.vim/undodir')
+  set undodir=$HOME/.vim/undodir
+  call mkdir($HOME . '/.vim/undodir', 'p')
 endif
 set fileformats=unix,dos
 set display+=lastline
