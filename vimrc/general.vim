@@ -31,10 +31,11 @@ set nowritebackup
 set noimdisable
 set noswapfile
 set undofile
-if !isdirectory($HOME . "/.undodir/")
-  call mkdir($HOME . "/.undodir/")
+if has('nvim') 
+  set undodir=expand('~/.nvim/undodir') 
+else
+  set undodir=expand('~/.vim/undodir')
 endif
-set undodir=$HOME/.undodir
 set fileformats=unix,dos
 set display+=lastline
 set formatoptions+=j
