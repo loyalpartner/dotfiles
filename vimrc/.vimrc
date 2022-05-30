@@ -72,7 +72,9 @@ Plug 'vim-scripts/BreakPts'
 Plug 'liuchengxu/vista.vim'
 Plug 'junegunn/vader.vim'
 Plug 'loyalpartner/termdebug-go'
-Plug 'github/copilot.vim'
+if has('nvim')
+  Plug 'github/copilot.vim'
+endif
 
 packadd termdebug
 
