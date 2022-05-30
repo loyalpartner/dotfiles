@@ -177,7 +177,8 @@ endfunction
   nnoremap <silent><nowait> <space>q  :<C-u>CocList quickfix<CR>
   nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
   nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-  nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+  nnoremap <silent><nowait> <space>C  :<C-u>CocList commands<cr>
+  nnoremap <silent><nowait> <space>c  :<C-u>CocList vimcommands<cr>
   nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
   nnoremap <silent><nowait> <space>s  :<C-u>CocList symbols<cr>
   nnoremap <silent><nowait> <space>r  :<C-u>CocList mru<cr>
