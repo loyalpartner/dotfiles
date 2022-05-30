@@ -31,6 +31,7 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-jdaddy'
 Plug 'dhruvasagar/vim-zoom'
 Plug 'romainl/vim-cool' " search improve
 Plug 'mbbill/undotree'
@@ -69,7 +70,10 @@ Plug 'mhinz/vim-rfc'
 Plug 'vim-scripts/genutils'
 Plug 'vim-scripts/BreakPts'
 Plug 'liuchengxu/vista.vim'
+Plug 'junegunn/vader.vim'
 Plug 'loyalpartner/termdebug-go'
+Plug 'github/copilot.vim'
+
 packadd termdebug
 
 call plug#end()

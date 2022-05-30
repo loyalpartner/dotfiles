@@ -2,6 +2,7 @@
 export PATH=/usr/lib/ccache/bin:$PATH
 export PATH=/usr/lib/icecream/bin:$PATH
 export PATH=~/.gem/ruby/3.0.0/bin:$PATH
+export PATH=~/.local/share/gem/ruby/3.0.0/bin:$PATH
 export PATH=~/go/bin:$PATH
 export PATH=~/.yarn/bin:$PATH
 export PATH=~/.local/bin:$PATH
@@ -24,6 +25,7 @@ export FZF_DEFAULT_OPTS="\
   "
 
 # alias
+alias pkiller='_pkiller'
 alias b="echo \$(bindkey | sed -e 's/\"//g' | fzf --no-preview -q \')|awk '{print \$2}'"
 alias tb="tmux list-keys -T prefix | fzf --no-preview"
 alias a='_run_alias'
@@ -84,3 +86,4 @@ function _auto_copy {
   xclip -selection clipboard -t "$(file -Lb --mime-type "$1")" -i $1
 }
 function _copy { _auto_copy "$(fzf -q "$*")" }
+function _pkiller { kill -9 $(lsof -ti :$1) }
