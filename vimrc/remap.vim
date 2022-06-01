@@ -31,6 +31,8 @@
   "inoremap <C-w> <C-[>diwa
   inoremap <C-h> <BS>
   inoremap <C-d> <Del>
+  inoremap <C-b> <Left>
+  inoremap <C-f> <Right>
   inoremap <C-u> <C-G>u<C-U>
   inoremap <C-a> <Home>
   inoremap <expr><C-e> pumvisible() ? "\<C-e>" : "\<End>"
@@ -124,10 +126,13 @@
   inoremap <silent><expr> <c-space> coc#refresh()
   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
   inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-  xmap if <Plug>(coc-funcobj-i)
-  xmap af <Plug>(coc-funcobj-a)
-  omap if <Plug>(coc-funcobj-i)
-  omap af <Plug>(coc-funcobj-a)
+
+  if !exists("*nvim_treesitter#foldexpr")
+    xmap if <Plug>(coc-funcobj-i)
+    xmap af <Plug>(coc-funcobj-a)
+    omap if <Plug>(coc-funcobj-i)
+    omap af <Plug>(coc-funcobj-a)
+  endif
   omap ig <Plug>(coc-git-chunk-inner)
   xmap ig <Plug>(coc-git-chunk-inner)
   omap ag <Plug>(coc-git-chunk-outer)

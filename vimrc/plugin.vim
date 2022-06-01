@@ -16,7 +16,7 @@
   let g:go_def_mapping_enabled = 0
   let g:go_doc_keywordprg_enabled = 0
   let g:go_fmt_autosave = 1
-  let g:go_imports_autosave = 0
+  let g:go_imports_autosave = 1
   let g:go_debug_mappings = {
     \ '(go-debug-continue)': {'key': 'c', 'arguments': '<nowait>'},
     \ '(go-debug-stop)': {'key': 'q'},
@@ -318,3 +318,66 @@
 " termdebug.vim {{
   " let let g:termdebug_map_K = 0
 " }}
+" nvim-treesitter {{
+  if has('nvim')
+    set foldmethod=expr
+    set foldexpr=nvim_treesitter#foldexpr()
+    set foldlevel=3
+    " exec 'runtime ' . expand('<sfile>:h') . '/treesitter.lua'
+    " lua require('treesitter')
+  endif
+" }}
+
+lua<<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "all",
+  sync_install = false,
+  ignore_install = { "javascript", "phpdoc" },
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true,
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]]"] = "@class.outer",
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]["] = "@class.outer",
+      },
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[["] = "@class.outer",
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        ["[]"] = "@class.outer",
+      },
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ["gx"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["gX"] = "@parameter.inner",
+      },
+    }
+  },
+  highlight = {
+    enable = true,
+    disable = {},
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF

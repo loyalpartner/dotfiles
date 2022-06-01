@@ -72,8 +72,11 @@ Plug 'vim-scripts/BreakPts'
 Plug 'liuchengxu/vista.vim'
 Plug 'junegunn/vader.vim'
 Plug 'loyalpartner/termdebug-go'
+Plug 'wellle/targets.vim'
 if has('nvim')
   Plug 'github/copilot.vim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 endif
 
 packadd termdebug

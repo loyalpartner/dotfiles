@@ -39,6 +39,7 @@ else
   set undodir=$HOME/.vim/undodir
   call mkdir($HOME . '/.vim/undodir', 'p')
 endif
+" exec 'set undodir=' . $HOME . (has('nvim') ? '/.nvim/undodir' : '/.vim/undodir')
 set fileformats=unix,dos
 set display+=lastline
 set formatoptions+=j
