@@ -322,7 +322,7 @@
   if has('nvim')
     set foldmethod=expr
     set foldexpr=nvim_treesitter#foldexpr()
-    set foldlevel=3
+    set foldlevel=10
     exec 'source ' . expand('<sfile>:h') . '/treesitter.lua'
     " lua require('vimrc.treesitter')
   endif
