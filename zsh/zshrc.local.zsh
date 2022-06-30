@@ -1,13 +1,18 @@
 # -*- mode: bash -*-
-export PATH=/usr/lib/ccache/bin:$PATH
-export PATH=/usr/lib/icecream/bin:$PATH
-export PATH=~/.gem/ruby/3.0.0/bin:$PATH
-export PATH=~/.local/share/gem/ruby/3.0.0/bin:$PATH
-export PATH=~/go/bin:$PATH
-export PATH=~/.yarn/bin:$PATH
-export PATH=~/.local/bin:$PATH
-export PATH=$PATH:~/depot_tools
-export PATH=$PATH:~/icecc-chromium
+
+paths=( 
+  "/usr/lib/ccache/bin"
+  "/usr/lib/icecream/bin"
+  "$HOME/.gem/ruby/3.0.0/bin"
+  "$HOME/.local/share/gem/ruby/3.0.0/bin:"
+  "$HOME/go/bin"
+  "$HOME/.yarn/bin"
+  "$HOME/.local/bin"
+  "$HOME/depot_tools"
+  "$HOME/icecc-chromium")
+for p in $paths; do 
+  [[ ! "$PATH" =~ $p ]] && export PATH="$PATH:$p"
+done
 
 if which pyenv > /dev/null 2>&1; then
   export PYENV_ROOT="$HOME/.pyenv"
