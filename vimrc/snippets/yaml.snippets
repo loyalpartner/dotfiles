@@ -1,0 +1,56 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+#
+snippet prometheus "prometheus" b
+Prometheus:
+	Host: 0.0.0.0
+	Port: 4082
+	Path: /metrics
+endsnippet
+
+
+snippet mysql "mysql" b
+Mysql:
+	DataSource: \$DSN
+
+endsnippet
+
+snippet redis "redis" b
+CacheRedis:
+	- Host: redis:6379
+		Pass: G62m50oigInC30sf
+		Type: node
+
+endsnippet
+
+snippet telemetry "telemetry" b
+Telemetry:
+	Name: $1-rpc
+	Endpoint: http://jaeger:14268/api/traces
+	Sampler: 1.0
+	Batcher: jaeger
+
+endsnippet
