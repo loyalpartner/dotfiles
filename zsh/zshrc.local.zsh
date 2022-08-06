@@ -3,13 +3,15 @@
 paths=( 
   "/usr/lib/ccache/bin"
   "/usr/lib/icecream/bin"
+  "/usr/share/bcc/tools"
   "$HOME/.gem/ruby/3.0.0/bin"
   "$HOME/.local/share/gem/ruby/3.0.0/bin:"
   "$HOME/go/bin"
   "$HOME/.yarn/bin"
   "$HOME/.local/bin"
   "$HOME/depot_tools"
-  "$HOME/icecc-chromium")
+  "$HOME/icecc-chromium"
+)
 for p in $paths; do 
   [[ ! "$PATH" =~ $p ]] && export PATH="$PATH:$p"
 done
