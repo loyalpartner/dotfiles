@@ -74,6 +74,8 @@ Plug 'junegunn/vader.vim'
 Plug 'loyalpartner/termdebug-go'
 Plug 'wellle/targets.vim'
 Plug 'rust-lang/rust.vim'
+Plug 'honza/vim-snippets'
+
 if has('nvim')
   Plug 'github/copilot.vim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
