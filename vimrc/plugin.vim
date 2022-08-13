@@ -9,6 +9,7 @@
 " }}"
 
 " vimtex {{
+  
   let g:vimtex_matchparen_enabled = 0
 " }}
 
