@@ -87,6 +87,7 @@ plugins=(
   kubectl
   repo 
   docker
+  golang
   )
 
 source $ZSH/oh-my-zsh.sh
