@@ -88,6 +88,7 @@ plugins=(
   repo 
   docker
   golang
+  nvm
   )
 
 source $ZSH/oh-my-zsh.sh

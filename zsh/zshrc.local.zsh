@@ -64,7 +64,7 @@ alias sshe="vim ~/.ssh/config"
 alias gite="vim ~/.gitconfig"
 alias swae="vim ~/.config/sway/config"
 alias alae="vim ~/.config/alacritty/alacritty.yml"
-alias vim="nvim"
+which nvim > /dev/null 2>&1 && alias vim="nvim"
 
 # bindkey
 bindkey -s "^z" "^e^ufg^m"
