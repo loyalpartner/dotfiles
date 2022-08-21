@@ -35,7 +35,7 @@ function link_config_dir {
 
 function install_dotfiles {
   cp -rf $SCRIPTDIR/ctags.d $HOME/.ctags.d
-  local dir_to_links = (sway waybar wofi alacritty)
+  local dir_to_links=(sway waybar wofi alacritty)
   for name in ${dir_to_links[@]}
   do
     link_config_dir $SCRIPTDIR/$name/ $HOME/.config/$name
@@ -73,16 +73,20 @@ function install {
   git_config
 }
 
-echo "select action to do:"
-select action in softs dotfiles doom ohmyzsh git vim all; do
-  case $action in 
-    softs) install_softs;;
-    dotfiles) install_dotfiles;;
-    ohmyzsh) install_ohmyzsh;;
-    doom) install_doom;;
-    git) git_config;;
-    vim) install_vim_config;;
-    all) install;;
-    *) break;;
-  esac
+go_on=true
+while $go_on; do
+  echo "select action to do:"
+  select action in softs dotfiles doom ohmyzsh git vim all; do
+    case $action in 
+      softs) install_softs;;
+      dotfiles) install_dotfiles;;
+      ohmyzsh) install_ohmyzsh;;
+      doom) install_doom;;
+      git) git_config;;
+      vim) install_vim_config;;
+      all) install;;
+      *) go_on=false;;
+    esac
+    break
+  done
 done
