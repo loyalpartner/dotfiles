@@ -35,10 +35,10 @@ function link_config_dir {
 
 function install_dotfiles {
   cp -rf $SCRIPTDIR/ctags.d $HOME/.ctags.d
-  link_config_dir $SCRIPTDIR/sway/ $HOME/.config/sway
-  link_config_dir $SCRIPTDIR/waybar/ $HOME/.config/waybar
-  link_config_dir $SCRIPTDIR/wofi/ $HOME/.config/wofi
-  link_config_dir $SCRIPTDIR/alacritty/ $HOME/.config/alacritty
+  for name in sway waybar wofi alacritty
+  do
+    link_config_dir $SCRIPTDIR/$name/ $HOME/.config/$name
+  done
   link_dot_configs
 }
 
