@@ -74,7 +74,13 @@ bindkey -s "^z" "^e^ufg^m"
 function _trans { trans :zh -no-autocorrect "$*"}
 function _locate { _auto_open $(locate --database "$DB" ${@:-""} | fzf -q "$*") }
 function _emacs { emacsclient -nc "$@" }
-function _man { \vim -c "Man $*" -c "only" }
+function _man {
+  if grep -qo "\-k" <(echo "$@"); then
+    \man $@
+  else
+    \vim -c "Man $*" -c "only"
+  fi
+}
 function _stdin { vim -M +1 -c'nmap q :qa!<C-m>' - }
 function _auto_open {
   if [[ "$1" == "" ]]; then return ; fi
