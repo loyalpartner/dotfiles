@@ -3,7 +3,7 @@
 SCRIPTDIR="$( cd "$( dirname "$0" )" && pwd )"
 
 function install_softs {
-  if which pacman > /dev/null
+  if which pacman &>/dev/null
   then
     sudo pacman -S --noconfirm sway \
       alacritty gvim emacs tigervnc \
