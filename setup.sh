@@ -25,8 +25,8 @@ function install_softs {
 }
 
 function link_dot_configs {
-  ln -vfs $SCRIPTDIR/zsh/zshrc.zsh ~/.zshrc
-  ln -vfs $SCRIPTDIR/tmux.conf ~/.tmux.conf
+  ln -vfs $SCRIPTDIR/zsh/zshrc.zsh $HOME/.zshrc
+  ln -vfs $SCRIPTDIR/tmux.conf $HOME/.tmux.conf
 }
 
 function link_config_dir {
@@ -51,8 +51,8 @@ function install_vim_config {
 }
 
 function install_doom {
-  git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
-  ~/.emacs.d/bin/doom install
+  git clone --depth 1 https://github.com/hlissner/doom-emacs $HOME/.emacs.d
+  $HOME/.emacs.d/bin/doom install
 }
 
 function install_ohmyzsh {
@@ -73,8 +73,8 @@ function install {
   git_config
 }
 
-go_on=true
-while $go_on; do
+stop=false
+until $stop; do
   echo "select action to do:"
   select action in softs dotfiles doom ohmyzsh git vim all; do
     case $action in 
@@ -85,7 +85,7 @@ while $go_on; do
       git) git_config;;
       vim) install_vim_config;;
       all) install;;
-      *) go_on=false;;
+      *) stop=true;;
     esac
     break
   done
