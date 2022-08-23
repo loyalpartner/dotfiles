@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -eu
+
+function wordsplit {
+  IFS="$IFS\\,.!@#\$%^&*(){}[];/:<>\"'_-=~\`123456780"
+
+  while read -a words; do
+    for word in ${words[@]}; do
+      [[ -n "$word" && ${#word} -gt 2 ]] && echo $word
+    done
+  done < "${1:-/dev/stdin}"
+}
+
+wordsplit ${1:-/dev/stdin} | sort | uniq -c | sort -nr

@@ -4,6 +4,7 @@ paths=(
   "/usr/lib/ccache/bin"
   "/usr/lib/icecream/bin"
   "/usr/share/bcc/tools"
+  "$HOME/dotfiles/bin"
   "$HOME/.gem/ruby/3.0.0/bin"
   "$HOME/.local/share/gem/ruby/3.0.0/bin:"
   "$HOME/go/bin"
