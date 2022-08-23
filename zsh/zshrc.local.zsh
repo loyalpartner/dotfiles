@@ -66,6 +66,7 @@ alias gite="vim ~/.gitconfig"
 alias swae="vim ~/.config/sway/config"
 alias alae="vim ~/.config/alacritty/alacritty.yml"
 which nvim > /dev/null 2>&1 && alias vim="nvim"
+alias wfp="_wordfreq_from_webpage"
 
 # bindkey
 bindkey -s "^z" "^e^ufg^m"
@@ -102,3 +103,6 @@ function _auto_copy {
 }
 function _copy { _auto_copy "$(fzf -q "$*")" }
 function _pkiller { kill -9 $(lsof -ti :$1) }
+function _wordfreq_from_webpage() {
+  curl -s $1 | pup 'body text{}' | wf
+}
