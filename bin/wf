@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+
+#
+# pip install wordfreq
+# pip install nltk
+# python -m nltk.downloader popular
+#
+
+from optparse import OptionParser
+import re
+import sys
+
+from nltk import pos_tag
+from nltk.corpus import wordnet
+from nltk.stem import WordNetLemmatizer
+from wordfreq import zipf_frequency
+from wordfreq import tokenize
+
+
+def normalize_word(tag):
+    def get_wordnet_pos(tag):
+        if tag.startswith('J'):
+            return wordnet.ADJ
+        elif tag.startswith('V'):
+            return wordnet.VERB
+        elif tag.startswith('N'):
+            return wordnet.NOUN
+        elif tag.startswith('R'):
+            return wordnet.ADV
+        else:
+            return None
+    return wnl.lemmatize(tag[0], get_wordnet_pos(
+        tag[1]) or wordnet.NOUN)
+
+
+wnl = WordNetLemmatizer()
+
+parser = OptionParser()
+parser.add_option("-u", "--upper-freq", type="float",
+                  dest="upper", default=3.0)
+parser.add_option("-l", "--lower-freq", type="float", dest="lower", default=0)
+parser.add_option("-s", "--silent", action="store_false",
+                  dest="silent", default=False)
+(options, args) = parser.parse_args()
+
+
+def main():
+    words = [word for line in sys.stdin for token in tokenize(
+        line, 'en') for word in re.split("\.|_", token) if len(word) > 2]
+
+    words = [normalize_word(tag) for tag in pos_tag(set(words))]
+    word_freq = {word: zipf_frequency(word, 'en') for word in words}
+    sorted_word_freq = {word: freq for word, freq in sorted(
+        word_freq.items(), key=lambda item: item[1], reverse=True) if freq > options.lower and freq < options.upper}
+
+    for word, freq in sorted_word_freq.items():
+        if not options.silent:
+            print("%s %.2f" % (word, freq))
+        else:
+            print(word)
+
+
+if __name__ == "__main__":
+    main()
