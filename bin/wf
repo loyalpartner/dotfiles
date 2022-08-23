@@ -37,7 +37,7 @@ wnl = WordNetLemmatizer()
 
 parser = OptionParser()
 parser.add_option("-u", "--upper-freq", type="float",
-                  dest="upper", default=3.0)
+                  dest="upper", default=4.0)
 parser.add_option("-l", "--lower-freq", type="float", dest="lower", default=0)
 parser.add_option("-s", "--silent", action="store_false",
                   dest="silent", default=False)
