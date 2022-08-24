@@ -3,18 +3,51 @@
 #
 # pip install wordfreq
 # pip install nltk
+# pip install bs4
 # python -m nltk.downloader popular
+# go install github.com/ericchiang/pup@latest
 #
 
+from functools import wraps
+import operator
 from optparse import OptionParser
+import os
 import re
 import sys
+import time
+import requests
+from bs4 import BeautifulSoup
 
 from nltk import pos_tag
 from nltk.corpus import wordnet
 from nltk.stem import WordNetLemmatizer
-from wordfreq import zipf_frequency
-from wordfreq import tokenize
+from wordfreq import tokenize, zipf_frequency
+
+is_debug = os.getenv("DEBUG")
+
+
+def timeit(func):
+    @wraps(func)
+    def timeit_wrapper(*args, **kwargs):
+        start_time = time.perf_counter()
+        result = func(*args, **kwargs)
+        end_time = time.perf_counter()
+        total_time = end_time - start_time
+        if is_debug:
+            print(
+                f'Function {func.__name__}{args} {kwargs} Took {total_time:.4f} seconds')
+        return result
+    return timeit_wrapper
+
+
+wnl = WordNetLemmatizer()
+
+parser = OptionParser()
+parser.add_option("-u", "--upper-freq", type="float",
+                  dest="upper", default=4.0)
+parser.add_option("-l", "--lower-freq", type="float", dest="lower", default=0)
+parser.add_option("-s", "--silent", action="store_true", dest="silent")
+(options, args) = parser.parse_args()
 
 
 def normalize_word(tag):
@@ -33,27 +66,47 @@ def normalize_word(tag):
         tag[1]) or wordnet.NOUN)
 
 
-wnl = WordNetLemmatizer()
+@timeit
+def word_tokenize():
+    words = set()
+    text = sys.stdin.read() if len(args) == 0 else fetch_content(args[0])
+    for token in tokenize(text, 'en'):
+        words = words.union(re.split("\.|_", token))
+    return words
 
-parser = OptionParser()
-parser.add_option("-u", "--upper-freq", type="float",
-                  dest="upper", default=4.0)
-parser.add_option("-l", "--lower-freq", type="float", dest="lower", default=0)
-parser.add_option("-s", "--silent", action="store_false",
-                  dest="silent", default=False)
-(options, args) = parser.parse_args()
+
+@timeit
+def load_exclude_words():
+    excluded_words = set()
+    with open('exclude_words.txt') as r:
+        for line in r:
+            excluded_words.add(line.strip())
+    return excluded_words
+
+
+@timeit
+def freq_statistics(words):
+    excluded_words = load_exclude_words()
+    word_freq = {}
+    for tag in pos_tag(words):
+        word = normalize_word(tag)
+        freq = zipf_frequency(word, 'en')
+        if word not in excluded_words and freq > options.lower and freq < options.upper:
+            word_freq[word] = freq
+    return dict(sorted(word_freq.items(), key=operator.itemgetter(1), reverse=True))
+
+
+@timeit
+def fetch_content(url):
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, features="html.parser")
+    return soup.text
 
 
 def main():
-    words = [word for line in sys.stdin for token in tokenize(
-        line, 'en') for word in re.split("\.|_", token) if len(word) > 2]
-
-    words = [normalize_word(tag) for tag in pos_tag(set(words))]
-    word_freq = {word: zipf_frequency(word, 'en') for word in words}
-    sorted_word_freq = {word: freq for word, freq in sorted(
-        word_freq.items(), key=lambda item: item[1], reverse=True) if freq > options.lower and freq < options.upper}
-
-    for word, freq in sorted_word_freq.items():
+    words = word_tokenize()
+    freq_words = freq_statistics(words)
+    for word, freq in freq_words.items():
         if not options.silent:
             print("%s %.2f" % (word, freq))
         else:
