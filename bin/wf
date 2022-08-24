@@ -66,6 +66,12 @@ def normalize_word(tag):
         tag[1]) or wordnet.NOUN)
 
 
+def normalize_url(url):
+    if any([url.startswith(scheme) for scheme in ["http://", "https://"]]):
+        return url
+    return f"https://{url}"
+
+
 @timeit
 def word_tokenize():
     words = set()
@@ -78,7 +84,8 @@ def word_tokenize():
 @timeit
 def load_exclude_words():
     excluded_words = set()
-    with open('exclude_words.txt') as r:
+    file = os.path.join(os.getcwd(), "exclude_words.txt")
+    with open(file) as r:
         for line in r:
             excluded_words.add(line.strip())
     return excluded_words
@@ -98,7 +105,7 @@ def freq_statistics(words):
 
 @timeit
 def fetch_content(url):
-    r = requests.get(url)
+    r = requests.get(normalize_url(url))
     soup = BeautifulSoup(r.text, features="html.parser")
     return soup.text
 
