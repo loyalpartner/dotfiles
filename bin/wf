@@ -5,7 +5,6 @@
 # pip install nltk
 # pip install bs4
 # python -m nltk.downloader popular
-# go install github.com/ericchiang/pup@latest
 #
 
 from functools import wraps

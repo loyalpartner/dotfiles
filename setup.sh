@@ -15,12 +15,17 @@ function install_softs {
       fcitx5-chinese-addons fcitx5 fcitx5-qt \
       fcitx5-pinyin-zhwiki fcitx5-configtool kcm-fcitx5 \
       alsa-utils pulseaudio pamixer pavucontrol pulseaudio-alsa \
-      nodejs npm clash fd sshuttle man-db
+      nodejs npm clash fd sshuttle man-db python-pip
     yay -S --noconfirm clipman \
       google-chrome \
       nutstore-experimental \
       nerd-fonts-source-code-pro \
       nerd-fonts-jetbrains-mono
+
+    pip install wordfreq
+    pip install nltk
+    pip install bs4
+    python -m nltk.downloader popular
   fi
 }
 
