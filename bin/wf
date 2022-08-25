@@ -83,7 +83,7 @@ def word_tokenize():
 @timeit
 def load_exclude_words():
     excluded_words = set()
-    file = os.path.join(os.getcwd(), "exclude_words.txt")
+    file = os.path.join(os.path.dirname(__file__), "exclude_words.txt")
     with open(file) as r:
         for line in r:
             excluded_words.add(line.strip())
