@@ -13,5 +13,6 @@
   "eslint.autoFixOnSave": true,
   "eslint.codeActionsOnSave.mode": "problems",
   "tsserver.disableAutomaticTypeAcquisition": true,
+  "pyright.inlayHints.enable": false,
   "snippets.userSnippetsDirectory": "~/dotfiles/vimrc/snippets/"
 }
