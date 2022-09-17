@@ -74,6 +74,10 @@ workspace 10 output HDMI-A-1
 workspace 1 output DVI-D-1
 workspace number 1
 
+Output "Apple Computer Inc Color LCD 0x00000000" {
+  scale 1
+  resolution 2560x1600
+}
 output "Goldstar Company Ltd LG HDR 4K 0x0000E984" {
   scale 1
   resolution 3840x2160
