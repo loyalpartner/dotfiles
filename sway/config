@@ -16,7 +16,7 @@ set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
 set $type_googleid \
   xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
 
-exec_always wl-paste -t text --watch clipman store
+exec_always wl-paste -t text --watch clipman store --max-items=100
 exec_always fcitx5 -d --replace
 exec nutstore
 exec google-chrome-stable
