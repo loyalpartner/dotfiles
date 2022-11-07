@@ -97,7 +97,7 @@
   nmap <silent> [K :cafter<CR>
   nmap <silent> <C-c> <Plug>(coc-cursors-position)
   "nmap <silent> <C-d> <Plug>(coc-cursors-word)
-  "xmap <silent> <C-d> <Plug>(coc-cursors-range)
+  xmap <silent> <C-d> <Plug>(coc-cursors-range)
   nmap <silent> <C-s> <Plug>(coc-range-select)
   xmap <silent> <C-s> <Plug>(coc-range-select)
   xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
