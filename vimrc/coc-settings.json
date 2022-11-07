@@ -1,7 +1,7 @@
 {
   "suggest.noselect": false,
   "suggest.selection": "first",
-  "coc.preferences.rootPatterns": [".git", ".hg", ".projections.json"],
+  "workspace.rootPatterns": [".git", ".hg", ".projections.json"],
   "suggest.languageSourcePriority": 1000000,
   "list.source.files.command": "rg",
   "list.source.files.args": ["--files"],
