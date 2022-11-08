@@ -17,6 +17,7 @@ set $type_googleid \
   xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
 
 exec_always wl-paste -t text --watch clipman store --max-items=100
+exec_always --no-startup-id workstyle &> /tmp/workstyle.log
 exec_always fcitx5 -d --replace
 exec nutstore
 exec google-chrome-stable
@@ -45,8 +46,16 @@ for_window [class="(Google-chrome)"] {
   move container to workspace number 11
   workspace number 11
 }
+for_window [class="(Emacs)"] {
+  move container to workspace number 12
+  workspace number 12
+}
+for_window [class="(Slack)"] {
+  move container to workspace number 13
+  workspace number 13
+}
 
-for_window [class="(Emacs|Bytedance-feishu|apifox|wechat|Slack)"] {
+for_window [class="(Bytedance-feishu|apifox|wechat)"] {
   move scratchpad
   scratchpad show
   resize set 95 ppt 95 ppt
@@ -55,17 +64,19 @@ for_window [class="(Emacs|Bytedance-feishu|apifox|wechat|Slack)"] {
 }
 
 set $hider $HOME/dotfiles/sway/hider.sh
-bindsym $mod+ctrl+h [class="Emacs"] scratchpad show, resize set 95 ppt 95 ppt
+# bindsym $mod+ctrl+h [class="Emacs"] scratchpad show, resize set 95 ppt 95 ppt
 # bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] scratchpad show
-bindsym $mod+ctrl+t workspace number 11
 bindsym $mod+ctrl+n exec $hider '[class="Alacritty" workspace="__focused__"] focus'
-#bindsym $mod+ctrl+s [title="^Ozone X11$"] scratchpad show
-bindsym $mod+ctrl+s [class="(slack|Slack)"] scratchpad show
+bindsym $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
+# bindsym $mod+ctrl+s [class="(slack|Slack)"] scratchpad show
 bindsym $mod+ctrl+c [title="^DevTools"] scratchpad show
 bindsym $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
 bindsym $mod+ctrl+f [class="apifox"] scratchpad show
 bindsym $mod+ctrl+w [class="weixin"] scratchpad show
 bindsym $mod+ctrl+l [class="Alacritty"] scratchpad show, resize set 95 ppt 95 ppt
+bindsym $mod+ctrl+t workspace number 11
+bindsym $mod+ctrl+h workspace number 12
+bindsym $mod+ctrl+s workspace number 13
 
 ### Output configuration
 # company output settings

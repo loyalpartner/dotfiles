@@ -8,6 +8,7 @@ paths=(
   "$HOME/.gem/ruby/3.0.0/bin"
   "$HOME/.local/share/gem/ruby/3.0.0/bin:"
   "$HOME/go/bin"
+  "$HOME/.cargo/bin"
   "$HOME/.yarn/bin"
   "$HOME/.local/bin"
   "$HOME/depot_tools"

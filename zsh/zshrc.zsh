@@ -90,6 +90,7 @@ plugins=(
   lxd
   ansible
   history 
+  rust
   kubectl
   repo 
   docker

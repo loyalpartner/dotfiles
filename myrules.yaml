@@ -1,0 +1,11 @@
+payload:
+  - '+.crl.pki.goog'
+  - '+.packages.cloud.google.com'
+  - '+.us-west2-docker.pkg.dev'
+  - '+.registry-1.docker.io'
+  - '+.k8s.gcr.io'
+  - '+.translate.google.com'
+  - '+.translate.googleapis.com'
+  - '+.www.googletagmanager.com'
+  - '+.www.google-analytics.com'
+  - '+.static.linear.app'
