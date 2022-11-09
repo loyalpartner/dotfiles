@@ -1,0 +1,54 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+#
+
+snippet example "nginx.conf example" b
+master_process off;
+worker_processes auto;
+pid nginx.pid;
+error_log stderr debug;
+
+events {
+	worker_connections 1024;
+}
+
+http {
+	access_log /dev/stdout;
+	client_max_body_size 0;
+	client_body_temp_path client_body_temp;
+	proxy_temp_path proxy_temp;
+	proxy_request_buffering off;
+	server {
+		listen 50051 http2;
+		server_name localhost;
+		keepalive_timeout 7200s;
+		keepalive_requests 100000;
+
+		grpc_read_timeout 7200s;
+		grpc_send_timeout 7200s;
+
+}
+endsnippet
