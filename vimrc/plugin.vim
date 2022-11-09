@@ -212,7 +212,7 @@
 
 " vim-cool {{
   let g:CoolTotalMatches = 1
-" }}"
+" }}
 
 " macdown.vim {{
   let g:macdown_marked_programme = 'misaka'
@@ -262,30 +262,32 @@
   "call coc#add_command('mundoToggle', 'MundoToggle', 'toggle mundo window')
   "call coc#add_command('tree', 'Vexplore', 'open netrw explorer')
   "call coc#add_command('translate', 'TranslateW', 'translate word')
-" }}"
+" }}
 
 " indentLine {{
+  let g:vim_json_conceal=0
   let g:indentLine_fileTypeExclude = ['json', 'markdown']
   let g:indentLine_bufTypeExclude = ['help', 'terminal', 'nofile']
   let g:indentLine_char = '│'
-" }}"
+" }}
 
 " vim-lion {{
   let g:lion_squeeze_spaces = 1
   let g:lion_create_maps = 1
-" }}"
+" }}
 
 " rename.nvim {{
   let g:rename_hl_guifg = '#ffffff'
   let g:rename_hl_guibg = '#b180a4'
   let g:rename_search_execute = 'rg'
-" }}"
+" }}
 
 " autosave {{
   let g:auto_save = 1
   let g:auto_save_silent = 1
   let g:auto_save_events = ["CursorHold"]
-" }}"
+" }}
+"
 
 " codesearch {{
   let g:codesearch_source_root = '~/Documents/work/dmpp/chromium/src'
