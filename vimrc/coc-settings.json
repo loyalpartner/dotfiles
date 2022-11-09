@@ -1,13 +1,27 @@
 {
   "suggest.noselect": false,
   "suggest.selection": "first",
-  "workspace.rootPatterns": [".git", ".hg", ".projections.json"],
+  "workspace.rootPatterns": [
+    ".git",
+    ".hg",
+    ".projections.json"
+  ],
   "suggest.languageSourcePriority": 1000000,
   "list.source.files.command": "rg",
-  "list.source.files.args": ["--files"],
-  "list.source.files.defaultArgs": ["-F"],
-  "list.source.files.excludePatterns": ["**/node_modules/**"],
-  "translator.engines": ["youdao", "bing", "haici"],
+  "list.source.files.args": [
+    "--files"
+  ],
+  "list.source.files.defaultArgs": [
+    "-F"
+  ],
+  "list.source.files.excludePatterns": [
+    "**/node_modules/**"
+  ],
+  "translator.engines": [
+    "youdao",
+    "bing",
+    "haici"
+  ],
   "git.signPriority": 1,
   "html.format.enable": true,
   "html.validate.scripts": true,
@@ -15,5 +29,22 @@
   "tsserver.disableAutomaticTypeAcquisition": true,
   "pyright.inlayHints.variableTypes": false,
   "pyright.inlayHints.functionReturnTypes": true,
-  "snippets.userSnippetsDirectory": "~/dotfiles/vimrc/snippets/"
+  "snippets.userSnippetsDirectory": "~/dotfiles/vimrc/snippets/",
+  "languageserver": {
+    "elmLS": {
+      "command": "elm-language-server",
+      "filetypes": [
+        "elm"
+      ],
+      "rootPatterns": [
+        "elm.json"
+      ],
+      "initializationOptions": {
+        "elmPath": "elm", // optional
+        "elmFormatPath": "elm-format", // optional
+        "elmTestPath": "elm-test", // optional
+        "elmAnalyseTrigger": "change" // optional
+      }
+    }
+  }
 }
