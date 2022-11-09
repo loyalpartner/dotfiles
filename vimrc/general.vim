@@ -59,7 +59,7 @@ set sessionoptions+=localoptions
 set sessionoptions+=globals
 set viewoptions=cursor,folds,slash,unix
 set ttimeout
-set ttimeoutlen=100
+set ttimeoutlen=300
 set tabpagemax=10
 set scrolloff=3
 set list
@@ -106,11 +106,8 @@ if has('gui_running')
   set antialias
 else
   set background=dark
-  autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE " transparent bg
   colorscheme gruvbox
-  let g:gruvbox_bold=0
-  let g:gruvbox_invert_selection=0
-  " colorscheme gruvbox
+  hi Normal guibg=NONE ctermbg=NONE " transparent bg
 endif
 " }}
 

@@ -40,7 +40,7 @@ function link_config_dir {
 
 function install_dotfiles {
   cp -rf $SCRIPTDIR/ctags.d $HOME/.ctags.d
-  local dir_to_links=(sway waybar wofi alacritty)
+  local dir_to_links=(sway wofi alacritty)
   for name in ${dir_to_links[@]}
   do
     link_config_dir $SCRIPTDIR/$name/ $HOME/.config/$name

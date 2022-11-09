@@ -6,6 +6,7 @@ let s:at_company = filereadable(s:company_path)
 set runtimepath^=~/vim-dev/plug.nvim
 call plug#begin()
 Plug 'morhetz/gruvbox'
+Plug 'fatih/molokai'
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 " Plug 'loyalpartner/coc-lists'
 Plug 'loyalpartner/chromium-vim'
@@ -33,24 +34,18 @@ Plug 'dhruvasagar/vim-zoom'
 Plug 'romainl/vim-cool'        " search improve
 Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim'
-Plug 'whiteinge/diffconflicts'
 Plug 'tommcdo/vim-exchange'
-" Plug 'dag/vim-fish'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'loyalpartner/vim-delve'
 Plug 'heavenshell/vim-jsdoc', { 'do': 'make install' }
 Plug 'othree/xml.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tommcdo/vim-lion'
-" Plug 'keith/swift.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'posva/vim-vue'
-" Plug 'dart-lang/dart-vim-plugin'
 Plug 'tweekmonster/helpful.vim'
-" Plug 'lervag/vimtex'
-" Plug 'derekwyatt/vim-scala'
 Plug 'simnalamburt/vim-mundo'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'lambdalisue/gina.vim'
