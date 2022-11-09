@@ -15,22 +15,23 @@ Plug 'lambdatoast/elm.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-markdown'
-Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-rhubarb'       " hub
+Plug 'tpope/vim-unimpaired'    " enhancement
 Plug 'tpope/vim-characterize'
-Plug 'tpope/vim-dadbod'
+Plug 'tpope/vim-dadbod'        " database
 Plug 'tpope/vim-dotenv'
 Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-tbone'         " tmux
+Plug 'tpope/vim-projectionist' " project settings
+Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-scriptease'
+Plug 'tpope/vim-scriptease'    " vimscript enhancement
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-jdaddy'
+Plug 'tpope/vim-markdown'
 Plug 'dhruvasagar/vim-zoom'
-Plug 'romainl/vim-cool' " search improve
+Plug 'romainl/vim-cool'        " search improve
 Plug 'mbbill/undotree'
-Plug 'rizzatti/dash.vim'
 Plug 'mattn/emmet-vim'
 Plug 'whiteinge/diffconflicts'
 Plug 'tommcdo/vim-exchange'
