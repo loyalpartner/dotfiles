@@ -237,6 +237,8 @@
         \ 'coc-word@1.2.0',
         \ 'coc-lists',
         \ 'coc-git',
+        \ 'coc-eslint',
+        \ 'coc-stylelint',
         \ 'coc-marketplace',
         \ 'coc-vimlsp',
         \ 'coc-tsserver',
