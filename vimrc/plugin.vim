@@ -252,6 +252,7 @@
         \ 'coc-go',
         \ 'coc-pyright',
         \ 'coc-docker',
+        \ '@yaegassy/coc-nginx',
         \ 'coc-html',
         \ 'coc-translator',
         \ 'coc-snippets',
