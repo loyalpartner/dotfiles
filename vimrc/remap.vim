@@ -187,6 +187,11 @@ endfunction
   nnoremap <silent><nowait> <space>C  :<C-u>CocList commands<cr>
   nnoremap <silent><nowait> <space>c  :<C-u>CocList vimcommands<cr>
   nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+  augroup go
+    autocmd!
+    autocmd FileType go nmap <space>O :GoDeclsDir<CR>
+    autocmd FileType go nmap <space>o :GoDecls<CR>
+  augroup END
   nnoremap <silent><nowait> <space>s  :<C-u>CocList symbols<cr>
   nnoremap <silent><nowait> <space>r  :<C-u>CocList mru<cr>
   nnoremap <silent><nowait> <space>R  :<C-u>LeaderfMru<cr>
@@ -202,7 +207,7 @@ endfunction
   nnoremap <silent><nowait> <space>vv  :<C-u>e ./<Cr>
   " for normal mode - the word under the cursor
   nmap <Leader>di <Plug>VimspectorBalloonEval
-  " " for visual mode, the visually selected text
+  " for visual mode, the visually selected text
   xmap <Leader>di <Plug>VimspectorBalloonEval
   
 

@@ -23,6 +23,8 @@
   let g:go_highlight_functions = 1
   let g:go_highlight_function_calls = 1
   let g:go_highlight_build_constraints = 1
+  let g:go_decls_includes = "func"
+  let g:go_auto_sameids = 0
   let g:go_debug_mappings = {
     \ '(go-debug-continue)': {'key': 'c', 'arguments': '<nowait>'},
     \ '(go-debug-stop)': {'key': 'q'},
