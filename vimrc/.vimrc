@@ -63,7 +63,7 @@ Plug 'vim-scripts/BreakPts'
 Plug 'liuchengxu/vista.vim'
 Plug 'junegunn/vader.vim'
 Plug 'loyalpartner/termdebug-go'
-Plug 'wellle/targets.vim'
+" Plug 'wellle/targets.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'honza/vim-snippets'
 
