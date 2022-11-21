@@ -27,7 +27,7 @@
   let g:go_decls_includes = "func"
   let g:go_auto_sameids = 0
   let g:go_metalinter_enabled = []
-  " let g:go_metalinter_autosave = 1
+  " let g:go_metalinter_autosave = ['golangci-lint']
   let g:go_metalinter_command = "golangci-lint"
   let g:go_metalinter_autosave_enabled = []
   let g:go_debug_mappings = {

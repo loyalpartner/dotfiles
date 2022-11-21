@@ -9,3 +9,4 @@ payload:
   - '+.www.googletagmanager.com'
   - '+.www.google-analytics.com'
   - '+.static.linear.app'
+  - '+.registry-1.docker.io'
