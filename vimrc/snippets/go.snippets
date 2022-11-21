@@ -33,3 +33,10 @@ Mysql      struct{ DataSource string }
 CacheRedis cache.CacheConf
 
 endsnippet
+
+
+snippet new "new struct" b
+func New${1/\w+\s*/\u$0/}() *${1} {
+	return &${1}{}
+}
+endsnippet
