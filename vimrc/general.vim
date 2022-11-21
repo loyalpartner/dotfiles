@@ -34,12 +34,10 @@ set undofile
 let vimtype = 'vim'
 if has('nvim') 
   set undodir=$HOME/.nvim/undodir
-  call mkdir($HOME . '/.nvim/undodir', 'p')
 else
   set undodir=$HOME/.vim/undodir
-  call mkdir($HOME . '/.vim/undodir', 'p')
 endif
-" exec 'set undodir=' . $HOME . (has('nvim') ? '/.nvim/undodir' : '/.vim/undodir')
+call mkdir(&undodir, 'p')
 set fileformats=unix,dos
 set display+=lastline
 set formatoptions+=j
