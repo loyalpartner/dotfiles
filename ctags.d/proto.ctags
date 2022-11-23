@@ -1,6 +1,10 @@
 --langdef=proto
 --langmap=proto:.proto
 --kinddef-proto=m,method,methods
+--kinddef-proto=t,type,types
 --kinddef-proto=v,variable,variables
---regex-proto=/^[ \t]*message[ \t]+([[:alnum:]_$]+)/\1/v/
---regex-proto=/rpc[ \t]+([[:alnum:]_$]+)/\1/m/
+--kinddef-proto=e,enum,enums
+--regex-proto=/^[ \t]*message[ \t]+([[:alnum:]_]+)/\1/t/
+--regex-proto=/rpc[ \t]+([[:alnum:]_]+)/\1/m/
+--regex-proto=/^[ \t]*(optional|repeated)*[ \t]+[[:alnum:]_]+[ \t]+([[:alnum:]_]+)/\2/v/
+--regex-proto=/^[ \t]*([[:alnum:]_]+)[ \t]*=[ \t]*[0-9]+;/\1/e/
