@@ -30,6 +30,11 @@
 --exclude=bin-packages/*
 --exclude=*/node_modules/*
 --exclude=node_modules/*
+--exclude=*/dist/*
+--exclude=*/test*/*
+--exclude=.yarn/*
+--exclude=*/.yarn/*
+
 --exclude=*/doc/*
 --exclude=doc/*
 
