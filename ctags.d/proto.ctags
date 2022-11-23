@@ -1,5 +1,6 @@
 --langdef=proto
 --langmap=proto:.proto
---regex-proto=/^[ \t]*message[ \t]+([[:alnum:]_$]+)/\1/v,variable/
---regex-proto=/^[ \t]*message[ \t]+([[:alnum:]_$]+)/\1/v,variable/
---regex-proto=/rpc[ \t]+([[:alnum:]_$]+)/\1/method,function/
+--kinddef-proto=m,method,methods
+--kinddef-proto=v,variable,variables
+--regex-proto=/^[ \t]*message[ \t]+([[:alnum:]_$]+)/\1/v/
+--regex-proto=/rpc[ \t]+([[:alnum:]_$]+)/\1/m/
