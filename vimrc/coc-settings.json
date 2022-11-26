@@ -1,12 +1,24 @@
 {
   "suggest.noselect": false,
   "suggest.selection": "first",
+  "suggest.completionItemKindLabels": {
+    "default": "✪"
+  },
+  "suggest.floatConfig": {
+    "shadow": true,
+    "border": true,
+    "rounded": true,
+    "borderhighlight": "CocFloating",
+    "highlight": "CocFloating"
+  },
   "workspace.rootPatterns": [
     ".git",
     ".hg",
     ".projections.json"
   ],
   "suggest.languageSourcePriority": 1000000,
+  "suggest.virtualText": true,
+  "coc.preferences.floatActions": false,
   "list.source.files.command": "rg",
   "list.source.files.args": [
     "--files"
