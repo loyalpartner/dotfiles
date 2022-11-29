@@ -66,6 +66,7 @@ Plug 'loyalpartner/termdebug-go'
 " Plug 'wellle/targets.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'honza/vim-snippets'
+Plug 'google/vim-jsonnet'
 
 if has('nvim')
   Plug 'github/copilot.vim'

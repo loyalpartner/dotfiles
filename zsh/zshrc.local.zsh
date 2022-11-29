@@ -37,7 +37,8 @@ export FZF_DEFAULT_OPTS="\
 alias pkiller='_pkiller'
 alias b="echo \$(bindkey | sed -e 's/\"//g' | fzf --no-preview -q \')|awk '{print \$2}'"
 alias tb="tmux list-keys -T prefix | fzf --no-preview"
-alias a='_run_alias'
+# alias a='_run_alias'
+alias a='_alias_table'
 alias mux=tmuxinator
 alias t="_trans"
 alias man='_man'
@@ -96,6 +97,9 @@ function _open { _auto_open "$(fzf -e -q "$*")" }
 function _run_alias {
   local command=$(alias|fzf -q "$*")
   eval $command && echo $command
+}
+function _alias_table {
+  alias | grep "$*"
 }
 function _auto_copy {
   if [[ "$1" == "" ]]; then return ; fi
