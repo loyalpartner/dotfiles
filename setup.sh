@@ -2,6 +2,13 @@
 
 SCRIPTDIR="$( cd "$( dirname "$0" )" && pwd )"
 
+REPO_OHMYZSH="https://github.com/ohmyzsh/ohmyzsh"
+REPO_DOOM="https://github.com/hlissner/doom-emacs"
+REPO_P10K="https://github.com/romkatv/powerlevel10k.git"
+REPO_ZSH_SUGGESTION="https://github.com/zsh-users/zsh-autosuggestions"
+
+URL_PLUG="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+
 function install_softs {
   if which pacman &>/dev/null
   then
@@ -54,20 +61,19 @@ function install_dotfiles {
 
 function install_vim_config {
   mkdir -p $HOME/.vim && link_config_dir $SCRIPTDIR/vimrc/ $HOME/.vim/vimrc
-  curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs \
-	  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs $URL_PLUG
   ln -vfs $HOME/.vim/vimrc/.vimrc $HOME/.vimrc
 }
 
 function install_doom {
-  git clone --depth 1 https://github.com/hlissner/doom-emacs $HOME/.emacs.d
-  $HOME/.emacs.d/bin/doom install
+  git clone --depth 1 ${REPO_DOOM} $HOME/.emacs.d &&
+    $HOME/.emacs.d/bin/doom install
 }
 
 function install_ohmyzsh {
-  git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh $HOME/.oh-my-zsh
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  git clone --depth=1 ${REPO_OHMYZSH} $HOME/.oh-my-zsh
+  git clone --depth=1 ${REPO_P10K} ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  git clone --depth=1 ${REPO_ZSH_SUGGESTION} ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 }
 
 function install_go {
@@ -90,7 +96,7 @@ function install {
 stop=false
 until $stop; do
   echo "select action to do:"
-  select action in softs dotfiles doom ohmyzsh git vim all; do
+  select action in softs dotfiles doom ohmyzsh git vim go all; do
     case $action in 
       softs) install_softs;;
       dotfiles) install_dotfiles;;
@@ -98,6 +104,7 @@ until $stop; do
       doom) install_doom;;
       git) git_config;;
       vim) install_vim_config;;
+      go) install_go;;
       all) install;;
       *) stop=true;;
     esac
