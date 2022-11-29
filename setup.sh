@@ -15,7 +15,8 @@ function install_softs {
       fcitx5-chinese-addons fcitx5 fcitx5-qt \
       fcitx5-pinyin-zhwiki fcitx5-configtool kcm-fcitx5 \
       alsa-utils pulseaudio pamixer pavucontrol pulseaudio-alsa \
-      nodejs npm clash fd sshuttle man-db python-pip
+      nodejs npm clash fd sshuttle man-db python-pip \
+      go
     yay -S --noconfirm clipman \
       google-chrome \
       nutstore-experimental \
@@ -26,6 +27,9 @@ function install_softs {
     pip install nltk
     pip install bs4
     python -m nltk.downloader popular
+  elif which apt &>/dev/null
+  then
+    sudo apt install alacritty rust fzf ripgrep autojump golang
   fi
 }
 
@@ -66,12 +70,17 @@ function install_ohmyzsh {
   git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 }
 
+function install_go {
+  go install github.com/grafana/jsonnet-language-server@latest
+}
+
 function git_config {
   source "$SCRIPTDIR/init-git.sh"
 }
 
 function install {
   install_softs
+  install_go
   install_dotfiles
   install_ohmyzsh
   install_vim_config

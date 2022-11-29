@@ -57,6 +57,20 @@
         "elmTestPath": "elm-test", // optional
         "elmAnalyseTrigger": "change" // optional
       }
+    },
+    "jsonnet": {
+      "command": "jsonnet-language-server",
+      "args": [
+        "-t"
+      ],
+      "rootPatterns": [
+        ".git/",
+        "jsonnetfile.json"
+      ],
+      "filetypes": [
+        "jsonnet",
+        "libsonnet"
+      ]
     }
   }
 }

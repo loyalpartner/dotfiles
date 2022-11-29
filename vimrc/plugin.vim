@@ -264,6 +264,7 @@
         \ 'coc-translator',
         \ 'coc-snippets',
         \ 'coc-yaml',
+        \ 'coc-sh',
         \ ]
   let g:coc_watch_extensions = []
   "let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
