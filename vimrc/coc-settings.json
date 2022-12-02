@@ -2,7 +2,32 @@
   "suggest.noselect": false,
   "suggest.selection": "first",
   "suggest.completionItemKindLabels": {
-    "default": "✪"
+    "text": "text",
+    "method": "method",
+    "function": "function",
+    "constructor": "constructor",
+    "field": "field",
+    "variable": "variable",
+    "class": "class",
+    "interface": "interface",
+    "module": "module",
+    "property": "property",
+    "unit": "unit",
+    "value": "value",
+    "enum": "enum",
+    "keyword": "keyword",
+    "snippet": "snippet",
+    "color": "color",
+    "file": "file",
+    "reference": "reference",
+    "folder": "folder",
+    "enumMember": "enumMember",
+    "constant": "constant",
+    "struct": "struct",
+    "event": "event",
+    "operator": "operator",
+    "typeParameter": "typeParameter",
+    "default": "default"
   },
   "suggest.floatConfig": {
     "shadow": true,
@@ -11,13 +36,14 @@
     "borderhighlight": "CocFloating",
     "highlight": "CocFloating"
   },
-  "workspace.rootPatterns": [
+  "suggest.languageSourcePriority": 1000000,
+  "suggest.virtualText": true,
+  "outline.followCursor": true,
+  "coc.preferences.rootPatterns": [
     ".git",
     ".hg",
     ".projections.json"
   ],
-  "suggest.languageSourcePriority": 1000000,
-  "suggest.virtualText": true,
   "coc.preferences.floatActions": false,
   "list.source.files.command": "rg",
   "list.source.files.args": [

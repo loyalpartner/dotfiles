@@ -6,7 +6,6 @@ let s:at_company = filereadable(s:company_path)
 set runtimepath^=~/vim-dev/plug.nvim
 call plug#begin()
 Plug 'morhetz/gruvbox'
-Plug 'fatih/molokai'
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 " Plug 'loyalpartner/coc-lists'
 Plug 'loyalpartner/chromium-vim'

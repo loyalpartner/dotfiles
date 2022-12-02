@@ -186,11 +186,10 @@ endfunction
   nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
   nnoremap <silent><nowait> <space>C  :<C-u>CocList commands<cr>
   nnoremap <silent><nowait> <space>c  :<C-u>CocList vimcommands<cr>
-  nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+  nnoremap <silent><nowait> <space>o  :<C-u>CocList --auto-preview outline<cr>
   augroup go
     autocmd!
     autocmd FileType go nmap <space>O :GoDeclsDir<CR>
-    autocmd FileType go nmap <space>o :GoDecls<CR>
   augroup END
   nnoremap <silent><nowait> <space>s  :<C-u>CocList symbols<cr>
   nnoremap <silent><nowait> <space>r  :<C-u>CocList mru<cr>
