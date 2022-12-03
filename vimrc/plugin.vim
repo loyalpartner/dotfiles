@@ -246,7 +246,8 @@
   let g:coc_config_home = '~/.vim/vimrc'
   let $NVIM_COC_LOG_LEVEL = 'debug'
   let g:coc_global_extensions = [
-        \ 'coc-word@1.2.0',
+        \ 'coc-word',
+        \ 'coc-dictionary',
         \ 'coc-git',
         \ 'coc-eslint',
         \ 'coc-stylelint',
@@ -263,6 +264,7 @@
         \ 'coc-translator',
         \ 'coc-snippets',
         \ 'coc-yaml',
+        \ 'coc-db',
         \ 'coc-sh',
         \ ]
   let g:coc_watch_extensions = []
