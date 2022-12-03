@@ -13,7 +13,7 @@
   nnoremap <expr> N  'nN'[v:searchforward]
   nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
   nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
-  nnoremap <space>rl :source ~/.vimrc<CR>
+  " nnoremap <space>rl :source ~/.vimrc<CR>
   nnoremap Y y$
   " no overwrite paste
   xnoremap p "_dP
@@ -187,14 +187,10 @@ endfunction
   nnoremap <silent><nowait> <space>C  :<C-u>CocList commands<cr>
   nnoremap <silent><nowait> <space>c  :<C-u>CocList vimcommands<cr>
   nnoremap <silent><nowait> <space>o  :<C-u>CocList --auto-preview outline<cr>
-  augroup go
-    autocmd!
-    autocmd FileType go nmap <space>O :GoDeclsDir<CR>
-  augroup END
   nnoremap <silent><nowait> <space>s  :<C-u>CocList symbols<cr>
   nnoremap <silent><nowait> <space>r  :<C-u>CocList mru<cr>
   nnoremap <silent><nowait> <space>R  :<C-u>LeaderfMru<cr>
-  nnoremap <silent><nowait> <space>ff :<C-u>LeaderfFile<cr>
+  nnoremap <silent><nowait> <space>ff :<C-u>call <SID>open_files()<cr>
   nnoremap <silent><nowait> <space>fy :<C-u>let @+="%"<CR>
   nnoremap <silent><nowait> <space>fd :LeaderfFile <C-R>=substitute(expand('%:p:h').'/', getcwd().'/', '', '')<CR><CR> 
   nnoremap <silent><nowait> <space>fa  :<C-u>LeaderfFile chrome/browser/<cr>
@@ -208,8 +204,19 @@ endfunction
   nmap <Leader>di <Plug>VimspectorBalloonEval
   " for visual mode, the visually selected text
   xmap <Leader>di <Plug>VimspectorBalloonEval
-  
 
+  func s:open_files()
+    let total = 20000
+    if isdirectory('.git')
+      let total = system("git ls-files | wc -l")
+    endif
+
+    if total >= 20000
+      silent execute "LeaderfFile"
+    else
+      silent execute 'CocList files'
+    endif
+  endfunction
 " }}
 " debug {{
 

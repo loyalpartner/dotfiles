@@ -247,7 +247,6 @@
   let $NVIM_COC_LOG_LEVEL = 'debug'
   let g:coc_global_extensions = [
         \ 'coc-word@1.2.0',
-        \ 'coc-lists',
         \ 'coc-git',
         \ 'coc-eslint',
         \ 'coc-stylelint',
@@ -267,7 +266,12 @@
         \ 'coc-sh',
         \ ]
   let g:coc_watch_extensions = []
-  "let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
+  " let g:coc_node_args = [
+  "       \ '--nolazy', 
+  "       \ '--inspect-brk=6045',
+  "       \ '-r',
+  "       \ expand('~/.config/yarn/global/node_modules/source-map-support/register')
+  "       \ ]
   "let g:coc_node_path = '/usr/local/bin/node'
   let g:coc_filetype_map = {
         \ 'html.swig': 'html',
