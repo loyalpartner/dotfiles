@@ -19,6 +19,7 @@ Plug 'tpope/vim-rhubarb'       " hub
 Plug 'tpope/vim-unimpaired'    " enhancement
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-dadbod'        " database
+Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'tpope/vim-dotenv'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-tbone'         " tmux
