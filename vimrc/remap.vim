@@ -206,10 +206,6 @@ endfunction
   nnoremap <silent><nowait> <space>m  :<C-u>CocList maps<cr>
   nnoremap <silent><nowait> <space>ve  :<C-u>Vexplore<Cr>
   nnoremap <silent><nowait> <space>vv  :<C-u>e ./<Cr>
-  " for normal mode - the word under the cursor
-  nmap <Leader>di <Plug>VimspectorBalloonEval
-  " for visual mode, the visually selected text
-  xmap <Leader>di <Plug>VimspectorBalloonEval
 
   func s:open_files()
     let total = 20000
@@ -244,28 +240,39 @@ endfunction
 
 function s:setup_mappings()
   let g:is_debug_mode = 1
-  nmap c         <Plug>VimspectorContinue
-  nmap b         <Plug>VimspectorToggleBreakpoint
-  nmap B <Plug>VimspectorToggleConditionalBreakpoint
-  nmap <C-b>         <Plug>VimspectorAddFunctionBreakpoint
-  nmap <C-r> <Plug>VimspectorRunToCursor
-  nmap n        <Plug>VimspectorStepOver
-  nmap s       <Plug>VimspectorStepInto
-  nmap o       <Plug>VimspectorStepOut
+  nmap c  <Plug>VimspectorContinue
+  nmap bb <Plug>VimspectorToggleBreakpoint
+  nmap bc <Plug>VimspectorToggleConditionalBreakpoint
+  nmap bf <Plug>VimspectorAddFunctionBreakpoint
+  nmap t  <Plug>VimspectorRunToCursor
+  nmap n  <Plug>VimspectorStepOver
+  nmap s  <Plug>VimspectorStepInto
+  nmap o  <Plug>VimspectorStepOut
+  nmap K  <Plug>VimspectorBalloonEval
+	nmap u  <Plug>VimspectorUpFrame
+	nmap d  <Plug>VimspectorDownFrame
+	nmap B  <Plug>VimspectorBreakpoints
+	nmap D  <Plug>VimspectorDisassemble
+  
   nmap <silent> q :<C-u>VimspectorReset<Cr>
 endfunction
 
 function s:setdown_mappings()
   let g:is_debug_mode = 0
-  unmap c
-  unmap b
-  unmap B
-  unmap <C-b>
-  unmap <C-r>
+  unmap c 
+  unmap bb
+  unmap bc
+  unmap bf
+  unmap t
   unmap n
   unmap s
   unmap o
-  unmap q
+  unmap K
+	unmap u
+	unmap d
+	unmap B
+	unmap D
+	unmap q
 endfunction
 " }}
 " gdb {{
