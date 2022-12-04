@@ -238,6 +238,7 @@
   if has('nvim') && !has('nvim-0.4.3')
     let g:coc_disable_startup_warning = 1
   endif
+  hi! CocCursorRange ctermfg=256 ctermbg=0 term=bold
   "let g:coc_channel_timeout = 5
   "let g:coc_data_home = '~/.config/a/b/coc'
   "let g:coc_disable_startup_warning = 1

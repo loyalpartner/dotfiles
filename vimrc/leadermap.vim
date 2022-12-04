@@ -47,7 +47,7 @@ let g:mapleader = ','
   nmap <leader>se <Plug>SvgEdit
 
   " coc.nvim
-  nmap <leader>x  <Plug>(coc-cursors-operator)
+  nmap <leader>x  <Plug>(coc-cursors-word)
   nmap <leader>rr :<C-u>CocRestart<CR>
   nmap <leader>rn <Plug>(coc-rename)
   nmap <leader>rf <Plug>(coc-refactor)
