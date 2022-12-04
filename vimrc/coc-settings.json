@@ -39,6 +39,14 @@
   "suggest.languageSourcePriority": 1000000,
   "suggest.virtualText": true,
   "outline.followCursor": true,
+  "json.schemas": [
+    {
+      "fileMatch": [
+        ".vimspector.json"
+      ],
+      "url": "https://puremourning.github.io/vimspector/schema/vimspector.schema.json"
+    }
+  ],
   "workspace.rootPatterns": [
     ".git",
     ".hg",
