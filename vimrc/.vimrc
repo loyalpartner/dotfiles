@@ -8,6 +8,7 @@ call plug#begin()
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'loyalpartner/coc-lists',  {'do': 'yarn install --frozen-lockfile'}
+Plug 'loyalpartner/coc-gn',  {'do': 'yarn install --frozen-lockfile'}
 Plug 'loyalpartner/chromium-vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'peitalin/vim-jsx-typescript'

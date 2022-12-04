@@ -39,7 +39,7 @@
   "suggest.languageSourcePriority": 1000000,
   "suggest.virtualText": true,
   "outline.followCursor": true,
-  "coc.preferences.rootPatterns": [
+  "workspace.rootPatterns": [
     ".git",
     ".hg",
     ".projections.json"
@@ -60,6 +60,7 @@
     "bing",
     "haici"
   ],
+  "coc-nav.enabled": true,
   "git.signPriority": 1,
   "html.format.enable": true,
   "html.validate.scripts": true,
@@ -68,6 +69,7 @@
   "pyright.inlayHints.variableTypes": false,
   "pyright.inlayHints.functionReturnTypes": true,
   "snippets.userSnippetsDirectory": "~/dotfiles/vimrc/snippets/",
+  "tsserver.trace.server": "verbose",
   "languageserver": {
     "elmLS": {
       "command": "elm-language-server",
@@ -75,6 +77,7 @@
         "elm"
       ],
       "rootPatterns": [
+        ".git/",
         "elm.json"
       ],
       "initializationOptions": {

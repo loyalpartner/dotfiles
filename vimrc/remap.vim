@@ -180,7 +180,13 @@ endfunction
   nnoremap <silent><nowait> <space>y  :<C-u>CocList yank<cr>
   nnoremap <silent><nowait> <space>u  :<C-u>CocList snippets<cr>
   nnoremap <silent><nowait> <space>w  :exe 'CocList -A -I --normal --input='.expand('<cword>').' words -w'<CR>
-  nnoremap <silent><nowait> <space>l  :<C-u>CocList -I --ignore-case lines<CR>
+  " nnoremap <silent><nowait> <space>l  :<C-u>CocList -I --ignore-case lines<CR>
+  nnoremap <silent><nowait> <space>lm :<C-u>CocList marketplace<CR>
+  nnoremap <silent><nowait> <space>ls :<C-u>CocList snippets<CR>
+  nnoremap <silent><nowait> <space>lb :<C-u>CocList buffers<CR>
+  nnoremap <silent><nowait> <space>le :<C-u>CocList extensions<CR>
+  nnoremap <silent><nowait> <space>lg :<C-u>CocList gist<CR>
+  nnoremap <space>ll :<C-u>CocList<CR>
   nnoremap <silent><nowait> <space>q  :<C-u>CocList quickfix<CR>
   nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
   nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>

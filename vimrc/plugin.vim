@@ -256,16 +256,18 @@
         \ 'coc-tsserver',
         \ 'coc-clangd',
         \ 'coc-json',
+        \ 'coc-yaml',
         \ 'coc-go',
+        \ 'coc-sh',
         \ 'coc-pyright',
         \ 'coc-docker',
         \ '@yaegassy/coc-nginx',
         \ 'coc-html',
         \ 'coc-translator',
         \ 'coc-snippets',
-        \ 'coc-yaml',
         \ 'coc-db',
-        \ 'coc-sh',
+        \ 'coc-pairs',
+        \ 'coc-gist',
         \ ]
   let g:coc_watch_extensions = []
   " let g:coc_node_args = [

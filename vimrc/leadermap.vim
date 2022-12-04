@@ -48,6 +48,7 @@ let g:mapleader = ','
 
   " coc.nvim
   nmap <leader>x  <Plug>(coc-cursors-operator)
+  nmap <leader>rr :<C-u>CocRestart<CR>
   nmap <leader>rn <Plug>(coc-rename)
   nmap <leader>rf <Plug>(coc-refactor)
   "nmap <leader>ca <Plug>(coc-codelens-action)
@@ -69,11 +70,6 @@ let g:mapleader = ','
   vmap <silent> <Leader>tr <Plug>(coc-translator-pv)
   nmap <silent> <Leader>tc :call <SID>en2zh('n')<CR>
   vmap <silent> <Leader>tc :<C-u>call <SID>en2zh('v')<CR>
-
-  nmap <leader>lm :<C-u>CocList marketplace<CR>
-  nmap <leader>ls :<C-u>CocList snippets<CR>
-  nmap <leader>lb :<C-u>CocList buffers<CR>
-  nmap <leader>le :<C-u>CocList extensions<CR>
 " }}
 
 " grep by motion {{
