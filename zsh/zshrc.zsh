@@ -99,7 +99,7 @@ plugins=(
   repo 
   docker
   golang
-  nvm
+  yarn
   )
 
 source $ZSH/oh-my-zsh.sh

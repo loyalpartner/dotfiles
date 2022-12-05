@@ -68,6 +68,7 @@ Plug 'loyalpartner/termdebug-go'
 Plug 'rust-lang/rust.vim'
 Plug 'honza/vim-snippets'
 Plug 'google/vim-jsonnet'
+Plug 'chrisbra/unicode.vim'
 
 if has('nvim')
   Plug 'github/copilot.vim'

@@ -37,14 +37,14 @@
     \ '(go-debug-next)': {'key': 'n', 'arguments': '<nowait>'},
     \ '(go-debug-step)': {'key': 's'},
     \ '(go-debug-breakpoint)': {'key': 'b'},
-  \}
+    \ }
   let g:go_debug_preserve_layout = 1
   let g:go_debug_windows = {
             \ 'vars':       'leftabove 30vnew',
             \ 'stack':      'leftabove 20new',
             \ 'goroutines': 'botright 10new',
             \ 'out':        'botright 5new',
-  \ }
+            \ }
 " }}"
 
 " vim-markdown {{
