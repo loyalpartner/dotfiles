@@ -10,7 +10,7 @@ set pumheight=15
 set wildmenu
 set signcolumn=yes
 set wildmode=list:longest,full
-set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+" set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set backspace=2
 set autowrite
 set autoread

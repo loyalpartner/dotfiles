@@ -243,7 +243,7 @@
   "let g:coc_data_home = '~/.config/a/b/coc'
   "let g:coc_disable_startup_warning = 1
   "let g:coc_quickfix_open_command = 'copen|cfirst'
-  "let g:node_client_debug = 1
+  let g:node_client_debug = 1
   let g:coc_config_home = '~/.vim/vimrc'
   let $NVIM_COC_LOG_LEVEL = 'debug'
   let g:coc_global_extensions = [
@@ -271,12 +271,8 @@
         \ 'coc-gist',
         \ ]
   let g:coc_watch_extensions = []
-  " let g:coc_node_args = [
-  "       \ '--nolazy', 
-  "       \ '--inspect-brk=6045',
-  "       \ '-r',
-  "       \ expand('~/.config/yarn/global/node_modules/source-map-support/register')
-  "       \ ]
+  " let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
+  " let g:coc_node_args += [ '-r', expand('~/.config/yarn/global/node_modules/source-map-support/register') ]
   "let g:coc_node_path = '/usr/local/bin/node'
   let g:coc_filetype_map = {
         \ 'html.swig': 'html',

@@ -1,6 +1,5 @@
 {
-  "suggest.noselect": false,
-  "suggest.selection": "first",
+  "suggest.noselect": true,
   "suggest.completionItemKindLabels": {
     "text": "text",
     "method": "method",
@@ -74,10 +73,10 @@
   "html.validate.scripts": true,
   "html.autoClosingTags": true,
   "tsserver.disableAutomaticTypeAcquisition": true,
+  "tsserver.trace.server": "verbose",
   "pyright.inlayHints.variableTypes": false,
   "pyright.inlayHints.functionReturnTypes": true,
   "snippets.userSnippetsDirectory": "~/dotfiles/vimrc/snippets/",
-  "tsserver.trace.server": "verbose",
   "languageserver": {
     "elmLS": {
       "command": "elm-language-server",

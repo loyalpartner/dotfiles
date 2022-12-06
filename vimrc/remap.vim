@@ -134,6 +134,17 @@
 
   inoremap <silent><expr> <c-space> coc#refresh()
 
+	" Remap <C-f> and <C-b> for scroll float windows/popups.
+	if has('nvim-0.4.0') || has('patch-8.2.0750')
+		nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+		nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+		inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+		inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+		vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+		vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+	endif
+
+  
   if !exists("*nvim_treesitter#foldexpr")
     xmap if <Plug>(coc-funcobj-i)
     xmap af <Plug>(coc-funcobj-a)
@@ -169,46 +180,44 @@ endfunction
 " }}
 
 " list {{
-  nnoremap <silent> \r  :<C-u>CocList -N mru -A<cr>
-  nnoremap <silent><nowait> <space>h  :<C-u>CocList helptags<cr>
-  nnoremap <silent><nowait> <space>gs  :<C-u>:CocCommand git.chunkStage<CR>
-  nnoremap <silent><nowait> <space>gu  :<C-u>:CocCommand git.chunkUndo<CR>
-  nnoremap <silent><nowait> <space>gg  :<C-u>:G<CR>
-  nnoremap <silent><nowait> <space>t  :<C-u>CocList buffers<cr>
-  nnoremap <silent><nowait> <space>n  :V<cr>
-  nnoremap <silent><nowait> <space>N  :VL<cr>
-  nnoremap <silent><nowait> <space>y  :<C-u>CocList yank<cr>
-  nnoremap <silent><nowait> <space>u  :<C-u>CocList snippets<cr>
-  nnoremap <silent><nowait> <space>w  :exe 'CocList -A -I --normal --input='.expand('<cword>').' words -w'<CR>
-  " nnoremap <silent><nowait> <space>l  :<C-u>CocList -I --ignore-case lines<CR>
-  nnoremap <silent><nowait> <space>lm :<C-u>CocList marketplace<CR>
-  nnoremap <silent><nowait> <space>ls :<C-u>CocList snippets<CR>
-  nnoremap <silent><nowait> <space>lb :<C-u>CocList buffers<CR>
-  nnoremap <silent><nowait> <space>le :<C-u>CocList extensions<CR>
-  nnoremap <silent><nowait> <space>lt :<C-u>CocList tags<CR>
-  nnoremap <silent><nowait> <space>lf :<C-u>CocList functions<CR>
-  nnoremap <silent><nowait> <space>lg :<C-u>CocList gist<CR>
-  nnoremap <space>ll :<C-u>CocList<CR>
-  nnoremap <silent><nowait> <space>q  :<C-u>CocList quickfix<CR>
-  nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-  nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-  nnoremap <silent><nowait> <space>C  :<C-u>CocList commands<cr>
-  nnoremap <silent><nowait> <space>c  :<C-u>CocList vimcommands<cr>
-  nnoremap <silent><nowait> <space>o  :<C-u>CocList --auto-preview outline<cr>
-  nnoremap <silent><nowait> <space>s  :<C-u>CocList symbols<cr>
-  nnoremap <silent><nowait> <space>r  :<C-u>CocList mru<cr>
-  nnoremap <silent><nowait> <space>R  :<C-u>LeaderfMru<cr>
-  nnoremap <silent><nowait> <space>ff :<C-u>call <SID>open_files()<cr>
+  nnoremap <silent> \r                     :<C-u>CocList -N mru -A<cr>
+  nnoremap <silent><nowait> <space>h       :<C-u>CocList helptags<cr>
+  nnoremap <silent><nowait> <space>gs      :<C-u>CocCommand git.chunkStage<CR>
+  nnoremap <silent><nowait> <space>gu      :<C-u>CocCommand git.chunkUndo<CR>
+  nnoremap <silent><nowait> <space>gg      :<C-u>G<CR>
+  nnoremap <silent><nowait> <space>t       :<C-u>CocList buffers<cr>
+  nnoremap <silent><nowait> <space>n       :V<cr>
+  nnoremap <silent><nowait> <space>N       :VL<cr>
+  nnoremap <silent><nowait> <space>y       :<C-u>CocList yank<cr>
+  nnoremap <silent><nowait> <space>u       :<C-u>CocList snippets<cr>
+  nnoremap <silent><nowait> <space>w       :exe 'CocList -A -I --normal --input='.expand('<cword>').' words -w'<CR>
+  " nnoremap <silent><nowait> <space>l     :<C-u>CocList -I --ignore-case lines<CR>
+  nnoremap <space>ll                       :<C-u>CocList<CR>
+  nnoremap <silent><nowait> <space>lm      :<C-u>CocList marketplace<CR>
+  nnoremap <silent><nowait> <space>ls      :<C-u>CocList snippets<CR>
+  nnoremap <silent><nowait> <space>lb      :<C-u>CocList buffers<CR>
+  nnoremap <silent><nowait> <space>le      :<C-u>CocList extensions<CR>
+  nnoremap <silent><nowait> <space>lg      :<C-u>CocList gist<CR>
+  nnoremap <silent><nowait> <space>q       :<C-u>CocList quickfix<CR>
+  nnoremap <silent><nowait> <space>a       :<C-u>CocList diagnostics<cr>
+  nnoremap <silent><nowait> <space>e       :<C-u>CocList extensions<cr>
+  nnoremap <silent><nowait> <space>C       :<C-u>CocList commands<cr>
+  nnoremap <silent><nowait> <space>c       :<C-u>CocList vimcommands<cr>
+  nnoremap <silent><nowait> <space>o       :<C-u>CocList --auto-preview outline<cr>
+  nnoremap <silent><nowait> <space>s       :<C-u>CocList symbols<cr>
+  nnoremap <silent><nowait> <space>r       :<C-u>CocList mru<cr>
+  nnoremap <silent><nowait> <space>R       :<C-u>LeaderfMru<cr>
+  nnoremap <silent><nowait> <space>ff      :<C-u>call <SID>open_files()<cr>
   nnoremap <silent><nowait> <space><space> :<C-u>call <SID>open_files()<cr>
-  nnoremap <silent><nowait> <space>fy :<C-u>let @+="%"<CR>
-  nnoremap <silent><nowait> <space>fd :LeaderfFile <C-R>=substitute(expand('%:p:h').'/', getcwd().'/', '', '')<CR><CR> 
-  nnoremap <silent><nowait> <space>fa  :<C-u>LeaderfFile chrome/browser/<cr>
-  nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-  nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-  nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-  nnoremap <silent><nowait> <space>m  :<C-u>CocList maps<cr>
-  nnoremap <silent><nowait> <space>ve  :<C-u>Vexplore<Cr>
-  nnoremap <silent><nowait> <space>vv  :<C-u>e ./<Cr>
+  nnoremap <silent><nowait> <space>fy      :<C-u>let @+="%"<CR>
+  nnoremap <silent><nowait> <space>fd      :<C-u>CocList files %:h<CR>
+  nnoremap <silent><nowait> <space>fa      :<C-u>LeaderfFile chrome/browser/<cr>
+  nnoremap <silent><nowait> <space>j       :<C-u>CocNext<CR>
+  nnoremap <silent><nowait> <space>k       :<C-u>CocPrev<CR>
+  nnoremap <silent><nowait> <space>p       :<C-u>CocListResume<CR>
+  nnoremap <silent><nowait> <space>m       :<C-u>CocList maps<cr>
+  nnoremap <silent><nowait> <space>ve      :<C-u>Vexplore<Cr>
+  nnoremap <silent><nowait> <space>vv      :<C-u>e ./<Cr>
 
   func s:open_files()
     let total = 20000
@@ -228,7 +237,7 @@ endfunction
 let g:is_debug_mode = 0
 map <expr> <F2> <SID>toggle_debug_mode()
 autocmd! User VimspectorUICreated call s:setup_mappings()
-autocmd! User VimspectorDebugEnded call s:setdown_mappings()
+" autocmd! User VimspectorDebugEnded call s:setdown_mappings()
 
 function s:toggle_debug_mode()
   let g:is_debug_mode = !g:is_debug_mode
@@ -257,7 +266,12 @@ function s:setup_mappings()
 	nmap B  <Plug>VimspectorBreakpoints
 	nmap D  <Plug>VimspectorDisassemble
   
-  nmap <silent> q :<C-u>VimspectorReset<Cr>
+  nmap <nowait><silent> q :<C-u>call <SID>kill_debugger()<CR>
+endfunction
+
+function s:kill_debugger()
+  call <SID>setdown_mappings()
+  silent execute 'VimspectorReset'
 endfunction
 
 function s:setdown_mappings()
@@ -280,7 +294,7 @@ endfunction
 " }}
 " gdb {{
 au User TermdebugStartPost call s:setup_gdb_mappings()
-au User TermdebugStopPre  call s:setdown_gdb_mappings()
+au User TermdebugStopPre,VimspectorDebugEnded  call s:setdown_gdb_mappings()
 
 let g:is_gdb_mode = 0
 map <expr> <F4> <SID>toggle_gdb_mode()
