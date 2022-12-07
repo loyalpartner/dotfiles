@@ -86,6 +86,7 @@ set grepformat=%f:%l:%c:%m
 set title
 set wildignorecase
 set noruler
+set matchpairs=(:),{:},[:],<:>
 "set dictionary+=/usr/share/dict/words
 " terminal size
 if !has('nvim')
