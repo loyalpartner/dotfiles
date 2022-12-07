@@ -185,6 +185,8 @@ endfunction
   nnoremap <silent><nowait> <space>ls :<C-u>CocList snippets<CR>
   nnoremap <silent><nowait> <space>lb :<C-u>CocList buffers<CR>
   nnoremap <silent><nowait> <space>le :<C-u>CocList extensions<CR>
+  nnoremap <silent><nowait> <space>lt :<C-u>CocList tags<CR>
+  nnoremap <silent><nowait> <space>lf :<C-u>CocList functions<CR>
   nnoremap <silent><nowait> <space>lg :<C-u>CocList gist<CR>
   nnoremap <space>ll :<C-u>CocList<CR>
   nnoremap <silent><nowait> <space>q  :<C-u>CocList quickfix<CR>
