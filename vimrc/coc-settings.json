@@ -38,6 +38,7 @@
   "suggest.languageSourcePriority": 1000000,
   "suggest.virtualText": true,
   "outline.followCursor": true,
+  "colors.enable": true,
   "json.schemas": [
     {
       "fileMatch": [
@@ -54,10 +55,8 @@
   "coc.preferences.floatActions": false,
   "list.source.files.command": "rg",
   "list.source.files.args": [
-    "--files"
-  ],
-  "list.source.files.defaultArgs": [
-    "-F"
+    "--files",
+    "-workspace"
   ],
   "list.source.files.excludePatterns": [
     "**/node_modules/**"
@@ -67,7 +66,6 @@
     "bing",
     "haici"
   ],
-  "coc-nav.enabled": true,
   "git.signPriority": 1,
   "html.format.enable": true,
   "html.validate.scripts": true,
@@ -77,6 +75,14 @@
   "pyright.inlayHints.variableTypes": false,
   "pyright.inlayHints.functionReturnTypes": true,
   "snippets.userSnippetsDirectory": "~/dotfiles/vimrc/snippets/",
+  "gn.execArgv": [
+    "--nolazy",
+    "--inspect=6666"
+  ],
+  "protobuf.execArgv": [
+    "--nolazy",
+    "--inspect=6045"
+  ],
   "languageserver": {
     "elmLS": {
       "command": "elm-language-server",

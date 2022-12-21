@@ -66,7 +66,7 @@ function! s:Highlight() abort
   call matchadd('ColorColumn', '\%81v', 100)
   hi ColorColumn ctermbg=magenta ctermfg=0 guibg=#333333
   hi HighlightedyankRegion term=bold ctermbg=0 guibg=#13354A
-  hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+  hi CocCursorRange guibg=#b16286 guifg=#ebdbb2 ctermfg=256 ctermbg=0 term=bold
   hi CursorLineNr  ctermfg=214 ctermbg=NONE guifg=#fabd2f guibg=NONE
   hi CocErrorFloat   guifg=#fb4934 guibg=#504945
   hi CocWarningFloat guifg=#fabd2f guibg=#504945
