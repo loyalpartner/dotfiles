@@ -1,0 +1,6 @@
+--langdef=bazel
+--langmap=bazel:.bazel
+
+--kinddef-bazel=l,Library,Libraries
+--kinddef-bazel=b,Binary,Binaries
+

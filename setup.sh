@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-SCRIPTDIR="$( cd "$( dirname "$0" )" && pwd )"
+SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
 REPO_OHMYZSH="https://github.com/ohmyzsh/ohmyzsh"
 REPO_DOOM="https://github.com/hlissner/doom-emacs"
@@ -41,26 +41,26 @@ function install_softs {
 }
 
 function link_dot_configs {
-  ln -vfs $SCRIPTDIR/zsh/zshrc.zsh $HOME/.zshrc
-  ln -vfs $SCRIPTDIR/tmux.conf $HOME/.tmux.conf
+  ln -vfs $SCRIPT_DIR/zsh/zshrc.zsh $HOME/.zshrc
+  ln -vfs $SCRIPT_DIR/tmux.conf $HOME/.tmux.conf
 }
 
 function link_config_dir {
-  [[ -h "$2" ]] || ln -vfs $1 $2
+  rm -rf ${2:-/tmp/nonexist}; ln -vs $1 $2
 }
 
 function install_dotfiles {
-  cp -rf $SCRIPTDIR/ctags.d $HOME/.ctags.d
-  local dir_to_links=(sway wofi alacritty)
-  for name in ${dir_to_links[@]}
+  local xdg_configs=(sway wofi alacritty)
+  for config in ${xdg_configs[@]}
   do
-    link_config_dir $SCRIPTDIR/$name/ $HOME/.config/$name
+    link_config_dir $SCRIPT_DIR/$config/ $HOME/.config/$config
   done
+  link_config_dir $SCRIPT_DIR/ctags.d $HOME/.ctags.d
   link_dot_configs
 }
 
 function install_vim_config {
-  mkdir -p $HOME/.vim && link_config_dir $SCRIPTDIR/vimrc/ $HOME/.vim/vimrc
+  mkdir -p $HOME/.vim && link_config_dir $SCRIPT_DIR/vimrc/ $HOME/.vim/vimrc
   curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs $URL_PLUG
   ln -vfs $HOME/.vim/vimrc/.vimrc $HOME/.vimrc
 }
@@ -71,9 +71,12 @@ function install_doom {
 }
 
 function install_ohmyzsh {
-  git clone --depth=1 ${REPO_OHMYZSH} $HOME/.oh-my-zsh
-  git clone --depth=1 ${REPO_P10K} ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-  git clone --depth=1 ${REPO_ZSH_SUGGESTION} ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  declare -a args=(
+    "${REPO_OHMYZSH} $HOME/.oh-my-zsh"
+    "${REPO_P10K} ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+    "${REPO_ZSH_SUGGESTION} ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+  )
+  for arg in "${args[@]}"; do git clone --depth=1 $arg ; done
 }
 
 function install_go {
@@ -81,7 +84,7 @@ function install_go {
 }
 
 function git_config {
-  source "$SCRIPTDIR/init-git.sh"
+  source "$SCRIPT_DIR/init-git.sh"
 }
 
 function install {

@@ -1,10 +1,35 @@
 --langdef=proto
---langmap=proto:.proto
---kinddef-proto=m,method,methods
---kinddef-proto=t,type,types
---kinddef-proto=v,variable,variables
---kinddef-proto=e,enum,enums
---regex-proto=/^[ \t]*message[ \t]+([[:alnum:]_]+)/\1/t/
---regex-proto=/rpc[ \t]+([[:alnum:]_]+)/\1/m/
---regex-proto=/^[ \t]*(optional|repeated)*[ \t]+[[:alnum:]_]+[ \t]+([[:alnum:]_]+)/\2/v/
---regex-proto=/^[ \t]*([[:alnum:]_]+)[ \t]*=[ \t]*[0-9]+;/\1/e/
+--map-proto=.proto
+
+--kinddef-proto=f,method,rpc methods
+--kinddef-proto=t,type,message types
+--kinddef-proto=m,member,message member
+--kinddef-proto=e,enum,enumerators
+
+# 
+# message Name {
+#   string name = 1;
+# }
+#
+--regex-proto=/^\s*(message|enum|oneof|service)\s+(\w+)\s\{/\2/t/{scope=push}
+--regex-proto=/\s*}\s*///{scope=pop}{placeholder}
+#
+# service SearchService {
+#   rpc Search(SearchRequest) returns (SearchResponse);
+# }
+#
+--regex-proto=/^\s*rpc\s+(\w+)\(\w+\)\s+returns\s+\(\w+\).*;/\1/f/{scope=ref}
+#
+# optional string field_name = 1;
+# repeated string field_name = 1;
+# map<string, Project> projects = 3;
+#
+--regex-proto=/^\s*((optional|repeated)\s+)?\w+\s+(\w+)\s*=/\3/m/{scope=ref}
+--regex-proto=/^\s*map<\w+,\s*\w+>\s+(\w+)\s*=/\1/m/{scope=ref}
+#
+# enum MyEnum {
+#   FOO = 1 [(my_enum_value_option) = 321];
+#   BAR = 2;
+# }
+#
+--regex-proto=/^\s*(\w+)\s*=\s*[0-9]+.*;/\1/e/{scope=ref}
