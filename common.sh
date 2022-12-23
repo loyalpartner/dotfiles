@@ -189,7 +189,7 @@ _setup_basic_enviroments() {
 }
 
 _nltk_setup() {
-  python -m nltk.downloader popular
+  python3 -m nltk.downloader popular
 }
 
 _setup_python_enviroments() {
