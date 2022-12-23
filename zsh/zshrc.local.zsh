@@ -71,6 +71,7 @@ which nvim > /dev/null 2>&1 && alias vim="nvim"
 
 # bindkey
 bindkey -s "^z" "^e^ufg^m"
+bindkey -s "^xl" "|less^m"
 #bindkey -s "^h" "| _stdin^m"
 
 # functions

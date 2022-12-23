@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
@@ -6,60 +6,128 @@ REPO_OHMYZSH="https://github.com/ohmyzsh/ohmyzsh"
 REPO_DOOM="https://github.com/hlissner/doom-emacs"
 REPO_P10K="https://github.com/romkatv/powerlevel10k.git"
 REPO_ZSH_SUGGESTION="https://github.com/zsh-users/zsh-autosuggestions"
-
 URL_PLUG="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
-function install_softs {
-  if which pacman &>/dev/null
-  then
-    sudo pacman -S --noconfirm sway \
-      alacritty gvim emacs tigervnc \
-      wqy-microhei bash-completion \
-      tmux ctags zsh alacritty \
-      dmenu waybar wofi \
-      xorg-xwayland xorg-xlsclients \
-      qt5-wayland glfw-wayland \
-      fcitx5-chinese-addons fcitx5 fcitx5-qt \
-      fcitx5-pinyin-zhwiki fcitx5-configtool kcm-fcitx5 \
-      alsa-utils pulseaudio pamixer pavucontrol pulseaudio-alsa \
-      nodejs npm clash fd sshuttle man-db python-pip \
-      go
-    yay -S --noconfirm clipman \
-      google-chrome \
-      nutstore-experimental \
-      nerd-fonts-source-code-pro \
-      nerd-fonts-jetbrains-mono
+SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
-    pip install wordfreq
-    pip install nltk
-    pip install bs4
-    python -m nltk.downloader popular
-  elif which apt &>/dev/null
-  then
-    sudo apt install alacritty rust fzf ripgrep autojump golang
+. $(_path_relative_script_home common.sh)
+
+function setup_wayland_enviroments() {
+  local packages=()
+
+  if _is_arch; then
+    packages+=( 
+      sway dmenu waybar wofi clipman
+      xorg-xwayland xorg-xlsclients qt5-wayland glfw-wayland
+    )
+  elif _is_ubuntu; then
+    packages+=()
   fi
+
+  _install_packages ${packages[@]}
 }
 
-function link_dot_configs {
+function setup_gui_enviroments() {
+  local packages=(
+    wqy-microhei alacritty google-chrome
+    gvim emacs
+  )
+
+  if _is_arch; then
+    packages+=( 
+      tigervnc
+      fcitx5 fcitx5-chinese-addons fcitx5-qt
+      fcitx5-pinyin-zhwiki fcitx5-configtool kcm-fcitx5
+      alsa-utils pulseaudio pamixer pavucontrol pulseaudio-alsa
+      nutstore-experimental
+      nerd-fonts-source-code-pro
+      nerd-fonts-jetbrains-mono
+    )
+  elif _is_ubuntu; then
+    packages+=( 
+      fcitx5 fcitx5-chinese-addons
+      fcitx5-frontend-gtk3 fcitx5-frontend-gtk2
+      fcitx5-frontend-qt5
+    )
+  fi
+
+  _install_packages ${packages[@]}
+}
+
+function setup_basic_enviroments {
+  local packages=(
+    gvim tmux ctags bash-completion zsh man-db
+    jq ripgrep fzf fd autojump
+  )
+
+  if _is_arch; then
+    packages+=(mlocate)
+  elif _is_ubuntu; then
+    packages+=(locate)
+  fi
+
+  _install_packages ${packages[@]}
+}
+
+function setup_python_enviroments {
+  #     nodejs npm clash fd sshuttle man-db python-pip \
+  #     go
+
+  #   pip install wordfreq
+  #   pip install nltk
+  #   pip install bs4
+  #   python -m nltk.downloader popular
+  # elif which apt &>/dev/null
+  # then
+  #   sudo apt install rust golang
+  # fi
+  TODO
+}
+
+function setup_golang_enviroments {
+  TODO
+}
+
+function setup_rust_enviroments {
+  TODO
+}
+
+function setup_nodejs_enviroments {
+  TODO
+}
+
+link_dot_configs() {
   ln -vfs $SCRIPT_DIR/zsh/zshrc.zsh $HOME/.zshrc
   ln -vfs $SCRIPT_DIR/tmux.conf $HOME/.tmux.conf
 }
 
-function link_config_dir {
-  rm -rf ${2:-/tmp/nonexist}; ln -vs $1 $2
+link_config_dir() {
+  if [[ -n $1 && -n $2 ]]; then
+    rm -rf ${2:-/tmp/nonexist}; ln -vs $1 $2
+  else
+    echo "parameter is empty string"
+  fi
 }
 
-function install_dotfiles {
-  local xdg_configs=(sway wofi alacritty)
+_link_configs_to_xdg_dir_() {
+  echo "prepare link $1's config"
+  local targets to
+  targets="$(_path_relative_script_home $1)/*"
+  dir=$(_path_relative_xdg_config_home $1)
+  ln -vfs $targets $dir
+}
+
+install_dotfiles() {
+  local xdg_configs=(sway wofi alacritty ctags)
   for config in ${xdg_configs[@]}
   do
-    link_config_dir $SCRIPT_DIR/$config/ $HOME/.config/$config
+    _ensure_directory_exists $config
+    _link_configs_to_xdg_dir_ $config
   done
-  link_config_dir $SCRIPT_DIR/ctags.d $HOME/.ctags.d
   link_dot_configs
 }
 
-function install_vim_config {
+install_vim_config() {
   mkdir -p $HOME/.vim && link_config_dir $SCRIPT_DIR/vimrc/ $HOME/.vim/vimrc
   curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs $URL_PLUG
   ln -vfs $HOME/.vim/vimrc/.vimrc $HOME/.vimrc
@@ -96,8 +164,8 @@ function install {
   git_config
 }
 
-stop=false
-until $stop; do
+finish=false
+until $finish; do
   echo "select action to do:"
   select action in softs dotfiles doom ohmyzsh git vim go all; do
     case $action in 
@@ -109,7 +177,7 @@ until $stop; do
       vim) install_vim_config;;
       go) install_go;;
       all) install;;
-      *) stop=true;;
+      *) finish=true;;
     esac
     break
   done

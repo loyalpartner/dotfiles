@@ -63,3 +63,7 @@
 
 # ignore bazel-bin bazel-out bazel-protobuf etc.
 --exclude=*bazel-*/*
+
+# ignore out/{Release,Default} in chromium
+--exclude=out/Release
+--exclude=out/Default

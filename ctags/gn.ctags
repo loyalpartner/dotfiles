@@ -1,0 +1,20 @@
+# https://docs.ctags.io/en/latest/optlib.html#multi-line-pattern-match
+
+--langdef=gn
+--langmap=gn:.gn.gni
+
+--kinddef-gn=t,target,targets
+--kinddef-gn=u,unnamed,unnamed targets
+--kinddef-gn=v,variable,variables
+
+#
+# template("nacl_win_as_toolchain") {
+#   toolchain(target_name) {
+#     tool("asm") {}
+#   }
+# }
+#
+--regex-gn=/^\s*([[:alnum:]_-]+)\("([[:alnum:]_-]+)"\)\s*\{/\2/t/{scope=push}
+--regex-gn=/\s*}\s*///{scope=pop}{placeholder}
+--regex-gn=/^\s*([[:alnum:]_-]+)\(([[:alnum:]_-]+)\)\s*\{/\2/u/{scope=push}
+--regex-gn=/\s*}\s*///{scope=pop}{placeholder}

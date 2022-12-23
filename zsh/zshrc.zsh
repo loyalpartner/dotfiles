@@ -82,21 +82,21 @@ HYPHEN_INSENSITIVE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   zsh-autosuggestions
-  git 
-  autojump 
-  pip 
-  npm 
+  git
+  autojump
+  pip
+  npm
   nvm
   lxd
   ansible
-  history 
+  history
   bazel
   rust
   kubectl
-  repo 
+  repo
   docker
   kubectl
-  repo 
+  repo
   docker
   golang
   yarn
