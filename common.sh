@@ -129,7 +129,8 @@ _clash_setup() {
   local arch url filename
   arch=$(_arch)
   platform=$(uname -s)
-  filename=clash-${platform@L}-$arch-latest.gz
+  # filename=clash-${platform@L}-$arch-latest.gz
+  filename=clash-${platform,}-$arch-latest.gz
   url=https://release.dreamacro.workers.dev/latest/$filename
 
   tmpdir=$(_path_relative_xdg_config_home clash)
@@ -161,6 +162,16 @@ EOF
 
 }
 
+_update_packages_index() {
+  if _executable yay; then
+    yay -Syu
+  elif _executable pacman; then
+    sudo pacman -Syu
+  elif _executable apt; then
+    sudo apt update
+  fi
+}
+
 _setup_basic_enviroments() {
   local packages=(
     gvim tmux ctags bash-completion zsh man-db
@@ -182,12 +193,12 @@ _nltk_setup() {
 }
 
 _setup_python_enviroments() {
-  local packages=(pyenv)
+  local packages=()
 
   if _is_arch; then
-    packages+=(python python-pip)
+    packages+=(pyenv python python-pip)
   elif _is_ubuntu; then
-    packages+=()
+    packages+=(python)
   fi
 
   _install_packages ${packages[@]}
@@ -277,7 +288,7 @@ _setup_chromium_development_enviroments() {
     if _is_arch; then 
       _install_packages ${packages[@]}
     else
-      echo "${ERROR}unsupport platform"
+      error unspport platform
     fi
 }
 
@@ -325,6 +336,7 @@ _setup_program_enviroments() {
 }
 
 _setup_all_enviroments() {
+  _update_packages_index
   _setup_basic_enviroments
   _setup_gui_enviroments
   _setup_wayland_enviroments
@@ -334,14 +346,15 @@ _setup_all_enviroments() {
 }
 
 _setup() {
-  actions=(all basic gui wayland program)
+  actions=(all basic gui wayland program update-index)
   select action in ${actions[@]}; do
     case $action in 
       all|basic|gui|wayland|chromium) 
         eval _setup_${action}_enviroments
         break
         ;;
-      *     ) warn selected none; break;;
+      update-index) _update_packages_index; break ;;
+      *     ) warn selected none; break ;;
     esac
   done
 }
