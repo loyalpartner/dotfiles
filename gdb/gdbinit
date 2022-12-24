@@ -1,5 +1,21 @@
-source $HOME/dmos/src/tools/gdb/gdbinit
-source /home/lee/.pretty-printer.py
+#
+# manual:
+#   https://sourceware.org/gdb/current/onlinedocs/gdb/index.html
+#
+python
+from os.path import exists, expandvars
+
+init_config=expandvars('$HOME/dotfiles/gdb/init.py')
+gdb.execute('source %s' % init_config)
+end
+
+set pagination off
+set history save yes
+set history size 10000
+set history remove-duplicates unlimited
+
+set print object on
+set print pretty on
 
 add-auto-load-safe-path /home/lee/company
 
@@ -11,19 +27,3 @@ skip -gfi external/com_google_absl/absl/*/*.h
 
 set substitute-path /proc/self/cwd/ /home/lee/Documents/protols/server/addon/protobuf/
 
- # python
-# import python-gdb
-# end
-
-#python
-#import sys
-#sys.path.insert(0, "/home/lee/jsdbg-gdb")
-#import JsDbg
-#end
-
-set history save yes
-set history size 10000
-set history remove-duplicates unlimited
-
-set print object on
-set print pretty on

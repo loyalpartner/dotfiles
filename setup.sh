@@ -517,7 +517,7 @@ _ohmyzsh_setup() {
 }
 
 _dotfiles_setup() {
-  local xdg_configs=(sway wofi alacritty ctags)
+  local xdg_configs=(sway wofi alacritty ctags gdb)
   for config in ${xdg_configs[@]}
   do
     _ensure_config_directory_exists $config
