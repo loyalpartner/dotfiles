@@ -97,23 +97,30 @@ _setup_wayland_enviroments() {
   fi
 
   _install_packages ${packages[@]}
+  _jetbrains_mono_setup
+}
+
+_jetbrains_mono_setup() {
+  # https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/JetBrainsMono/font-info.md
+  setup_script="https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh"
+  bash -c $("curl -fsSL $setup_script)")
 }
 
 _setup_gui_enviroments() {
   local packages=(
-    wqy-microhei alacritty google-chrome
+    alacritty google-chrome
     gvim emacs
   )
 
   if _is_arch; then
     packages+=( 
-      tigervnc
+      tigervnc wqy-microhei 
       fcitx5 fcitx5-chinese-addons fcitx5-qt
       fcitx5-pinyin-zhwiki fcitx5-configtool kcm-fcitx5
       alsa-utils pulseaudio pamixer pavucontrol pulseaudio-alsa
       nutstore-experimental
       # nerd-fonts-source-code-pro
-      nerd-fonts-jetbrains-mono
+      # nerd-fonts-jetbrains-mono
     )
   elif _is_ubuntu; then
     packages+=( 
@@ -138,7 +145,7 @@ _clash_setup() {
   tmpfile=$tmpdir/$filename
 
   # warn create temp directory $tmpdir
-  curl -o $tmpfile --create-dirs $url &&
+  curl -fsSL -o $tmpfile --create-dirs $url &&
     (cd $tmpdir &&
       gunzip -f $tmpfile &&
       chmod +x ${filename%.*} &&
@@ -255,7 +262,7 @@ _setup_go_enviroments() {
 }
 
 _setup_rust_enviroments() {
-  TODO
+  warn TODO
 }
 
 _nvm_setup() {

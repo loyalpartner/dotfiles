@@ -1,3 +1,9 @@
+#
+# manual:
+#   https://github.com/alacritty/alacritty/wiki
+# template:
+#   https://github.com/alacritty/alacritty/blob/master/alacritty.yml
+#
 # 实时重载配置文件，不用重启测试配置选项
 live_config_reload: true
 
