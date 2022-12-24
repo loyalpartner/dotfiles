@@ -13,7 +13,6 @@
   nnoremap <expr> N  'nN'[v:searchforward]
   nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
   nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
-  " nnoremap <space>rl :source ~/.vimrc<CR>
   nnoremap Y y$
   " no overwrite paste
   " xnoremap p "_dP

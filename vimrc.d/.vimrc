@@ -83,7 +83,7 @@ filetype plugin on
 syntax on
 
 " vimrc files
-for s:path in split(glob('~/.vim/vimrc/*.vim'), "\n")
+for s:path in split(glob('~/.vim/vimrc.d/*.vim'), "\n")
   exe 'source ' . s:path
 endfor
 

@@ -74,7 +74,7 @@
   "tsserver.trace.server": "verbose",
   "pyright.inlayHints.variableTypes": false,
   "pyright.inlayHints.functionReturnTypes": true,
-  "snippets.userSnippetsDirectory": "~/dotfiles/vimrc/snippets/",
+  "snippets.userSnippetsDirectory": "~/dotfiles/snippets/",
   "gn.execArgv": [
     "--nolazy",
     "--inspect=6666"
