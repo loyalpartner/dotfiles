@@ -89,7 +89,7 @@ _is_ubuntu() { [[ "$(lsb_release -is)" =~ "Ubunutu" ]]; }
 _is_arch() { [[ "$(lsb_release -is)" =~ "Arch" ]]; }
 
 _arch() {
-  architecture=""
+  local architecture=""
   case $(uname -m) in
     i386)   architecture="386" ;;
     i686)   architecture="386" ;;
@@ -226,7 +226,7 @@ _setup_python_enviroments() {
   _install_packages ${packages[@]}
 
   if _executable pip; then
-    pip_packages=( 
+    local pip_packages=( 
       wordfreq nltk bs4 # basic
       pudb # python debugger
     )
@@ -249,7 +249,7 @@ _setup_go_enviroments() {
   debug go env -w GOPROXY=https://goproxy.cn,direct
 
   # setup vim.go
-  go_packages=(
+  local go_packages=(
     github.com/klauspost/asmfmt/cmd/asmfmt@latest
     github.com/go-delve/delve/cmd/dlv@latest
     github.com/kisielk/errcheck@latest
@@ -282,6 +282,8 @@ _setup_rust_enviroments() {
 
 _setup_node_enviroments() {
   local only_setup_node_and_yarn=${1:-false}
+  local npm_packages
+
   _nvm_setup || (error nvm setup failed && return 0)
 
   debug nvm install node
@@ -298,7 +300,7 @@ _setup_node_enviroments() {
 }
 
 _setup_chromium_development_enviroments() {
-    packages=(
+    local packages=(
       python perl gcc gcc-libs bison flex gperf
       pkgconfig nss alsa-lib glib2 gtk3 nspr 
       freetype2 cairo dbus libgnome-keyring
@@ -348,7 +350,7 @@ _setup_specific_language_enviroments() {
 }
 
 _setup_program_enviroments() {
-  languages=(all python node golang rust)
+  local languages=(all python node golang rust)
   select language in ${languages[@]}; do
     _setup_specific_language_enviroments $language
   done
@@ -367,7 +369,7 @@ _setup_all_enviroments() {
 }
 
 _setup() {
-  actions=( 
+  local actions=( 
     all basic gui wayland program
     update-index doom vim clash dotfiles
     ohmyzsh
@@ -386,7 +388,7 @@ _setup() {
 }
 
 _setup() {
-  action=${1:-all}
+  local action=${1:-all}
   case $action in 
     all|basic|gui|wayland|chromium)
       eval _setup_${action}_enviroments ;;
