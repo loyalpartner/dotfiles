@@ -87,12 +87,13 @@ _setup_wayland_enviroments() {
   local packages=(sway dmenu)
 
   if _is_arch; then
+    # add otf-font-awesome if waybar icon not appeared
     packages+=( 
       waybar wofi clipman
       xorg-xwayland xorg-xlsclients qt5-wayland glfw-wayland
     )
   elif _is_ubuntu; then
-    packages+=()
+    packages+=(fonts-font-awesome)
   fi
 
   _install_packages ${packages[@]}

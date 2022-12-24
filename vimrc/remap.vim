@@ -16,7 +16,7 @@
   " nnoremap <space>rl :source ~/.vimrc<CR>
   nnoremap Y y$
   " no overwrite paste
-  xnoremap p "_dP
+  " xnoremap p "_dP
   " clear highlight update diff
   nnoremap <silent> <C-l> :let @/=''<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR>
   " some shortcut for git
