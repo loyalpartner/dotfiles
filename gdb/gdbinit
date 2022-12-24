@@ -1,0 +1,29 @@
+source $HOME/dmos/src/tools/gdb/gdbinit
+source /home/lee/.pretty-printer.py
+
+add-auto-load-safe-path /home/lee/company
+
+skip -gfi /usr/include/c++/*/bits/*.h
+skip -gfi /usr/src/debug/gcc-build/x86_64-pc-linux-gnu/*/include/bits/*.h
+skip -gfi /usr/src/debug/*/*/*/*.cc
+skip -gfi /home/lee/Documents/protobuf/src/google/protobuf/*.pb.h
+skip -gfi external/com_google_absl/absl/*/*.h
+
+set substitute-path /proc/self/cwd/ /home/lee/Documents/protols/server/addon/protobuf/
+
+ # python
+# import python-gdb
+# end
+
+#python
+#import sys
+#sys.path.insert(0, "/home/lee/jsdbg-gdb")
+#import JsDbg
+#end
+
+set history save yes
+set history size 10000
+set history remove-duplicates unlimited
+
+set print object on
+set print pretty on

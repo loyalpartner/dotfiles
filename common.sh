@@ -14,24 +14,33 @@ _path_relative_script_home() {
 _ensure_directory_exists() {
   local dir
   dir=$(_path_relative_xdg_config_home $1)
-  echo "ensure $dir exists"
+  info "ensure $dir exists"
   rm -rf ${dir:-/tmp/nonexist}
   mkdir -p $dir
 }
 
 ERROR='\033[0;31m'
+INFO='\033[0;32m'
 WARN='\033[0;33m'
+DEBUG='\033[0;34m'
 
 warn() {
-  echo ${WARN} $@
+  echo -e ${WARN}[WARN] "$@"
+}
+
+debug() {
+  if [[ -n $DEBUG_ENABLE ]]; then
+    echo -e $DEBUG[DEBUG] "$@"
+    $@
+  fi 
 }
 
 info() {
-  echo $@
+  echo -e ${INFO}[INFO] "$@"
 }
 
 error() {
-  echo ${ERROR} $@
+  echo -e ${ERROR}[ERROR] "$@"
 }
 
 _executable() {
@@ -39,9 +48,9 @@ _executable() {
   which $cmd >> /dev/null
 }
 
-_is_ubuntu() { [[ "$(lsb_release -is)" =~ "Ubunutu" ]] }
+_is_ubuntu() { [[ "$(lsb_release -is)" =~ "Ubunutu" ]]; }
 
-_is_arch() { [[ "$(lsb_release -is)" =~ "Arch" ]] }
+_is_arch() { [[ "$(lsb_release -is)" =~ "Arch" ]]; }
 
 _arch() {
   architecture=""
@@ -60,11 +69,11 @@ _install_package() {
   local package=$1
 
   if _executable yay; then
-    yay -Sy --noconfirm $package
+    debug yay -Sy --noconfirm $package
   elif _executable pacman; then
-    sudo pacman -Sy --noconfirm $package
+    debug sudo pacman -Sy --noconfirm $package
   elif _executable apt; then
-    sudo apt install $package
+    debug sudo apt install $package
   fi
 }
 
@@ -72,14 +81,11 @@ _install_packages() {
   _executable sudo || (error "sudo isn't installed" && return 1)
 
   if _executable yay; then
-    yay -Syu
-    yay -S --noconfirm $@
+    debug yay -S --noconfirm $@
   elif _executable pacman; then
-    sudo pacman -Syu
-    sudo -S --noconfirm $@
+    debug sudo -S --noconfirm $@
   elif _executable apt; then
-    sudo apt update
-    sudo apt install $@
+    debug sudo apt install $@
   fi
 }
 
@@ -164,19 +170,19 @@ ExecStart=/usr/bin/clash -d /etc/clash
 [Install]
 WantedBy=multi-user.target
 EOF
-    sudo systemctl daemon-reload
-    sudo systemctl restart clash
+    debug sudo systemctl daemon-reload
+    debug sudo systemctl restart clash
   fi
 
 }
 
 _update_packages_index() {
   if _executable yay; then
-    yay -Syu
+    debug yay -Syu
   elif _executable pacman; then
-    sudo pacman -Syu
+    debug sudo pacman -Syu
   elif _executable apt; then
-    sudo apt update
+    debug sudo apt update
   fi
 }
 
@@ -197,7 +203,7 @@ _setup_basic_enviroments() {
 }
 
 _nltk_setup() {
-  python3 -m nltk.downloader popular
+  debug python3 -m nltk.downloader popular
 }
 
 _setup_python_enviroments() {
@@ -216,7 +222,7 @@ _setup_python_enviroments() {
       wordfreq nltk bs4 # basic
       pudb # python debugger
     )
-    pip install ${pip_packages[@]}
+    debug pip install ${pip_packages[@]}
     _nltk_setup
   fi
 }
@@ -230,9 +236,9 @@ _setup_go_enviroments() {
     packages+=(golang)
   fi
 
-  go env -w GOPATH=$HOME/go
-  go env -w GOBIN=$HOME/go/bin
-  go env -w GOPROXY=https://goproxy.cn,direct
+  debug go env -w GOPATH=$HOME/go
+  debug go env -w GOBIN=$HOME/go/bin
+  debug go env -w GOPROXY=https://goproxy.cn,direct
 
   # setup vim.go
   go_packages=(
@@ -254,10 +260,11 @@ _setup_go_enviroments() {
     github.com/josharian/impl@master
     honnef.co/go/tools/cmd/keyify@master
     github.com/koron/iferr@master
+    github.com/grafana/jsonnet-language-server@latest # jsonnet language server
   )
 
   for pkg in ${go_packages[@]}; do
-    go install ${go_packages[@]}
+    debug go install $pkg
   done
 }
 
@@ -267,7 +274,7 @@ _setup_rust_enviroments() {
 
 _nvm_setup() {
   export NVM_DIR="$HOME/.nvm" && (
-    git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+    debug git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
     cd "$NVM_DIR"
     git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
   ) && \. "$NVM_DIR/nvm.sh"
@@ -276,8 +283,8 @@ _nvm_setup() {
 _setup_node_enviroments() {
   _nvm_setup || (error nvm setup failed && return 0)
 
-  nvm install node
-  npm install -g yarn
+  debug nvm install node
+  debug npm install -g yarn
 
   npm_packages=(
     source-map-support prettier eslint ts-node

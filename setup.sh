@@ -10,7 +10,7 @@ URL_PLUG="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
 SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
-. $(_path_relative_script_home common.sh)
+. $SCRIPT_DIR/common.sh
 
 link_dot_configs() {
   ln -vfs $SCRIPT_DIR/zsh/zshrc.zsh $HOME/.zshrc
@@ -26,11 +26,11 @@ link_config_dir() {
 }
 
 _link_configs_to_xdg_dir_() {
-  echo "prepare link $1's config"
-  local targets to
-  targets="$(_path_relative_script_home $1)/*"
-  dir=$(_path_relative_xdg_config_home $1)
-  ln -vfs $targets $dir
+  local target_dir to config=$1
+  info "prepare link $config's config"
+  target_dir="$(_path_relative_script_home $config)"
+  dir=$(_path_relative_xdg_config_home $config)
+  debug ln -vfs $target_dir/'*' $dir
 }
 
 install_dotfiles() {
@@ -49,12 +49,12 @@ install_vim_config() {
   ln -vfs $HOME/.vim/vimrc/.vimrc $HOME/.vimrc
 }
 
-function install_doom {
+install_doom() {
   git clone --depth 1 ${REPO_DOOM} $HOME/.emacs.d &&
     $HOME/.emacs.d/bin/doom install
 }
 
-function install_ohmyzsh {
+install_ohmyzsh() {
   declare -a args=(
     "${REPO_OHMYZSH} $HOME/.oh-my-zsh"
     "${REPO_P10K} ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
@@ -63,17 +63,11 @@ function install_ohmyzsh {
   for arg in "${args[@]}"; do git clone --depth=1 $arg ; done
 }
 
-function install_go {
-  go install github.com/grafana/jsonnet-language-server@latest
-}
-
-function git_config {
+git_config() {
   source "$SCRIPT_DIR/init-git.sh"
 }
 
-function install {
-  install_softs
-  install_go
+install() {
   install_dotfiles
   install_ohmyzsh
   install_vim_config
@@ -83,15 +77,14 @@ function install {
 finish=false
 until $finish; do
   echo "select action to do:"
-  select action in softs dotfiles doom ohmyzsh git vim go all; do
+  select action in softs dotfiles doom ohmyzsh git vim all; do
     case $action in 
-      softs) install_softs;;
+      softs) _setup_all_enviroments;;
       dotfiles) install_dotfiles;;
       ohmyzsh) install_ohmyzsh;;
       doom) install_doom;;
       git) git_config;;
       vim) install_vim_config;;
-      go) install_go;;
       all) install;;
       *) finish=true;;
     esac
