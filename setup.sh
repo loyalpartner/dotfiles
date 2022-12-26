@@ -83,12 +83,15 @@ error() {
 
 _executable() {
   local cmd=$1
-  which $cmd > /dev/null
+  which $cmd &> /dev/null
 }
 
 _is_ubuntu() { [[ "$(lsb_release -is)" =~ "Ubunutu" ]]; }
 
-_is_arch() { [[ "$(lsb_release -is)" =~ "Arch" ]]; }
+_is_arch() { 
+  _executable lsb_release || _install_package lsb-release
+  [[ "$(lsb_release -is)" =~ "Arch" ]]
+}
 
 _arch() {
   local architecture=""
@@ -107,9 +110,9 @@ _install_package() {
   local package=$1
 
   if _executable yay; then
-    debug yay -Sy --noconfirm $package
+    debug yay -S --needed --noconfirm $package
   elif _executable pacman; then
-    debug sudo pacman -Sy --noconfirm $package
+    debug sudo pacman -S --needed --noconfirm $package
   elif _executable apt; then
     debug sudo apt install $package
   fi
@@ -118,12 +121,10 @@ _install_package() {
 _install_packages() {
   _executable sudo || (error "sudo isn't installed" && return 1)
 
-  if _executable yay; then
-    debug yay -S --noconfirm $@
-  elif _executable pacman; then
-    debug sudo -S --noconfirm $@
+  if _executable yay || _executable pacman; then
+    for pkg in $@; do _install_package $pkg; done
   elif _executable apt; then
-    debug sudo apt install $@
+    debug sudo apt install -y $@
   fi
 }
 
@@ -204,7 +205,7 @@ _setup_basic_enviroments() {
   )
 
   if _is_arch; then
-    packages+=(mlocate lsb-release)
+    packages+=(mlocate unzip)
   elif _is_ubuntu; then
     packages+=(locate)
   fi
@@ -246,30 +247,16 @@ _setup_go_enviroments() {
     packages+=(golang)
   fi
 
+  _install_packages ${packages[@]}
+
   debug go env -w GOPATH=$HOME/go
   debug go env -w GOBIN=$HOME/go/bin
   debug go env -w GOPROXY=https://goproxy.cn,direct
 
   # setup vim.go
   local go_packages=(
-    github.com/klauspost/asmfmt/cmd/asmfmt@latest
     github.com/go-delve/delve/cmd/dlv@latest
-    github.com/kisielk/errcheck@latest
-    github.com/rogpeppe/godef@latest
-    github.com/mgechev/revive@latest
-    golang.org/x/tools/gopls@latest
     github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-    honnef.co/go/tools/cmd/staticcheck@latest
-    github.com/fatih/gomodifytags@latest
-    github.com/fatih/motion@latest
-    golang.org/x/tools/cmd/goimports@master
-    github.com/davidrjenni/reftools/cmd/fillstruct@master
-    golang.org/x/tools/cmd/gorename@master
-    github.com/jstemmer/gotags@master
-    golang.org/x/tools/cmd/guru@master
-    github.com/josharian/impl@master
-    honnef.co/go/tools/cmd/keyify@master
-    github.com/koron/iferr@master
     github.com/grafana/jsonnet-language-server@latest # jsonnet language server
   )
 
@@ -449,13 +436,17 @@ _vim_setup() {
 
   debug ln -fs $vimrc_dir/'*' $vim_home/vimrc.d
   debug ln -fs $vimrc_dir/.vimrc $vim_home/vimrc
+
+  if _executable vim; then
+    vim -c "PlugInstall" -c "qa!"
+  fi
 }
 
 _jetbrains_mono_setup() {
   _ensure_proxy_enabled
   # https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/JetBrainsMono/font-info.md
   setup_script="https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh"
-  bash -c $("curl -fsSL $setup_script)")
+  bash -c "$(curl -fsSL $setup_script)"
 }
 
 _clash_setup() {
