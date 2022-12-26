@@ -83,7 +83,7 @@ error() {
 
 _executable() {
   local cmd=$1
-  which $cmd >> /dev/null
+  which $cmd > /dev/null
 }
 
 _is_ubuntu() { [[ "$(lsb_release -is)" =~ "Ubunutu" ]]; }
@@ -204,7 +204,7 @@ _setup_basic_enviroments() {
   )
 
   if _is_arch; then
-    packages+=(mlocate)
+    packages+=(mlocate lsb-release)
   elif _is_ubuntu; then
     packages+=(locate)
   fi
@@ -426,8 +426,8 @@ _doom_setup(){
   [[ -d $emacs_home/.git ]] && remove_flag=false
 
   _ensure_directory_exists $emacs_home $remove_flag
-  debug git clone --depth 1 $repo $emacs_home &&
-    debug $emacs_home/bin/doom install
+  debug git clone --depth 1 $repo $emacs_home
+  debug $emacs_home/bin/doom install
 }
 
 _vim_setup() {
