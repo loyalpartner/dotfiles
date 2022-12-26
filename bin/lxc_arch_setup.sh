@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 declare instance user
 
 lxc_create_arch() {
@@ -14,6 +16,7 @@ lxc_create_arch() {
   container_exec -- pacman -S --needed --noconfirm $packages
   container_exec -- useradd -m $user
   container_exec -- sed -i "$sedcmd" /etc/sudoers
+  # container_exec -- curl -fsSL https://raw.githubusercontent.com/loyalpartner/dotfiles/master/install.sh | bash
 }
 
 container_exec(){

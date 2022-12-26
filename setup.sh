@@ -205,6 +205,7 @@ _setup_basic_enviroments() {
   )
 
   if _is_arch; then
+    _executable yay || _yay_setup
     packages+=(mlocate unzip)
   elif _is_ubuntu; then
     packages+=(locate)
@@ -419,6 +420,8 @@ _vim_setup() {
   debug ln -fs $vimrc_dir/.vimrc $vim_home/vimrc
 
   if _executable vim; then
+    local nvm_dir=$(_path_relative_xdg_config_home nvm)
+    source $nvm_dir/nvm.sh
     vim -c "PlugInstall" -c "qa!"
   fi
 }
@@ -490,6 +493,16 @@ _ohmyzsh_setup() {
     "${REPO_ZSH_LXD} ${ZSH_CUSTOM}/plugins/lxd-completion-zsh"
   )
   for arg in "${args[@]}"; do git clone --depth=1 $arg ; done
+}
+
+_yay_setup() {
+  local yay_home=$HOME/.cache/yay
+
+  _ensure_directory_exists $yay_home false
+
+  sudo pacman -S --needed git base-devel &&
+    git clone https://aur.archlinux.org/yay.git $yay_home/yay &&
+      cd $yay_home/yay  && makepkg -si --noconfirm
 }
 
 _dotfiles_setup() {
