@@ -1,3 +1,9 @@
+### auto install
+
+```
+curl -fsSL https://raw.githubusercontent.com/loyalpartner/dotfiles/master/install.sh | bash
+```
+
 ### setup all
 ```
 bash setup.sh all

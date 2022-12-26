@@ -362,7 +362,7 @@ _setup() {
   case $action in 
     all|basic|gui|wayland|chromium)
       eval _setup_${action}_enviroments ;;
-    doom|vim|clash|dotfiles|ohmyzsh|self) _${action}_setup ;;
+    doom|vim|clash|dotfiles|ohmyzsh) _${action}_setup ;;
     update-index) _update_packages_index ;;
     *     ) warn selected none ;;
   esac
@@ -376,7 +376,7 @@ main() {
   local actions=( 
     all basic gui wayland program
     update-index doom vim clash dotfiles
-    ohmyzsh self
+    ohmyzsh
   )
   select action in ${actions[@]}; do
     _setup $action; break
@@ -511,11 +511,6 @@ _dotfiles_setup() {
   debug ln -fs $SCRIPT_DIR/tmux.conf $HOME/.tmux.conf
 
   debug source $SCRIPT_DIR/init-git.sh
-}
-
-_self_setup() {
-  git clone https://github.com/loyalpartner/dotfiles.git $HOME/dotfiles
-  bash $HOME/dotfiles/setup.sh -- all
 }
 
 main ${@:1}
