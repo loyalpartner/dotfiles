@@ -11,6 +11,8 @@ REPO_OHMYZSH="https://github.com/ohmyzsh/ohmyzsh"
 REPO_DOOM="https://github.com/hlissner/doom-emacs"
 REPO_P10K="https://github.com/romkatv/powerlevel10k.git"
 REPO_ZSH_SUGGESTION="https://github.com/zsh-users/zsh-autosuggestions"
+REPO_ZSH_LXD="https://github.com/endaaman/lxd-completion-zsh"
+ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
 URL_PLUG="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
 _path_relative_xdg_config_home() {
@@ -506,12 +508,14 @@ _nvm_setup() {
 }
 
 _ohmyzsh_setup() {
+  _ensure_proxy_enabled
   _install_package zsh
 
   declare -a args=(
     "${REPO_OHMYZSH} $HOME/.oh-my-zsh"
-    "${REPO_P10K} ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-    "${REPO_ZSH_SUGGESTION} ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+    "${REPO_P10K} ${ZSH_CUSTOM}/themes/powerlevel10k"
+    "${REPO_ZSH_SUGGESTION} ${ZSH_CUSTOM}/plugins/zsh-autosuggestions"
+    "${REPO_ZSH_LXD} ${ZSH_CUSTOM}/plugins/lxd-completion-zsh"
   )
   for arg in "${args[@]}"; do git clone --depth=1 $arg ; done
 }

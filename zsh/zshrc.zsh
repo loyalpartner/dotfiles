@@ -82,12 +82,12 @@ HYPHEN_INSENSITIVE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   zsh-autosuggestions
+  lxd-completion-zsh
   git
   autojump
   pip
   npm
   nvm
-  lxd
   ansible
   history
   bazel
