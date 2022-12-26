@@ -1,0 +1,6 @@
+# global git ignore file
+#
+# $HOME/.gitignore
+
+gdb-scripts/
+.gdb-history

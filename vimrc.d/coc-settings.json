@@ -1,5 +1,5 @@
 {
-  "suggest.noselect": true,
+  "suggest.noselect": false,
   "suggest.completionItemKindLabels": {
     "text": "text",
     "method": "method",
@@ -35,7 +35,7 @@
     "borderhighlight": "CocFloating",
     "highlight": "CocFloating"
   },
-  "suggest.languageSourcePriority": 1000000,
+  "suggest.languageSourcePriority": 99,
   "suggest.virtualText": true,
   "outline.followCursor": true,
   "colors.enable": true,
@@ -54,6 +54,7 @@
   ],
   "coc.preferences.floatActions": false,
   "list.source.files.command": "rg",
+  // "list.menuAction": true,
   "list.source.files.args": [
     "--files",
     "-workspace"
@@ -75,6 +76,7 @@
   "pyright.inlayHints.variableTypes": false,
   "pyright.inlayHints.functionReturnTypes": true,
   "snippets.userSnippetsDirectory": "~/dotfiles/snippets/",
+  "snippets.priority": 100,
   "gn.execArgv": [
     "--nolazy",
     "--inspect=6666"
