@@ -12,8 +12,7 @@ def execute(cmd, debug=True):
 
 def init_gdb_configs():
   gdb_configs=[
-    '$HOME/dmos/src/tools/gdb/gdbinit',
-    '$HOME/.pretty-printer.py'
+    '$HOME/modous/R113/chromium/src/tools/gdb/gdbinit'
   ]
   [source(config) for config in gdb_configs]
 
@@ -27,7 +26,7 @@ def init_jsdbg():
     import JsDbg
 
 def main():
-  init_gdb_configs()
+  # init_gdb_configs()
   init_jsdbg()
 
 main()

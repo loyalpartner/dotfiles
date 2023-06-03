@@ -21,7 +21,7 @@ exec_always workstyle &> /tmp/workstyle.log
 exec_always fcitx5 -d --replace
 exec nutstore
 exec google-chrome-stable
-exec bytedance-feishu-beta
+# exec bytedance-feishu-beta
 
 gaps inner 10
 default_border pixel 5
@@ -91,11 +91,15 @@ workspace 10 output HDMI-A-1
 workspace 1 output DVI-D-1
 workspace number 1
 
-Output "Apple Computer Inc Color LCD 0x00000000" {
+output "Apple Computer Inc Color LCD 0x00000000" {
   scale 1
   resolution 2560x1600
 }
-output "Goldstar Company Ltd LG HDR 4K 0x0000E984" {
+output "LG Electronics LG HDR 4K 0x0000E984" {
+  scale 1
+  resolution 3840x2160
+}
+output "BNQ BenQ PD2700U ETR1K02234CL0" {
   scale 1
   resolution 3840x2160
 }

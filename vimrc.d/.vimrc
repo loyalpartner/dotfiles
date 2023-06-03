@@ -9,7 +9,10 @@ Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'loyalpartner/coc-lists',  {'do': 'yarn install --frozen-lockfile'}
 Plug 'loyalpartner/coc-gn',  {'do': 'yarn install --frozen-lockfile'}
+" Plug 'loyalpartner/protols',  {'do': 'yarn install --frozen-lockfile'}
 Plug 'loyalpartner/chromium-vim'
+Plug 'loyalpartner/termdebug-go'
+Plug 'loyalpartner/vim-gn'
 Plug 'ryanoasis/vim-devicons'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'lambdatoast/elm.vim'
@@ -37,7 +40,6 @@ Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim'
 Plug 'tommcdo/vim-exchange'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-Plug 'loyalpartner/vim-delve'
 Plug 'heavenshell/vim-jsdoc', { 'do': 'make install' }
 Plug 'othree/xml.vim'
 Plug 'altercation/vim-colors-solarized'
@@ -63,7 +65,6 @@ Plug 'mhinz/vim-rfc'
 " Plug 'vim-scripts/BreakPts'
 Plug 'liuchengxu/vista.vim'
 Plug 'junegunn/vader.vim'
-Plug 'loyalpartner/termdebug-go'
 " Plug 'wellle/targets.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'honza/vim-snippets'
@@ -75,6 +76,10 @@ if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 endif
+
+" if v:version >= 900
+"   Plug 'Exafunction/codeium.vim'
+" endif
 
 packadd termdebug
 

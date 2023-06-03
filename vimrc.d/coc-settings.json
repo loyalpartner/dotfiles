@@ -28,6 +28,7 @@
     "typeParameter": "typeParameter",
     "default": "default"
   },
+  "inlayHint.enable": true,
   "suggest.floatConfig": {
     "shadow": true,
     "border": true,
@@ -79,11 +80,12 @@
   "snippets.priority": 100,
   "gn.execArgv": [
     "--nolazy",
-    "--inspect=6666"
+    "--inspect=6047"
   ],
+  "protobuf.lscmd": "~/Documents/protols/server/lib/server.js",
   "protobuf.execArgv": [
     "--nolazy",
-    "--inspect=6045"
+    "--inspect=6048"
   ],
   "languageserver": {
     "elmLS": {
@@ -116,5 +118,6 @@
         "libsonnet"
       ]
     }
-  }
+  },
+  "snippets.ultisnips.pythonPrompt": false
 }

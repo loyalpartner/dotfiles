@@ -1,0 +1,14 @@
+--langdef=idl
+--map-idl=+.idl
+
+--kinddef-idl=n,namespace,namespaces
+--kinddef-idl=c,callback,callbacks
+--kinddef-idl=d,dictionary,dictionaries
+--kinddef-idl=e,enum,enums
+--kinddef-idl=i,interface,interfaces
+
+--regex-idl=/^(namespace)\s+(\w+)\s\{/\2/namespace/
+--regex-idl=/^callback\s+(\w+)\s*=\s*/\1/callback/
+--regex-idl=/^enum\s+(\w+)\s*\{/\1/enum/
+--regex-idl=/^dictionary\s+(\w+)\s*\{/\1/dictionary/
+--regex-idl=/^interface\s+(\w+)\s*\{/\1/interface/

@@ -1,0 +1,15 @@
+--langdef=mojom
+--map-mojom=+.mojom
+
+--kinddef-mojom=s,struct,structs
+--kinddef-mojom=e,enum,enums
+--kinddef-mojom=i,interface,interfaces
+
+--regex-mojom=/^\s*(struct)\s+(\w+)\s*\{/\2/s/
+--regex-mojom=/^\s*(enum)\s+(\w+)\s*\{/\2/e/
+
+
+--regex-mojom=/^\s*(interface)\s+(\w+)\s\{/\2/i/{scope=push}
+--regex-mojom=/\s*}\s*///{scope=pop}{placeholder}
+
+--regex-mojom=/^\s*(\w+)\(/\1/i/{scope=ref}

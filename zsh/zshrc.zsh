@@ -93,13 +93,15 @@ plugins=(
   bazel
   rust
   kubectl
-  repo
+  # repo
   docker
   kubectl
   repo
   docker
   golang
   yarn
+  gn
+  gcloud
   )
 
 source $ZSH/oh-my-zsh.sh
@@ -133,4 +135,3 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-[[ -f /usr/share/nvm/init-nvm.sh ]] && source /usr/share/nvm/init-nvm.sh
