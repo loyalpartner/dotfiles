@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+_users(){
+  COMPREPLY=($(compgen -A user -- "$cur"))
+}
+
+_completion_loader() {
+  local cur prev words cword prefix
+
+  _init_completion || return
+  # echo -----------------
+  # echo ${COMP_WORDS[@]}
+  # echo $cur
+  # echo -----------------
+  case $cur in
+    -*)
+      prefix=${cur:0:2}
+      prev=$prefix
+      cur=${cur:2}
+      ;;
+  esac
+
+  case $prev in
+    -!(-*)u)
+      _users
+      return
+      ;;
+  esac
+
+  # echo ${words[@]}
+  # echo ${cword}
+  if [[ ${words[*]::cword-1} == *\ -[u]\ * ]]; then
+    _users
+  elif [[ $cur != -* ]]; then
+    COMPREPLY=($(compgen -W "-{n,u,p,h}" -- "$cur"))
+  fi
+
+
+}
+
+# complete -F _completion_loader lxc_arch_setup
+complete -F _completion_loader ppt
+
+
+
+

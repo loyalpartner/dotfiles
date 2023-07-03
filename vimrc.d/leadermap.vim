@@ -221,7 +221,9 @@ function! s:en2zh(mode)
     let sentence = sentence->substitute('\n', "", "g")
     let sentence = sentence->substitute('//', "", "g")
     let sentence = escape(s:strip_comments(sentence), '"\`')
-    let result = system("trans -b -no-auto :zh \"" . sentence . "\"")
+    " let result = system("trans -b -no-auto :zh \"" . sentence . "\"")
+    " pip install deepl
+    let result = system("python -m deepl text --to zh \"" . sentence . "\"")
     echon result
   endif
 endfunction

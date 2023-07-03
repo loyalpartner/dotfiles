@@ -5,14 +5,13 @@
 python
 from os.path import exists, expandvars
 
-init_config=expandvars('$HOME/dotfiles/gdb/init.py')
-gdb.execute('source %s' % init_config)
+# init_config=expandvars('$HOME/dotfiles/gdb/init.py')
+gdb.execute('source %s' % expandvars('$HOME/.config/gdb/stl_pretty'))
 end
 
+
 set debuginfod enabled off
-skip -rfu '^std::(allocator|basic_string)<.*>::~?\1'
-skip -gfi base/memory/*.h
-skip -gfi third_party/blink/renderer/platform/wtf/text/wtf_string.h
+skip -rfu '^(base|absl|std)(::[a-zA-z0-9_]+)+<.*>.+'
 
 set pagination off
 set history save yes
@@ -22,8 +21,8 @@ set history remove-duplicates unlimited
 set print object on
 set print pretty on
 
-set auto-load python-scripts on
-set auto-load safe-path ~/company/gdb-scripts/debug-protobuf.py
+# set auto-load python-scripts on
+# set auto-load safe-path ~/company/gdb-scripts/debug-protobuf.py
 # add-auto-load-safe-path /home/lee/company/gdb-scripts/debug-protobuf.py
 # add-auto-load-scripts-directory /home/lee/company/gdb-scripts
 
@@ -31,6 +30,26 @@ set auto-load safe-path ~/company/gdb-scripts/debug-protobuf.py
 define hook-quit
   !mv my.breaks my.breaks.bak
   save breakpoints my.breaks
+end
+
+# Print a C++ string.
+define ps
+  print $arg0.c_str()
+end
+
+# Print a C++ wstring or wchar_t*.
+define pws
+  printf "\""
+  set $c = (wchar_t*)$arg0
+  while ( *$c )
+    if ( *$c > 0x7f )
+      printf "[%x]", *$c
+    else
+      printf "%c", *$c
+    end
+    set $c++
+  end
+  printf "\"\n"
 end
 
 # set substitute-path /proc/self/cwd/ /home/lee/Documents/protols/server/addon/protobuf/

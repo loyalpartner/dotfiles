@@ -54,7 +54,10 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'lambdalisue/gina.vim'
 Plug '907th/vim-auto-save'
 Plug 'puremourning/vimspector'
-Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+" Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+" Plug 'kien/ctrlp.vim'
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'vim-scripts/gtags.vim'
 Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-utils/vim-man'
