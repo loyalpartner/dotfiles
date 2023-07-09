@@ -11,7 +11,7 @@ end
 
 
 set debuginfod enabled off
-skip -rfu '^(base|absl|std)(::[a-zA-z0-9_]+)+<.*>.+'
+skip -rfu '^(absl|std)(::[a-zA-z0-9_]+)+<.*>.+'
 
 set pagination off
 set history save yes

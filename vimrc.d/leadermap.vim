@@ -197,7 +197,7 @@ function! s:strip_comments(text)
   return a:text
 endfunction
 
-function! s:sentence_at_pointer(mode)
+function! s:sentence_at_point(mode)
   let reg_save=@@
 
   if a:mode == 'v'
@@ -217,7 +217,7 @@ function! s:en2zh(mode)
   if !executable("trans")
     echoerr "trans not found"
   else
-    let sentence = s:sentence_at_pointer(a:mode)
+    let sentence = s:sentence_at_point(a:mode)
     let sentence = sentence->substitute('\n', "", "g")
     let sentence = sentence->substitute('//', "", "g")
     let sentence = escape(s:strip_comments(sentence), '"\`')
