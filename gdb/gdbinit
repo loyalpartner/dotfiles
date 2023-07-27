@@ -7,11 +7,14 @@ from os.path import exists, expandvars
 
 # init_config=expandvars('$HOME/dotfiles/gdb/init.py')
 gdb.execute('source %s' % expandvars('$HOME/.config/gdb/stl_pretty'))
+
 end
 
 
 set debuginfod enabled off
 skip -rfu '^(absl|std)(::[a-zA-z0-9_]+)+<.*>.+'
+skip -rfu '([a-zA-z0-9_]+)::\1'
+skip -gfi 'base/allocator/*.h'
 
 set pagination off
 set history save yes
@@ -27,10 +30,7 @@ set print pretty on
 # add-auto-load-scripts-directory /home/lee/company/gdb-scripts
 
 
-define hook-quit
-  !mv my.breaks my.breaks.bak
-  save breakpoints my.breaks
-end
+source ~/dotfiles/gdb/break_history
 
 # Print a C++ string.
 define ps

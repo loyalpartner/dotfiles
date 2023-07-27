@@ -78,10 +78,10 @@
   "pyright.inlayHints.functionReturnTypes": true,
   "snippets.userSnippetsDirectory": "~/dotfiles/snippets/",
   "snippets.priority": 100,
-  "gn.execArgv": [
-    "--nolazy",
-    "--inspect=6047"
-  ],
+//   "gn.execArgv": [
+//     "--nolazy",
+//     "--inspect=6047"
+//   ],
   "languageserver": {
     "elmLS": {
       "command": "elm-language-server",
@@ -110,6 +110,7 @@
       ]
     },
     // https://github.com/lasorda/protobuf-language-server.git
+    // need bead
     "proto": {
       "command": "pls",
       "rootPatterns": [

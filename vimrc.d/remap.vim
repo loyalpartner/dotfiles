@@ -204,14 +204,19 @@ endfunction
   nnoremap <silent><nowait> <space>c       :<C-u>CocList vimcommands<cr>
   nnoremap <silent><nowait> <space>o       :<C-u>CocList --auto-preview outline<cr>
   nnoremap <silent><nowait> <space>s       :<C-u>CocList symbols<cr>
-  nnoremap <silent><nowait> <space>r       :<C-u>CocList mru<cr>
+  " nnoremap <silent><nowait> <space>r       :<C-u>CocList mru<cr>
+  nnoremap <silent><nowait> <space>r       :<C-u>History<cr>
   " nnoremap <silent><nowait> <space>R       :<C-u>LeaderfMru<cr>
   " nnoremap <silent><nowait> <space>ff      :<C-u>call <SID>open_files()<cr>
   " nnoremap <silent><nowait> <space><space> :<C-u>call <SID>open_files()<cr>
   nnoremap <silent><nowait> <C-p> :<C-u>:Files <cr>
+  nnoremap <silent><nowait> <space><space> :<C-u>:RG <cr>
   nnoremap <silent><nowait> <space>fy      :<C-u>let @+="%"<CR>
-  nnoremap <silent><nowait> <space>fd      :<C-u>CocList files %:h<CR>
-  nnoremap <silent><nowait> <space>fa      :<C-u>LeaderfFile chrome/browser/<cr>
+  nnoremap <silent><nowait> <space>ff      :<C-u>Files %:h<CR>
+  " nnoremap <silent><nowait> <space>fa      :<C-u>LeaderfFile chrome/browser/<cr>
+  nnoremap <silent><nowait> <space>fa      :<C-u>call CscopeFindInteractive(expand('<cword>'))<cr>
+  nnoremap <silent><nowait> <space>fc      :<C-u>call CscopeFind('c', expand('<cword>'))<cr>
+  nnoremap <silent><nowait> <space>fl      :<C-u>call ToggleLocationList()<cr>
   nnoremap <silent><nowait> <space>j       :<C-u>CocNext<CR>
   nnoremap <silent><nowait> <space>k       :<C-u>CocPrev<CR>
   nnoremap <silent><nowait> <space>p       :<C-u>CocListResume<CR>

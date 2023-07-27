@@ -45,7 +45,7 @@ for_window [title="^Ozone X11$"] {
   move position center
 }
 
-for_window [class="(Google-chrome)"] {
+for_window [instance="google-chrome"] {
   move container to workspace number 11
   workspace number 11
 }
@@ -58,7 +58,15 @@ for_window [class="(Slack)"] {
   workspace number 13
 }
 
-for_window [class="(Bytedance-feishu|apifox|wechat|ChatGPT)"] {
+for_window [class="(Bytedance-feishu|apifox|wechat)"] {
+  move scratchpad
+  scratchpad show
+  resize set 95 ppt 95 ppt
+  border pixel 5
+  move position center
+}
+
+for_window [instance="(chat.openai.com|claude.ai__chat)"] {
   move scratchpad
   scratchpad show
   resize set 95 ppt 95 ppt
@@ -75,11 +83,13 @@ bindsym $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
 bindsym $mod+ctrl+c [title="^DevTools"] scratchpad show
 bindsym $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
 bindsym $mod+ctrl+f [class="apifox"] scratchpad show
-bindsym $mod+ctrl+h [class="ChatGPT"] scratchpad show, resize set 95 ppt 95 ppt
+# google-chrome-stable --app=https://chat.openai.com
+bindsym $mod+ctrl+h [instance="(chat.openai.com)"] scratchpad show, resize set 95 ppt 95 ppt
+bindsym $mod+ctrl+s [instance="(claude.ai__chat)"] scratchpad show, resize set 95 ppt 95 ppt
 bindsym $mod+ctrl+l [class="Alacritty"] scratchpad show, resize set 95 ppt 95 ppt
 bindsym $mod+ctrl+t workspace number 11
 bindsym $mod+ctrl+n workspace number 12
-bindsym $mod+ctrl+s workspace number 13
+# bindsym $mod+ctrl+s workspace number 13
 
 ### Output configuration
 # company output settings
