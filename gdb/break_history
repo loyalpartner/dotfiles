@@ -1,39 +1,14 @@
-python
-from os.path import exists, expandvars, join
-import os
-import hashlib
-
-cache_dir = expandvars('$HOME/.cache/gdb')
-
-if not exists(cache_dir):
-  os.mkdir(cache_dir)
-end
+source ~/dotfiles/gdb/break_history.py
 
 define hook-quit
-python
-filename = gdb.current_progspace().filename
-if filename:
-  hash = hashlib.sha256()
-  hash.update(filename.encode("utf-8"))
-  hash = hash.hexdigest()
-  breakpoints_file = join(cache_dir, hash)
-
-  gdb.execute("save breakpoints %s" % breakpoints_file)
+python save()
 end
+
+define hook-kill
+python save()
 end
 
 define hook-run
-python
-if not exists(cache_dir):
-  os.mkdir(cache_dir)
-
-filename = gdb.current_progspace().filename
-if filename:
-  hash = hashlib.sha256()
-  hash.update(filename.encode("utf-8"))
-  hash = hash.hexdigest()
-  breakpoints_file = join(cache_dir, hash)
-
-  gdb.execute("source %s" % breakpoints_file)
-end
+python save()
+python load()
 end

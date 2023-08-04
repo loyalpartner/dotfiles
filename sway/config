@@ -116,12 +116,12 @@ output "Apple Computer Inc Color LCD 0x00000000" {
 output "LG Electronics LG HDR 4K 0x0000E984" {
   scale 1
   transform 270
-  pos 0 0
+  pos -2160 -1680
   resolution 3840x2160
 }
 output "BNQ BenQ PD2700U ETR1K02234CL0" {
   scale 1
-  pos 2160,0
+  pos 0 0
   resolution 3840x2160
 }
 
