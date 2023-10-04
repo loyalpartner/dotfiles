@@ -54,6 +54,7 @@
     ".projections.json"
   ],
   "coc.preferences.floatActions": false,
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "list.source.files.command": "rg",
   // "list.menuAction": true,
   "list.source.files.args": [
@@ -78,10 +79,10 @@
   "pyright.inlayHints.functionReturnTypes": true,
   "snippets.userSnippetsDirectory": "~/dotfiles/snippets/",
   "snippets.priority": 100,
-//   "gn.execArgv": [
-//     "--nolazy",
-//     "--inspect=6047"
-//   ],
+  //   "gn.execArgv": [
+  //     "--nolazy",
+  //     "--inspect=6047"
+  //   ],
   "languageserver": {
     "elmLS": {
       "command": "elm-language-server",
@@ -135,6 +136,7 @@
       ]
     }
   },
+  // "clangd.arguments": ["--background-index", "-j", "20", "--log=verbose"],
   "snippets.ultisnips.pythonPrompt": false,
   "git.enableGutters": true
 }

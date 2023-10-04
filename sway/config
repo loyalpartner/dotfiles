@@ -45,10 +45,11 @@ for_window [title="^Ozone X11$"] {
   move position center
 }
 
-for_window [instance="google-chrome"] {
-  move container to workspace number 11
-  workspace number 11
-}
+# for_window [instance="google-chrome"] {
+#  move container to workspace number 11
+#  workspace number 11
+# }
+
 for_window [class="(Emacs)"] {
   move container to workspace number 12
   workspace number 12
@@ -78,18 +79,19 @@ set $hider $HOME/dotfiles/sway/hider.sh
 # bindsym $mod+ctrl+h [class="Emacs"] scratchpad show, resize set 95 ppt 95 ppt
 # bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] scratchpad show
 # bindsym $mod+ctrl+n exec $hider '[class="Alacritty" workspace="__focused__"] focus'
-bindsym $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
-# bindsym $mod+ctrl+s [class="(slack|Slack)"] scratchpad show
-bindsym $mod+ctrl+c [title="^DevTools"] scratchpad show
-bindsym $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
-bindsym $mod+ctrl+f [class="apifox"] scratchpad show
-# google-chrome-stable --app=https://chat.openai.com
-bindsym $mod+ctrl+h [instance="(chat.openai.com)"] scratchpad show, resize set 95 ppt 95 ppt
-bindsym $mod+ctrl+s [instance="(claude.ai__chat)"] scratchpad show, resize set 95 ppt 95 ppt
-bindsym $mod+ctrl+l [class="Alacritty"] scratchpad show, resize set 95 ppt 95 ppt
-bindsym $mod+ctrl+t workspace number 11
-bindsym $mod+ctrl+n workspace number 12
-# bindsym $mod+ctrl+s workspace number 13
+bindsym {
+  $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
+  # bindsym $mod+ctrl+s [class="(slack|Slack)"] scratchpad show
+  $mod+ctrl+c [title="^DevTools"] scratchpad show
+  $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
+  $mod+ctrl+f [class="apifox"] scratchpad show
+  # google-chrome-stable --app=https://chat.openai.com
+  $mod+ctrl+h [instance="(chat.openai.com)"] scratchpad show, resize set 95 ppt 95 ppt
+  $mod+ctrl+s [instance="(claude.ai__chat)"] scratchpad show, resize set 95 ppt 95 ppt
+  $mod+ctrl+l [class="Alacritty"] scratchpad show, resize set 95 ppt 95 ppt
+  $mod+ctrl+t workspace number 11
+  $mod+ctrl+n workspace number 12
+}
 
 ### Output configuration
 # company output settings
@@ -116,12 +118,12 @@ output "Apple Computer Inc Color LCD 0x00000000" {
 output "LG Electronics LG HDR 4K 0x0000E984" {
   scale 1
   transform 270
-  pos -2160 -1680
+  pos 0 0
   resolution 3840x2160
 }
 output "BNQ BenQ PD2700U ETR1K02234CL0" {
   scale 1
-  pos 0 0
+  pos 2160 1680
   resolution 3840x2160
 }
 

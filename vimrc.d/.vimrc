@@ -76,6 +76,8 @@ Plug 'https://chromium.googlesource.com/chromium/src/tools/vim', {
       \'rtp': 'mojom'
       \}
 Plug 'https://gn.googlesource.com/gn', { 'rtp': 'misc/vim' }
+Plug 'https://github.com/webosose/chromium-v8', { 'rtp': 'tools/torque/vim-torque'}
+Plug 'CoatiSoftware/vim-sourcetrail'
 
 " if v:version >= 900
 "   Plug 'Exafunction/codeium.vim'

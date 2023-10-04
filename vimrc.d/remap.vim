@@ -216,6 +216,7 @@ endfunction
   " nnoremap <silent><nowait> <space>fa      :<C-u>LeaderfFile chrome/browser/<cr>
   nnoremap <silent><nowait> <space>fa      :<C-u>call CscopeFindInteractive(expand('<cword>'))<cr>
   nnoremap <silent><nowait> <space>fc      :<C-u>call CscopeFind('c', expand('<cword>'))<cr>
+  nnoremap <silent><nowait> <space>fg      :<C-u>call CscopeFind('g', expand('<cword>'))<cr>
   nnoremap <silent><nowait> <space>fl      :<C-u>call ToggleLocationList()<cr>
   nnoremap <silent><nowait> <space>j       :<C-u>CocNext<CR>
   nnoremap <silent><nowait> <space>k       :<C-u>CocPrev<CR>
@@ -242,7 +243,7 @@ endfunction
 let g:is_debug_mode = 0
 map <expr> <F2> <SID>toggle_debug_mode()
 autocmd! User VimspectorUICreated call s:setup_mappings()
-" autocmd! User VimspectorDebugEnded call s:setdown_mappings()
+autocmd! User VimspectorDebugEnded call s:setdown_mappings()
 
 function s:toggle_debug_mode()
   let g:is_debug_mode = !g:is_debug_mode
@@ -270,7 +271,6 @@ function s:setup_mappings()
 	nmap d  <Plug>VimspectorDownFrame
 	nmap B  <Plug>VimspectorBreakpoints
 	nmap D  <Plug>VimspectorDisassemble
-  
   nmap <nowait><silent> q :<C-u>call <SID>kill_debugger()<CR>
 endfunction
 
@@ -280,8 +280,11 @@ function s:kill_debugger()
 endfunction
 
 function s:setdown_mappings()
+  if g:is_debug_mode == 0
+    return
+  endif
   let g:is_debug_mode = 0
-  unmap c 
+  unmap c
   unmap bb
   unmap bc
   unmap bf
@@ -299,7 +302,7 @@ endfunction
 " }}
 " gdb {{
 au User TermdebugStartPost call s:setup_gdb_mappings()
-au User TermdebugStopPre,VimspectorDebugEnded  call s:setdown_gdb_mappings()
+au User TermdebugStopPre  call s:setdown_gdb_mappings()
 
 let g:is_gdb_mode = 0
 map <expr> <F4> <SID>toggle_gdb_mode()

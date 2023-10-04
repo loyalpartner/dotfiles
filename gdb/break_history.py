@@ -38,7 +38,7 @@ def modified(file: str):
 
 def save():
     progspace = gdb.current_progspace()
-    filename = progspace and progspace.filename
+    filename = progspace and progspace.is_valid() and progspace.filename
     if filename:
         hash = calculate_hash(filename.encode("utf-8"))
         breakpoints_file = join(cache_dir, hash)

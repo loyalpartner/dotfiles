@@ -27,6 +27,7 @@ fi
 
 export EDITOR="vim"
 export FZF_DEFAULT_COMMAND='fd --max-depth 8'
+# export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_DEFAULT_OPTS="\
   --height 50% \
   --preview 'bat --style=numbers --color=always --line-range :500 {}' \
@@ -77,7 +78,8 @@ bindkey -s "^xl" "|less^m"
 #bindkey -s "^h" "| _stdin^m"
 
 # functions
-function _trans { trans :zh -no-autocorrect "$*"}
+# function _trans { trans :zh -no-autocorrect "$*"}
+function _trans { python -m deepl text --to zh "$*"}
 function _locate { _auto_open $(locate --database "$DB" ${@:-""} | fzf -q "$*") }
 function _emacs { emacsclient -nc "$@" }
 function _man {

@@ -1,3 +1,4 @@
+import gdb
 from os.path import exists, expandvars
 
 def source(config):
