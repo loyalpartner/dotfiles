@@ -36,7 +36,7 @@
     "borderhighlight": "CocFloating",
     "highlight": "CocFloating"
   },
-  "suggest.languageSourcePriority": 99,
+  // "suggest.languageSourcePriority": 99,
   "suggest.virtualText": true,
   "outline.followCursor": true,
   "colors.enable": true,

@@ -6,7 +6,6 @@ let s:at_company = filereadable(s:company_path)
 set runtimepath^=~/vim-dev/plug.nvim
 call plug#begin()
 " Plug 'chrisbra/unicode.vim'
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'loyalpartner/chromium-vim'
 " Plug 'loyalpartner/protols',  {'do': 'yarn install --frozen-lockfile'}
 " Plug 'tpope/vim-vinegar'
@@ -21,6 +20,7 @@ Plug 'google/vim-jsonnet'
 Plug 'heavenshell/vim-jsdoc', { 'do': 'make install' }
 Plug 'heavenshell/vim-pydocstring'
 Plug 'honza/vim-snippets'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'lambdalisue/gina.vim'

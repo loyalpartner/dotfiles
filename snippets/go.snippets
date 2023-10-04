@@ -40,3 +40,16 @@ func New${1/\w+\s*/\u$0/}() *${1} {
 	return &${1}{}
 }
 endsnippet
+
+
+snippet ss "a := b" b
+${1} := ${2}
+endsnippet
+
+
+snippet ifn "if err:=xxx; err !=nil" b
+if err := $1; err != nil {
+	${2:fmt.Errorf("${3:%v}",${4:err})}
+}
+endsnippet
+
