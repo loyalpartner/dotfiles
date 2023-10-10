@@ -113,6 +113,7 @@
   nmap <silent> ]c <Plug>(coc-diagnostic-next)
   nmap <silent> g<Tab> :call CocActionAsync('jumpDefinition', 'tabe')<CR>
   nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gD <C-w>v<C-w>Tgd
   nmap <silent> gy :call CocActionAsync('jumpTypeDefinition', v:false)<CR>
   nmap <silent> gi :call CocActionAsync('jumpImplementation', v:false)<CR>
   nmap <silent> gr :call CocActionAsync('jumpUsed', v:false)<CR>

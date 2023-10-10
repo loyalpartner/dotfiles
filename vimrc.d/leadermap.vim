@@ -192,8 +192,10 @@ function! s:Open()
 endfunction
 
 function! s:strip_comments(text)
-  if &ft == "cpp" 
-    return a:text->substitute('\v(^//|\s+//)', "", "g")
+  if &ft == "cpp" || &ft == "c"
+    return a:text
+          \ ->substitute('\v(^\s*//)', "", "g")
+          \ ->substitute('\v(\*)', "", "g")
   endif
   return a:text
 endfunction
