@@ -191,11 +191,12 @@ function! s:Open()
   endif
 endfunction
 
-function! s:strip_comments(text)
+function! s:normalize(text)
   if &ft == "cpp" || &ft == "c"
     return a:text
           \ ->substitute('\v(^\s*//)', "", "g")
           \ ->substitute('\v(\*)', "", "g")
+          \ ->substitute('\v(\n|\t|//)+', "", "g")
   endif
   return a:text
 endfunction
@@ -219,7 +220,7 @@ endfunction
 function! s:en2zh(mode)
   let sentence = s:sentence_at_point(a:mode)
   let sentence = sentence->substitute('\(\n\|\t\|//\)', "", "g")
-  let sentence = escape(s:strip_comments(sentence), '"\`')
+  let sentence = escape(s:normalize(sentence), '"\`')
   " pip install deepl
   let result = system("python -m deepl text --to zh \"" . sentence . "\"")
   echon result->substitute('\(\. \|。\|\.$\)', '\1\n', 'g')

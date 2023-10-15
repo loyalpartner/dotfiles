@@ -109,6 +109,7 @@ else
   set background=dark
   colorscheme gruvbox
   hi Normal guibg=NONE ctermbg=NONE " transparent bg
+  hi clear Search
 endif
 " }}
 
