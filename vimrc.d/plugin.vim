@@ -342,6 +342,9 @@
 " }}
 " termdebug.vim {{
   " let let g:termdebug_map_K = 0
+  let g:termdebug_config = {}
+	let g:termdebug_config['variables_window'] = 1
+
 " }}
 
 " LeaderF.vim {{
