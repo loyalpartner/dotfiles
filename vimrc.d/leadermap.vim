@@ -192,13 +192,20 @@ function! s:Open()
 endfunction
 
 function! s:normalize(text)
+  let result = a:text
   if &ft == "cpp" || &ft == "c"
-    return a:text
-          \ ->substitute('\v(^\s*//)', "", "g")
+    let result =  result
+          \ ->substitute('\v(^\s*(//|/\*))', "", "g")
           \ ->substitute('\v(\*)', "", "g")
           \ ->substitute('\v(\n|\t|//)+', "", "g")
+  elseif &ft == "man"
+    let result =  result
+          \ ->substitute('\v^\u(\u|\s)*\n', "", "g")
   endif
-  return a:text
+
+  let result = result->substitute('\v^\s+', " ", "")
+      \ ->substitute("\n", "", "")
+  return escape(result, '"\`')
 endfunction
 
 function! s:sentence_at_point(mode)
@@ -218,9 +225,7 @@ function! s:sentence_at_point(mode)
 endfunction
 
 function! s:en2zh(mode)
-  let sentence = s:sentence_at_point(a:mode)
-  let sentence = sentence->substitute('\(\n\|\t\|//\)', "", "g")
-  let sentence = escape(s:normalize(sentence), '"\`')
+  let sentence = s:normalize(s:sentence_at_point(a:mode))
   " pip install deepl
   let result = system("python -m deepl text --to zh \"" . sentence . "\"")
   echon result->substitute('\(\. \|。\|\.$\)', '\1\n', 'g')
