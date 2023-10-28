@@ -20,6 +20,7 @@ set regexpengine=2
 set fileencodings=utf-8,gbk,ucs-bom,cp936
 set mousehide
 set mouse=a
+set cursorline
 set novisualbell
 if exists('&tagfunc')
   set tagfunc=CocTagFunc
@@ -109,7 +110,7 @@ else
   set background=dark
   colorscheme gruvbox
   hi Normal guibg=NONE ctermbg=NONE " transparent bg
-  hi clear Search
+  " hi clear Search
 endif
 " }}
 

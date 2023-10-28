@@ -201,10 +201,16 @@ function! s:normalize(text)
   elseif &ft == "man"
     let result =  result
           \ ->substitute('\v^\u(\u|\s)*\n', "", "g")
+  elseif &ft == "rust"
+    " - remove /// comment characters.
+    let result =  result
+          \ ->substitute('\v///', "", "g")
   endif
 
+  " 1. remove left space characters.
+  " 2. remove newline
   let result = result->substitute('\v^\s+', " ", "")
-      \ ->substitute("\n", "", "")
+      \ ->substitute("\n", "", "g")
   return escape(result, '"\`')
 endfunction
 
@@ -228,6 +234,6 @@ function! s:en2zh(mode)
   let sentence = s:normalize(s:sentence_at_point(a:mode))
   " pip install deepl
   let result = system("python -m deepl text --to zh \"" . sentence . "\"")
-  echon result->substitute('\(\. \|。\|\.$\)', '\1\n', 'g')
+  echon trim(result->substitute('\(\. \|。\|\.$\)', '\1\n', 'g'))
 endfunction
 " }}

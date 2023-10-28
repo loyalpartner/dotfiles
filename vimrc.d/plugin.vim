@@ -268,7 +268,7 @@
         \ 'coc-translator',
         \ 'coc-snippets',
         \ 'coc-db',
-        \ 'coc-pairs',
+        \ 'coc-rust-analyzer',
         \ 'coc-gist',
         \ ]
   let g:coc_watch_extensions = []

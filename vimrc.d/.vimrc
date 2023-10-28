@@ -65,6 +65,7 @@ Plug 'tpope/vim-unimpaired'    " enhancement
 Plug 'tweekmonster/helpful.vim'
 Plug 'vim-scripts/gtags.vim'
 Plug 'vim-utils/vim-man'
+Plug 'Raimondi/delimitMate'
 
 if has('nvim')
   Plug 'github/copilot.vim'

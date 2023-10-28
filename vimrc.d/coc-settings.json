@@ -28,7 +28,8 @@
     "typeParameter": "typeParameter",
     "default": "default"
   },
-  "inlayHint.enable": true,
+  "inlayHint.enable": false,
+  "suggest.virtualText": false,
   "suggest.floatConfig": {
     "shadow": true,
     "border": true,
@@ -37,7 +38,6 @@
     "highlight": "CocFloating"
   },
   // "suggest.languageSourcePriority": 99,
-  "suggest.virtualText": true,
   "outline.followCursor": true,
   "colors.enable": true,
   "json.schemas": [

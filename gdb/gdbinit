@@ -12,7 +12,6 @@ end
 
 source ~/.config/gdb/stl_pretty
 
-
 set debuginfod enabled off
 skip -rfu '^(absl|std|std::Cr)(::[a-zA-z0-9_]+)+'
 skip -rfu '([a-zA-z0-9_]+)::\1'
