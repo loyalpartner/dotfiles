@@ -204,7 +204,7 @@ function! s:normalize(text)
   elseif &ft == "rust"
     " - remove /// comment characters.
     let result =  result
-          \ ->substitute('\v///', "", "g")
+          \ ->substitute('\v/{2,3}', "", "g")
   endif
 
   " 1. remove left space characters.

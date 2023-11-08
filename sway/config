@@ -6,27 +6,37 @@ input type:keyboard {
     repeat_rate 80
 }
 
+# definitions
 set $mod mod4
 set $left h
 set $down j
 set $up k
 set $right l
 set $term xterm
-set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
+# set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
+set $menu rofi -show combi -combi-modi "drun,run" \
+      -ssh-command "{terminal} {ssh-client} {host} [-p {port}]"\
+      -run-shell-command "{terminal} {cmd}" \
+      -font "JetBrainsMono Nerd Font" \
+      -show-icons
+set $clipboard clipman pick -t rofi
 set $type_googleid \
   xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
 
-exec_always wl-paste -t text --watch clipman store --max-items=100
+exec_always wl-paste -t text --watch clipman store --max-items=1000
 exec_always workstyle &> /tmp/workstyle.log
 exec_always fcitx5 -d --replace
+exec_always swayrd
 exec nutstore
 exec google-chrome-stable
 # exec bytedance-feishu-beta
 
-gaps inner 10
-default_border pixel 5
+smart_gaps on
+gaps inner 5
+default_border pixel 3
+hide_edge_borders smart
 focus_follows_mouse no
-workspace_auto_back_and_forth yes
+workspace_auto_back_and_forth no
 
 # client.focused "#9f1209" "#9f1209" "#ffffff" "#9f1209"
 
@@ -41,7 +51,6 @@ for_window [title="^Ozone X11$"] {
   scratchpad show
   move to output right
   resize set 1366 px 768 px
-  border pixel 5
   move position center
 }
 
@@ -63,7 +72,6 @@ for_window [class="(Bytedance-feishu|apifox|wechat)"] {
   move scratchpad
   scratchpad show
   resize set 95 ppt 95 ppt
-  border pixel 5
   move position center
 }
 
@@ -71,27 +79,26 @@ for_window [instance="(chat.openai.com|claude.ai__chat)"] {
   move scratchpad
   scratchpad show
   resize set 95 ppt 95 ppt
-  border pixel 5
   move position center
 }
 
 set $hider $HOME/dotfiles/sway/hider.sh
 # bindsym $mod+ctrl+h [class="Emacs"] scratchpad show, resize set 95 ppt 95 ppt
 # bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] scratchpad show
-# bindsym $mod+ctrl+n exec $hider '[class="Alacritty" workspace="__focused__"] focus'
-bindsym {
-  $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
-  # bindsym $mod+ctrl+s [class="(slack|Slack)"] scratchpad show
-  $mod+ctrl+c [title="^DevTools"] scratchpad show
-  $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
-  $mod+ctrl+f [class="apifox"] scratchpad show
-  # google-chrome-stable --app=https://chat.openai.com
-  $mod+ctrl+h [instance="(chat.openai.com)"] scratchpad show, resize set 95 ppt 95 ppt
-  $mod+ctrl+s [instance="(claude.ai__chat)"] scratchpad show, resize set 95 ppt 95 ppt
-  $mod+ctrl+l [class="Alacritty"] scratchpad show, resize set 95 ppt 95 ppt
-  $mod+ctrl+t workspace number 11
-  $mod+ctrl+n workspace number 12
-}
+bindsym $mod+ctrl+n exec $hider '[class="Alacritty" workspace="__focused__"] focus'
+bindsym $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
+# bindsym $mod+ctrl+s [class="(slack|Slack)"] scratchpad show
+bindsym $mod+ctrl+c [title="^DevTools"] scratchpad show
+bindsym $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
+bindsym $mod+ctrl+f [class="apifox"] scratchpad show
+bindsym $mod+ctrl+w [class="weixin"] scratchpad show
+bindsym $mod+ctrl+l [class="Alacritty"] scratchpad show, resize set 95 ppt 95 ppt
+bindsym $mod+ctrl+t workspace number 11
+bindsym $mod+ctrl+h workspace number 12
+bindsym $mod+ctrl+s workspace number 13
+bindsym Mod1+Tab exec swayr switch-to-urgent-or-lru-window
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+p exec rofi -show window -show-icons
 
 ### Output configuration
 # company output settings
@@ -102,13 +109,15 @@ output HDMI-A-1 {
   bg yellow_light.jpg fill
   position 1920,0
 }
-workspace 6 output HDMI-A-1
-workspace 7 output HDMI-A-1
-workspace 8 output HDMI-A-1
-workspace 9 output HDMI-A-1
-workspace 10 output HDMI-A-1
-workspace 11 output HDMI-A-1
+# workspace 11 output HDMI-A-1
+# workspace 6 output HDMI-A-1
+# workspace 1 output HDMI-A-1
+# workspace 11 output HDMI-A-1
+# workspace 11 output HDMI-A-1
+# workspace 11 output HDMI-A-1
+# workspace 11 output HDMI-A-1
 # workspace 1 output DVI-D-1
+
 workspace number 1
 
 output "Apple Computer Inc Color LCD 0x00000000" {
@@ -123,7 +132,7 @@ output "LG Electronics LG HDR 4K 0x0000E984" {
 }
 output "BNQ BenQ PD2700U ETR1K02234CL0" {
   scale 1
-  pos 2160 1680
+  pos 2160,0
   resolution 3840x2160
 }
 
@@ -131,17 +140,16 @@ bindsym $mod+Return exec WAYLAND_DISPLAY= alacritty
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
 bindsym $mod+ctrl+comma exec $type_googleid
-bindsym $mod+c exec clipman pick -t dmenu
+# bindsym $mod+c exec clipman pick -t dmenu
+bindsym $mod+c exec $clipboard
 floating_modifier $mod normal
 bindsym $mod+Shift+c reload
-bindsym $mod+Shift+e exec \
-  echo "swaymsg exit" | dmenu -b | xargs swaymsg exec --
+# bindsym $mod+Shift+e exec \
+#   echo "swaymsg exit" | dmenu -b | xargs swaymsg exec --
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
-bindsym $mod+n workspace next
-bindsym $mod+p workspace prev
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
@@ -209,3 +217,43 @@ bar swaybar_command waybar
 
 
 include /etc/sway/config.d/*
+
+set $mode_shutdown "\
+<span foreground='$color10'></span>  \
+<span foreground='$color5'> \
+<span foreground='$color10'>(<b>h</b>)</span>hibernate \
+<span foreground='$color10'>(<b>l</b>)</span>lock \
+<span foreground='$color10'>(<b>e</b>)</span>logout \
+<span foreground='$color10'>(<b>r</b>)</span>reboot \
+<span foreground='$color10'>(<b>u</b>)</span>suspend \
+<span foreground='$color10'>(<b>s</b>)</span>shutdown \
+</span>"
+
+set $purge_cliphist [ $purge_cliphist_logout == 'true' ] && rm -f $HOME/.cache/cliphist/db || exit 0
+
+mode --pango_markup $mode_shutdown {
+    # lock
+    bindsym l mode "default", exec $locking
+
+    # logout
+    bindsym e exec $purge_cliphist; exec loginctl terminate-user $USER
+
+    # suspend
+    bindsym u mode "default", exec systemctl suspend
+
+    # hibernate
+    bindsym h mode "default", exec systemctl hibernate
+
+    # shutdown
+    bindsym s exec $purge_cliphist; exec systemctl poweroff
+
+    # reboot
+    bindsym r exec $purge_cliphist; exec systemctl reboot
+
+    # Return to default mode.
+    bindsym Escape mode "default"
+}
+
+## Launch // Exit Menu ##
+bindsym $mod+Shift+e mode $mode_shutdown
+

@@ -159,7 +159,7 @@ _setup_wayland_enviroments() {
   if _is_arch; then
     # add otf-font-awesome if waybar icon not appeared
     packages+=( 
-      waybar wofi clipman
+      waybar rofi clipman
       xorg-xwayland xorg-xlsclients qt5-wayland glfw-wayland
     )
   elif _is_ubuntu; then
@@ -506,7 +506,7 @@ _yay_setup() {
 }
 
 _dotfiles_setup() {
-  local xdg_configs=(sway wofi alacritty ctags gdb)
+  local xdg_configs=(sway rofi alacritty ctags gdb)
   for config in ${xdg_configs[@]}
   do
     _ensure_config_directory_exists $config

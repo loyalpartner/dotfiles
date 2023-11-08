@@ -10,7 +10,7 @@ gdb.execute('source %s' % expandvars('$HOME/.config/gdb/stl_pretty'))
 
 end
 
-source ~/.config/gdb/stl_pretty
+# source ~/.config/gdb/stl_pretty
 
 set debuginfod enabled off
 skip -rfu '^(absl|std|std::Cr)(::[a-zA-z0-9_]+)+'
@@ -27,6 +27,20 @@ set history remove-duplicates unlimited
 source ~/dotfiles/gdb/break_history
 source ~/dotfiles/gdb/pretty
 
+define px
+set $i=0
+while $i < $argc
+  eval "p/x $arg%d",$i
+  set $i = $i + 1
+end
+end
+
 
 # set substitute-path /proc/self/cwd/ /home/lee/Documents/protols/server/addon/protobuf/
 
+python
+from os.path import exists, expandvars
+
+local_gdb_config = expandvars('$HOME/.gdb.local.config')
+gdb.execute(f'source {local_gdb_config}')
+end
