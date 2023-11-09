@@ -4,8 +4,8 @@ include {
   $HOME/dotfiles/sway/config.d/autostarts
   $HOME/dotfiles/sway/config.d/applications
   $HOME/dotfiles/sway/config.d/inputs
-  $HOME/dotfiles/sway/config.d/modes/shutdown
   $HOME/dotfiles/sway/config.d/modes/default
+  $HOME/dotfiles/sway/config.d/modes/shutdown
   $HOME/dotfiles/sway/config.d/modes/resize
 }
 

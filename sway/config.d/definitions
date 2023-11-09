@@ -15,3 +15,8 @@ set $type_googleid \
   xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
 
 set $switch_to_chrome 'swayr next-matching-window \\\\[instance=\\\\"google-chrome\\\\"\\\\]'
+
+
+set $color1 #282a2b
+set $color5 #d6d6d6
+set $color10 #e6cd69
