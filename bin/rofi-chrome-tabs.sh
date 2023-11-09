@@ -21,7 +21,7 @@ function executable {
   which $cmd &> /dev/null
 }
 
-function prepare {
+function check_deps {
   if ! executable $REMOTE_BIN; then
     REMOTE_BIN="$HOME/.yarn/bin/$REMOTE_BIN"
   else 
@@ -33,18 +33,23 @@ function prepare {
     exit 0
 }
 
-function main {
-  if [[ "$ROFI_RETV" -eq "0" ]]; then
+function list_candidates {
     SELECTOR='.[] | select(.type == "page") | .title + "\\0info\\x1f" + .id + "\\n"'
     CANDIDATES=$($REMOTE_BIN list |jq -rj "$SELECTOR")
     echo -en $CANDIDATES
-  else
-    TAB_ID="$ROFI_INFO"
-    # TAB_TITLE="$(chrome-remote-interface list | jq -r --arg tab_id "$TAB_ID" 'map(select(.id == $tab_id))[] | .title')"
+}
 
-    chrome-remote-interface activate "$TAB_ID"
+function switch_to_selected_tab {
+    $REMOTE_BIN activate "${TAB_ID:-$ROFI_INFO}"
+}
+
+function main {
+  check_deps
+  if [[ "$ROFI_RETV" -eq "0" ]]; then
+    list_candidates
+  else
+    switch_to_selected_tab
   fi
 }
 
-prepare
 main
