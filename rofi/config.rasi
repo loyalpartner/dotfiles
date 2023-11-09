@@ -4,3 +4,7 @@
 /*   lightfg: #16a085; */
 /*   foreground: #eeeeee; */
 /* } */
+
+configuration {
+  modes: "window,run,ssh,drun";
+}

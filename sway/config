@@ -12,23 +12,25 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term xterm
+set $term alacritty
 # set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
-set $menu rofi -show combi -combi-modi "drun,run" \
-      -ssh-command "{terminal} {ssh-client} {host} [-p {port}]"\
-      -run-shell-command "{terminal} {cmd}" \
+set $menu rofi -combi-modi "drun,run,ssh" -show combi \
+      -terminal "$term" \
       -font "JetBrainsMono Nerd Font" \
-      -show-icons
+      -show-icons -i
 set $clipboard clipman pick -t rofi
 set $type_googleid \
   xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
 
+set $switch_to_chrome 'swayr next-matching-window \\\\[instance=\\\\"google-chrome\\\\"\\\\]'
+
+# autostarts
 exec_always wl-paste -t text --watch clipman store --max-items=1000
 exec_always workstyle &> /tmp/workstyle.log
 exec_always fcitx5 -d --replace
 exec_always swayrd
 exec nutstore
-exec google-chrome-stable
+# exec google-chrome-stable
 # exec bytedance-feishu-beta
 
 smart_gaps on
@@ -91,14 +93,18 @@ bindsym $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
 bindsym $mod+ctrl+c [title="^DevTools"] scratchpad show
 bindsym $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
 bindsym $mod+ctrl+f [class="apifox"] scratchpad show
-bindsym $mod+ctrl+w [class="weixin"] scratchpad show
+bindsym $mod+ctrl+w [instance="electronic-wechat"] scratchpad show
 bindsym $mod+ctrl+l [class="Alacritty"] scratchpad show, resize set 95 ppt 95 ppt
-bindsym $mod+ctrl+t workspace number 11
+# bindsym $mod+ctrl+t workspace number 11
+# bindsym $mod+ctrl+t [instance="google-chrome"] focus
+bindsym $mod+ctrl+t  exec $switch_to_chrome
 bindsym $mod+ctrl+h workspace number 12
 bindsym $mod+ctrl+s workspace number 13
 bindsym Mod1+Tab exec swayr switch-to-urgent-or-lru-window
 bindsym $mod+Tab workspace back_and_forth
-bindsym $mod+p exec rofi -show window -show-icons
+bindsym $mod+p exec swayr switch-window
+# ln -sf `which chrome-remote-interface` /usr/bin
+bindsym Mod1+t exec rofi -show tabs -modes 'tabs:~/dotfiles/bin/rofi-chrome-tabs.sh'
 
 ### Output configuration
 # company output settings
@@ -109,16 +115,8 @@ output HDMI-A-1 {
   bg yellow_light.jpg fill
   position 1920,0
 }
-# workspace 11 output HDMI-A-1
-# workspace 6 output HDMI-A-1
-# workspace 1 output HDMI-A-1
-# workspace 11 output HDMI-A-1
-# workspace 11 output HDMI-A-1
-# workspace 11 output HDMI-A-1
-# workspace 11 output HDMI-A-1
-# workspace 1 output DVI-D-1
 
-workspace number 1
+# workspace number 1
 
 output "Apple Computer Inc Color LCD 0x00000000" {
   scale 1
@@ -218,6 +216,9 @@ bar swaybar_command waybar
 
 include /etc/sway/config.d/*
 
+set $color1 #282a2b
+set $color5 #d6d6d6
+set $color10 #e6cd69
 set $mode_shutdown "\
 <span foreground='$color10'></span>  \
 <span foreground='$color5'> \
@@ -234,22 +235,16 @@ set $purge_cliphist [ $purge_cliphist_logout == 'true' ] && rm -f $HOME/.cache/c
 mode --pango_markup $mode_shutdown {
     # lock
     bindsym l mode "default", exec $locking
-
     # logout
     bindsym e exec $purge_cliphist; exec loginctl terminate-user $USER
-
     # suspend
     bindsym u mode "default", exec systemctl suspend
-
     # hibernate
     bindsym h mode "default", exec systemctl hibernate
-
     # shutdown
     bindsym s exec $purge_cliphist; exec systemctl poweroff
-
     # reboot
     bindsym r exec $purge_cliphist; exec systemctl reboot
-
     # Return to default mode.
     bindsym Escape mode "default"
 }

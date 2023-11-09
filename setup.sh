@@ -154,7 +154,7 @@ _git_clone_or_pull() {
 }
 
 _setup_wayland_enviroments() {
-  local packages=(sway dmenu)
+  local packages=(sway swayr greetd greetd-tuigreet)
 
   if _is_arch; then
     # add otf-font-awesome if waybar icon not appeared
