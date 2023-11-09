@@ -103,7 +103,7 @@ bindsym $mod+ctrl+s workspace number 13
 bindsym Mod1+Tab exec swayr switch-to-urgent-or-lru-window
 bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+p exec swayr switch-window
-bindsym $mod+t exec rofi -show tabs
+bindsym $mod+t exec rofi -show tabs --show-icon
 
 ### Output configuration
 # company output settings
