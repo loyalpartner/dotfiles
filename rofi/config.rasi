@@ -6,5 +6,5 @@
 /* } */
 
 configuration {
-  modes: "window,run,ssh,drun";
+  modes: "window,run,ssh,drun,tabs:~/dotfiles/bin/rofi-chrome-tabs.sh";
 }

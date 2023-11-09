@@ -38,7 +38,7 @@ gaps inner 5
 default_border pixel 3
 hide_edge_borders smart
 focus_follows_mouse no
-workspace_auto_back_and_forth no
+workspace_auto_back_and_forth yes
 
 # client.focused "#9f1209" "#9f1209" "#ffffff" "#9f1209"
 
@@ -104,7 +104,7 @@ bindsym Mod1+Tab exec swayr switch-to-urgent-or-lru-window
 bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+p exec swayr switch-window
 # ln -sf `which chrome-remote-interface` /usr/bin
-bindsym Mod1+t exec rofi -show tabs -modes 'tabs:~/dotfiles/bin/rofi-chrome-tabs.sh'
+bindsym Mod1+t exec rofi -show tabs
 
 ### Output configuration
 # company output settings

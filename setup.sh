@@ -506,7 +506,7 @@ _yay_setup() {
 }
 
 _dotfiles_setup() {
-  local xdg_configs=(sway rofi alacritty ctags gdb)
+  local xdg_configs=(sway rofi swayr alacritty ctags gdb)
   for config in ${xdg_configs[@]}
   do
     _ensure_config_directory_exists $config
