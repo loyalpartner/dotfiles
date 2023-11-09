@@ -1,0 +1,6 @@
+# autostarts
+exec_always wl-paste -t text --watch clipman store --max-items=1000
+exec_always workstyle &> /tmp/workstyle.log
+exec_always fcitx5 -d --replace
+exec_always swayrd
+exec nutstore

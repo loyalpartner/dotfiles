@@ -1,0 +1,17 @@
+# definitions
+set $mod mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term alacritty
+# set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
+set $menu rofi -combi-modi "drun,run,ssh" -show combi \
+      -terminal "$term" \
+      -font "JetBrainsMono Nerd Font" \
+      -show-icons -i
+set $clipboard clipman pick -t rofi
+set $type_googleid \
+  xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
+
+set $switch_to_chrome 'swayr next-matching-window \\\\[instance=\\\\"google-chrome\\\\"\\\\]'

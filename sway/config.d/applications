@@ -1,0 +1,40 @@
+for_window [class="XTerm"] opacity set 0.8
+for_window [class="Zathura"] opacity set 0.8
+
+# chromium floating
+for_window [title="^Ozone X11$"] {
+  move scratchpad
+  scratchpad show
+  move to output right
+  resize set 1366 px 768 px
+  move position center
+}
+
+# for_window [instance="google-chrome"] {
+#  move container to workspace number 11
+#  workspace number 11
+# }
+
+for_window [class="(Emacs)"] {
+  move container to workspace number 12
+  workspace number 12
+}
+for_window [class="(Slack)"] {
+  move container to workspace number 13
+  workspace number 13
+}
+
+for_window [class="(Bytedance-feishu|apifox|wechat)"] {
+  move scratchpad
+  scratchpad show
+  resize set 95 ppt 95 ppt
+  move position center
+}
+
+for_window [instance="(chat.openai.com|claude.ai__chat)"] {
+  move scratchpad
+  scratchpad show
+  resize set 95 ppt 95 ppt
+  move position center
+}
+

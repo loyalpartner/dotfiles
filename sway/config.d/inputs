@@ -1,0 +1,25 @@
+output * bg ../rain.jpg fill
+output DVI-D-1 resolution 1920x1080
+output HDMI-A-1 {
+  resolution 1920x1080 
+  bg ../yellow_light.jpg fill
+  position 1920,0
+}
+
+# workspace number 1
+
+output "Apple Computer Inc Color LCD 0x00000000" {
+  scale 1
+  resolution 2560x1600
+}
+output "LG Electronics LG HDR 4K 0x0000E984" {
+  scale 1
+  transform 270
+  pos 0 0
+  resolution 3840x2160
+}
+output "BNQ BenQ PD2700U ETR1K02234CL0" {
+  scale 1
+  pos 2160,0
+  resolution 3840x2160
+}
