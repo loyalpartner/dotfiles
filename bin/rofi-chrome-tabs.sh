@@ -39,7 +39,7 @@ function list_candidates {
     echo -en $CANDIDATES
 }
 
-function switch_to_selected_tab {
+function switch_to_candidate {
     $REMOTE_BIN activate "${TAB_ID:-$ROFI_INFO}"
 }
 
@@ -48,7 +48,7 @@ function main {
   if [[ "$ROFI_RETV" -eq "0" ]]; then
     list_candidates
   else
-    switch_to_selected_tab
+    switch_to_candidate
   fi
 }
 
