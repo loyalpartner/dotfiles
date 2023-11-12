@@ -11,3 +11,4 @@ payload:
   - '+.static.linear.app'
   - '+.registry-1.docker.io'
   - '+.www.craftz.dog'
+  - '+.wayland.arktoria.org'

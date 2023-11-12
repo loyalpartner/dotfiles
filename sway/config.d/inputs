@@ -1,4 +1,4 @@
-output * bg ../rain.jpg fill
+output * bg ../yellow_light.jpg fill
 output DVI-D-1 resolution 1920x1080
 output HDMI-A-1 {
   resolution 1920x1080 
