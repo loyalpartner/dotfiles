@@ -70,6 +70,7 @@ alias swae="vim ~/.config/sway/config"
 alias alae="vim ~/.config/alacritty/alacritty.yml"
 alias gdbe="vim ~/.config/gdb/gdbinit"
 alias rofe="vim ~/.config/rofi/config.rasi"
+alias chre="vim ~/.config/chrome-flags.conf"
 alias clae="sudo -E vim /etc/clash/config.yaml"
 which nvim > /dev/null 2>&1 && alias vim="nvim"
 

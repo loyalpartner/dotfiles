@@ -14,7 +14,7 @@ set $clipboard clipman pick -t rofi
 set $type_googleid \
   xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
 
-set $switch_to_chrome 'swayr next-matching-window \\\\[instance=\\\\"google-chrome\\\\"\\\\]'
+set $switch_to_chrome swayr next-matching-window \\\\[app_id=\\\\"google-chrome\\\\"\\\\]
 
 
 set $color1 #282a2b

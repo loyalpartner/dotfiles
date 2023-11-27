@@ -65,6 +65,6 @@ def load():
         print("load breakpoints")
 
 
-# gdb.events.exited.connect(lambda event: save())
+gdb.events.exited.connect(lambda event: save())
 
 # vim: set sw=2 ts=2 sts=2 et tw=78;

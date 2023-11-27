@@ -24,17 +24,15 @@ for_window [class="(Slack)"] {
   workspace number 13
 }
 
-for_window [class="(Bytedance-feishu|apifox|wechat)"] {
-  move scratchpad
-  scratchpad show
-  resize set 95 ppt 95 ppt
-  move position center
-}
 
-for_window [instance="(chat.openai.com|claude.ai__chat)"] {
-  move scratchpad
-  scratchpad show
-  resize set 95 ppt 95 ppt
-  move position center
+set $float_center move scratchpad; \
+      scratchpad show; \
+      resize set 95 ppt 95 ppt; \
+      move position center;
+
+for_window {
+  [class="(Bytedance-feishu|apifox|wechat)"] $float_center
+  [instance="(chat.openai.com|claude.ai__chat)"] $float_center
+  [app_id="chrome-chat.openai.com.*"] $float_center
 }
 

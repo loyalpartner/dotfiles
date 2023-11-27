@@ -12,25 +12,28 @@ env:
 
 window:
   opacity: 0.8
-  padding:
-    x: 5
-    y: 0
+  # padding:
+  #   x: 5
+  #   y: 0
 
 draw_bold_text_with_bright_colors: true
 
 # 字体设置为等宽字体，可以用命令 fc-list 查看你系统的字体
 font:
-  size: 8
+  size: 14
   normal:
     family: JetBrainsMono Nerd Font
+    # family: WenQuanYi Micro Hei
   #   style: Medium
 
   bold:
     family: JetBrainsMono Nerd Font
+    # family: WenQuanYi Micro Hei
   #   style: Bold
 
   italic:
     family: JetBrainsMono Nerd Font
+    # family: WenQuanYi Micro Hei
   #   style: Italic
 
   offset:

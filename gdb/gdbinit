@@ -6,7 +6,17 @@ python
 from os.path import exists, expandvars
 
 # init_config=expandvars('$HOME/dotfiles/gdb/init.py')
-gdb.execute('source %s' % expandvars('$HOME/.config/gdb/stl_pretty'))
+# gdb.execute('source %s' % expandvars('$HOME/dotfiles/gdb/stl_pretty'))
+
+scripts = [
+  expandvars('$HOME/dotfiles/gdb/stl_pretty'),
+  expandvars('$HOME/dotfiles/gdb/break_history'),
+  expandvars('$HOME/dotfiles/gdb/pretty'),
+  expandvars('$HOME/dotfiles/gdb/editx.py'),
+]
+
+for script in scripts:
+  gdb.execute('source %s' % script)
 
 end
 
@@ -23,9 +33,6 @@ set history save yes
 set history size 10000
 set history remove-duplicates unlimited
 
-
-source ~/dotfiles/gdb/break_history
-source ~/dotfiles/gdb/pretty
 
 define px
 set $i=0

@@ -1,4 +1,4 @@
-bindsym $mod+Return exec WAYLAND_DISPLAY= alacritty
+bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu
 bindsym $mod+ctrl+comma exec $type_googleid
