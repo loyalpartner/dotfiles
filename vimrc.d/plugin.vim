@@ -269,7 +269,6 @@
         \ 'coc-snippets',
         \ 'coc-db',
         \ 'coc-rust-analyzer',
-        \ 'coc-gist',
         \ ]
   let g:coc_watch_extensions = []
   "let g:coc_node_path = '/usr/local/bin/node'

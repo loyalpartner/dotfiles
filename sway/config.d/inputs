@@ -13,6 +13,11 @@ output {
     scale 1.5
   }
 
+  "JZM JZM27DC Unknown" {
+    scale 1.5
+    resolution 2560x1440
+  }
+
   "Apple Computer Inc Color LCD 0x00000000" {
     resolution 2560x1600
   }

@@ -28,7 +28,7 @@
     "typeParameter": "typeParameter",
     "default": "default"
   },
-  "inlayHint.enable": true,
+  "inlayHint.enable": false,
   "suggest.virtualText": false,
   "suggest.floatConfig": {
     "shadow": true,
@@ -81,6 +81,13 @@
   "pyright.inlayHints.functionReturnTypes": true,
   "snippets.userSnippetsDirectory": "~/dotfiles/snippets/",
   "snippets.priority": 100,
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.checkOnSave": true,
+  "workspace.ignoredFolders": [
+    "$HOME",
+    "$HOME/.cargo/**",
+    "$HOME/.rustup/**"
+  ],
   //   "gn.execArgv": [
   //     "--nolazy",
   //     "--inspect=6047"

@@ -68,7 +68,6 @@ Plug 'vim-utils/vim-man'
 Plug 'Raimondi/delimitMate'
 
 if has('nvim')
-  Plug 'github/copilot.vim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 endif
@@ -80,9 +79,10 @@ Plug 'https://gn.googlesource.com/gn', { 'rtp': 'misc/vim' }
 Plug 'https://github.com/webosose/chromium-v8', { 'rtp': 'tools/torque/vim-torque'}
 Plug 'CoatiSoftware/vim-sourcetrail'
 
-" if v:version >= 900
-"   Plug 'Exafunction/codeium.vim'
-" endif
+if v:version >= 900
+  " Plug 'Exafunction/codeium.vim'
+  Plug 'github/copilot.vim'
+endif
 
 packadd termdebug
 

@@ -22,7 +22,8 @@ workspace_auto_back_and_forth yes
 set $hider $HOME/dotfiles/sway/hider.sh
 # bindsym $mod+ctrl+h [class="Emacs"] scratchpad show, resize set 95 ppt 95 ppt
 # bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] scratchpad show
-bindsym $mod+ctrl+n exec $hider '[class="Alacritty" workspace="__focused__"] focus'
+# bindsym $mod+ctrl+n exec $hider '[class="Alacritty" workspace="__focused__"] focus'
+bindsym $mod+ctrl+n workspace number 7
 bindsym $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
 # bindsym $mod+ctrl+s [class="(slack|Slack)"] scratchpad show
 bindsym $mod+ctrl+c [title="^DevTools"] scratchpad show
@@ -30,7 +31,9 @@ bindsym $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
 bindsym $mod+ctrl+f [class="apifox"] scratchpad show
 bindsym $mod+ctrl+w [instance="electronic-wechat"] scratchpad show
 # 一键切换到 chrome
-bindsym $mod+ctrl+t  exec $switch_to_chrome
+# bindsym $mod+ctrl+t  exec $switch_to_chrome
+# bindsym $mod+ctrl+t  exec $switch_to_chrome
+bindsym $mod+ctrl+t [app_id="google-chrome"] scratchpad show
 # 切换到 alacritty 浮动窗口, 类似于下拉终端
 # NOTE: 浮动窗口需要手动创建
 bindsym $mod+ctrl+h [app_id="Alacritty"] scratchpad show
