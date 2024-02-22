@@ -26,6 +26,14 @@
   nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " }}
 
+" vimdiff {{
+  if &diff
+    map <leader>1 :diffget LOCAL<CR>
+    map <leader>2 :diffget BASE<CR>
+    map <leader>3 :diffget REMOTE<CR>
+  endif
+" }}
+
 " insert keymap like emacs {{
   "inoremap <C-w> <C-[>diwa
   inoremap <C-h> <BS>
