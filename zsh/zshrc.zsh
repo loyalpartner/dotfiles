@@ -88,20 +88,19 @@ plugins=(
   pip
   npm
   nvm
-  ansible
+  # ansible
   history
-  bazel
+  # bazel
   rust
-  kubectl
   # repo
   docker
   kubectl
-  repo
+  # repo
   docker
   golang
   yarn
-  gn
-  gcloud
+  # gn
+  # gcloud
   )
 
 source $ZSH/oh-my-zsh.sh

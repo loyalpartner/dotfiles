@@ -7,6 +7,9 @@ let g:mapleader = ','
   nnoremap <leader>q :silent! Bdelete!<CR>
 	nnoremap <leader>e :e <C-R>=substitute(expand('%:p:h').'/', getcwd().'/', '', '')<CR>
 
+  " copy to tmux buffers
+  vnoremap <leader>y :Tyank<CR>
+
   "nnoremap <leader>e :LeaderfFile <C-R>=substitute(expand('%:p:h').'/', getcwd().'/', '', '')<CR><CR>
   nnoremap <leader>w :w<CR>
   nnoremap <leader>v :vs <C-R>=substitute(expand('%:p:h').'/', getcwd().'/', '', '')<CR>
