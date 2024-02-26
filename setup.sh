@@ -159,7 +159,8 @@ _setup_wayland_enviroments() {
   if _is_arch; then
     # add otf-font-awesome if waybar icon not appeared
     packages+=( 
-      waybar rofi clipman
+      waybar rofi-lbonn-wayland swayidle
+      swaylock clipman
       xorg-xwayland xorg-xlsclients qt5-wayland glfw-wayland
     )
   elif _is_ubuntu; then

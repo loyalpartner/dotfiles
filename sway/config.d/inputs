@@ -14,7 +14,6 @@ output {
   }
 
   "JZM JZM27DC Unknown" {
-    scale 1.5
     resolution 2560x1440
   }
 
