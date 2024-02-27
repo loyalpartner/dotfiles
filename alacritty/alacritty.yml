@@ -20,7 +20,7 @@ draw_bold_text_with_bright_colors: true
 
 # 字体设置为等宽字体，可以用命令 fc-list 查看你系统的字体
 font:
-  size: 12
+  size: 10
   normal:
     family: JetBrainsMono Nerd Font
     # family: WenQuanYi Micro Hei
@@ -40,9 +40,6 @@ font:
     x: 0
     y: 0
 
-  flyph_offset:
-    x: 0
-    y: 0
 
 selection:
   semantic_escape_chars: ',│`|:"'' ()[]{}<>'
