@@ -67,7 +67,7 @@ set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 set wildignore+=*.so,*~,*/.git/*,*/.svn/*,*/.DS_Store,*/tmp/*
 set keywordprg=
-set showtabline=2
+set showtabline=1
 set laststatus=2
 set noshowmode
 set updatetime=1500
@@ -108,7 +108,7 @@ if has('gui_running')
   set antialias
 else
   set background=dark
-  colorscheme gruvbox
+  colorscheme warlock
   hi Normal guibg=NONE ctermbg=NONE " transparent bg
   " hi clear Search
 endif

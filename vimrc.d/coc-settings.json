@@ -6,10 +6,16 @@
   "suggest.lowPrioritySourceLimit": 10,
   "suggest.highPrioritySourceLimit": 100,
   "suggest.languageSourcePriority": 1000,
-  "suggest.floatConfig": { "shadow": false, "border": true, "rounded": false },
+  "suggest.labelMaxLength": 50,
+  "suggest.floatConfig": {
+    "shadow": false, "border": true, "rounded": false
+  },
   "coc.source.dictionary.priority": 0,
   "coc.source.word.priority": 0,
+  "coc.preferences.floatActions": false,
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "copilot.priority": 1000,
+  "go.trace.server": "verbose",
   "inlayHint.enable": false,
   "typeHierarchy.splitCommand": "botright 80vs",
   "callHierarchy.splitCommand": "botright 80vs",
@@ -23,13 +29,9 @@
     }
   ],
   "workspace.rootPatterns": [ ".git", ".hg", ".projections.json" ],
-  "coc.preferences.floatActions": false,
-  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "list.source.files.command": "rg",
-  // "list.menuAction": true,
   "list.source.files.args": [ "--files", "-workspace" ],
   "list.source.files.excludePatterns": [ "**/node_modules/**" ],
-  "translator.engines": [ "youdao", "bing", "haici" ],
   "git.signPriority": 1,
   "html.format.enable": true,
   "html.validate.scripts": true,
@@ -40,16 +42,15 @@
   "pyright.inlayHints.functionReturnTypes": true,
   "rust-analyzer.updates.channel": "nightly",
   "rust-analyzer.check.command": "clippy",
-  "rust-analyzer.checkOnSave": true,
+  // "rust-analyzer.trace.server": "verbose",
+  // "rust-analyzer.server.path": "~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer",
+  // "rust-analyzer.checkOnSave": true,
   "workspace.ignoredFolders": [
     "$HOME",
     "$HOME/.cargo/**",
     "$HOME/.rustup/**"
   ],
-  //   "gn.execArgv": [
-  //     "--nolazy",
-  //     "--inspect=6047"
-  //   ],
+  // "gn.execArgv": [ "--nolazy", "--inspect=6047" ],
   "languageserver": {
     "elmLS": {
       "command": "elm-language-server",
@@ -83,8 +84,5 @@
     }
   },
   // "clangd.arguments": ["--background-index", "-j", "20", "--log=verbose"],
-  "snippets.ultisnips.pythonPrompt": false,
-  "snippets.userSnippetsDirectory": "~/dotfiles/snippets/",
-  "snippets.priority": 1,
   "git.enableGutters": true
 }

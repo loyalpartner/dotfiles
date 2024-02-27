@@ -28,14 +28,18 @@ Plug 'lambdatoast/elm.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'liuchengxu/vista.vim'
 " Plug 'loyalpartner/coc-gn',  {'do': 'yarn install --frozen-lockfile'}
-Plug 'loyalpartner/coc-lists',  {'do': 'yarn install --frozen-lockfile'}
+" Plug 'loyalpartner/coc-lists',  {'do': 'yarn install --frozen-lockfile'}
 Plug 'loyalpartner/termdebug-go'
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-rfc'
 Plug 'morhetz/gruvbox'
+Plug 'hardselius/warlock'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'mzlogin/vim-markdown-toc'
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'othree/xml.vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'posva/vim-vue'
@@ -66,6 +70,8 @@ Plug 'tweekmonster/helpful.vim'
 Plug 'vim-scripts/gtags.vim'
 Plug 'vim-utils/vim-man'
 Plug 'Raimondi/delimitMate'
+
+Plug 'ludovicchabant/vim-gutentags'
 
 if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}

@@ -62,8 +62,8 @@ function! SetStatusLine()
   hi User5 guifg=#f8f9fa guibg=#343a40
 endfunction
 
-augroup statusline
-  autocmd!
-  autocmd BufEnter,BufNewFile,BufReadPost,ShellCmdPost,BufWritePost * call SetStatusLine()
-  autocmd FileChangedShellPost,ColorScheme * call SetStatusLine()
-augroup end
+" augroup statusline
+"   autocmd!
+  " autocmd BufEnter,BufNewFile,BufReadPost,ShellCmdPost,BufWritePost * call SetStatusLine()
+  " autocmd FileChangedShellPost,ColorScheme * call SetStatusLine()
+" augroup end
