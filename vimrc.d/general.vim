@@ -68,7 +68,7 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic white
 set wildignore+=*.so,*~,*/.git/*,*/.svn/*,*/.DS_Store,*/tmp/*
 set keywordprg=
 set showtabline=1
-set laststatus=2
+set laststatus=0
 set noshowmode
 set updatetime=1500
 set synmaxcol=300
@@ -110,6 +110,16 @@ else
   set background=dark
   colorscheme warlock
   hi Normal guibg=NONE ctermbg=NONE " transparent bg
+  hi LineNr ctermbg=NONE
+  hi SignColumn ctermbg=NONE
+  hi VertSplit ctermbg=NONE
+  hi TabLine ctermbg=NONE
+  hi TabLineFill ctermbg=NONE
+  hi TabLineSel ctermbg=NONE ctermfg=255
+  " hi CursorLine ctermbg=NONE
+  " hi CursorLineNr ctermbg=214
+  " hi CursorLineSign ctermbg=214 ctermfg=NONE
+
   " hi clear Search
 endif
 " }}

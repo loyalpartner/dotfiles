@@ -32,6 +32,8 @@
   "list.source.files.command": "rg",
   "list.source.files.args": [ "--files", "-workspace" ],
   "list.source.files.excludePatterns": [ "**/node_modules/**" ],
+  "list.previousKeymap": "<C-p>",
+  "list.nextKeymap": "<C-n>",
   "git.signPriority": 1,
   "html.format.enable": true,
   "html.validate.scripts": true,

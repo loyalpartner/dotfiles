@@ -35,8 +35,10 @@ Plug 'mbbill/undotree'
 Plug 'mhinz/vim-rfc'
 Plug 'morhetz/gruvbox'
 Plug 'hardselius/warlock'
+" statusline and tabline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'pacha/vem-tabline'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}

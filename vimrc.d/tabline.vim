@@ -222,5 +222,5 @@ function! MyTabLine()
   return s
 endfunction
 
-call s:init_colors()
-call s:start_timer()
+" call s:init_colors()
+" call s:start_timer()
