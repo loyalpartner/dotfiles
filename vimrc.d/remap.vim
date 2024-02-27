@@ -126,12 +126,12 @@
   nmap <silent> gi :call CocActionAsync('jumpImplementation', v:false)<CR>
   nmap <silent> gr :call CocActionAsync('jumpUsed', v:false)<CR>
   nnoremap <silent> K :call CocActionAsync('doHover')<CR>
-  " remap for complete to use tab and <cr>
-  inoremap <silent><expr> <TAB>
-        \ coc#pum#visible() ? coc#pum#next(1):
+  " remap for complete to use tab and <C-n> and <C-p>
+  inoremap <silent><expr> <C-n>
+        \ coc#pum#visible() ? coc#pum#next(0):
         \ CheckBackspace() ? "\<Tab>" :
         \ coc#refresh()
-  inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+  inoremap <expr><C-p> coc#pum#visible() ? coc#pum#prev(0) : "\<C-h>"
   inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
         \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 

@@ -1,76 +1,35 @@
 {
   "suggest.noselect": false,
-  "suggest.completionItemKindLabels": {
-    "text": "text",
-    "method": "method",
-    "function": "function",
-    "constructor": "constructor",
-    "field": "field",
-    "variable": "variable",
-    "class": "class",
-    "interface": "interface",
-    "module": "module",
-    "property": "property",
-    "unit": "unit",
-    "value": "value",
-    "enum": "enum",
-    "keyword": "keyword",
-    "snippet": "snippet",
-    "color": "color",
-    "file": "file",
-    "reference": "reference",
-    "folder": "folder",
-    "enumMember": "enumMember",
-    "constant": "constant",
-    "struct": "struct",
-    "event": "event",
-    "operator": "operator",
-    "typeParameter": "typeParameter",
-    "default": "default"
-  },
-  "inlayHint.enable": false,
   "suggest.virtualText": false,
-  "suggest.floatConfig": {
-    "shadow": true,
-    "border": true,
-    "rounded": true,
-    "borderhighlight": "CocFloating",
-    "highlight": "CocFloating"
-  },
-  // "suggest.languageSourcePriority": 99,
+  "suggest.snippetsSupport": true,
+  "suggest.enablePreselect": false, // 似乎不起作用
+  "suggest.lowPrioritySourceLimit": 10,
+  "suggest.highPrioritySourceLimit": 100,
+  "suggest.languageSourcePriority": 1000,
+  "suggest.floatConfig": { "shadow": false, "border": true, "rounded": false },
+  "coc.source.dictionary.priority": 0,
+  "coc.source.word.priority": 0,
+  "copilot.priority": 1000,
+  "inlayHint.enable": false,
   "typeHierarchy.splitCommand": "botright 80vs",
   "callHierarchy.splitCommand": "botright 80vs",
   "outline.followCursor": true,
   "colors.enable": true,
+  "json.format.keepLines": true,
   "json.schemas": [
     {
-      "fileMatch": [
-        ".vimspector.json"
-      ],
+      "fileMatch": [ ".vimspector.json" ],
       "url": "https://puremourning.github.io/vimspector/schema/vimspector.schema.json"
     }
   ],
-  "workspace.rootPatterns": [
-    ".git",
-    ".hg",
-    ".projections.json"
-  ],
+  "workspace.rootPatterns": [ ".git", ".hg", ".projections.json" ],
   "coc.preferences.floatActions": false,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "list.source.files.command": "rg",
   // "list.menuAction": true,
-  "list.source.files.args": [
-    "--files",
-    "-workspace"
-  ],
-  "list.source.files.excludePatterns": [
-    "**/node_modules/**"
-  ],
-  "translator.engines": [
-    "youdao",
-    "bing",
-    "haici"
-  ],
+  "list.source.files.args": [ "--files", "-workspace" ],
+  "list.source.files.excludePatterns": [ "**/node_modules/**" ],
+  "translator.engines": [ "youdao", "bing", "haici" ],
   "git.signPriority": 1,
   "html.format.enable": true,
   "html.validate.scripts": true,
@@ -79,8 +38,7 @@
   "tsserver.trace.server": "verbose",
   "pyright.inlayHints.variableTypes": false,
   "pyright.inlayHints.functionReturnTypes": true,
-  "snippets.userSnippetsDirectory": "~/dotfiles/snippets/",
-  "snippets.priority": 100,
+  "rust-analyzer.updates.channel": "nightly",
   "rust-analyzer.check.command": "clippy",
   "rust-analyzer.checkOnSave": true,
   "workspace.ignoredFolders": [
@@ -95,13 +53,8 @@
   "languageserver": {
     "elmLS": {
       "command": "elm-language-server",
-      "filetypes": [
-        "elm"
-      ],
-      "rootPatterns": [
-        ".git/",
-        "elm.json"
-      ],
+      "filetypes": [ "elm" ],
+      "rootPatterns": [ ".git/", "elm.json" ],
       "initializationOptions": {
         "elmPath": "elm", // optional
         "elmFormatPath": "elm-format", // optional
@@ -112,40 +65,26 @@
     // cargo install mojom-lsp
     "mojom": {
       "command": "mojom-lsp",
-      "rootPatterns": [
-        ".git/"
-      ],
-      "filetypes": [
-        "mojom"
-      ]
+      "rootPatterns": [ ".git/" ],
+      "filetypes": [ "mojom" ]
     },
     // https://github.com/lasorda/protobuf-language-server.git
     // need bead
     "proto": {
       "command": "pls",
-      "rootPatterns": [
-        ".git/"
-      ],
-      "filetypes": [
-        "proto"
-      ]
+      "rootPatterns": [ ".git/" ],
+      "filetypes": [ "proto" ]
     },
     "jsonnet": {
       "command": "jsonnet-language-server",
-      "args": [
-        "-t"
-      ],
-      "rootPatterns": [
-        ".git/",
-        "jsonnetfile.json"
-      ],
-      "filetypes": [
-        "jsonnet",
-        "libsonnet"
-      ]
+      "args": [ "-t" ],
+      "rootPatterns": [ ".git/", "jsonnetfile.json" ],
+      "filetypes": [ "jsonnet", "libsonnet" ]
     }
   },
   // "clangd.arguments": ["--background-index", "-j", "20", "--log=verbose"],
   "snippets.ultisnips.pythonPrompt": false,
+  "snippets.userSnippetsDirectory": "~/dotfiles/snippets/",
+  "snippets.priority": 1,
   "git.enableGutters": true
 }

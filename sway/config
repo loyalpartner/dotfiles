@@ -45,6 +45,8 @@ bindsym $mod+p exec swayr switch-window
 bindsym $mod+t exec rofi -show tabs --show-icon
 
 
-bar swaybar_command waybar 
+bar {
+  swaybar_command waybar
+}
 
 include /etc/sway/config.d/*

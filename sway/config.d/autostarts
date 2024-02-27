@@ -1,14 +1,15 @@
 # autostarts
-exec_always wl-paste -t text --watch clipman store --max-items=1000
-exec_always workstyle
-exec_always fcitx5 -d --replace
-exec_always swayrd
+exec_always {
+  wl-paste -t text --watch clipman store --max-items=1000
+  workstyle
+  fcitx5 -d --replace
+  swayrd
+  swayidle -w \
+    timeout 300 'swaylock -f -c 000000' \
+    timeout 600 'swaymsg "output * power off"' \
+    resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f -c 000000'
+}
 exec nutstore
-exec_always swayidle -w \
-       timeout 300 'swaylock -f -c 000000' \
-       timeout 600 'swaymsg "output * power off"' \
-       resume 'swaymsg "output * power on"' \
-       before-sleep 'swaylock -f -c 000000'
-
 
 # vi:set filetype=swayconfig :
