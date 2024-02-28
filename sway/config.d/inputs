@@ -1,15 +1,13 @@
-output * bg ../yellow_light.jpg fill
 output DVI-D-1 resolution 1920x1080
 output HDMI-A-1 {
   resolution 1920x1080 
-  bg ../yellow_light.jpg fill
   position 1920,0
 }
 
 # workspace number 1
 output {
   * {
-    bg ../yellow_light.jpg fill
+    bg ../bg/medowar.png fill
     scale 1.5
   }
 
