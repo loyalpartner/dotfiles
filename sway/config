@@ -24,10 +24,10 @@ title_align center
 titlebar_border_thickness 0
 titlebar_padding 5 3
 
-
-client.focused   "#44444400" "#9E9E9EDD" "#FFFFFF"
-client.unfocused "#44444400" "#444444DD" "#9E9E9E"
-
+client.focused           "#44444400" "#9E9E9EDD" "#FFFFFF"
+client.focused_tab_title "#44444400" "#9E9E9EDD" "#FFFFFF"
+client.focused_inactive  "#44444400" "#444444DD" "#9E9E9E"
+client.unfocused         "#44444400" "#444444DD" "#9E9E9E"
 
 set $hider $HOME/dotfiles/sway/hider.sh
 # bindsym $mod+ctrl+h [class="Emacs"] scratchpad show, resize set 95 ppt 95 ppt

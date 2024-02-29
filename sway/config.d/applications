@@ -34,6 +34,7 @@ for_window {
   [class="(Bytedance-feishu|apifox|wechat)"] $float_center
   [instance="(chat.openai.com|claude.ai__chat)"] $float_center
   [instance="(feishu)"] $float_center
+  [title="飞书会议"] move scratchpad; scratchpad show;
   [app_id="chrome-chat.openai.com.*"] $float_center
   [app_id="google-chrome"] $float_center
   [app_id="GTK Application" title="^Save File$"] $float_center

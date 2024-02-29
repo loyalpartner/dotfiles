@@ -59,27 +59,11 @@ ERROR='\033[0;31m'
 INFO='\033[0;32m'
 WARN='\033[0;33m'
 DEBUG='\033[0;34m'
-
-warn() {
-  echo -e ${WARN}[WARN] "$@"
-}
-
-debug() {
-  if [[ -n $DEBUG_ENABLE ]]; then
-    echo -e $DEBUG[DEBUG] "$@"
-    $@
-  else
-    $@
-  fi 
-}
-
-info() {
-  echo -e ${INFO}[INFO] "$@"
-}
-
-error() {
-  echo -e ${ERROR}[ERROR] "$@"
-}
+END='\033[0m'
+warn() { echo -e ${WARN}[WARN] "$@"$END; }
+info() { echo -e ${INFO}[INFO] "$@"$END; }
+error() { echo -e ${ERROR}[ERROR] "$@"$END; }
+debug() { [[ -n $DEBUG_ENABLE ]] && echo -e $DEBUG[DEBUG] "$@"$END; $@; }
 
 _executable() {
   local cmd=$1
@@ -87,11 +71,7 @@ _executable() {
 }
 
 _is_ubuntu() { [[ "$(lsb_release -is)" =~ "Ubunutu" ]]; }
-
-_is_arch() { 
-  _executable lsb_release || _install_package lsb-release
-  [[ "$(lsb_release -is)" =~ "Arch" ]]
-}
+_is_arch() { [[ "$(lsb_release -is)" =~ "Arch" ]]; }
 
 _arch() {
   local architecture=""
@@ -157,11 +137,11 @@ _setup_wayland_enviroments() {
   local packages=(sway swayr greetd greetd-tuigreet)
 
   if _is_arch; then
-    # add otf-font-awesome if waybar icon not appeared
     packages+=( 
       waybar rofi-lbonn-wayland swayidle
       swaylock clipman
       xorg-xwayland xorg-xlsclients qt5-wayland glfw-wayland
+      ttf-font-awesome
     )
   elif _is_ubuntu; then
     packages+=(fonts-font-awesome)
@@ -202,7 +182,7 @@ _setup_basic_enviroments() {
   local packages=(
     gvim tmux ctags bash-completion zsh man-db
     jq ripgrep fzf fd autojump curl
-    sshuttle tree
+    sshuttle tree lsb_release
   )
 
   if _is_arch; then
@@ -268,7 +248,9 @@ _setup_go_enviroments() {
 }
 
 _setup_rust_enviroments() {
-  warn TODO
+  sh <(curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs) -y
+  rustup default nightly
+  rustup component add rust-analyzer
 }
 
 _setup_node_enviroments() {
@@ -330,13 +312,10 @@ _setup_specific_language_enviroments() {
   local language=$1
   case $language in 
     all   )
-      _setup_all_languages_enviroments
-      break;;
-    python|node|go|rust|c) 
-      eval _setup_${language}_enviroments
-      break
-      ;;
-    *     ) break ;;
+      _setup_all_languages_enviroments ;;
+    python|node|go|rust|c)
+      eval _setup_${language}_enviroments ;;
+    *     ) ;;
   esac
 }
 
@@ -344,6 +323,7 @@ _setup_program_enviroments() {
   local languages=(all python node golang rust)
   select language in ${languages[@]}; do
     _setup_specific_language_enviroments $language
+    break
   done
 }
 
@@ -362,7 +342,7 @@ _setup_all_enviroments() {
 _setup() {
   local action=${1:-all}
   case $action in 
-    all|basic|gui|wayland|chromium)
+    all|basic|program|gui|wayland|chromium)
       eval _setup_${action}_enviroments ;;
     doom|vim|clash|dotfiles|ohmyzsh) _${action}_setup ;;
     update-index) _update_packages_index ;;
