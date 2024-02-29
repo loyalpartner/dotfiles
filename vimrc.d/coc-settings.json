@@ -32,8 +32,13 @@
   "list.source.files.command": "rg",
   "list.source.files.args": [ "--files", "-workspace" ],
   "list.source.files.excludePatterns": [ "**/node_modules/**" ],
-  "list.previousKeymap": "<C-p>",
-  "list.nextKeymap": "<C-n>",
+  // "list.previousKeymap": "<C-p>",
+  // "list.nextKeymap": "<C-n>",
+  "list.insertMappings": {
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k",
+    "<C-t>": "action:tabe"
+  },
   "git.signPriority": 1,
   "html.format.enable": true,
   "html.validate.scripts": true,
