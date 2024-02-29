@@ -334,7 +334,7 @@ _setup_all_enviroments() {
   _setup_wayland_enviroments
   _setup_chromium_development_enviroments
   _setup_all_languages_enviroments
-  _clash_setup
+  # _clash_setup
   _dotfiles_setup
   _doom_setup
 }

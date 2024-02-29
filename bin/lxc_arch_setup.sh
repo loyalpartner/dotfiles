@@ -3,20 +3,25 @@
 declare instance user
 
 lxc_create_arch() {
-  lxc launch images:archlinux $instance
-  if [[ $? != 0 ]]; then
+  lxc launch mirror-images:archlinux $instance ||
     echo create archlinux instance faild
-  fi
 
+  sleep 1
   local pattern sedcmd packages
   pattern="# %wheel ALL=(ALL:ALL) NOPASSWD: ALL"
   sedcmd="/$pattern/a $user ALL=(ALL:ALL) NOPASSWD: ALL"
 
   packages=(sudo git vim)
-  container_exec -- pacman -S --needed --noconfirm $packages
+  container_exec -- pacman -Sy --needed --noconfirm ${packages[@]}
   container_exec -- useradd -m $user
   container_exec -- sed -i "$sedcmd" /etc/sudoers
-  # container_exec -- curl -fsSL https://raw.githubusercontent.com/loyalpartner/dotfiles/master/install.sh | bash
+
+  [[ $full ]] && full_setup
+
+}
+
+full_setup() {
+  container_exec -- curl -fsSL https://raw.githubusercontent.com/loyalpartner/dotfiles/master/install.sh | bash
 }
 
 container_exec(){
@@ -30,18 +35,20 @@ usage (){
     Options:
     -n            Instance name
     -u            User name
+    -f            Full setup
     -h            Display this message
     -v            Display script version"
 
 }
 
-while getopts "hvn:u:" opt
+while getopts "hfvn:u:" opt
 do
   case $opt in
-    h|help     )  usage; exit 0   ;;
-    v|version  )  echo "Version 0.0.1"; exit 0   ;;
-    n|instance)   instance="$OPTARG" ;;
-    u|user)   user="$OPTARG" ;;
+    h|help    ) usage; exit 0 ;;
+    v|version ) echo "Version 0.0.1"; exit 0 ;;
+    f|full    ) full=true ;;
+    n|instance) instance="$OPTARG" ;;
+    u|user    ) user="$OPTARG" ;;
     * )  echo -e "\n  Option does not exist : $OPTARG\n"
       usage; exit 1   ;;
   esac
