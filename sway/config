@@ -33,26 +33,25 @@ set $hider $HOME/dotfiles/sway/hider.sh
 # bindsym $mod+ctrl+h [class="Emacs"] scratchpad show, resize set 95 ppt 95 ppt
 # bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] scratchpad show
 # bindsym $mod+ctrl+n exec $hider '[class="Alacritty" workspace="__focused__"] focus'
-bindsym $mod+ctrl+n [instance="feishu"] scratchpad show
-bindsym $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
 # bindsym $mod+ctrl+s [class="(slack|Slack)"] scratchpad show
-bindsym $mod+ctrl+c [title="^DevTools"] scratchpad show
-bindsym $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
-bindsym $mod+ctrl+f [class="apifox"] scratchpad show
-bindsym $mod+ctrl+w [instance="electronic-wechat"] scratchpad show
 # 一键切换到 chrome
 # bindsym $mod+ctrl+t  exec $switch_to_chrome
 # bindsym $mod+ctrl+t  exec $switch_to_chrome
-bindsym $mod+ctrl+t [app_id="google-chrome"] scratchpad show
-# 切换到 alacritty 浮动窗口, 类似于下拉终端
-# NOTE: 浮动窗口需要手动创建
-bindsym $mod+ctrl+h [app_id="Alacritty"] scratchpad show
-# 切换到 chatgpt 窗口
-bindsym $mod+ctrl+s [app_id="chrome-chat.openai.com.*"] scratchpad show
-bindsym Mod1+Tab exec swayr switch-to-urgent-or-lru-window
-bindsym $mod+Tab workspace back_and_forth
-bindsym $mod+p exec swayr switch-window
-bindsym $mod+t exec rofi -show tabs --show-icon
+bindsym {
+  $mod+ctrl+n [instance="feishu"] scratchpad show
+  $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
+  $mod+ctrl+c [title="^DevTools"] scratchpad show
+  $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
+  $mod+ctrl+f [class="apifox"] scratchpad show
+  $mod+ctrl+w [instance="electronic-wechat"] scratchpad show
+  $mod+slash  [app_id="float"] scratchpad show
+  $mod+ctrl+t [app_id="google-chrome"] scratchpad show
+  $mod+ctrl+s [app_id="chrome-chat.openai.com.*"] scratchpad show
+  Mod1+Tab exec      swayr switch-to-urgent-or-lru-window
+  $mod+Tab workspace back_and_forth
+  $mod+p   exec      swayr switch-window
+  $mod+t   exec      rofi  -show tabs --show-icon
+}
 
 
 bar {

@@ -25,8 +25,9 @@ for_window [class="(Slack)"] {
 }
 
 
-set $float_center move scratchpad; \
-      scratchpad show; \
+set $float move scratchpad; \
+      scratchpad show;
+set $float_center $float; \
       resize set 95 ppt 95 ppt; \
       move position center;
 
@@ -34,9 +35,11 @@ for_window {
   [class="(Bytedance-feishu|apifox|wechat)"] $float_center
   [instance="(chat.openai.com|claude.ai__chat)"] $float_center
   [instance="(feishu)"] $float_center
-  [title="飞书会议"] move scratchpad; scratchpad show;
   [app_id="chrome-chat.openai.com.*"] $float_center
+  # google chrome
   [app_id="google-chrome"] $float_center
-  [app_id="GTK Application" title="^Save File$"] $float_center
+  [app_id="" title="^Google Chrome$"] $float
+  [title="飞书会议"] $float
+  [app_id="GTK Application" title="^Save File$"] $float
 }
 

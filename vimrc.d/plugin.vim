@@ -9,7 +9,6 @@
 " }}"
 
 " vimtex {{
-  
   let g:vimtex_matchparen_enabled = 0
 " }}
 
@@ -337,11 +336,11 @@
 " pydocstring.vim {{
   let g:pydocstring_doq_path = "~/.local/bin/doq"
 " }}
+
 " termdebug.vim {{
   " let let g:termdebug_map_K = 0
   let g:termdebug_config = {}
-	let g:termdebug_config['variables_window'] = 1
-
+  let g:termdebug_config['variables_window'] = 1
 " }}
 
 " nvim-treesitter {{
@@ -356,4 +355,5 @@
 
 " vim-airline {{
   let g:airline_theme = 'hybrid'
+  let g:airline_powerline_fonts = 1
 " }}
