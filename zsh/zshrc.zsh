@@ -101,6 +101,7 @@ plugins=(
   yarn
   # gn
   # gcloud
+  systemd
   )
 
 source $ZSH/oh-my-zsh.sh

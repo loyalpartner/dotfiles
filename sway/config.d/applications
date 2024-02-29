@@ -39,7 +39,10 @@ for_window {
   # google chrome
   [app_id="google-chrome"] $float_center
   [app_id="" title="^Google Chrome$"] $float
+  # 飞书
   [title="飞书会议"] $float
   [app_id="GTK Application" title="^Save File$"] $float
+  # float terminal
+  [app_id="float"] $float;
 }
 
