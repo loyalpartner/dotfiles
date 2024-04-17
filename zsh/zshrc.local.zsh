@@ -38,6 +38,7 @@ export FZF_DEFAULT_OPTS="\
 alias pkiller='_pkiller'
 alias b="echo \$(bindkey | sed -e 's/\"//g' | fzf --no-preview -q \')|awk '{print \$2}'"
 alias tb="tmux list-keys -T prefix | fzf --no-preview"
+alias cwhich="_cwhich"
 # alias a='_run_alias'
 alias a='_alias_table'
 alias mux=tmuxinator
@@ -118,3 +119,4 @@ function _auto_copy {
 }
 function _copy { _auto_copy "$(fzf -q "$*")" }
 function _pkiller { kill -9 $(lsof -ti :$1) }
+function _cwhich { cat $(which $1) }

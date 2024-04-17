@@ -43,7 +43,7 @@ bindsym {
   $mod+ctrl+c [title="^DevTools"] scratchpad show
   $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
   $mod+ctrl+f [class="apifox"] scratchpad show
-  $mod+ctrl+w [instance="electronic-wechat"] scratchpad show
+  $mod+ctrl+w [instance="wechat"] scratchpad show
   $mod+slash  [app_id="float"] scratchpad show
   $mod+ctrl+t [app_id="google-chrome"] scratchpad show
   $mod+ctrl+s [app_id="chrome-chat.openai.com.*"] scratchpad show

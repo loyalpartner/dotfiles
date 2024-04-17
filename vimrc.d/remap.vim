@@ -204,7 +204,7 @@ endfunction
   nnoremap <silent><nowait> <space>lm      :<C-u>CocList marketplace<CR>
   nnoremap <silent><nowait> <space>ls      :<C-u>CocList snippets<CR>
   nnoremap <silent><nowait> <space>lb      :<C-u>Buffers<CR>
-  nnoremap <silent><nowait> <leader>b      :<C-u>Buffers<CR>
+  nnoremap <silent><nowait> <leader>b      :<C-u>CocList buffers<CR>
   nnoremap <silent><nowait> <space>le      :<C-u>CocList extensions<CR>
   nnoremap <silent><nowait> <space>lg      :<C-u>CocList gist<CR>
   nnoremap <silent><nowait> <space>lt      :<C-u>Tags<CR>

@@ -8,7 +8,7 @@ let g:mapleader = ','
 	nnoremap <leader>e :e <C-R>=substitute(expand('%:p:h').'/', getcwd().'/', '', '')<CR>
 
   " copy to tmux buffers
-  vnoremap <leader>y :Tyank<CR>
+  vnoremap <leader>y :Tyank<CR>:call <SID>tmux_buffer_to_clipboard()<CR>
 
   "nnoremap <leader>e :LeaderfFile <C-R>=substitute(expand('%:p:h').'/', getcwd().'/', '', '')<CR><CR>
   nnoremap <leader>w :w<CR>
@@ -238,5 +238,26 @@ function! s:en2zh(mode)
   " pip install deepl
   let result = system("python -m deepl text --to zh \"" . sentence . "\"")
   echon trim(result->substitute('\(\. \|。\|\.$\)', '\1\n', 'g'))
+endfunction
+
+function! s:tmux_buffer_to_clipboard()
+  " check wl-copy exists
+  let result = system("which wl-copy")
+  if v:shell_error
+    echoerr "wl-copy not found"
+    return
+  endif
+
+  " check tmux already started use tmux ls
+  let result = system("which tmux && tmux ls")
+  if v:shell_error
+    echoerr "tmux not found"
+    return
+  endif
+
+
+  " execute tmux show-buffer | wl-copy
+  call system("tmux show-buffer | wl-copy")
+
 endfunction
 " }}
