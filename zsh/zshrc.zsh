@@ -102,6 +102,8 @@ plugins=(
   # gn
   # gcloud
   systemd
+  # github
+  gh
   )
 
 source $ZSH/oh-my-zsh.sh

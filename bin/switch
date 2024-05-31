@@ -1,0 +1,16 @@
+#!/bin/sh
+
+app_id=$1
+executable=$2
+
+selector=$(printf '.. | select(.type? == "floating_con" and .app_id? != "%s") | .id' $app_id)
+for id in $(swaymsg -t get_tree | jq -e --args "$selector");do
+  swaymsg "[con_id=$id]" move scratchpad
+done
+
+selector=$(printf '.. | select(.app_id? == "%s")' $app_id)
+if swaymsg -t get_tree | jq -e --args "$selector"; then
+  swaymsg [app_id="$app_id"] scratchpad show
+else
+  $2
+fi

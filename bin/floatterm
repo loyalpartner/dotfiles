@@ -1,1 +1,11 @@
-alacritty --class=float
+#!/bin/sh
+
+for id in $(swaymsg -t get_tree | jq '.. | select(.type? == "floating_con"  and .app_id? != "floatwin") | .id');do
+  swaymsg "[con_id=$id]" move scratchpad
+done
+
+if swaymsg -t get_tree | jq '.. | select(.app_id?=="floatwin")' -e; then
+  swaymsg '[app_id="float"] scratchpad show'
+else
+  alacritty --class=floatwin --option 'window.opacity=1'
+fi

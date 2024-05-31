@@ -1,5 +1,6 @@
 for_window [class="XTerm"] opacity set 0.8
 for_window [class="Zathura"] opacity set 0.8
+for_window [app_id="floatwin"] opacity set 1
 
 # chromium floating
 for_window [title="^Ozone X11$"] {
@@ -37,12 +38,14 @@ for_window {
   [instance="(feishu)"] $float_center
   [app_id="chrome-chat.openai.com.*"] $float_center
   # google chrome
+  [instance="google-chrome"] $float_center
   [app_id="google-chrome"] $float_center
   [app_id="" title="^Google Chrome$"] $float
+  [instance="hybridscope"] $float
   # 飞书
   [title="飞书会议"] $float
   [app_id="GTK Application" title="^Save File$"] $float
   # float terminal
-  [app_id="float"] $float;
+  [app_id="floatwin"] $float_center;
 }
 

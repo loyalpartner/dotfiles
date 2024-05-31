@@ -44,13 +44,17 @@ bindsym {
   $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
   $mod+ctrl+f [class="apifox"] scratchpad show
   $mod+ctrl+w [instance="wechat"] scratchpad show
-  $mod+slash  [app_id="float"] scratchpad show
-  $mod+ctrl+t [app_id="google-chrome"] scratchpad show
-  $mod+ctrl+s [app_id="chrome-chat.openai.com.*"] scratchpad show
+  $mod+ctrl+t exec $HOME/dotfiles/bin/switch google-chrome google-chrome-stable
+  # $mod+ctrl+t [instance="google-chrome"] scratchpad show
+  # $mod+ctrl+s [app_id="chrome-chat.openai.com.*"] scratchpad show
+  $mod+ctrl+s exec $HOME/dotfiles/bin/chatgpt
+  $mod+ctrl+h [instance="hybridscope"] scratchpad show
   Mod1+Tab exec      swayr switch-to-urgent-or-lru-window
   $mod+Tab workspace back_and_forth
   $mod+p   exec      swayr switch-window
   $mod+t   exec      rofi  -show tabs --show-icon
+  $mod+slash  exec $HOME/dotfiles/bin/floatterm
+  # $mod+slash  [app_id="float"] exec swaymsg -t get_tree | jq -e '.. | select(.app_id?="float")' 
 }
 
 

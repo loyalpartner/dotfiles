@@ -12,3 +12,5 @@ payload:
   - '+.registry-1.docker.io'
   - '+.www.craftz.dog'
   - '+.wayland.arktoria.org'
+  - '+.repo1.maven.org'
+  - '+.images.linuxcontainers.org'

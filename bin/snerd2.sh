@@ -31,8 +31,9 @@ elif [[ "$executable" =~ \.sh$ ]]; then
   shell_execute
 else
   # app_execute
-  nohup firejail --noprofile --dns=114.114.114.114 --netns=hacknet "$@" > /dev/null 2>&1 &
-  scope exec --pid $!
+  # nohup firejail --noprofile --dns=114.114.114.114 --netns=hacknet "$@" > /dev/null 2>&1 &
+  # scope exec --pid $!
+  scope shell -c google-chrome-stable
 fi
 
 # cmd=""
