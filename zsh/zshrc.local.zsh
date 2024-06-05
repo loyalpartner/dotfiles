@@ -44,6 +44,7 @@ alias a='_alias_table'
 alias mux=tmuxinator
 alias t="_trans"
 alias man='_man'
+alias info='_info'
 alias open="_open"
 alias pip-install='pip install -i https://pypi.tuna.tsinghua.edu.cn/simple'
 alias cph="history -n | fzf | xclip"
@@ -94,6 +95,13 @@ function _man {
     \man $@
   else
     \vim -c "Man $*" -c "only"
+  fi
+}
+function _info {
+  if grep -qo "\-k" <(echo "$@"); then
+    \info $@
+  else
+    \vim -c "Info $*" -c "only"
   fi
 }
 function _stdin { vim -M +1 -c'nmap q :qa!<C-m>' - }

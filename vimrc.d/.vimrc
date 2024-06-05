@@ -72,6 +72,7 @@ Plug 'vim-scripts/gtags.vim'
 Plug 'vim-utils/vim-man'
 Plug 'Raimondi/delimitMate'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'HiPhish/info.vim'
 
 if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}

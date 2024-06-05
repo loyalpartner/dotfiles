@@ -57,12 +57,14 @@
   "pyright.inlayHints.variableTypes": false,
   "pyright.inlayHints.functionReturnTypes": true,
   "rust-analyzer.check.command": "clippy",
+  // "rust-analyzer.check.extraArgs": [ "--fix" ],
   // "rust-analyzer.cargo.buildScripts.overrideCommand": [
   //   "cargo", "check", "--quiet", "--message-format=json"
   // ],
   // "rust-analyzer.trace.server": "verbose",
   //"rust-analyzer.procMacro.enable": false,
   "rust-analyzer.updates.checkOnStartup": true,
+  "coc.preferences.formatOnSave": false,
   // rust-analyzer.updates.channel: "stable",
   //"rust-analyzer.server.path": "~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer",
   //"rust-analyzer.procMacro.server": null,
