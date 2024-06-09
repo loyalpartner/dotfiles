@@ -10,7 +10,7 @@ done
 
 selector=$(printf '.. | select(.app_id? == "%s")' $app_id)
 if swaymsg -t get_tree | jq -e --args "$selector"; then
-  swaymsg [app_id="$app_id"] scratchpad show
+  swaymsg "[app_id=$app_id]" scratchpad show
 else
   $2
 fi
