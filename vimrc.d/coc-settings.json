@@ -109,5 +109,6 @@
     }
   },
   // "clangd.arguments": ["--background-index", "-j", "20", "--log=verbose"],
+  "clangd.arguments": [ "--clang-tidy" ],
   "git.enableGutters": true
 }

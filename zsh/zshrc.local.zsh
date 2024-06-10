@@ -42,6 +42,7 @@ alias cwhich="_cwhich"
 # alias a='_run_alias'
 alias a='_alias_table'
 alias mux=tmuxinator
+alias tmun="tmux new -s $(basename $PWD)"
 alias t="_trans"
 alias man='_man'
 alias info='_info'

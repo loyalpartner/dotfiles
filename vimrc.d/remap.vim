@@ -163,6 +163,12 @@
   xmap ig <Plug>(coc-git-chunk-inner)
   omap ag <Plug>(coc-git-chunk-outer)
   xmap ag <Plug>(coc-git-chunk-outer)
+
+  autocmd FileType info nmap <buffer> gu <Plug>(InfoUp)
+        \ | nmap <buffer> gn <Plug>(InfoNext)
+        \ | nmap <buffer> gp <Plug>(InfoPrev)
+        \ | nmap <buffer> gg :GotoNode 
+
 " }}
 
 " visual search {{
