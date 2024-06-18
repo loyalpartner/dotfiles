@@ -1,6 +1,6 @@
 output DVI-D-1 resolution 1920x1080
 output HDMI-A-1 {
-  resolution 1920x1080 
+  resolution 1920x1080
   position 1920,0
 }
 
@@ -29,6 +29,14 @@ output {
   "BNQ BenQ PD2700U ETR1K02234CL0" {
     pos 2160,0
     resolution 3840x2160
+  }
+
+  DP-3 {
+    # mode 1920x1080@60Hz
+    disable
+    resolution 1024x768
+    transform 90
+    scale 1
   }
 }
 

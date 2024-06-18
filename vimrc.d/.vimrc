@@ -74,6 +74,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'ludovicchabant/vim-gutentags'
 " Plug 'HiPhish/info.vim'
 Plug 'loyalpartner/info.vim'
+Plug 'blindFS/vim-taskwarrior'
 
 if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}

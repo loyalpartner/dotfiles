@@ -42,7 +42,7 @@ alias cwhich="_cwhich"
 # alias a='_run_alias'
 alias a='_alias_table'
 alias mux=tmuxinator
-alias tmun="tmux new -s $(basename $PWD)"
+alias tmun=_tmun
 alias t="_trans"
 alias man='_man'
 alias info='_info'
@@ -129,3 +129,4 @@ function _auto_copy {
 function _copy { _auto_copy "$(fzf -q "$*")" }
 function _pkiller { kill -9 $(lsof -ti :$1) }
 function _cwhich { cat $(which $1) }
+function _tmun { tmux new -s $(basename $(pwd)) }
