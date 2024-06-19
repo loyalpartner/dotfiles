@@ -106,6 +106,12 @@
       "args": [ "-t" ],
       "rootPatterns": [ ".git/", "jsonnetfile.json" ],
       "filetypes": [ "jsonnet", "libsonnet" ]
+    },
+    "meson": {
+      "command": "Swift-MesonLSP",
+      "args": ["--lsp"],
+      "rootPatterns": ["meson.build"],
+      "filetypes": ["meson"]
     }
   },
   // "clangd.arguments": ["--background-index", "-j", "20", "--log=verbose"],

@@ -44,7 +44,7 @@ bindsym {
   $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
   $mod+ctrl+f [class="apifox"] scratchpad show
   $mod+ctrl+w [instance="wechat"] scratchpad show
-  $mod+ctrl+t exec $HOME/dotfiles/bin/switch google-chrome google-chrome-stable
+  $mod+ctrl+t exec $HOME/dotfiles/bin/switch chromium chromium 
   # $mod+ctrl+t [instance="google-chrome"] scratchpad show
   # $mod+ctrl+s [app_id="chrome-chat.openai.com.*"] scratchpad show
   $mod+ctrl+s exec $HOME/dotfiles/bin/chatgpt

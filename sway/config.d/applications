@@ -38,8 +38,8 @@ for_window {
   [instance="(feishu)"] $float_center
   [app_id="chrome-chat.openai.com.*"] $float_center
   # google chrome
-  [instance="google-chrome"] $float_center
-  [app_id="google-chrome"] $float_center
+  [instance="(google-chrome|chromium)"] $float_center
+  [app_id="(google-chrome|chromium|dev.warp.Warp)"] $float_center
   [app_id="" title="^Google Chrome$"] $float
   [instance="hybridscope"] $float
   # 飞书
