@@ -78,7 +78,6 @@ alias clae="sudo -E vim /etc/clash/config.yaml"
 alias wore="vim ~/.work.sh"
 which nvim > /dev/null 2>&1 && alias vim="nvim"
 
-alias chatgpt="google-chrome-stable --app=https://chat.openai.com"
 alias claude2="google-chrome-stable --app=https://claude.ai/chat"
 
 # bindkey

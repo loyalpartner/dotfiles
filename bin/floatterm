@@ -1,12 +1,5 @@
 #!/bin/sh
 
-for id in $(swaymsg -t get_tree | jq '.. | select(.type? == "floating_con"  and .app_id? != "dev.warp.Warp") | .id');do
-  swaymsg "[con_id=$id]" move scratchpad
-done
+source $HOME/dotfiles/bin/common.sh
 
-if swaymsg -t get_tree | jq '.. | select(.app_id?=="dev.warp.Warp")' -e; then
-  swaymsg '[app_id="dev.warp.Warp"] scratchpad show'
-else
-  # alacritty --class=floatwin --option 'window.opacity=1'
-  warp-terminal
-fi
+switch_to_ "dev.warp.Warp" warp-terminal
