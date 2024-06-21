@@ -28,7 +28,8 @@ switch_to_() {
   target_window=$(swaymsg -t get_tree | jq -e --args "$selector")
   if [ $? -eq 0 ] ; then
     # 检查窗口是隐藏还是显示的
-    if echo $target_window | jq -e ".visible"; then
+    local visible="$(echo $target_window | jq -e ".visible")"
+    if [[ "$visible" == "true" ]]; then
       swaymsg "[app_id=$target]" scratchpad show
       swaymsg "[app_id=$target]" scratchpad show
     else
@@ -39,6 +40,7 @@ switch_to_() {
   fi
 }
 
+# fuzzy_switch_to 'chrome-chat.openai.com.*'  chromium --app=https://chat.openai.com
 fuzzy_switch_to() {
   local target="$1"
 
@@ -51,8 +53,6 @@ fuzzy_switch_to() {
   if [[ "$app_id" =~ $target ]]; then
     swaymsg "[app_id=$target]" scratchpad show
     return
-  else
-    echo hello >> /tmp/123
   fi
 
   local selector=$(printf '.. | select(.app_id? //"" | test("%s"))' $target)
