@@ -94,7 +94,7 @@ if v:version >= 900
   Plug 'github/copilot.vim'
 endif
 
-packadd termdebug
+packadd! termdebug
 
 call plug#end()
 filetype plugin on
