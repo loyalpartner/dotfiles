@@ -70,3 +70,9 @@ fuzzy_switch_to() {
     ${@:2}
   fi
 }
+
+hide_floatwin() {
+  for id in $(swaymsg -t get_tree | jq '.. | select(.type? == "floating_con") | .id');do
+    swaymsg "[con_id=$id]" move scratchpad
+  done
+}
