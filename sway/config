@@ -52,7 +52,7 @@ bindsym {
   $mod+Tab workspace back_and_forth
   $mod+p   exec      swayr switch-window
   $mod+t   exec      rofi  -show tabs --show-icon
-  $mod+slash  exec $HOME/dotfiles/bin/floatterm
+  $mod+slash  exec $switch_to_warp
   # $mod+slash  [app_id="float"] exec swaymsg -t get_tree | jq -e '.. | select(.app_id?="float")' 
 }
 

@@ -57,7 +57,7 @@ switch_to_instance() {
   fi
 
   local selector=$(printf '.. | select(.window_properties?.instance? == "%s")' $target)
-  local target_window=$(swaymsg -t get_tree | jq -e --args "$selector")
+  target_window=$(swaymsg -t get_tree | jq -e "$selector")
   if [ $? -eq 0 ] ; then
     # 检查窗口是隐藏还是显示的
     local visible="$(echo $target_window | jq -e ".visible")"

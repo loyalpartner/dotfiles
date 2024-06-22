@@ -15,6 +15,7 @@ set $type_googleid \
   xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
 
 set $source_common source $HOME/dotfiles/bin/common.sh
+set $switch_to_warp $source_common && switch_to_ dev.warp.Warp warp-terminal 
 set $switch_to_chrome $source_common && switch_to_ chromium chromium 
 set $switch_to_chatgpt $source_common && fuzzy_switch_to 'chrome-chat.openai.com.*'  chromium --app=https://chat.openai.com
 set $switch_to_feishu $source_common && switch_to_instance feishu feishu
