@@ -29,7 +29,6 @@ client.focused_tab_title "#44444400" "#9E9E9EDD" "#FFFFFF"
 client.focused_inactive  "#44444400" "#444444DD" "#9E9E9E"
 client.unfocused         "#44444400" "#444444DD" "#9E9E9E"
 
-set $hider $HOME/dotfiles/sway/hider.sh
 # bindsym $mod+ctrl+h [class="Emacs"] scratchpad show, resize set 95 ppt 95 ppt
 # bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] scratchpad show
 # bindsym $mod+ctrl+n exec $hider '[class="Alacritty" workspace="__focused__"] focus'
@@ -38,13 +37,12 @@ set $hider $HOME/dotfiles/sway/hider.sh
 # bindsym $mod+ctrl+t  exec $switch_to_chrome
 # bindsym $mod+ctrl+t  exec $switch_to_chrome
 bindsym {
-  $mod+ctrl+f [instance="feishu"] scratchpad show
+  $mod+ctrl+f exec $switch_to_feishu
   $mod+ctrl+n exec $hide_floatwin
   $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
   $mod+ctrl+c [title="^DevTools"] scratchpad show
-  $mod+ctrl+r [class="^Bytedance-feishu"] scratchpad show
   # $mod+ctrl+f [class="apifox"] scratchpad show
-  $mod+ctrl+w [instance="wechat"] scratchpad show
+  $mod+ctrl+w exec $switch_to_wechat
   $mod+ctrl+t exec $switch_to_chrome
   # $mod+ctrl+t [instance="google-chrome"] scratchpad show
   # $mod+ctrl+s [app_id="chrome-chat.openai.com.*"] scratchpad show

@@ -10,7 +10,7 @@
 #     启动应用
 switch_to_() {
   local target="$1"
-  local executable=$2
+  local executable="$2"
 
   local selector='
     .nodes[].nodes[] | recurse(.nodes[]?) |
@@ -34,6 +34,38 @@ switch_to_() {
       swaymsg "[app_id=$target]" scratchpad show
     else
       swaymsg "[app_id=$target]" scratchpad show
+    fi
+  else
+    $2
+  fi
+}
+
+switch_to_instance() {
+  local target="$1"
+  local executable="$2"
+
+  local selector='
+    .nodes[].nodes[] | recurse(.nodes[]?) |
+    select(.type == "workspace").nodes[]?, select(.type == "workspace").floating_nodes[]? |
+    select(.focused == true)
+  '
+  local instance=$(swaymsg -t get_tree | jq "$selector" | jq -r ".window_properties?.instance")
+
+  if [ "$instance" = "$target" ]; then
+    swaymsg "[instance=$target]" scratchpad show
+    return
+  fi
+
+  local selector=$(printf '.. | select(.window_properties?.instance? == "%s")' $target)
+  local target_window=$(swaymsg -t get_tree | jq -e --args "$selector")
+  if [ $? -eq 0 ] ; then
+    # 检查窗口是隐藏还是显示的
+    local visible="$(echo $target_window | jq -e ".visible")"
+    if [[ "$visible" == "true" ]]; then
+      swaymsg "[instance=$target]" scratchpad show
+      swaymsg "[instance=$target]" scratchpad show
+    else
+      swaymsg "[instance=$target]" scratchpad show
     fi
   else
     $2
