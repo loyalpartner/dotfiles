@@ -82,7 +82,7 @@ HYPHEN_INSENSITIVE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   zsh-autosuggestions
-  lxd-completion-zsh
+  # lxd-completion-zsh
   git
   autojump
   pip
@@ -94,7 +94,7 @@ plugins=(
   rust
   # repo
   docker
-  kubectl
+  # kubectl
   # repo
   docker
   golang
@@ -103,7 +103,7 @@ plugins=(
   # gcloud
   systemd
   # github
-  gh
+  #gh
   )
 
 source $ZSH/oh-my-zsh.sh
