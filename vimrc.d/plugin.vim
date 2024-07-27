@@ -247,7 +247,6 @@
   " let g:coc_node_args += [ '-r', expand('~/.config/yarn/global/node_modules/source-map-support/register') ]
   " let $NVIM_COC_LOG_LEVEL = 'debug'
   let g:coc_global_extensions = [
-        \ 'coc-word',
         \ 'coc-git',
         \ 'coc-eslint',
         \ 'coc-stylelint',

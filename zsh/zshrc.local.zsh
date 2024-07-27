@@ -76,7 +76,7 @@ alias rofe="vim ~/.config/rofi/config.rasi"
 alias chre="vim ~/.config/chrome-flags.conf"
 alias clae="sudo -E vim /etc/clash/config.yaml"
 alias wore="vim ~/.work.sh"
-which nvim > /dev/null 2>&1 && alias vim="nvim"
+# which nvim > /dev/null 2>&1 && alias vim="nvim"
 
 alias claude2="google-chrome-stable --app=https://claude.ai/chat"
 

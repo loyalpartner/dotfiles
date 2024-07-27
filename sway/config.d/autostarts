@@ -10,6 +10,11 @@ exec_always {
     resume 'swaymsg "output * power on"' \
     before-sleep 'swaylock -f -c 000000'
 }
-exec nutstore
+# exec nutstore
+#exec_always {
+#    xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2
+#    xrdb -merge <<< 'Xft.dpi: 192'
+#    xsettingsd
+#}
 
 # vi:set filetype=swayconfig :

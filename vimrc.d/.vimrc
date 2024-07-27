@@ -39,8 +39,8 @@ Plug 'hardselius/warlock'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mzlogin/vim-markdown-toc'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'othree/xml.vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'posva/vim-vue'
@@ -74,7 +74,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'ludovicchabant/vim-gutentags'
 " Plug 'HiPhish/info.vim'
 Plug 'loyalpartner/info.vim'
-Plug 'blindFS/vim-taskwarrior'
+" Plug 'blindFS/vim-taskwarrior'
+" Plug 'bagrat/vim-buffet'
 
 if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}

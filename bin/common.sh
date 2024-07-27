@@ -32,9 +32,13 @@ switch_to_() {
     if [[ "$visible" == "true" ]]; then
       swaymsg "[app_id=$target]" scratchpad show
       swaymsg "[app_id=$target]" scratchpad show
+
     else
       swaymsg "[app_id=$target]" scratchpad show
     fi
+
+    swaymsg "[app_id=$target]" resize set 95 ppt 95 ppt
+    swaymsg "[app_id=$target]" move position center
   else
     $2
   fi
@@ -67,6 +71,9 @@ switch_to_instance() {
     else
       swaymsg "[instance=$target]" scratchpad show
     fi
+
+    swaymsg "[instance=$target]" resize set 95 ppt 95 ppt
+    swaymsg "[instance=$target]" move position center
   else
     $2
   fi
@@ -87,6 +94,7 @@ fuzzy_switch_to() {
     return
   fi
 
+  echo $app_id #> /tmp/123
   local selector=$(printf '.. | select(.app_id? //"" | test("%s"))' $target)
   target_window=$(swaymsg -t get_tree | jq -e --args "$selector")
   if [ $? -eq 0 ] ; then
@@ -98,6 +106,9 @@ fuzzy_switch_to() {
     else
       swaymsg "[app_id=$target]" scratchpad show
     fi
+
+    swaymsg "[app_id=$target]" resize set 95 ppt 95 ppt
+    swaymsg "[app_id=$target]" move position center
   else
     ${@:2}
   fi

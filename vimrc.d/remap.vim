@@ -113,18 +113,20 @@
   " nmap S <Plug>(coc-smartf-backward)
   nmap [g <Plug>(coc-git-prevchunk)
   nmap ]g <Plug>(coc-git-nextchunk)
-  nmap gs <Plug>(coc-git-chunkinfo)
+  " nmap gs <Plug>(coc-git-chunkinfo)
+  nmap <silent><nowait> gs       :<C-u>CocList --auto-preview outline<cr>
   nmap gm <Plug>(coc-git-commit)
   imap <C-l> <Plug>(coc-snippets-expand)
   xmap <C-l> <Plug>(coc-snippets-select)
   nmap <silent> [c <Plug>(coc-diagnostic-prev)
   nmap <silent> ]c <Plug>(coc-diagnostic-next)
-  nmap <silent> g<Tab> :call CocActionAsync('jumpDefinition', 'tabe')<CR>
+  " nmap <silent> gd :call CocActionAsync('jumpDefinition', v:true)<CR>
   nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gD <C-w>v<C-w>Tgd
-  nmap <silent> gy :call CocActionAsync('jumpTypeDefinition', v:false)<CR>
+  nmap <silent> <C-w>gd :call CocActionAsync('jumpDefinition', 'tabe')<CR>
+  nmap <silent> gD :call CocActionAsync('jumpTypeDefinition', v:false)<CR>
   nmap <silent> gi :call CocActionAsync('jumpImplementation', v:false)<CR>
   nmap <silent> gr :call CocActionAsync('jumpUsed', v:false)<CR>
+  nmap <silent> gR :call CocActionAsync('jumpReferences', v:false)<CR>
   nnoremap <silent> K :call CocActionAsync('doHover')<CR>
   " remap for complete to use tab and <C-n> and <C-p>
   inoremap <silent><expr> <C-n>
