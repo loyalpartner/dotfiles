@@ -25,3 +25,4 @@ payload:
   - 'bindfs.org'
   - '*.github.com'
   - '*.linuxcontainers.org'
+  - '*.freedesktop.org'
