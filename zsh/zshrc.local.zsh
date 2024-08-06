@@ -78,6 +78,10 @@ alias clae="sudo -E vim /etc/clash/config.yaml"
 alias wore="vim ~/.work.sh"
 # which nvim > /dev/null 2>&1 && alias vim="nvim"
 
+alias incl="incus list"
+alias incrl="incus remote list"
+alias incrs="incus remote switch"
+
 alias claude2="google-chrome-stable --app=https://claude.ai/chat"
 
 # bindkey
