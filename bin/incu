@@ -1,0 +1,45 @@
+#!/bin/sh
+
+incus_setup() {
+  local remote=$1
+  local cider=$2
+  local target="$HOME/.config/incus-instances.d"
+  if [ ! -d $target ]; then
+    mkdir -p $target
+  fi
+
+  target="$target/$remote"
+
+  echo "Setting up $remote" $cider
+
+  local selector='.[] |
+    select(.state.status == "Running") |
+    select(.state.network != null) |
+    . as $container |
+    .state.network |
+    to_entries[] |
+    select(.value.addresses != null) |
+    .value.addresses[] |
+    select(.family == "inet") |
+    "\($container.name),\(.address)"'
+
+
+  echo "" > $target
+
+  for line in $(incus list $remote: -c ns4 --format json | jq -r "$selector" | grep "$cider") ; do
+    local host=$(echo "$line" | awk -F',' '{print $1}')
+    local address=$(echo "$line" | awk -F',' '{print $2}')
+    echo "
+$host() {
+  local user=\$(incus exec $remote:$host --user 1000  whoami 2>/dev/null || incus exec $remote:$host --user 0  whoami 2>/dev/null)
+  ssh \$user@$address \$@
+}
+${host}s() { incus start $remote:$host \$@ }
+${host}r() { incus restart $remote:$host --force \$@ }
+${host}g() { nohup incus console $remote:$host --type=vga \$@  > /dev/null 2>&1 &}
+${host}e() { incus exec $remote:$host -- sudo --user=#1000 --login }
+    " >> $target
+  done
+}
+
+incus_setup cs "10.55" && incus_setup cl "10.152"
