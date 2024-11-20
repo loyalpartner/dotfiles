@@ -67,6 +67,7 @@ Plug 'tpope/vim-scriptease'    " vimscript enhancement
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-tbone'         " tmux
 Plug 'tpope/vim-unimpaired'    " enhancement
+Plug 'tpope/vim-abolish'    " enhancement
 Plug 'tweekmonster/helpful.vim'
 Plug 'vim-scripts/gtags.vim'
 Plug 'vim-utils/vim-man'

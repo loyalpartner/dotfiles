@@ -1,4 +1,4 @@
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec env WAYLNAD_DISPLAY= $menu
 bindsym $mod+ctrl+comma exec $type_googleid

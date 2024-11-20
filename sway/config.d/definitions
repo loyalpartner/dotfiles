@@ -4,7 +4,7 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term alacritty
+set $term foot
 # set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
 set $menu rofi -combi-modi "drun,run,ssh" -show combi \
       -terminal "$term" \
@@ -18,6 +18,7 @@ set $source_common source $HOME/dotfiles/bin/common.sh
 set $switch_to_warp $source_common && switch_to_ dev.warp.Warp warp-terminal
 set $switch_to_chrome $source_common && switch_to_ chromium chromium
 set $switch_to_chatgpt $source_common && fuzzy_switch_to 'chrome-chat.openai.com.*'  chromium --app=https://chat.openai.com
+set $switch_to_gemini $source_common && fuzzy_switch_to 'chrome-gemini.google.com*'  chromium --app=https://gemini.google.com
 set $switch_to_feishu $source_common && switch_to_instance feishu feishu
 set $switch_to_wechat $source_common && switch_to_instance wechat wechat-universal
 set $hide_floatwin $source_common && hide_floatwin

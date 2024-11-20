@@ -40,7 +40,7 @@ for_window {
   [class="(Bytedance-feishu|apifox|wechat)"] $float_center
   [instance="(chat.openai.com|claude.ai__chat)"] $float_center
   [instance="(feishu)"] $float_center
-  [app_id="chrome-chat.openai.com.*"] $float_center
+  [app_id="(chrome-chat.openai.com.*|chrome-gemini.google.com.*)"] $float_center
   # google chrome
   [instance="(google-chrome|chromium)"] $float_center
   [app_id="(google-chrome|chromium|dev.warp.Warp)"] $float_center
