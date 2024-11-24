@@ -3,7 +3,6 @@
 incus_setup() {
   local remote=$1
   local cider=$2
-  local project=${3:-"default"}
   local target="$HOME/.config/incus-instances.d"
   if [ ! -d $target ]; then
     mkdir -p $target
@@ -26,20 +25,10 @@ incus_setup() {
 
 
   echo "" > $target
-  mkdir ~/.ssh/config.d -p
 
-  ssh_config="$HOME/.ssh/config.d/$remote-$project"
-  echo "" > $ssh_config
-
-  for line in $(incus list $remote: -c ns4 --format json --project $project | jq -r "$selector" | grep "$cider") ; do
+  for line in $(incus list $remote: -c ns4 --format json | jq -r "$selector" | grep "$cider") ; do
     local host=$(echo "$line" | awk -F',' '{print $1}')
     local address=$(echo "$line" | awk -F',' '{print $2}')
-    cat <<EOF >> $ssh_config
-Host $host
-  HostName $address
-  User root
-  Port 22
-EOF
     echo "
 $host() {
   local user=\$(incus exec $remote:$host --user 1000  whoami 2>/dev/null || incus exec $remote:$host --user 0  whoami 2>/dev/null)
@@ -53,6 +42,4 @@ ${host}e() { incus exec $remote:$host -- sudo --user=#1000 --login }
   done
 }
 
-incus_setup cs "10.55" &&
-  incus_setup cl "10.152" &&
-  incus_setup cs "10.23" k8s
+incus_setup cs "10.55" && incus_setup cl "10.152"

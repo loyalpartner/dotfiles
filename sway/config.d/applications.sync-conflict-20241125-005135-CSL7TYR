@@ -15,10 +15,6 @@ for_window [title="^KDE Wayland"] {
   move container to workspace number 1
 }
 
-for_window [title="^gnome-shell$"] {
-  floating disable
-}
-
 # for_window [instance="google-chrome"] {
 #  move container to workspace number 11
 #  workspace number 11
