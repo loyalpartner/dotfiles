@@ -77,6 +77,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'loyalpartner/info.vim'
 " Plug 'blindFS/vim-taskwarrior'
 " Plug 'bagrat/vim-buffet'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 
 if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}

@@ -94,7 +94,8 @@ plugins=(
   rust
   # repo
   docker
-  # kubectl
+  kubectl
+  helm
   # repo
   docker
   golang
