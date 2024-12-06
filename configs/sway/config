@@ -1,12 +1,12 @@
 include {
-  $HOME/dotfiles/sway/config.d/definitions
-  $HOME/dotfiles/sway/config.d/keyboards
-  $HOME/dotfiles/sway/config.d/autostarts
-  $HOME/dotfiles/sway/config.d/applications
-  $HOME/dotfiles/sway/config.d/inputs
-  $HOME/dotfiles/sway/config.d/modes/default
-  $HOME/dotfiles/sway/config.d/modes/shutdown
-  $HOME/dotfiles/sway/config.d/modes/resize
+  $HOME/dotfiles/configs/sway/config.d/definitions
+  $HOME/dotfiles/configs/sway/config.d/keyboards
+  $HOME/dotfiles/configs/sway/config.d/autostarts
+  $HOME/dotfiles/configs/sway/config.d/applications
+  $HOME/dotfiles/configs/sway/config.d/inputs
+  $HOME/dotfiles/configs/sway/config.d/modes/default
+  $HOME/dotfiles/configs/sway/config.d/modes/shutdown
+  $HOME/dotfiles/configs/sway/config.d/modes/resize
 }
 
 show_marks yes

@@ -32,11 +32,6 @@ _ensure_directory_exists() {
   fi
 }
 
-_ensure_config_directory_exists() {
-  local dir=$(_path_relative_xdg_config_home $1)
-  _ensure_directory_exists $dir
-}
-
 _ensure_proxy_enabled() {
   local default_proxy prompt
   default_proxy='http://127.0.0.1:7890'
@@ -45,14 +40,6 @@ _ensure_proxy_enabled() {
     read -rep "${prompt}" proxy
     export HTTP{,S}_PROXY=${proxy:-$default_proxy}
   fi
-}
-
-_link_configs_to_xdg_dir_() {
-  local target_dir to config=$1
-  info "prepare link $config's config"
-  target_dir="$(_path_relative_script_home $config)"
-  dir=$(_path_relative_xdg_config_home $config)
-  debug ln -fs $target_dir/'*' $dir
 }
 
 ERROR='\033[0;31m'
@@ -153,7 +140,7 @@ _setup_wayland_enviroments() {
 
 _setup_gui_enviroments() {
   local packages=(
-    alacritty google-chrome
+    alacritty google-chrome foot
   )
 
   if _is_arch; then
@@ -487,11 +474,12 @@ _yay_setup() {
 }
 
 _dotfiles_setup() {
-  local xdg_configs=(sway rofi swayr alacritty ctags gdb)
-  for config in ${xdg_configs[@]}
-  do
-    _ensure_config_directory_exists $config
-    _link_configs_to_xdg_dir_ $config
+  for config in ./configs/*; do
+    if [ -d $config ]; then
+      config=$(basename $config)
+      rm -rf $(_path_relative_xdg_config_home $config)
+      ln -fs $SCRIPT_DIR/configs/$config $(_path_relative_xdg_config_home $config)
+    fi
   done
 
   local ohmyzsh_home=$HOME/.oh-my-zsh
