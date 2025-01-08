@@ -198,7 +198,7 @@ function! s:normalize(text)
   let result = a:text
   if &ft == "cpp" || &ft == "c"
     let result =  result
-          \ ->substitute('\v(^\s*(//|/\*))', "", "g")
+          \ ->substitute('\v(^\s*(//!|//|/\*))', "", "g")
           \ ->substitute('\v(\*)', "", "g")
           \ ->substitute('\v(\n|\t|//)+', "", "g")
   elseif &ft == "man"

@@ -9,10 +9,10 @@ from os.path import exists, expandvars
 # gdb.execute('source %s' % expandvars('$HOME/dotfiles/gdb/stl_pretty'))
 
 scripts = [
-  expandvars('$HOME/dotfiles/gdb/stl_pretty'),
-  expandvars('$HOME/dotfiles/gdb/break_history'),
-  expandvars('$HOME/dotfiles/gdb/pretty'),
-  expandvars('$HOME/dotfiles/gdb/editx.py'),
+  expandvars('$HOME/dotfiles/configs/gdb/stl_pretty'),
+  expandvars('$HOME/dotfiles/configs/gdb/break_history'),
+  expandvars('$HOME/dotfiles/configs/gdb/pretty'),
+  expandvars('$HOME/dotfiles/configs/gdb/editx.py'),
 ]
 
 for script in scripts:

@@ -46,7 +46,8 @@ bindsym {
   $mod+ctrl+t exec $switch_to_chrome
   # $mod+ctrl+t [instance="google-chrome"] scratchpad show
   # $mod+ctrl+s [app_id="chrome-chat.openai.com.*"] scratchpad show
-  $mod+ctrl+s exec $switch_to_gemini
+  # $mod+ctrl+s exec $switch_to_gemini
+  $mod+ctrl+s exec $switch_to_chatgpt
   $mod+ctrl+h [instance="hybridscope"] scratchpad show
   Mod1+Tab exec      swayr switch-to-urgent-or-lru-window
   $mod+Tab workspace back_and_forth

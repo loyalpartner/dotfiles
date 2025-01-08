@@ -1,4 +1,4 @@
-source ~/dotfiles/gdb/break_history.py
+source ~/dotfiles/configs/gdb/break_history.py
 
 define hook-quit
 python save()

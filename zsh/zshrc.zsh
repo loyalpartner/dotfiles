@@ -80,11 +80,14 @@ HYPHEN_INSENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
+zstyle ':omz:plugins:nvm' autoload yes
+
 plugins=(
   zsh-autosuggestions
   # lxd-completion-zsh
   git
-  autojump
+  # autojump
   pip
   npm
   nvm
@@ -94,6 +97,7 @@ plugins=(
   rust
   # repo
   docker
+  docker-compose
   kubectl
   helm
   # repo
@@ -105,6 +109,7 @@ plugins=(
   systemd
   # github
   #gh
+  z
   )
 
 source $ZSH/oh-my-zsh.sh

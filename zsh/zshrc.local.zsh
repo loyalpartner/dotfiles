@@ -35,6 +35,7 @@ export FZF_DEFAULT_OPTS="\
   "
 
 # alias
+alias dp='docker compose'
 alias pkiller='_pkiller'
 alias b="echo \$(bindkey | sed -e 's/\"//g' | fzf --no-preview -q \')|awk '{print \$2}'"
 alias tb="tmux list-keys -T prefix | fzf --no-preview"

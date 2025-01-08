@@ -264,6 +264,7 @@
         \ 'coc-clangd',
         \ 'coc-go',
         \ 'coc-pyright',
+        \ 'coc-prettier',
         \ 'coc-rust-analyzer',
         \ ]
   let g:coc_watch_extensions = []

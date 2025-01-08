@@ -8,22 +8,16 @@
   "suggest.languageSourcePriority": 1000,
   "suggest.labelMaxLength": 50,
   "suggest.floatConfig": {
-    "shadow": false, "border": true, "rounded": false
+    "shadow": false,
+    "border": true,
+    "rounded": false
   },
   "coc.source.dictionary.priority": 0,
   "coc.source.word.priority": 0,
   "coc.preferences.floatActions": false,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "copilot.priority": 1000,
-  "copilot.triggerCharacters": [
-    ".",
-    "/",
-    "@",
-    " ",
-    "*",
-    "<",
-    "\"",
-  ],
+  "copilot.triggerCharacters": [".", "/", "@", " ", "*", "<", "\""],
   "go.trace.server": "verbose",
   "inlayHint.enable": false,
   "typeHierarchy.splitCommand": "botright 80vs",
@@ -31,23 +25,22 @@
   "outline.followCursor": true,
   "colors.enable": true,
   "json.format.keepLines": true,
+  "json.format.enable": true,
   "json.schemas": [
     {
-      "fileMatch": [ ".vimspector.json" ],
+      "fileMatch": [".vimspector.json"],
       "url": "https://puremourning.github.io/vimspector/schema/vimspector.schema.json"
     }
   ],
-  "workspace.rootPatterns": [ ".git", ".hg", ".projections.json" ],
-  "list.source.files.command": "rg",
-  "list.source.files.args": [ "--files", "-workspace" ],
-  "list.source.files.excludePatterns": [ "**/node_modules/**" ],
-  // "list.previousKeymap": "<C-p>",
-  // "list.nextKeymap": "<C-n>",
+  "workspace.rootPatterns": [".git", ".hg", ".projections.json"],
+  "list.source.files.command": "fd",
+  "list.source.files.excludePatterns": ["**/node_modules/**", "**/target/**"],
   "list.insertMappings": {
     "<C-n>": "normal:j",
     "<C-p>": "normal:k",
     "<C-t>": "action:tabe"
   },
+  "coc.preferences.formatOnSave": false,
   "git.signPriority": 1,
   "git.addGBlameToVirtualText": true,
   "html.format.enable": true,
@@ -57,31 +50,21 @@
   "tsserver.trace.server": "verbose",
   "pyright.inlayHints.variableTypes": false,
   "pyright.inlayHints.functionReturnTypes": true,
-  // "rust-analyzer.check.command": "clippy",
-  // "rust-analyzer.check.extraArgs": [ "--fix" ],
+  "rust-analyzer.check.extraArgs": ["--target-dir=target_check"],
   // "rust-analyzer.cargo.buildScripts.overrideCommand": [
   //   "cargo", "check", "--quiet", "--message-format=json"
   // ],
   // "rust-analyzer.trace.server": "verbose",
   //"rust-analyzer.procMacro.enable": false,
-  "rust-analyzer.updates.checkOnStartup": true,
-  "coc.preferences.formatOnSave": false,
-  // rust-analyzer.updates.channel: "stable",
-  //"rust-analyzer.server.path": "/home/lee/.local/share/zed/languages/rust-analyzer/rust-analyzer-2024-07-15",
-  //"rust-analyzer.procMacro.server": null,
-  // "rust-analyzer.procMacro.server": "rust-analyzer-proc-macro-srv",
+  "rust-analyzer.updates.checkOnStartup": false,
   "rust-analyzer.checkOnSave": true,
-  "workspace.ignoredFolders": [
-    "$HOME",
-    "$HOME/.cargo/**",
-    "$HOME/.rustup/**"
-  ],
+  "workspace.ignoredFolders": ["$HOME", "$HOME/.cargo/**", "$HOME/.rustup/**"],
   // "gn.execArgv": [ "--nolazy", "--inspect=6047" ],
   "languageserver": {
     "elmLS": {
       "command": "elm-language-server",
-      "filetypes": [ "elm" ],
-      "rootPatterns": [ ".git/", "elm.json" ],
+      "filetypes": ["elm"],
+      "rootPatterns": [".git/", "elm.json"],
       "initializationOptions": {
         "elmPath": "elm", // optional
         "elmFormatPath": "elm-format", // optional
@@ -92,21 +75,21 @@
     // cargo install mojom-lsp
     "mojom": {
       "command": "mojom-lsp",
-      "rootPatterns": [ ".git/" ],
-      "filetypes": [ "mojom" ]
+      "rootPatterns": [".git/"],
+      "filetypes": ["mojom"]
     },
     // https://github.com/lasorda/protobuf-language-server.git
     // need bead
     "proto": {
       "command": "pls",
-      "rootPatterns": [ ".git/" ],
-      "filetypes": [ "proto" ]
+      "rootPatterns": [".git/"],
+      "filetypes": ["proto"]
     },
     "jsonnet": {
       "command": "jsonnet-language-server",
-      "args": [ "-t" ],
-      "rootPatterns": [ ".git/", "jsonnetfile.json" ],
-      "filetypes": [ "jsonnet", "libsonnet" ]
+      "args": ["-t"],
+      "rootPatterns": [".git/", "jsonnetfile.json"],
+      "filetypes": ["jsonnet", "libsonnet"]
     },
     "meson": {
       "command": "Swift-MesonLSP",
@@ -116,6 +99,6 @@
     }
   },
   // "clangd.arguments": ["--background-index", "-j", "20", "--log=verbose"],
-  "clangd.arguments": [ "--clang-tidy" ],
+  "clangd.arguments": ["--clang-tidy"],
   "git.enableGutters": true
 }
