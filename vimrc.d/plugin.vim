@@ -353,6 +353,10 @@
   endif
 " }}
 
+" vim-commentary {{
+  autocmd FileType json setlocal commentstring=//\ %s
+" }}
+
 " vim-airline {{
   let g:airline_theme = 'hybrid'
   let g:airline_powerline_fonts = 1

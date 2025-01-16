@@ -12,13 +12,15 @@
     "border": true,
     "rounded": false
   },
-  "coc.source.dictionary.priority": 0,
-  "coc.source.word.priority": 0,
+
+  // "coc.source.dictionary.priority": 0,
+  // "coc.source.word.priority": 0,
+
   "coc.preferences.floatActions": false,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+
   "copilot.priority": 1000,
-  "copilot.triggerCharacters": [".", "/", "@", " ", "*", "<", "\""],
-  "go.trace.server": "verbose",
+  // "go.trace.server": "verbose",
   "inlayHint.enable": false,
   "typeHierarchy.splitCommand": "botright 80vs",
   "callHierarchy.splitCommand": "botright 80vs",
@@ -32,7 +34,6 @@
       "url": "https://puremourning.github.io/vimspector/schema/vimspector.schema.json"
     }
   ],
-  "workspace.rootPatterns": [".git", ".hg", ".projections.json"],
   "list.source.files.command": "fd",
   "list.source.files.excludePatterns": ["**/node_modules/**", "**/target/**"],
   "list.insertMappings": {
@@ -41,6 +42,7 @@
     "<C-t>": "action:tabe"
   },
   "coc.preferences.formatOnSave": false,
+  "git.enableGutters": true,
   "git.signPriority": 1,
   "git.addGBlameToVirtualText": true,
   "html.format.enable": true,
@@ -50,28 +52,19 @@
   "tsserver.trace.server": "verbose",
   "pyright.inlayHints.variableTypes": false,
   "pyright.inlayHints.functionReturnTypes": true,
-  "rust-analyzer.check.extraArgs": ["--target-dir=target_check"],
-  // "rust-analyzer.cargo.buildScripts.overrideCommand": [
-  //   "cargo", "check", "--quiet", "--message-format=json"
-  // ],
-  // "rust-analyzer.trace.server": "verbose",
-  //"rust-analyzer.procMacro.enable": false,
-  "rust-analyzer.updates.checkOnStartup": false,
+
+  // rust-analyzer
   "rust-analyzer.checkOnSave": true,
+  "rust-analyzer.cargo.extraArgs": ["--target-dir=target_check"],
+  "rust-analyzer.updates.checkOnStartup": false,
+  "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.diagnostics.enable": true,
+
+  "workspace.rootPatterns": [".git", ".hg", ".projections.json"],
   "workspace.ignoredFolders": ["$HOME", "$HOME/.cargo/**", "$HOME/.rustup/**"],
+  "diagnostic.autoRefresh": true,
   // "gn.execArgv": [ "--nolazy", "--inspect=6047" ],
   "languageserver": {
-    "elmLS": {
-      "command": "elm-language-server",
-      "filetypes": ["elm"],
-      "rootPatterns": [".git/", "elm.json"],
-      "initializationOptions": {
-        "elmPath": "elm", // optional
-        "elmFormatPath": "elm-format", // optional
-        "elmTestPath": "elm-test", // optional
-        "elmAnalyseTrigger": "change" // optional
-      }
-    },
     // cargo install mojom-lsp
     "mojom": {
       "command": "mojom-lsp",
@@ -99,6 +92,5 @@
     }
   },
   // "clangd.arguments": ["--background-index", "-j", "20", "--log=verbose"],
-  "clangd.arguments": ["--clang-tidy"],
-  "git.enableGutters": true
+  "clangd.arguments": ["--clang-tidy"]
 }

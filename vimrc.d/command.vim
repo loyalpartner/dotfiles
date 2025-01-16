@@ -25,7 +25,8 @@ command! -nargs=+ -complete=custom,s:GrepArgs          Rg        :exe 'CocList g
 command! -nargs=? -complete=custom,s:ListVimrc         EditVimrc :call s:EditVimrc(<f-args>)
 command! -nargs=? -complete=custom,s:ListDict          Dict      :call s:ToggleDictionary(<f-args>)
 command! -nargs=0 Jest :call  CocActionAsync('runCommand', 'jest.fileTest', ['%'])
-command! -nargs=0 Debug                                :call     s:DebugCoc()
+command! -nargs=0 Until                               :call      s:gdb_until()
+command! -nargs=0 Break                               :call      s:gdb_break()
 
 let s:cmd_map = {
       \'javascript': 'babel-node',
@@ -191,27 +192,6 @@ function! s:Save()
   call writefile(content, file)
 endfunction
 
-function! s:DebugCoc() abort
-  call s:osascript(
-    \ 'tell application "iTerm2"',
-    \   'tell current window',
-    \     'create tab with default profile',
-    \     'tell current session',
-    \       'write text "cd ' . $HOME . '"',
-    \       'write text "clear"',
-    \       'write text "tail -f '.$NODE_CLIENT_LOG_FILE.'"',
-    \       'activate',
-    \     'end tell',
-    \   'end tell',
-    \ 'end tell')
-endfunction
-
-function! s:osascript(...) abort
-  let args = join(map(copy(a:000), '" -e ".shellescape(v:val)'), '')
-  call  s:system('osascript'. args)
-  return !v:shell_error
-endfunction
-
 function! s:system(cmd)
   let output = system(a:cmd)
   if v:shell_error && output !=# ""
@@ -220,3 +200,32 @@ function! s:system(cmd)
   endif
   return output
 endfunction
+
+let g:pane_title_gdb="gdb_pane_title"
+
+function! s:gdb_find_pane_no()
+  let output = system('tmux list-panes -F "#{pane_title}"')
+  let lines = split(output, '\n')
+  let idx = index(lines, g:pane_title_gdb)
+  return idx + 1
+endfunction
+
+
+function! s:gdb_until()
+  let position = expand('%:p') . ':' . line('.')
+  let no = s:gdb_find_pane_no()
+
+  let cmd = 'tmux send-keys -t ' . no . ' "until ' . position . '" C-m'
+  call s:system(cmd)
+endfunction
+
+
+function! s:gdb_break()
+  let position = expand('%:p') . ':' . line('.')
+  let no = s:gdb_find_pane_no()
+
+  let cmd = 'tmux send-keys -t ' . no . ' "break ' . position . '" C-m'
+  call s:system(cmd)
+endfunction
+
+

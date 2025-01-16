@@ -26,3 +26,4 @@ payload:
   - '*.github.com'
   - '*.linuxcontainers.org'
   - '*.freedesktop.org'
+  - '*.gnome.org'

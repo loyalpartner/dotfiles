@@ -13,6 +13,7 @@ scripts = [
   expandvars('$HOME/dotfiles/configs/gdb/break_history'),
   expandvars('$HOME/dotfiles/configs/gdb/pretty'),
   expandvars('$HOME/dotfiles/configs/gdb/editx.py'),
+  expandvars('$HOME/dotfiles/configs/gdb/vim_follow.py'),
 ]
 
 for script in scripts:
@@ -52,9 +53,9 @@ local_gdb_config = expandvars('$HOME/.gdb.local.config')
 gdb.execute(f'source {local_gdb_config}')
 end
 
-python
-import sys, os.path
-sys.path.insert(0, os.path.expanduser('~/.config/gdb'))
-import qt5printers
-qt5printers.register_printers(gdb.current_objfile())
-end
+# python
+# import sys, os.path
+# sys.path.insert(0, os.path.expanduser('~/.config/gdb'))
+# import qt5printers
+# qt5printers.register_printers(gdb.current_objfile())
+# end
