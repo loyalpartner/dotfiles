@@ -1,5 +1,4 @@
 #!/bin/bash
-
 #
 # 获取当前激活的窗口
 # 窗口是要切换的窗口
@@ -17,12 +16,17 @@ switch_to_() {
     select(.type == "workspace").nodes[]?, select(.type == "workspace").floating_nodes[]? |
     select(.focused == true)
   '
+  # 获取当前激活的窗口 id
   local app_id=$(swaymsg -t get_tree | jq "$selector" | jq -r ".app_id")
+  local output_name=$(swaymsg -t get_outputs | jq -r '.[0].name')
 
   if [ "$app_id" = "$target" ]; then
-    swaymsg "[app_id=$target]" scratchpad show
+    # swaymsg "[app_id=$target]" scratchpad show
+    swaymsg "[con_mark=last_window]" focus
+    unmark last_window
     return
   fi
+  swaymsg mark last_window
 
   local selector=$(printf '.. | select(.app_id? == "%s")' $target)
   target_window=$(swaymsg -t get_tree | jq -e --args "$selector")
@@ -30,17 +34,54 @@ switch_to_() {
     # 检查窗口是隐藏还是显示的
     local visible="$(echo $target_window | jq -e ".visible")"
     if [[ "$visible" == "true" ]]; then
-      swaymsg "[app_id=$target]" scratchpad show
-      swaymsg "[app_id=$target]" scratchpad show
-
+      swaymsg "[app_id=$target]" focus
     else
-      swaymsg "[app_id=$target]" scratchpad show
+      swaymsg "[app_id=$target]" move to output $output_name
+      swaymsg "[app_id=$target]" focus
     fi
 
-    swaymsg "[app_id=$target]" resize set 95 ppt 95 ppt
-    swaymsg "[app_id=$target]" move position center
+    # swaymsg "[app_id=$target]" 'resize set 95 ppt 95 ppt; move position center'
   else
     $2
+  fi
+}
+
+# fuzzy_switch_to 'chrome-chat.openai.com.*'  chromium --app=https://chat.openai.com
+fuzzy_switch_to() {
+  local target="$1"
+
+  local selector='
+    .nodes[].nodes[] | recurse(.nodes[]?) |
+    select(.type == "workspace").nodes[]?, select(.type == "workspace").floating_nodes[]? |
+    select(.focused == true)
+  '
+  local app_id=$(swaymsg -t get_tree | jq "$selector" | jq -r ".app_id")
+  local output_name=$(swaymsg -t get_outputs | jq -r '.[0].name')
+  if [[ "$app_id" =~ $target ]]; then
+    # swaymsg "[app_id=$target]" scratchpad show
+    swaymsg "[con_mark=last_window]" focus
+    unmark last_window
+    return
+  fi
+
+  swaymsg mark last_window
+
+  local selector=$(printf '.. | select(.app_id? //"" | test("%s"))' $target)
+  target_window=$(swaymsg -t get_tree | jq -e --args "$selector")
+  if [ $? -eq 0 ] ; then
+    # 检查窗口是隐藏还是显示的
+    local visible="$(echo $target_window | jq -e ".visible")"
+    if [[ "$visible" == "true" ]]; then
+      swaymsg "[app_id=$target]" focus
+    else
+      swaymsg "[app_id=$target]" move to output $output_name
+      swaymsg "[app_id=$target]" focus
+    fi
+
+    # swaymsg "[app_id=$target]" resize set 95 ppt 95 ppt
+    # swaymsg "[app_id=$target]" move position center
+  else
+    ${@:2}
   fi
 }
 
@@ -79,40 +120,6 @@ switch_to_instance() {
   fi
 }
 
-# fuzzy_switch_to 'chrome-chat.openai.com.*'  chromium --app=https://chat.openai.com
-fuzzy_switch_to() {
-  local target="$1"
-
-  local selector='
-    .nodes[].nodes[] | recurse(.nodes[]?) |
-    select(.type == "workspace").nodes[]?, select(.type == "workspace").floating_nodes[]? |
-    select(.focused == true)
-  '
-  local app_id=$(swaymsg -t get_tree | jq "$selector" | jq -r ".app_id")
-  if [[ "$app_id" =~ $target ]]; then
-    swaymsg "[app_id=$target]" scratchpad show
-    return
-  fi
-
-  echo $app_id #> /tmp/123
-  local selector=$(printf '.. | select(.app_id? //"" | test("%s"))' $target)
-  target_window=$(swaymsg -t get_tree | jq -e --args "$selector")
-  if [ $? -eq 0 ] ; then
-    # 检查窗口是隐藏还是显示的
-    local visible="$(echo $target_window | jq -e ".visible")"
-    if [[ "$visible" == "true" ]]; then
-      swaymsg "[app_id=$target]" scratchpad show
-      swaymsg "[app_id=$target]" scratchpad show
-    else
-      swaymsg "[app_id=$target]" scratchpad show
-    fi
-
-    swaymsg "[app_id=$target]" resize set 95 ppt 95 ppt
-    swaymsg "[app_id=$target]" move position center
-  else
-    ${@:2}
-  fi
-}
 
 hide_floatwin() {
   for id in $(swaymsg -t get_tree | jq '.. | select(.type? == "floating_con") | .id');do

@@ -113,7 +113,8 @@ def is_tmux():
     return os.getenv('TMUX')
 
 
-cmd = VimFollowCommand()
+if is_tmux():
+    cmd = VimFollowCommand()
 
-gdb.events.stop.connect(lambda event: cmd.follow(False))
-gdb.events.gdb_exiting.connect(lambda event: cmd.vim_client.exit())
+    gdb.events.before_prompt.connect(lambda: cmd.follow(False))
+    gdb.events.gdb_exiting.connect(lambda event: cmd.vim_client.exit())

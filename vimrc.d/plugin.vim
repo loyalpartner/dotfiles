@@ -243,29 +243,30 @@
   "let g:coc_quickfix_open_command = 'copen|cfirst'
   let g:coc_config_home = '~/.vim/vimrc.d'
   " let g:node_client_debug = 1
-  " let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
+  " let g:coc_node_args = ['--nolazy', '--inspect-brk=0.0.0.0:6045']
   " let g:coc_node_args += [ '-r', expand('~/.config/yarn/global/node_modules/source-map-support/register') ]
-  " let $NVIM_COC_LOG_LEVEL = 'debug'
+  let $NVIM_COC_LOG_LEVEL = 'trace'
   let g:coc_global_extensions = [
-        \ 'coc-git',
-        \ 'coc-eslint',
-        \ 'coc-stylelint',
-        \ 'coc-marketplace',
-        \ 'coc-json',
-        \ 'coc-yaml',
-        \ 'coc-docker',
-        \ '@yaegassy/coc-nginx',
-        \ '@hexuhua/coc-copilot',
-        \ 'coc-db',
-        \ 'coc-html',
-        \ 'coc-sh',
-        \ 'coc-vimlsp',
-        \ 'coc-tsserver',
         \ 'coc-clangd',
+        \ 'coc-db',
+        \ 'coc-docker',
+        \ 'coc-eslint',
+        \ 'coc-git',
         \ 'coc-go',
-        \ 'coc-pyright',
+        \ 'coc-html',
+        \ 'coc-json',
+        \ 'coc-lists',
+        \ 'coc-marketplace',
         \ 'coc-prettier',
+        \ 'coc-pyright',
         \ 'coc-rust-analyzer',
+        \ 'coc-sh',
+        \ 'coc-stylelint',
+        \ 'coc-tsserver',
+        \ 'coc-vimlsp',
+        \ 'coc-yaml',
+        \ '@hexuhua/coc-copilot',
+        \ '@yaegassy/coc-nginx',
         \ ]
   let g:coc_watch_extensions = []
   "let g:coc_node_path = '/usr/local/bin/node'
@@ -299,7 +300,7 @@
 " autosave {{
   let g:auto_save = 1
   let g:auto_save_silent = 1
-  let g:auto_save_events = ["CursorHold"]
+  " let g:auto_save_events = ["CursorHold"]
 " }}
 "
 
@@ -355,6 +356,13 @@
 
 " vim-commentary {{
   autocmd FileType json setlocal commentstring=//\ %s
+" }}
+
+" ctrlp {{
+  let g:ctrlp_custom_ignore = {
+        \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|.idea|target|target_check)$',
+        \ 'file': '\v\.(exe|so|dll|a|o|pyc|swp)$'
+        \ }
 " }}
 
 " vim-airline {{

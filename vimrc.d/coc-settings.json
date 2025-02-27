@@ -21,7 +21,7 @@
 
   "copilot.priority": 1000,
   // "go.trace.server": "verbose",
-  "inlayHint.enable": false,
+  "inlayHint.enable": true,
   "typeHierarchy.splitCommand": "botright 80vs",
   "callHierarchy.splitCommand": "botright 80vs",
   "outline.followCursor": true,
