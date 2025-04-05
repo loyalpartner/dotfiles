@@ -48,7 +48,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lock
 Plug 'othree/xml.vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'posva/vim-vue'
-Plug 'puremourning/vimspector'
+" Plug 'puremourning/vimspector'
 Plug 'Raimondi/delimitMate'
 Plug 'romainl/vim-cool'        " search improve
 Plug 'rust-lang/rust.vim'

@@ -16,7 +16,8 @@ set $type_googleid \
 
 set $source_common source $HOME/dotfiles/bin/common.sh
 set $switch_to_warp $source_common && switch_to_ dev.warp.Warp warp-terminal
-set $switch_to_chrome $source_common && switch_to_ chromium chromium
+# set $switch_to_chrome $source_common && switch_to_ chromium chromium
+set $switch_to_chrome $source_common && switch_to_ google-chrome google-chrome-stable
 set $switch_to_chatgpt $source_common && fuzzy_switch_to 'chrome-chat.openai.com.*'  chromium --app=https://chat.openai.com
 set $switch_to_gemini $source_common && fuzzy_switch_to 'chrome-gemini.google.com*'  chromium --app=https://gemini.google.com
 set $switch_to_feishu $source_common && switch_to_instance feishu feishu

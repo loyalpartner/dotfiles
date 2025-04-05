@@ -359,6 +359,7 @@
 " }}
 
 " ctrlp {{
+  if executable('fd') | let g:ctrlp_user_command = 'fd --full-path %s' | endif
   let g:ctrlp_custom_ignore = {
         \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|.idea|target|target_check)$',
         \ 'file': '\v\.(exe|so|dll|a|o|pyc|swp)$'
@@ -372,5 +373,10 @@
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#show_buffers = 0
   " let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+" }}
+
+" delimitMate.vim {{
+  au FileType cpp let b:delimitMate_matchpairs = "(:),[:],{:}"
 
 " }}

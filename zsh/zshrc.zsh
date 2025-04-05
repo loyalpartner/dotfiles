@@ -107,12 +107,15 @@ plugins=(
   # gn
   # gcloud
   systemd
+  dotenv
   # github
   #gh
   z
   )
 
 source $ZSH/oh-my-zsh.sh
+
+ZSH_DOTENV_PROMPT=false
 
 #setopt noshare_history
 # User configuration
