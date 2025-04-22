@@ -2,7 +2,7 @@
 output {
   * {
     bg ../bg/medowar.png fill
-    # scale 1.5
+    scale 1.5
     # scale 1
   }
 

@@ -1,8 +1,9 @@
 # autostarts
+exec fcitx5 -d --replace
 exec_always {
-  wl-paste -t text --watch clipman store --max-items=1000
+  wl-paste -t text --watch clipman store --max-items=5000
   workstyle
-  fcitx5 -d --replace
+  sworkstyle
   swayrd
   swayidle -w \
     timeout 300 'swaylock -f -c 000000' \

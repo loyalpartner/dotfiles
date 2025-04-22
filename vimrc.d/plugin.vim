@@ -16,8 +16,8 @@
   let g:go_guru_scope = []
   let g:go_def_mapping_enabled = 0
   let g:go_doc_keywordprg_enabled = 0
-  let g:go_fmt_autosave = 1
-  let g:go_imports_autosave = 1
+  let g:go_fmt_autosave = 0
+  let g:go_imports_autosave = 0
   let g:go_highlight_types = 1
   let g:go_highlight_fields = 1
   let g:go_highlight_functions = 1
@@ -300,7 +300,7 @@
 " autosave {{
   let g:auto_save = 1
   let g:auto_save_silent = 1
-  " let g:auto_save_events = ["CursorHold"]
+  let g:auto_save_events = ["InsertLeave"]
 " }}
 "
 

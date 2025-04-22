@@ -40,18 +40,28 @@ set $float_center $float; \
       resize set 95 ppt 95 ppt; \
       move position center;
 
+assign [instance="(google-chrome|chromium)"] workspace number 102
+assign [app_id="(google-chrome|chromium|dev.warp.Warp)"] workspace number 102
+assign [app_id="" title="^Google Chrome$"] workspace number 102
+
+assign [class="(Bytedance-feishu)"] workspace number 101
+
 for_window {
-  [class="(Bytedance-feishu|apifox|wechat)"] $float_center
+  # [class="(Bytedance-feishu|apifox|wechat)"] $float_center
   [instance="(chat.openai.com|claude.ai__chat)"] $float_center
-  [instance="(feishu)"] $float_center
+  # [instance="(feishu)"] {
+  #   move container to workspace number 101
+  #   workspace number 101
+  # }
   [app_id="(chrome-chat.openai.com.*|chrome-gemini.google.com.*)"] $float_center
-  # google chrome
-  [instance="(google-chrome|chromium)"] $float_center
-  [app_id="(google-chrome|chromium|dev.warp.Warp)"] $float_center
-  [app_id="" title="^Google Chrome$"] $float
+  # [app_id="(google-chrome|chromium|dev.warp.Warp)"] {
+  #   move container to workspace number 102
+  #   workspace number 102
+  # }
+  # [app_id="" title="^Google Chrome$"] $float
   [instance="hybridscope"] $float
   # 飞书
-  [title="飞书会议"] $float
+  # [title="飞书会议"] $float
   [app_id="GTK Application" title="^Save File$"] $float
   # float terminal
   [app_id="floatwin"] $float_center;

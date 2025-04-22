@@ -144,3 +144,10 @@ if executable("fcitx5-remote")
     endif
   endfunction
 endif
+
+augroup auto_read
+  autocmd!
+
+  autocmd FileChangedShellPost * echohl WarningMsg | echo "文件已经被其他程序修改" | echohl None
+augroup END
+

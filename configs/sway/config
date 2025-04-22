@@ -37,13 +37,14 @@ client.unfocused         "#44444400" "#444444DD" "#9E9E9E"
 # bindsym $mod+ctrl+t  exec $switch_to_chrome
 # bindsym $mod+ctrl+t  exec $switch_to_chrome
 bindsym {
-  $mod+ctrl+f exec $switch_to_feishu
+  # $mod+ctrl+f exec $switch_to_feishu
+  $mod+ctrl+f workspace number 101
   $mod+ctrl+n exec $hide_floatwin
   $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
   $mod+ctrl+c [title="^DevTools"] scratchpad show
   # $mod+ctrl+f [class="apifox"] scratchpad show
   $mod+ctrl+w exec $switch_to_wechat
-  $mod+ctrl+t exec $switch_to_chrome
+  $mod+ctrl+t workspace number 102
   # $mod+ctrl+t [instance="google-chrome"] scratchpad show
   # $mod+ctrl+s [app_id="chrome-chat.openai.com.*"] scratchpad show
   # $mod+ctrl+s exec $switch_to_gemini
