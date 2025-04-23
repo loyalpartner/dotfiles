@@ -2,7 +2,6 @@
 output {
   * {
     bg ../bg/medowar.png fill
-    scale 1.5
     # scale 1
   }
 
@@ -16,6 +15,7 @@ output {
 
   "LG Electronics LG HDR 4K 0x0000E984" {
     disable
+    scale 1.5
     transform 270
     pos 0 0
     resolution 3840x2160
@@ -26,7 +26,7 @@ output {
     resolution 3840x2160
   }
 
-  "Xiaomi Corporation Redmi 27 NQS 3411100032964" {
+  "JZM JZM27DC Unknown" {
     resolution 2560x1440
     pos 0 0
     # transform 90
