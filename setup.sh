@@ -1,44 +1,100 @@
 #!/usr/bin/env bash
 
-# set -e
+# 开发环境配置脚本
+# 版本: 1.0.0
+# 作者: Your Name
+# 用途: 自动化设置开发环境、工具、语言环境等
 
-# enable debug logs
+# 使用方法：
+#   ./setup.sh [选项]
+#
+# 选项:
+#   all         安装所有环境和工具
+#   basic       只安装基本环境
+#   program     安装编程语言环境
+#   gui         安装图形界面工具
+#   wayland     安装Wayland环境
+#   chromium    安装Chromium开发环境
+#   doom        安装Doom Emacs
+#   vim         安装Vim配置
+#   clash       安装Clash代理
+#   dotfiles    设置dotfiles配置文件
+#   ohmyzsh     安装Oh My Zsh
+#   update-index 更新软件包索引
+
+# 启用错误处理
+set -e          # 命令返回非零状态时立即退出
+set -u          # 使用未定义的变量时报错
+set -o pipefail # 管道中任一命令失败则整个管道视为失败
+
+# 启用调试日志
 DEBUG_ENABLE=1
 
+# 记录当前脚本目录的绝对路径
 SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
+# 配置文件与路径
+CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+VIM_HOME="$HOME/.vim"
+EMACS_HOME="$HOME/.emacs.d"
+OHMYZSH_HOME="$HOME/.oh-my-zsh"
+ZSH_CUSTOM="${ZSH_CUSTOM:-$OHMYZSH_HOME/custom}"
+NVM_HOME="$CONFIG_HOME/nvm"
+
+# 仓库地址
 REPO_OHMYZSH="https://github.com/ohmyzsh/ohmyzsh"
 REPO_DOOM="https://github.com/hlissner/doom-emacs"
 REPO_P10K="https://github.com/romkatv/powerlevel10k.git"
 REPO_ZSH_SUGGESTION="https://github.com/zsh-users/zsh-autosuggestions"
 REPO_ZSH_LXD="https://github.com/endaaman/lxd-completion-zsh"
-ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
 URL_PLUG="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
 _path_relative_xdg_config_home() {
-  echo ${XDG_CONFIG_HOME:-$HOME/.config}/$1
+  echo "$CONFIG_HOME/$1"
 }
 
 _path_relative_script_home() {
-  echo $SCRIPT_DIR/$1
+  echo "$SCRIPT_DIR/$1"
 }
 
 _ensure_directory_exists() {
-  local dir=$1 remove_flag=${2:-true}
+  local dir="$1" remove_flag=${2:-true}
 
-  if [[ -n $dir && $dir != "/" ]]; then
-    if $remove_flag; then rm -rf $dir; fi
-    mkdir -p $dir
+  if [[ -z "$dir" || "$dir" == "/" ]]; then
+    error "Cannot create root or empty directory"
+    return 1
   fi
+
+  if [[ "$remove_flag" == true && -d "$dir" ]]; then 
+    debug_log "Removing existing directory: $dir"
+    rm -rf "$dir" || return 1
+  fi
+  
+  if [[ ! -d "$dir" ]]; then
+    debug_log "Creating directory: $dir"
+    mkdir -p "$dir" || return 1
+  fi
+  
+  return 0
 }
 
 _ensure_proxy_enabled() {
-  local default_proxy prompt
-  default_proxy='http://127.0.0.1:7890'
-  prompt="use proxy(default $default_proxy): "
-  if [[ -z $HTTP_PROXY || -z $HTTPS_PROXY ]]; then
+  local default_proxy='http://127.0.0.1:7890'
+  local prompt="Use proxy (default $default_proxy): "
+  
+  if [[ -z "${HTTP_PROXY:-}" || -z "${HTTPS_PROXY:-}" ]]; then
+    info "Network proxy not set, please specify proxy address"
     read -rep "${prompt}" proxy
-    export HTTP{,S}_PROXY=${proxy:-$default_proxy}
+    proxy="${proxy:-$default_proxy}"
+    
+    export HTTP_PROXY="$proxy"
+    export HTTPS_PROXY="$proxy"
+    export http_proxy="$proxy"
+    export https_proxy="$proxy"
+    
+    info "Proxy set: $proxy"
+  else
+    debug_log "Network proxy already set: HTTP_PROXY=$HTTP_PROXY, HTTPS_PROXY=$HTTPS_PROXY"
   fi
 }
 
@@ -47,17 +103,105 @@ INFO='\033[0;32m'
 WARN='\033[0;33m'
 DEBUG='\033[0;34m'
 END='\033[0m'
+
+# 定义日志函数
 warn() { echo -e ${WARN}[WARN] "$@"$END; }
 info() { echo -e ${INFO}[INFO] "$@"$END; }
 error() { echo -e ${ERROR}[ERROR] "$@"$END; }
-debug() { [[ -n $DEBUG_ENABLE ]] && echo -e $DEBUG[DEBUG] "$@"$END; $@; }
+debug_log() { [[ -n $DEBUG_ENABLE ]] && echo -e ${DEBUG}[DEBUG] "$@"${END}; }
+
+# 创建临时目录
+TMP_DIR=$(mktemp -d)
+debug_log "Created temporary directory: $TMP_DIR"
+
+# 在脚本退出时执行清理
+cleanup() {
+  local exit_code=$?
+  debug_log "Performing cleanup..."
+  
+  # 删除临时目录
+  if [[ -d "$TMP_DIR" ]]; then
+    rm -rf "$TMP_DIR"
+    debug_log "Removed temporary directory: $TMP_DIR"
+  fi
+  
+  # 根据退出码显示完成消息
+  if [[ $exit_code -eq 0 ]]; then
+    info "Script execution completed"
+  else
+    error "Script execution failed, exit code: $exit_code"
+  fi
+  
+  exit $exit_code
+}
+
+# 处理中断信号
+handle_interrupt() {
+  error "Interrupt signal received, terminating script"
+  exit 130
+}
+
+# 注册清理和中断处理函数
+trap cleanup EXIT
+trap handle_interrupt INT
+
+# 执行命令，支持超时和重试
+run_cmd() { 
+  local timeout=300  # 默认超时时间，秒
+  local retries=1    # 默认重试次数
+  local cmd=()
+  local i=0
+  
+  # 解析参数
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --timeout=*)
+        timeout="${1#*=}"
+        shift
+        ;;
+      --retries=*)
+        retries="${1#*=}"
+        shift
+        ;;
+      *)
+        cmd+=("$1")
+        shift
+        ;;
+    esac
+  done
+  
+  debug_log "Executing command: ${cmd[*]}"
+  
+  # 重试机制
+  for ((i=0; i<retries; i++)); do
+    if [[ $i -gt 0 ]]; then
+      warn "Command failed, retrying ($i/$retries)..."
+      sleep 2
+    fi
+    
+    # 使用timeout命令设置超时
+    if _executable timeout; then
+      if timeout "$timeout" "${cmd[@]}"; then
+        return 0
+      fi
+    else
+      # 如果timeout命令不可用，直接执行
+      if "${cmd[@]}"; then
+        return 0
+      fi
+    fi
+  done
+  
+  error "Command execution failed: ${cmd[*]}"
+  return 1
+}
 
 _executable() {
   local cmd=$1
   which $cmd &> /dev/null
 }
 
-_is_ubuntu() { [[ "$(lsb_release -is)" =~ "Ubunutu" ]]; }
+_is_ubuntu() { [[ "$(lsb_release -is)" =~ "Ubuntu" ]]; }
 _is_arch() { [[ "$(lsb_release -is)" =~ "Arch" ]]; }
 
 _arch() {
@@ -77,11 +221,11 @@ _install_package() {
   local package=$1
 
   if _executable yay; then
-    debug yay -S --needed --noconfirm $package
+    run_cmd yay -S --needed --noconfirm $package
   elif _executable pacman; then
-    debug sudo pacman -S --needed --noconfirm $package
+    run_cmd sudo pacman -S --needed --noconfirm $package
   elif _executable apt; then
-    debug sudo apt install $package
+    run_cmd sudo apt install $package
   fi
 }
 
@@ -91,17 +235,17 @@ _install_packages() {
   if _executable yay || _executable pacman; then
     for pkg in $@; do _install_package $pkg; done
   elif _executable apt; then
-    debug sudo apt install -y $@
+    run_cmd sudo apt install -y $@
   fi
 }
 
 _update_packages_index() {
   if _executable yay; then
-    debug yay -Syu
+    run_cmd yay -Syu
   elif _executable pacman; then
-    debug sudo pacman -Syu
+    run_cmd sudo pacman -Syu
   elif _executable apt; then
-    debug sudo apt update
+    run_cmd sudo apt update
   fi
 }
 
@@ -114,9 +258,9 @@ _git_clone_or_pull() {
   fi
 
   if [[ -d $repo_dir/.git ]]; then
-    (debug cd $repo_dir && debug git pull)
+    (cd "$repo_dir" && run_cmd git pull)
   else
-    debug git clone --depth=1 $repo_url $repo_dir
+    run_cmd git clone --depth=1 "$repo_url" "$repo_dir"
   fi
 }
 
@@ -183,7 +327,7 @@ _setup_basic_enviroments() {
 }
 
 _nltk_setup() {
-  debug python3 -m nltk.downloader popular
+  run_cmd python3 -m nltk.downloader popular
 }
 
 _setup_python_enviroments() {
@@ -202,7 +346,7 @@ _setup_python_enviroments() {
       wordfreq nltk bs4 # basic
       pudb # python debugger
     )
-    debug pip install ${pip_packages[@]}
+    run_cmd pip install ${pip_packages[@]}
     _nltk_setup
   fi
 }
@@ -218,9 +362,9 @@ _setup_go_enviroments() {
 
   _install_packages ${packages[@]}
 
-  debug go env -w GOPATH=$HOME/go
-  debug go env -w GOBIN=$HOME/go/bin
-  debug go env -w GOPROXY=https://goproxy.cn,direct
+  run_cmd go env -w GOPATH=$HOME/go
+  run_cmd go env -w GOBIN=$HOME/go/bin
+  run_cmd go env -w GOPROXY=https://goproxy.cn,direct
 
   # setup vim.go
   local go_packages=(
@@ -230,7 +374,7 @@ _setup_go_enviroments() {
   )
 
   for pkg in ${go_packages[@]}; do
-    debug go install $pkg
+    run_cmd go install $pkg
   done
 }
 
@@ -246,11 +390,11 @@ _setup_node_enviroments() {
 
   _nvm_setup || (error nvm setup failed && return 0)
 
-  debug nvm install node
+  run_cmd nvm install node
 
   [[ $only_setup_node_and_yarn == true ]] && return 0
 
-  debug npm install -g yarn
+  run_cmd npm install -g yarn
 
   npm_packages=(
     source-map-support prettier eslint ts-node
@@ -338,18 +482,91 @@ _setup() {
 }
 
 main() {
+  # 检查基本依赖
+  _check_dependencies
+  
   if [[ $# > 0 ]]; then
     _setup $@
     return
   fi
-  local actions=( 
-    all basic gui wayland program
-    update-index doom vim clash dotfiles
-    ohmyzsh
-  )
-  select action in ${actions[@]}; do
-    _setup $action; break
+  
+  # 显示菜单
+  _show_menu
+}
+
+# 显示菜单界面
+_show_menu() {
+  clear
+  echo -e "${INFO}====================================${END}"
+  echo -e "${INFO}  Development Environment Setup Tool v1.0.0 ${END}"
+  echo -e "${INFO}====================================${END}"
+  echo ""
+  echo "Please select an operation:"
+  echo ""
+  echo "Environment Installation:"
+  echo "  1) Install all components (recommended)"
+  echo "  2) Install basic environment only"
+  echo "  3) Install programming language environments"
+  echo "  4) Install GUI tools"
+  echo "  5) Install Wayland environment"
+  echo "  6) Install Chromium development environment"
+  echo ""
+  echo "Tool Configuration:"
+  echo "  7) Install Doom Emacs"
+  echo "  8) Install Vim configuration"
+  echo "  9) Install Clash proxy"
+  echo " 10) Install dotfiles"
+  echo " 11) Install Oh My Zsh"
+  echo ""
+  echo "System Management:"
+  echo " 12) Update package index"
+  echo " 13) Exit"
+  echo ""
+  
+  local choice
+  read -rep "Enter your choice [1-13]: " choice
+  
+  case $choice in
+    1)  _setup all ;;
+    2)  _setup basic ;;
+    3)  _setup program ;;
+    4)  _setup gui ;;
+    5)  _setup wayland ;;
+    6)  _setup chromium ;;
+    7)  _setup doom ;;
+    8)  _setup vim ;;
+    9)  _setup clash ;;
+    10) _setup dotfiles ;;
+    11) _setup ohmyzsh ;;
+    12) _setup update-index ;;
+    13) echo "Exiting script"; exit 0 ;;
+    *)  warn "Invalid option, please try again"; sleep 2; _show_menu ;;
+  esac
+  
+  # 操作完成后询问是否继续
+  echo ""
+  read -rep "Operation completed. Return to main menu? [Y/n] " continue
+  [[ ${continue,,} != "n" ]] && _show_menu || echo "Exited"
+}
+
+# 检查必要的依赖是否已安装
+_check_dependencies() {
+  local missing_deps=()
+  local essential_cmds=(git curl bash)
+  
+  for cmd in "${essential_cmds[@]}"; do
+    if ! _executable "$cmd"; then
+      missing_deps+=("$cmd")
+    fi
   done
+  
+  if [[ ${#missing_deps[@]} -gt 0 ]]; then
+    error "Missing required dependencies: ${missing_deps[*]}"
+    info "Please install these dependencies first, then run this script again"
+    exit 1
+  fi
+  
+  debug_log "Basic dependency check passed"
 }
 
 _doom_setup(){
@@ -363,8 +580,8 @@ _doom_setup(){
   [[ -d $emacs_home/.git ]] && remove_flag=false
 
   _ensure_directory_exists $emacs_home $remove_flag
-  debug git clone --depth 1 $repo $emacs_home
-  debug $emacs_home/bin/doom install
+  run_cmd git clone --depth 1 $repo $emacs_home
+  run_cmd $emacs_home/bin/doom install
 }
 
 _vim_setup() {
@@ -382,10 +599,10 @@ _vim_setup() {
   _ensure_directory_exists $vim_home/vimrc.d
 
   info install vim-plug
-  debug curl -fsSLo $output --create-dirs $URL_PLUG
+  run_cmd curl -fsSLo $output --create-dirs $URL_PLUG
 
-  debug ln -fs $vimrc_dir/'*' $vim_home/vimrc.d
-  debug ln -fs $vimrc_dir/.vimrc $vim_home/vimrc
+  run_cmd ln -fs $vimrc_dir/'*' $vim_home/vimrc.d
+  run_cmd ln -fs $vimrc_dir/.vimrc $vim_home/vimrc
 
   if _executable vim; then
     local nvm_dir=$(_path_relative_xdg_config_home nvm)
@@ -413,11 +630,11 @@ _clash_setup() {
   tmpfile=$tmpdir/$filename
 
   # warn create temp directory $tmpdir
-  debug curl -fsSL -o $tmpfile --create-dirs $url &&
-    (debug cd $tmpdir &&
-      debug gunzip -f $tmpfile &&
-      debug chmod +x ${filename%.*} &&
-      debug sudo install -m755 ${filename%.*} /usr/bin/clash)
+  run_cmd curl -fsSL -o $tmpfile --create-dirs $url &&
+    (cd $tmpdir &&
+      run_cmd gunzip -f $tmpfile &&
+      run_cmd chmod +x ${filename%.*} &&
+      run_cmd sudo install -m755 ${filename%.*} /usr/bin/clash)
   if _executable systemctl; then
     cat << EOF | sudo tee /etc/systemd/system/clash.service > /dev/null
 [Unit]
@@ -432,8 +649,8 @@ ExecStart=/usr/bin/clash -d /etc/clash
 [Install]
 WantedBy=multi-user.target
 EOF
-    debug sudo systemctl daemon-reload
-    debug sudo systemctl restart clash
+    run_cmd sudo systemctl daemon-reload
+    run_cmd sudo systemctl restart clash
   fi
 }
 
@@ -443,7 +660,7 @@ _nvm_setup() {
 
   if [[ $? == 0 ]]; then
     ( 
-    debug git clone https://github.com/nvm-sh/nvm.git "$nvm_dir"
+    run_cmd git clone https://github.com/nvm-sh/nvm.git "$nvm_dir"
     cd $nvm_dir
     git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
     ) && source $nvm_dir/nvm.sh
@@ -474,11 +691,30 @@ _yay_setup() {
 }
 
 _dotfiles_setup() {
+  debug_log "Setting up dotfiles..."
+  local backup_dir="$HOME/.config_backups/$(date +%Y%m%d_%H%M%S)"
+  
+  # 创建备份目录
+  _ensure_directory_exists "$backup_dir" false
+  info "Will create configuration backups in $backup_dir"
+
+  # 设置配置文件，备份现有的配置
   for config in ./configs/*; do
-    if [ -d $config ]; then
-      config=$(basename $config)
-      rm -rf $(_path_relative_xdg_config_home $config)
-      ln -fs $SCRIPT_DIR/configs/$config $(_path_relative_xdg_config_home $config)
+    if [ -d "$config" ]; then
+      config=$(basename "$config")
+      local target_path="$(_path_relative_xdg_config_home "$config")"
+      
+      # 备份现有配置
+      if [ -d "$target_path" ] && [ ! -L "$target_path" ]; then
+        local backup_path="$backup_dir/$config"
+        info "Backing up existing config: $target_path → $backup_path"
+        cp -a "$target_path" "$backup_path"
+      fi
+      
+      # 创建链接
+      rm -rf "$target_path"
+      ln -fs "$SCRIPT_DIR/configs/$config" "$target_path"
+      info "Linked configuration: $config"
     fi
   done
 
@@ -489,10 +725,21 @@ _dotfiles_setup() {
     _ohmyzsh_setup
   fi
 
-  debug ln -fs $SCRIPT_DIR/zsh/zshrc.zsh $HOME/.zshrc
-  debug ln -fs $SCRIPT_DIR/tmux.conf $HOME/.tmux.conf
+  # 备份 zshrc 和 tmux.conf
+  for f in "$HOME/.zshrc" "$HOME/.tmux.conf"; do
+    if [ -f "$f" ] && [ ! -L "$f" ]; then
+      local fname=$(basename "$f")
+      cp -a "$f" "$backup_dir/$fname"
+      info "Backed up: $f → $backup_dir/$fname"
+    fi
+  done
 
-  debug source $SCRIPT_DIR/init-git.sh
+  run_cmd ln -fs $SCRIPT_DIR/zsh/zshrc.zsh $HOME/.zshrc
+  run_cmd ln -fs $SCRIPT_DIR/tmux.conf $HOME/.tmux.conf
+
+  run_cmd source $SCRIPT_DIR/init-git.sh
+  
+  info "Dotfiles setup completed"
 }
 
 main ${@:1}

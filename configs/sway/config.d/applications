@@ -45,6 +45,8 @@ assign [app_id="(google-chrome|chromium|dev.warp.Warp)"] workspace number 102
 assign [app_id="" title="^Google Chrome$"] workspace number 102
 
 assign [class="(Bytedance-feishu)"] workspace number 101
+assign [instance="(feishu)"] workspace number 101
+
 
 for_window {
   # [class="(Bytedance-feishu|apifox|wechat)"] $float_center

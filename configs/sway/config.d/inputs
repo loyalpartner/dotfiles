@@ -13,12 +13,11 @@ output {
     resolution 2560x1600
   }
 
-  "LG Electronics LG HDR 4K 0x0000E984" {
-    disable
+  "LG Electronics LG HDR 4K 0x0008E184" {
     scale 1.5
-    transform 270
+    # transform 270
     pos 0 0
-    resolution 3840x2160
+    # resolution 3840x2160
   }
 
   "BNQ BenQ PD2700U ETR1K02234CL0" {

@@ -1,7 +1,7 @@
 # autostarts
 exec fcitx5 -d --replace
 exec_always {
-  wl-paste -t text --watch clipman store --max-items=5000
+  wl-paste -t text --watch clipman store --max-items=1000
   workstyle
   sworkstyle
   swayrd
