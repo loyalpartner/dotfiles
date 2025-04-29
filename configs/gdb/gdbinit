@@ -1,58 +1,78 @@
-#
-# manual:
-#   https://sourceware.org/gdb/current/onlinedocs/gdb/index.html
-#
+# GDB Configuration File
+# Organization:
+# - modules/break_history/: Breakpoint persistence
+# - modules/editors/: Editor integration (vim)
+# - modules/printers/: Pretty printers for various types
+# - local config support for machine-specific settings
+
 python
 from os.path import exists, expandvars
 
-# init_config=expandvars('$HOME/dotfiles/gdb/init.py')
-# gdb.execute('source %s' % expandvars('$HOME/dotfiles/gdb/stl_pretty'))
+# Load all module configurations
+module_configs = [
+    # Pretty Printers
+    '$HOME/dotfiles/configs/gdb/modules/printers/init.gdb',
+    '$HOME/dotfiles/configs/gdb/modules/printers/qt5printers',
 
-scripts = [
-  expandvars('$HOME/dotfiles/configs/gdb/stl_pretty'),
-  expandvars('$HOME/dotfiles/configs/gdb/break_history'),
-  expandvars('$HOME/dotfiles/configs/gdb/pretty'),
-  expandvars('$HOME/dotfiles/configs/gdb/editx.py'),
-  expandvars('$HOME/dotfiles/configs/gdb/vim_follow.py'),
+    # Breakpoint Management
+    '$HOME/dotfiles/configs/gdb/modules/break_history/init.gdb',
+
+    # Editor Integration
+    '$HOME/dotfiles/configs/gdb/modules/editors/editx.py',
+    '$HOME/dotfiles/configs/gdb/modules/editors/vim_follow.py',
 ]
 
-for script in scripts:
-  gdb.execute('source %s' % script)
-
+# Source each config file
+for config in module_configs:
+    config_path = expandvars(config)
+    if exists(config_path):
+        gdb.execute('source %s' % config_path)
 end
 
-# source ~/.config/gdb/stl_pretty
+#######################
+#  Global Settings   #
+#######################
 
+# Debugging settings
 set debuginfod enabled off
+
+# Skip patterns for stepping
 skip -rfu '^(absl|std|std::Cr)(::[a-zA-z0-9_]+)+'
 skip -rfu '([a-zA-z0-9_]+)::\1'
 skip -rfu 'operator.*'
 skip -gfi 'base/allocator/*.h'
 
+# History settings
 set pagination off
 set history save yes
 set history size 10000
 set history remove-duplicates unlimited
 
+#######################
+#  Custom Commands   #
+#######################
 
+# Print values in hex format
 define px
-set $i=0
-while $i < $argc
-  eval "p/x $arg%d",$i
-  set $i = $i + 1
+    set $i=0
+    while $i < $argc
+        eval "p/x $arg%d",$i
+        set $i = $i + 1
+    end
 end
-end
 
+#######################
+#  Local Settings    #
+#######################
 
-# set substitute-path /proc/self/cwd/ /home/lee/Documents/protols/server/addon/protobuf/
-
+# Load local machine-specific settings if they exist
 python
-from os.path import exists, expandvars
-
 local_gdb_config = expandvars('$HOME/.gdb.local.config')
-gdb.execute(f'source {local_gdb_config}')
+if exists(local_gdb_config):
+    gdb.execute(f'source {local_gdb_config}')
 end
 
+# Register Qt5 printers
 python
 import sys, os.path
 sys.path.insert(0, os.path.expanduser('~/.config/gdb'))
