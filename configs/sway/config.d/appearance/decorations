@@ -1,0 +1,17 @@
+# Window decoration settings
+
+# Border settings
+default_border pixel 3
+smart_gaps on
+
+# Gaps configuration
+gaps {
+    inner 0
+    outer 0
+}
+
+# Border appearance
+hide_edge_borders smart
+title_align center
+titlebar_border_thickness 0
+titlebar_padding 5 3

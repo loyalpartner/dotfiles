@@ -1,0 +1,12 @@
+# Color scheme for windows and UI elements
+
+# Theme colors
+set $color1 #282a2b
+set $color5 #d6d6d6
+set $color10 #e6cd69
+
+# Window colors
+client.focused           "#44444400" "#9E9E9EDD" "#FFFFFF"
+client.focused_tab_title "#44444400" "#9E9E9EDD" "#FFFFFF"
+client.focused_inactive  "#44444400" "#444444DD" "#9E9E9E"
+client.unfocused        "#44444400" "#444444DD" "#9E9E9E"

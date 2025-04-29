@@ -1,0 +1,22 @@
+# Workspace assignments
+
+# Browser workspace
+assign [instance="(google-chrome|chromium)"] workspace number 102
+assign [app_id="(google-chrome|chromium|dev.warp.Warp)"] workspace number 102
+assign [app_id="" title="^Google Chrome$"] workspace number 102
+
+# Communication workspace
+assign [class="(Bytedance-feishu)"] workspace number 101
+assign [instance="(feishu)"] workspace number 101
+
+# Development workspace
+for_window [class="(Emacs)"] {
+    move container to workspace number 12
+    workspace number 12
+}
+
+# Chat workspace
+for_window [class="(Slack)"] {
+    move container to workspace number 13
+    workspace number 13
+}

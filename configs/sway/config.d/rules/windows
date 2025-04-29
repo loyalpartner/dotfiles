@@ -1,0 +1,19 @@
+# Window rules
+
+# Opacity rules
+for_window [class="XTerm"] opacity set 0.8
+for_window [class="Zathura"] opacity set 0.8
+for_window [app_id="floatwin"] opacity set 1
+
+# Floating windows
+set $float move scratchpad; scratchpad show
+set $float_center $float; resize set 95 ppt 95 ppt; move position center
+
+# Application-specific rules
+for_window {
+    [instance="(chat.openai.com|claude.ai__chat)"] $float_center
+    [app_id="(chrome-chat.openai.com.*|chrome-gemini.google.com.*)"] $float_center
+    [instance="hybridscope"] $float
+    [app_id="GTK Application" title="^Save File$"] $float
+    [app_id="floatwin"] $float_center
+}

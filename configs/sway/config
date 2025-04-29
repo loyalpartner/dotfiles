@@ -1,66 +1,50 @@
+# Sway Config File
+# Organization:
+# - definitions: Basic variable definitions
+# - appearance: Visual settings and theming
+# - devices: Input/output device configurations
+# - bindings: All key bindings
+# - rules: Window rules and behaviors
+# - system: System-level configurations
+
 include {
-  $HOME/dotfiles/configs/sway/config.d/definitions
-  $HOME/dotfiles/configs/sway/config.d/keyboards
-  $HOME/dotfiles/configs/sway/config.d/autostarts
-  $HOME/dotfiles/configs/sway/config.d/applications
-  $HOME/dotfiles/configs/sway/config.d/inputs
-  $HOME/dotfiles/configs/sway/config.d/modes/default
-  $HOME/dotfiles/configs/sway/config.d/modes/shutdown
-  $HOME/dotfiles/configs/sway/config.d/modes/resize
+    # Basic definitions (variables, modes, etc.)
+    $HOME/dotfiles/configs/sway/config.d/definitions
+
+    # Appearance settings
+    $HOME/dotfiles/configs/sway/config.d/appearance/colors
+    $HOME/dotfiles/configs/sway/config.d/appearance/decorations
+    $HOME/dotfiles/configs/sway/config.d/appearance/gaps
+
+    # Device configurations
+    $HOME/dotfiles/configs/sway/config.d/devices/keyboards
+    $HOME/dotfiles/configs/sway/config.d/devices/outputs
+    $HOME/dotfiles/configs/sway/config.d/devices/inputs
+
+    # Key bindings
+    $HOME/dotfiles/configs/sway/config.d/bindings/global
+    $HOME/dotfiles/configs/sway/config.d/bindings/modes
+    $HOME/dotfiles/configs/sway/config.d/bindings/media
+    $HOME/dotfiles/configs/sway/config.d/bindings/workspaces
+
+    # Window rules
+    $HOME/dotfiles/configs/sway/config.d/rules/windows
+    $HOME/dotfiles/configs/sway/config.d/rules/workspaces
+
+    # System configurations
+    $HOME/dotfiles/configs/sway/config.d/system/autostart
+    $HOME/dotfiles/configs/sway/config.d/system/idle
 }
 
+# Basic window behavior
 show_marks yes
 focus_follows_mouse no
 workspace_auto_back_and_forth yes
 
-default_border pixel 3
-smart_gaps on
-gaps {
-  inner 0
-  outer 0
-}
-hide_edge_borders smart
-title_align center
-titlebar_border_thickness 0
-titlebar_padding 5 3
-
-client.focused           "#44444400" "#9E9E9EDD" "#FFFFFF"
-client.focused_tab_title "#44444400" "#9E9E9EDD" "#FFFFFF"
-client.focused_inactive  "#44444400" "#444444DD" "#9E9E9E"
-client.unfocused         "#44444400" "#444444DD" "#9E9E9E"
-
-# bindsym $mod+ctrl+h [class="Emacs"] scratchpad show, resize set 95 ppt 95 ppt
-# bindsym $mod+ctrl+t [class="Google-chrome" title="^(?!DevTools)"] scratchpad show
-# bindsym $mod+ctrl+n exec $hider '[class="Alacritty" workspace="__focused__"] focus'
-# bindsym $mod+ctrl+s [class="(slack|Slack)"] scratchpad show
-# 一键切换到 chrome
-# bindsym $mod+ctrl+t  exec $switch_to_chrome
-# bindsym $mod+ctrl+t  exec $switch_to_chrome
-bindsym {
-  # $mod+ctrl+f exec $switch_to_feishu
-  $mod+ctrl+f workspace number 101
-  $mod+ctrl+n exec $hide_floatwin
-  $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
-  $mod+ctrl+c [title="^DevTools"] scratchpad show
-  # $mod+ctrl+f [class="apifox"] scratchpad show
-  $mod+ctrl+w exec $switch_to_wechat
-  $mod+ctrl+t workspace number 102
-  # $mod+ctrl+t [instance="google-chrome"] scratchpad show
-  # $mod+ctrl+s [app_id="chrome-chat.openai.com.*"] scratchpad show
-  # $mod+ctrl+s exec $switch_to_gemini
-  $mod+ctrl+s exec $switch_to_chatgpt
-  $mod+ctrl+h [instance="hybridscope"] scratchpad show
-  Mod1+Tab exec      swayr switch-to-urgent-or-lru-window
-  $mod+Tab workspace back_and_forth
-  $mod+p   exec      swayr switch-window
-  $mod+t   exec      rofi  -show tabs --show-icon
-  $mod+slash  exec $switch_to_warp
-  # $mod+slash  [app_id="float"] exec swaymsg -t get_tree | jq -e '.. | select(.app_id?="float")' 
-}
-
-
+# Status bar configuration
 bar {
-  swaybar_command waybar
+    swaybar_command waybar
 }
 
+# Include system defaults
 include /etc/sway/config.d/*
