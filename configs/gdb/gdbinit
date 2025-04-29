@@ -1,52 +1,52 @@
 # GDB Configuration File
 # Organization:
-# - modules/break_history/: Breakpoint persistence
-# - modules/editors/: Editor integration (vim)
-# - modules/printers/: Pretty printers for various types
+# - settings/: Basic GDB settings
+# - modules/: Feature modules
+#   - break_history/: Breakpoint persistence
+#   - editors/: Editor integration
+#   - printers/: Pretty printers
 # - local config support for machine-specific settings
 
 python
-from os.path import exists, expandvars
+import os
+from os.path import exists, expandvars, join
 
-# Load all module configurations
-module_configs = [
-    # Pretty Printers
-    '$HOME/dotfiles/configs/gdb/modules/printers/init.gdb',
-    '$HOME/dotfiles/configs/gdb/modules/printers/qt5printers',
+# Import core functionality
+gdb.execute(f'source {expandvars("$HOME/dotfiles/configs/gdb/modules/core.py")}')
+from core import load_module, validate_config, logger
 
-    # Breakpoint Management
-    '$HOME/dotfiles/configs/gdb/modules/break_history/init.gdb',
+# Configuration directories
+CONFIG_ROOT = expandvars('$HOME/dotfiles/configs/gdb')
+MODULE_DIR = join(CONFIG_ROOT, 'modules')
+SETTINGS_DIR = join(CONFIG_ROOT, 'settings')
 
-    # Editor Integration
-    '$HOME/dotfiles/configs/gdb/modules/editors/editx.py',
-    '$HOME/dotfiles/configs/gdb/modules/editors/vim_follow.py',
-]
+# Validate configuration
+if not validate_config(MODULE_DIR):
+    logger.error("Configuration validation failed")
+else:
+    logger.info("Configuration validation successful")
 
-# Source each config file
-for config in module_configs:
-    config_path = expandvars(config)
-    if exists(config_path):
-        gdb.execute('source %s' % config_path)
-end
+# Load basic settings
+for setting in ['debugging', 'history', 'display']:
+    setting_file = join(SETTINGS_DIR, f'{setting}.gdb')
+    try:
+        if exists(setting_file):
+            gdb.execute(f'source {setting_file}')
+            logger.info(f"Loaded settings: {setting}")
+    except Exception as e:
+        logger.error(f"Failed to load {setting} settings: {e}")
 
-#######################
-#  Global Settings   #
-#######################
+# Module configuration
+ENABLED_MODULES = {
+    'printers': True,      # Pretty printers for various types
+    'break_history': True, # Breakpoint persistence
+    'editors': True       # Editor integration
+}
 
-# Debugging settings
-set debuginfod enabled off
-
-# Skip patterns for stepping
-skip -rfu '^(absl|std|std::Cr)(::[a-zA-z0-9_]+)+'
-skip -rfu '([a-zA-z0-9_]+)::\1'
-skip -rfu 'operator.*'
-skip -gfi 'base/allocator/*.h'
-
-# History settings
-set pagination off
-set history save yes
-set history size 10000
-set history remove-duplicates unlimited
+# Load enabled modules
+for module, enabled in ENABLED_MODULES.items():
+    if enabled:
+        load_module(module)
 
 #######################
 #  Custom Commands   #
@@ -61,21 +61,25 @@ define px
     end
 end
 
+document px
+Print values in hexadecimal format
+Usage: px expr1 expr2 ...
+end
+
 #######################
 #  Local Settings    #
 #######################
 
-# Load local machine-specific settings if they exist
 python
-local_gdb_config = expandvars('$HOME/.gdb.local.config')
-if exists(local_gdb_config):
-    gdb.execute(f'source {local_gdb_config}')
+# Load local machine-specific settings if they exist
+local_config = expandvars('$HOME/.gdb.local.config')
+if exists(local_config):
+    try:
+        gdb.execute(f'source {local_config}')
+        logger.info("Loaded local configuration")
+    except Exception as e:
+        logger.error(f"Failed to load local configuration: {e}")
 end
 
-# Register Qt5 printers
-python
-import sys, os.path
-sys.path.insert(0, os.path.expanduser('~/.config/gdb'))
-import qt5printers
-qt5printers.register_printers(gdb.current_objfile())
-end
+# Set better prompt
+set prompt \033[01;31m(gdb) \033[0m

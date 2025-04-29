@@ -1,70 +1,94 @@
-#!/usr/bin/env python
-
-from os.path import exists, expandvars, join
+#!/usr/bin/env python3
 import gdb
 import os
 import hashlib
+from os.path import exists, expandvars, join
 
-cache_dir = expandvars('$HOME/.cache/gdb')
+class BreakpointManager:
+    def __init__(self):
+        self.cache_dir = expandvars('$HOME/.cache/gdb/breakpoints')
+        os.makedirs(self.cache_dir, exist_ok=True)
+        self.file_hash = ""
 
-if not exists(cache_dir):
-    os.mkdir(cache_dir)
+    def calculate_hash(self, content: bytes) -> str:
+        """Calculate SHA256 hash of content"""
+        hash_calculator = hashlib.sha256()
+        hash_calculator.update(content)
+        return hash_calculator.hexdigest()
 
-file_hash = ""
+    def get_breakpoint_file(self):
+        """Get the breakpoint file path for current program"""
+        progspace = gdb.current_progspace()
+        if not (progspace and progspace.filename):
+            return None
+        hash_val = self.calculate_hash(progspace.filename.encode("utf-8"))
+        return join(self.cache_dir, hash_val)
 
+    def is_modified(self, file: str) -> bool:
+        """Check if breakpoint file has been modified"""
+        if not exists(file):
+            return False
 
-def calculate_hash(content: bytes):
-    hash_calculator = hashlib.sha256()
-    hash_calculator.update(content)
-    return hash_calculator.hexdigest()
+        with open(file, "rb") as f:
+            hash_value = self.calculate_hash(f.read())
 
-
-def modified(file: str):
-    global file_hash
-
-    if not exists(file):
+        if self.file_hash == "" or self.file_hash != hash_value:
+            self.file_hash = hash_value
+            return True
         return False
 
-    hash_value = ""
-    with open(file, "rb") as f:
-        hash_value = calculate_hash(f.read())
+    def save(self):
+        """Save current breakpoints"""
+        bp_file = self.get_breakpoint_file()
+        if bp_file:
+            gdb.execute(f"save breakpoints {bp_file}")
+            print("Breakpoints saved")
 
-    if file_hash == "" or file_hash != hash_value:
-        file_hash = hash_value
-        return True
+    def load(self):
+        """Load saved breakpoints"""
+        if not exists(self.cache_dir):
+            os.makedirs(self.cache_dir)
 
-    return False
+        bp_file = self.get_breakpoint_file()
+        if bp_file and self.is_modified(bp_file):
+            gdb.execute("delete")
+            gdb.execute(f"source {bp_file}")
+            print("Breakpoints loaded")
 
+class BreakpointCommands(gdb.Command):
+    """Breakpoint management commands"""
+    
+    def __init__(self):
+        super().__init__("breakpoints", gdb.COMMAND_USER)
+        self.manager = BreakpointManager()
 
-def save():
-    progspace = gdb.current_progspace()
-    filename = progspace and progspace.is_valid() and progspace.filename
-    if filename:
-        hash = calculate_hash(filename.encode("utf-8"))
-        breakpoints_file = join(cache_dir, hash)
-
-        gdb.execute("save breakpoints %s" % breakpoints_file)
-        print("save breakpoints")
-
-
-def load():
-    if not exists(cache_dir):
-        os.mkdir(cache_dir)
-
-    progspace = gdb.current_progspace()
-    filename = progspace and progspace.filename
-    if filename:
-        hash = calculate_hash(filename.encode("utf-8"))
-        breakpoints_file = join(cache_dir, hash)
-
-        if not modified(breakpoints_file):
+    def invoke(self, arg, from_tty):
+        args = gdb.string_to_argv(arg)
+        if not args:
+            print("Usage: breakpoints [save|load|clear]")
             return
 
-        gdb.execute("delete")
-        gdb.execute("source %s" % breakpoints_file)
-        print("load breakpoints")
+        cmd = args[0]
+        if cmd == "save":
+            self.manager.save()
+        elif cmd == "load":
+            self.manager.load()
+        elif cmd == "clear":
+            gdb.execute("delete")
+            print("All breakpoints cleared")
+        else:
+            print(f"Unknown command: {cmd}")
 
+# Register command and set up hooks
+cmd = BreakpointCommands()
+manager = BreakpointManager()
 
-gdb.events.exited.connect(lambda event: save())
+# Auto-save on exit
+gdb.events.exited.connect(lambda event: manager.save())
 
-# vim: set sw=2 ts=2 sts=2 et tw=78;
+# Auto-save/load on run
+def on_new_objfile(event):
+    manager.save()  # Save breakpoints from previous session
+    manager.load()  # Load breakpoints for new session
+
+gdb.events.new_objfile.connect(on_new_objfile)
