@@ -1,2 +1,13 @@
 __pycache__/
 .stfolder/
+
+# Setup configuration
+setup.conf
+
+# Tags files
+tags
+.tags
+TAGS
+.TAGS
+*.tags
+*.TAGS
