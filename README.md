@@ -1,55 +1,36 @@
 # Dotfiles
 
-A thoughtfully crafted dotfiles collection for a powerful development environment. This repository contains my personal configuration files for Zsh, Vim/Neovim, Tmux, and more, optimized for both GUI and CLI environments.
+My personal dotfiles for macOS and Linux systems. Features a powerful setup script that automates the installation and configuration of development tools and environments.
 
 ## Features
 
-### 🚀 Shell Environment (Zsh)
-- Powered by Oh-My-Zsh framework
-- Smart theme switching:
-  - Powerlevel10k theme with instant prompt for modern terminals
-  - Robbyrussell theme for TTY sessions
-- Rich plugin collection for development:
-  - Version Control: git
-  - Container: docker, docker-compose, kubectl, helm
-  - Languages: golang, rust, npm, pip
-  - Navigation: z, autojump
-  - Productivity: zsh-autosuggestions, dotenv
-- Cross-platform support (macOS & Linux)
+### 🚀 Cross-Platform Support
+- Full support for both macOS and Linux
+- Smart package management (Homebrew/apt/pacman)
+- Platform-specific optimizations and configurations
 
-### 📝 Editor Setup (Vim/Neovim)
-- Modular configuration structure
-- Modern features:
-  - Tree-sitter support for better syntax highlighting
-  - LSP integration via CoC
-  - Customized status line and tab line
-- Specialized configurations:
-  - GN build system support
-  - Language-specific settings
-- Carefully curated key mappings and commands
+### 💻 Development Environment
+- Shell: Zsh with Oh-My-Zsh and Powerlevel10k
+- Editor: Vim/MacVim with modern plugins
+- Terminal: tmux with custom configurations
+- Git configurations and global ignore patterns
 
-### ⚙️ Additional Tools
-- tmux configuration for enhanced terminal multiplexing
-- sxhkd for X11 keyboard shortcuts
-- Custom scripts in `bin` directory
-- Git configuration and global ignore patterns
+### 🛠 Programming Languages
+- Python with common data science packages
+- Node.js with essential development tools
+- Go with development tools and LSP support
+- Rust with nightly toolchain and rust-analyzer
+- C/C++ development environment
 
-## Prerequisites
+### 🖥 GUI Applications
+- Terminal emulators (Alacritty, iTerm2 on macOS)
+- Development tools (VS Code)
+- Window management (Rectangle on macOS)
+- Input methods (fcitx5 on Linux)
 
-Before installation, ensure you have the following tools installed:
-- git
-- zsh
-- curl
-- vim or neovim
-- tmux (optional)
+## Quick Start
 
-For the full GUI environment:
-- X11 or Wayland
-- sxhkd (for X11)
-
-## Installation
-
-### Quick Install (Automated)
+### One-Line Install
 ```bash
 curl -fsSL https://raw.githubusercontent.com/loyalpartner/dotfiles/master/install.sh | bash
 ```
@@ -61,99 +42,168 @@ curl -fsSL https://raw.githubusercontent.com/loyalpartner/dotfiles/master/instal
    cd ~/.dotfiles
    ```
 
-2. Run the setup script with desired configuration:
-
-   Basic CLI environment:
+2. Run the setup script:
    ```bash
-   bash setup.sh basic
+   # Install everything (recommended for new systems)
+   ./setup.sh all
+
+   # Or choose specific components:
+   ./setup.sh basic      # Basic CLI tools
+   ./setup.sh gui        # GUI applications
+   ./setup.sh program    # Programming languages
+   ./setup.sh vim        # Vim configuration
    ```
 
-   Full GUI environment:
-   ```bash
-   bash setup.sh gui
-   ```
+## Configuration
 
-   Wayland environment:
-   ```bash
-   bash setup.sh wayland
-   ```
+### Directory Structure
+```
+~/.config/dotfiles/        # XDG config directory
+├── setup.conf            # Setup configuration
+└── ...
 
-   Vim configuration only:
-   ```bash
-   bash setup.sh vim
-   ```
+~/.local/state/dotfiles/  # Application state
+├── logs/                # Log files
+└── ...
 
-   Emacs configuration (Doom):
-   ```bash
-   bash setup.sh doom
-   ```
+~/.local/cache/dotfiles/ # Cache directory
+└── ...
+```
 
-   Everything:
-   ```bash
-   bash setup.sh all
-   ```
+### Configuration File
+The setup script can be configured via `~/.config/dotfiles/setup.conf`:
+
+```bash
+# Debug and logging
+DEBUG_ENABLE=0
+VERBOSE=0
+
+# Installation behavior
+DRY_RUN=0
+FORCE_INSTALL=0
+
+# Component selection
+INSTALL_BASIC=true
+INSTALL_GUI=false
+INSTALL_PROGRAMMING=false
+```
+
+### Command Line Options
+```bash
+Usage: setup.sh [OPTIONS] COMMAND
+
+Commands:
+    all         Install everything
+    basic       Install basic development tools
+    gui         Install GUI applications
+    program     Install programming languages
+    vim         Configure Vim editor
+
+Options:
+    -h, --help     Show help message
+    -v, --verbose  Enable verbose output
+    -f, --force    Force installation
+    -n, --dry-run  Show what would be done
+    --config FILE  Use custom config file
+```
+
+## Features in Detail
+
+### Basic Environment
+- Core utilities and shell tools
+- Git with global configuration
+- tmux with custom configuration
+- System-specific optimizations
+
+### Programming Environment
+Installs and configures:
+- Python (with pip and common packages)
+- Node.js (with npm, yarn, and global packages)
+- Go (with common development tools)
+- Rust (with cargo and components)
+- C/C++ development tools
+
+### GUI Environment
+Installation varies by platform:
+
+#### macOS
+- Alacritty
+- iTerm2
+- Visual Studio Code
+- Rectangle
+- JetBrains Mono Nerd Font
+
+#### Linux
+- Alacritty
+- fcitx5 input method
+- Various GUI utilities
 
 ## Customization
 
 ### Local Configurations
-- Zsh: Create `~/.work.sh` or modify `zsh/zshrc.local.zsh` for machine-specific settings
-- Vim: Add custom configurations in `vimrc.d/`
+- Shell: Create `~/.zshrc.local` for machine-specific settings
+- Vim: Add custom configurations in `~/.vim/custom/`
 - Git: Configure user information in `~/.gitconfig.local`
 
-### Directory Structure
-```
-dotfiles/
-├── bin/                  # Custom scripts and tools
-├── configs/              # Various tool configurations
-├── vimrc.d/             # Modular Vim configurations
-│   ├── general.vim      # Basic settings
-│   ├── plugin.vim       # Plugin management
-│   ├── remap.vim        # Key mappings
-│   └── ...
-├── zsh/                 # Zsh configurations
-│   ├── zshrc.zsh        # Main Zsh configuration
-│   ├── zshrc.linux.zsh  # Linux-specific settings
-│   └── zshrc.local.zsh  # Local machine settings
-├── tmux.conf            # Tmux configuration
-└── setup.sh            # Installation script
-```
+### Adding New Tools
+The setup script is modular and easy to extend. Add new tools by:
+1. Creating a new setup function in `setup.sh`
+2. Adding the tool to the appropriate installation list
+3. Adding verification steps in the `verify_installation` function
 
-## Recommended Tools
+## Maintenance
 
-For the best experience, consider installing:
-- [fzf](https://github.com/junegunn/fzf) - Fuzzy finder
-- [ripgrep](https://github.com/BurntSushi/ripgrep) - Fast search tool
-- [bat](https://github.com/sharkdp/bat) - Better cat
-- [delta](https://github.com/dandavison/delta) - Better git diff
-- [atuin](https://github.com/ellie/atuin) - Shell history sync
+### Logs
+- Log files are stored in `~/.local/state/dotfiles/logs/`
+- Logs are automatically rotated (keeps last 5)
+- Old logs (>7 days) are compressed
+
+### Updates
+- The script checks for package updates
+- Updates package managers when needed
+- Can be run multiple times safely
 
 ## Troubleshooting
 
-### Known Issues
-1. If Powerlevel10k prompt doesn't render correctly, ensure your terminal uses a [Nerd Font](https://www.nerdfonts.com/)
-2. For Vim plugin installation issues, run `:PlugInstall` manually
-3. If tmux status line shows wrong characters, check if tmux version >= 2.9
+### Common Issues
 
-### Common Solutions
-1. Regenerate Zsh completion cache:
+1. **Homebrew Installation Fails**
    ```bash
-   rm ~/.zcompdump* && exec zsh
+   # Check system requirements
+   xcode-select --install
    ```
-2. Reset Vim plugins:
+
+2. **Font Issues**
    ```bash
-   rm -rf ~/.vim/plugged && vim +PlugInstall
+   # Install fonts manually
+   brew tap homebrew/cask-fonts
+   brew install --cask font-jetbrains-mono-nerd-font
    ```
+
+3. **Permission Issues**
+   ```bash
+   # Fix directory permissions
+   sudo chown -R $(whoami) ~/.config
+   ```
+
+### Debug Mode
+Run with verbose output:
+```bash
+./setup.sh -v basic
+```
+
+Check logs:
+```bash
+cat ~/.local/state/dotfiles/logs/setup_*.log
+```
 
 ## Contributing
 
-Feel free to fork this repository and customize it for your needs. If you have any improvements or bug fixes, pull requests are welcome!
-
-## Credits
-
-This dotfiles collection is inspired by various awesome configurations from the community. Special thanks to:
-- [Oh-My-Zsh](https://ohmyz.sh/)
-- [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
-- And many other open source projects
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
 ## License
 
