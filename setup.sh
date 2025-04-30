@@ -13,7 +13,10 @@
 # - Modular installation options
 # - Extensive error handling and logging
 # - XDG Base Directory compliance
-# - Automatic backup of existing configurations
+# - Flexible configuration file management
+#   * Automatic backup of existing configurations
+#   * Optional installation of dotfiles
+#   * XDG-compliant config placement
 # - System-specific optimizations
 #
 # Usage:
@@ -25,7 +28,9 @@
 #   basic       Install basic development tools
 #   gui         Install GUI applications
 #   program     Install programming languages
-#   vim         Configure Vim editor
+#   vim         Configure Vim editor and plugins
+#   configs     Install configuration files (or specify a specific config)
+#   configs     Install configuration files only
 #
 # Options:
 #   -h, --help     Show this help message
@@ -37,7 +42,10 @@
 # Configuration:
 # -------------
 # The script can be configured via ~/.config/dotfiles/setup.conf
-# See the README.md for detailed configuration options.
+#
+# Key configuration options:
+# - INSTALL_CONFIGS: Control installation of dotfiles (true/false)
+# - See README.md for all configuration options
 #
 # Log Files:
 # ----------
@@ -89,6 +97,49 @@
 set -euo pipefail
 [[ "${TRACE:-0}" == "1" ]] && set -x
 
+#######################################
+# Check if a command is available
+# Arguments:
+#   Command to check
+# Returns:
+#   0 if command exists, 1 otherwise
+#######################################
+is_executable() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+#######################################
+# Check minimal dependencies for config installation
+# Arguments:
+#   None
+#######################################
+check_dependencies_minimal() {
+    local failed=false
+
+    # Check for essential commands
+    for cmd in mkdir ln rm cp chmod; do
+        if ! is_executable "$cmd"; then
+            error "Required command not found: $cmd"
+            failed=true
+        fi
+    done
+
+    # Check write permissions in required directories
+    for dir in "${XDG_CONFIG_HOME}" "${APP_LOG_DIR}" "${BACKUP_DIR}"; do
+        if ! mkdir -p "${dir}" 2>/dev/null; then
+            error "Cannot create directory: ${dir}"
+            failed=true
+        fi
+    done
+
+    if [[ "$failed" == "true" ]]; then
+        error "Missing required dependencies or permissions"
+        exit 1
+    fi
+
+    debug_log "Minimal dependency check completed"
+}
+
 # Script constants
 readonly SCRIPT_VERSION="2.0.0"
 readonly SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -100,14 +151,69 @@ readonly XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 readonly XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 readonly XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 
-# Application directories
+# Application directories and files
 readonly APP_NAME="dotfiles"
 readonly APP_STATE_DIR="${XDG_STATE_HOME}/${APP_NAME}"
 readonly APP_LOG_DIR="${APP_STATE_DIR}/logs"
 readonly APP_CACHE_DIR="${XDG_CACHE_HOME}/${APP_NAME}"
+readonly LOG_FILE="${APP_LOG_DIR}/setup_$(date +%Y%m%d_%H%M%S).log"
+
+#######################################
+# Set up logging
+# Arguments:
+#   None
+#######################################
+setup_logging() {
+    mkdir -p "$(dirname "${LOG_FILE}")"
+    touch "${LOG_FILE}"
+
+    # Ensure log directory has correct permissions
+    chmod 755 "$(dirname "${LOG_FILE}")"
+}
+
+#######################################
+# Log an info message
+# Arguments:
+#   Message to log
+#######################################
+info() {
+    echo -e "\033[0;32m[INFO]\033[0m $*"
+    echo "[INFO] $*" >> "${LOG_FILE}"
+}
+
+#######################################
+# Log a warning message
+# Arguments:
+#   Message to log
+#######################################
+warning() {
+    echo -e "\033[0;33m[WARN]\033[0m $*" >&2
+    echo "[WARN] $*" >> "${LOG_FILE}"
+}
+
+#######################################
+# Log an error message
+# Arguments:
+#   Message to log
+#######################################
+error() {
+    echo -e "\033[0;31m[ERROR]\033[0m $*" >&2
+    echo "[ERROR] $*" >> "${LOG_FILE}"
+}
+
+#######################################
+# Log a debug message if debug is enabled
+# Arguments:
+#   Message to log
+#######################################
+debug_log() {
+    if [[ "${DEBUG_ENABLE}" == "1" ]]; then
+        echo -e "\033[0;34m[DEBUG]\033[0m $*" >&2
+        echo "[DEBUG] $*" >> "${LOG_FILE}"
+    fi
+}
 
 # Files
-readonly LOG_FILE="${APP_LOG_DIR}/setup_$(date +%Y%m%d_%H%M%S).log"
 readonly CONFIG_FILE="${XDG_CONFIG_HOME}/${APP_NAME}/setup.conf"
 readonly TMP_DIR="$(mktemp -d)"
 
@@ -151,6 +257,7 @@ INSTALL_PROGRAMMING=false
 INSTALL_CHROMIUM_DEV=false
 INSTALL_DOOM=false
 INSTALL_VIM=true
+INSTALL_CONFIGS=true
 
 # Programming language flags
 INSTALL_PYTHON=false
@@ -221,7 +328,7 @@ handle_error() {
     local exit_code=$1
     local line_no=$2
     error "Error occurred in script at line ${line_no}, exit code: ${exit_code}"
-    
+
     case $exit_code in
         1) error "General error occurred" ;;
         2) error "Invalid argument or option" ;;
@@ -236,7 +343,7 @@ handle_error() {
         255) error "Exit status out of range" ;;
         *) error "Unknown error occurred" ;;
     esac
-    
+
     cleanup
     exit "$exit_code"
 }
@@ -272,7 +379,7 @@ clean_old_cache() {
             # On Linux, we can use -atime directly
             old_files=$(find "${APP_CACHE_DIR}" -type f -atime +30)
         fi
-        
+
         # Remove old files
         if [[ -n "${old_files}" ]]; then
             echo "${old_files}" | while read -r file; do
@@ -281,7 +388,7 @@ clean_old_cache() {
                 fi
             done
         fi
-        
+
         # Remove empty directories
         find "${APP_CACHE_DIR}" -type d -empty -delete
     fi
@@ -307,7 +414,7 @@ compress_old_logs() {
             # On Linux, we can use -mtime directly
             files_to_compress=$(find "${APP_LOG_DIR}" -type f -name "*.log" -mtime +7)
         fi
-        
+
         if [[ -n "${files_to_compress}" ]]; then
             echo "${files_to_compress}" | while read -r file; do
                 if [[ -f "${file}" ]]; then
@@ -325,19 +432,19 @@ compress_old_logs() {
 #######################################
 cleanup() {
     local exit_code=$?
-    
+
     # Remove temporary directory
     if [[ -d "${TMP_DIR}" ]]; then
         rm -rf "${TMP_DIR}"
         debug_log "Removed temporary directory: ${TMP_DIR}"
     fi
-    
+
     # Clean old cache files
     clean_old_cache
-    
+
     # Compress old logs
     compress_old_logs
-    
+
     # Show completion message and elapsed time
     if [[ $exit_code -eq 0 ]]; then
         info "Script execution completed successfully"
@@ -346,9 +453,9 @@ cleanup() {
         error "Script execution failed with exit code: ${exit_code}"
         error "Check log file for details: ${LOG_FILE}"
     fi
-    
+
     show_elapsed_time
-    
+
     # Restore original file descriptors
     exec 1>&3 2>&4 3>&- 4>&-
 }
@@ -379,7 +486,7 @@ cleanup() {
 setup_logging() {
     # Create necessary directories
     mkdir -p "${APP_LOG_DIR}" "${APP_CACHE_DIR}" "${XDG_CONFIG_HOME}/${APP_NAME}"
-    
+
     # Set up log rotation (keep last 5 logs)
     if [[ -d "${APP_LOG_DIR}" ]]; then
         # List all log files sorted by time (newest first)
@@ -389,19 +496,19 @@ setup_logging() {
         else
             old_logs=$(find "${APP_LOG_DIR}" -name "setup_*.log" -printf "%T@ %p\n" | sort -rn | tail -n +6 | cut -d' ' -f2-)
         fi
-        
+
         # Remove old logs if they exist
         if [[ -n "${old_logs}" ]]; then
             echo "${old_logs}" | xargs rm -f
         fi
     fi
-    
+
     # Save original file descriptors
     exec 3>&1 4>&2
-    
+
     # Redirect stdout and stderr to both console and log file
     exec 1> >(tee -a "${LOG_FILE}") 2>&1
-    
+
     # Log initial information
     info "Started logging to ${LOG_FILE}"
     info "Script version: ${SCRIPT_VERSION}"
@@ -409,7 +516,7 @@ setup_logging() {
     info "Shell: ${SHELL}"
     info "User: ${USER}"
     info "Home: ${HOME}"
-    
+
     # Log system information
     if is_macos; then
         info "macOS version: $(sw_vers -productVersion)"
@@ -428,7 +535,7 @@ create_default_config() {
         debug_log "Configuration file already exists: ${CONFIG_FILE}"
         return 0
     fi
-    
+
     cat > "${CONFIG_FILE}" <<EOF
 # Setup configuration file
 # Created on: $(date)
@@ -454,6 +561,7 @@ INSTALL_PROGRAMMING=false
 INSTALL_CHROMIUM_DEV=false
 INSTALL_DOOM=false
 INSTALL_VIM=true
+INSTALL_CONFIGS=true
 
 # Programming languages
 INSTALL_PYTHON=false
@@ -462,7 +570,7 @@ INSTALL_GO=false
 INSTALL_RUST=false
 INSTALL_C=false
 EOF
-    
+
     info "Created default configuration file: ${CONFIG_FILE}"
 }
 
@@ -476,7 +584,7 @@ load_config() {
         debug_log "No configuration file found, creating default"
         create_default_config
     fi
-    
+
     debug_log "Loading configuration from ${CONFIG_FILE}"
     # shellcheck source=/dev/null
     source "${CONFIG_FILE}"
@@ -490,7 +598,7 @@ load_config() {
 check_system_resources() {
     local min_memory=2048  # 2GB in MB
     local min_disk=5120    # 5GB in MB
-    
+
     # Check memory
     local total_memory
     if is_macos; then
@@ -500,11 +608,11 @@ check_system_resources() {
         # Get memory in MB on Linux
         total_memory=$(awk '/MemTotal/ {print $2/1024}' /proc/meminfo)
     fi
-    
+
     if [[ -n "$total_memory" ]] && (( ${total_memory%.*} < min_memory )); then
         warn "Low memory: ${total_memory%.*}MB available, ${min_memory}MB recommended"
     fi
-    
+
     # Check disk space
     local available_space
     if is_macos; then
@@ -512,11 +620,11 @@ check_system_resources() {
     else
         available_space=$(df -m "${HOME}" | awk 'NR==2 {print $4}')
     fi
-    
+
     if [[ -n "$available_space" ]] && (( available_space < min_disk )); then
         warn "Low disk space: ${available_space}MB available, ${min_disk}MB recommended"
     fi
-    
+
     debug_log "System resources check completed"
 }
 
@@ -530,7 +638,7 @@ check_network() {
         "https://github.com"
         "https://www.google.com"
     )
-    
+
     for url in "${test_urls[@]}"; do
         if ! curl --silent --head --fail "$url" >/dev/null; then
             warn "Unable to reach ${url}"
@@ -540,7 +648,7 @@ check_network() {
             fi
         fi
     done
-    
+
     debug_log "Network connectivity check completed"
 }
 
@@ -565,19 +673,19 @@ check_dependencies() {
     local required_cmds=(
         git curl wget sudo
     )
-    
+
     for cmd in "${required_cmds[@]}"; do
         if ! is_executable "$cmd"; then
             missing_deps+=("$cmd")
         fi
     done
-    
+
     if [[ ${#missing_deps[@]} -ne 0 ]]; then
         error "Missing required dependencies: ${missing_deps[*]}"
         info "Please install the missing dependencies and try again"
         exit 1
     fi
-    
+
     debug_log "Dependency check completed"
 }
 
@@ -594,18 +702,142 @@ backup_configs() {
         "${HOME}/.gitconfig"
         "${CONFIG_HOME}/nvim"
     )
-    
+
     info "Creating backup of existing configurations..."
     mkdir -p "${BACKUP_DIR}"
-    
+
     for file in "${files_to_backup[@]}"; do
         if [[ -e "${file}" ]]; then
             cp -rp "${file}" "${BACKUP_DIR}/"
-            debug_log "Backed up ${file}"
+            info "Backed up ${file} to ${BACKUP_DIR}/$(basename "${file}")"
         fi
     done
+}
+
+#######################################
+# Install configuration files from configs directory
+# Arguments:
+#   $1 - Optional: specific config to install (e.g., "vim")
+#######################################
+install_configs() {
+    local specific_config="$1"
+    local configs_dir="${SCRIPT_DIR}/configs"
+
+    # Directory-based configs (using symlinks)
+    local config_dirs=(
+        "alacritty:${CONFIG_HOME}/alacritty"
+        "ctags:${CONFIG_HOME}/ctags"
+        "foot:${CONFIG_HOME}/foot"
+        "gdb:${CONFIG_HOME}/gdb"
+        "rofi:${CONFIG_HOME}/rofi"
+        "sway:${CONFIG_HOME}/sway"
+        "vim:${CONFIG_HOME}/vim"
+    )
+
+    # Single file configs (using individual symlinks)
+    local config_files=(
+        "tmux:${SCRIPT_DIR}/tmux.conf:${HOME}/.tmux.conf"
+    )
+
+    # Special handling for vim config
+    if [[ -d "${configs_dir}/vim" ]] && { [[ -z "${specific_config}" ]] || [[ "${specific_config}" == "vim" ]]; }; then
+        # Create vim-dev directory and install vim-plug
+        info "Installing vim-plug..."
+        mkdir -p "${HOME}/vim-dev"
+        if ! git clone https://github.com/junegunn/vim-plug.git "${HOME}/vim-dev/plug.nvim" 2>/dev/null; then
+            if [[ ! -d "${HOME}/vim-dev/plug.nvim" ]]; then
+                warning "Failed to install vim-plug"
+            else
+                info "vim-plug already installed"
+            fi
+        else
+            info "vim-plug installed successfully"
+        fi
+
+        # Link vimrc
+        info "Linking vimrc..."
+        ln -sf "${configs_dir}/vim/vimrc" "${HOME}/.vimrc"
+    fi
+
+    info "Installing configuration files..."
+
+    # Create required parent directories
+    mkdir -p "${CONFIG_HOME}"
+
+    # Process each configuration directory
+    for config_pair in "${config_dirs[@]}"; do
+        local config_name="${config_pair%%:*}"
+        local src_dir="${configs_dir}/${config_name}"
+        local dest_dir="${config_pair#*:}"
     
-    info "Configurations backed up to ${BACKUP_DIR}"
+        # Skip if specific config is requested and this isn't it
+        if [[ -n "${specific_config}" ]] && [[ "${config_name}" != "${specific_config}" ]]; then
+            continue
+        fi
+    
+        if [[ -d "${src_dir}" ]]; then
+            # Backup existing config if it exists and isn't a symlink
+            if [[ -d "${dest_dir}" && ! -L "${dest_dir}" ]]; then
+                cp -rp "${dest_dir}" "${BACKUP_DIR}/"
+                info "Backed up ${dest_dir} to ${BACKUP_DIR}/$(basename "${dest_dir}")"
+                rm -rf "${dest_dir}"
+            fi
+
+            # Remove existing symlink if it exists
+            [[ -L "${dest_dir}" ]] && rm "${dest_dir}"
+
+            # Create parent directory if it doesn't exist
+            mkdir -p "$(dirname "${dest_dir}")"
+
+            # Create symlink
+            ln -sf "${src_dir}" "${dest_dir}"
+            info "Linked ${src_dir} to ${dest_dir}"
+        else
+            warning "Config directory ${src_dir} not found"
+        fi
+    done
+
+    # Process each single configuration file
+    for config_pair in "${config_files[@]}"; do
+        local src_file="${config_pair%%:*}"
+        local dest_file="${config_pair#*:}"
+
+        if [[ -f "${src_file}" ]]; then
+            # Backup existing config if it exists and isn't a symlink
+            if [[ -f "${dest_file}" && ! -L "${dest_file}" ]]; then
+                cp -p "${dest_file}" "${BACKUP_DIR}/"
+                info "Backed up ${dest_file} to ${BACKUP_DIR}/$(basename "${dest_file}")"
+            fi
+
+            # Remove existing file or symlink
+            [[ -e "${dest_file}" ]] && rm "${dest_file}"
+
+            # Create parent directory if it doesn't exist
+            mkdir -p "$(dirname "${dest_file}")"
+
+            # Create symlink
+            ln -sf "${src_file}" "${dest_file}"
+            info "Linked ${src_file} to ${dest_file}"
+        else
+            warning "Config file ${src_file} not found"
+        fi
+    done
+
+    # Install vim plugins if vim config and vim-plug are present
+    if [[ -d "${configs_dir}/vim" ]] && [[ -d "${HOME}/vim-dev/plug.nvim" ]] && [[ "${DRY_RUN}" != "1" ]]; then
+        info "Installing vim plugins..."
+        if [[ -x "$(command -v vim)" ]]; then
+            if ! vim +PlugInstall +qall; then
+                warning "Failed to install vim plugins"
+            else
+                info "vim plugins installed successfully"
+            fi
+        else
+            warning "vim not found, skipping plugin installation"
+        fi
+    fi
+
+    info "Configuration files installation completed"
 }
 
 #######################################
@@ -646,7 +878,7 @@ get_arch() {
         i386)   architecture="386" ;;
         i686)   architecture="386" ;;
         x86_64) architecture="amd64" ;;
-        arm)    dpkg --print-architecture 2>/dev/null | grep -q "arm64" && 
+        arm)    dpkg --print-architecture 2>/dev/null | grep -q "arm64" &&
                 architecture="arm64" || architecture="arm" ;;
     esac
     echo "$architecture"
@@ -667,13 +899,13 @@ show_progress() {
     local percentage=$((current * 100 / total))
     local completed=$((width * current / total))
     local remaining=$((width - completed))
-    
+
     printf "\r%s: [%${completed}s%${remaining}s] %d%%" \
            "$desc" \
            "$(printf '#%.0s' $(seq 1 $completed))" \
            "$(printf ' %.0s' $(seq 1 $remaining))" \
            "$percentage"
-    
+
     [[ $current -eq $total ]] && echo
 }
 
@@ -718,19 +950,19 @@ ensure_homebrew() {
             local install_script
             install_script="$(mktemp)"
             curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh > "$install_script"
-            
+
             # Check if download was successful
             if [[ ! -s "$install_script" ]]; then
                 error "Failed to download Homebrew install script"
                 rm -f "$install_script"
                 return 1
             fi
-            
+
             # Execute the install script
             /bin/bash "$install_script"
             local exit_code=$?
             rm -f "$install_script"
-            
+
             if [[ $exit_code -ne 0 ]]; then
                 error "Homebrew installation failed"
                 return 1
@@ -764,11 +996,11 @@ ensure_homebrew() {
 install_packages() {
     local total_packages=$#
     local current=0
-    
+
     # Handle macOS with Homebrew
     if is_macos; then
         ensure_homebrew || return 1
-        
+
         # First, check what needs to be installed
         local pkgs_to_install=()
         for pkg in "$@"; do
@@ -778,7 +1010,7 @@ install_packages() {
                 debug_log "Package already installed: ${pkg}"
             fi
         done
-        
+
         # If there are packages to install
         if [[ ${#pkgs_to_install[@]} -gt 0 ]]; then
             if [[ "${DRY_RUN}" == "1" ]]; then
@@ -795,13 +1027,13 @@ install_packages() {
         fi
         return 0
     fi
-    
+
     # Handle Linux systems
     if ! is_executable sudo; then
         error "sudo isn't installed"
         return 1
     fi
-    
+
     if is_executable yay; then
         for pkg in "$@"; do
             current=$((current + 1))
@@ -833,7 +1065,7 @@ install_packages() {
         error "No supported package manager found"
         return 1
     fi
-    
+
     return 0
 }
 
@@ -844,9 +1076,9 @@ install_packages() {
 #######################################
 setup_basic_environments() {
     info "Setting up basic environment..."
-    
+
     local packages=()
-    
+
     if is_macos; then
         packages+=(
             macvim tmux ctags zsh
@@ -861,14 +1093,14 @@ setup_basic_environments() {
             jq ripgrep fzf fd autojump curl
             sshuttle tree lsb-release
         )
-        
+
         if is_arch; then
             packages+=(mlocate unzip)
         elif is_ubuntu; then
             packages+=(locate)
         fi
     fi
-    
+
     install_packages "${packages[@]}"
     verify_installation "basic"
 }
@@ -880,7 +1112,7 @@ setup_basic_environments() {
 #######################################
 setup_gui_environments() {
     info "Setting up GUI environment..."
-    
+
     if is_macos; then
         local casks=(
             alacritty
@@ -890,7 +1122,7 @@ setup_gui_environments() {
             alt-tab
             rectangle
         )
-        
+
         # Install Homebrew Casks
         for cask in "${casks[@]}"; do
             if [[ "${DRY_RUN}" == "1" ]]; then
@@ -899,16 +1131,16 @@ setup_gui_environments() {
                 brew list --cask "$cask" &>/dev/null || brew install --cask "$cask" || warn "Failed to install ${cask}"
             fi
         done
-        
+
         # Install font
         brew tap homebrew/cask-fonts
         brew install --cask font-jetbrains-mono-nerd-font
-        
+
     else
         local packages=(
             alacritty google-chrome foot
         )
-        
+
         if is_arch; then
             packages+=(
                 tigervnc wqy-microhei gvim
@@ -925,10 +1157,10 @@ setup_gui_environments() {
                 fcitx5-frontend-qt5
             )
         fi
-        
+
         install_packages "${packages[@]}"
     fi
-    
+
     verify_installation "gui"
 }
 
@@ -939,9 +1171,9 @@ setup_gui_environments() {
 #######################################
 setup_wayland_environments() {
     info "Setting up Wayland environment..."
-    
+
     local packages=(sway swayr greetd greetd-tuigreet)
-    
+
     if is_arch; then
         packages+=(
             waybar rofi-lbonn-wayland swayidle
@@ -952,7 +1184,7 @@ setup_wayland_environments() {
     elif is_ubuntu; then
         packages+=(fonts-font-awesome)
     fi
-    
+
     install_packages "${packages[@]}"
     verify_installation "wayland"
 }
@@ -964,7 +1196,7 @@ setup_wayland_environments() {
 #######################################
 setup_programming_environments() {
     info "Setting up programming environments..."
-    
+
     [[ "${INSTALL_PYTHON}" == "true" ]] && setup_python_environments
     [[ "${INSTALL_NODE}" == "true" ]] && setup_node_environments
     [[ "${INSTALL_GO}" == "true" ]] && setup_go_environments
@@ -979,22 +1211,22 @@ setup_programming_environments() {
 #######################################
 setup_python_environments() {
     info "Setting up Python environment..."
-    
+
     local packages=(python python-pip)
     install_packages "${packages[@]}"
-    
+
     if is_executable pip; then
         local pip_packages=(
             wordfreq nltk bs4  # basic
             pudb  # python debugger
         )
-        
+
         if [[ "${DRY_RUN}" != "1" ]]; then
             pip install "${pip_packages[@]}"
             python3 -m nltk.downloader popular
         fi
     fi
-    
+
     verify_installation "python"
 }
 
@@ -1005,7 +1237,7 @@ setup_python_environments() {
 #######################################
 setup_node_environments() {
     info "Setting up Node.js environment..."
-    
+
     if is_macos; then
         # On macOS, prefer installing Node.js via Homebrew
         if ! is_executable node; then
@@ -1016,24 +1248,24 @@ setup_node_environments() {
         if [[ ! -d "${NVM_HOME}" ]]; then
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
         fi
-        
+
         # Load NVM
         export NVM_DIR="${NVM_HOME}"
         # shellcheck source=/dev/null
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-        
+
         if [[ "${DRY_RUN}" != "1" ]]; then
             nvm install node
             nvm use node
         fi
     fi
-    
+
     if [[ "${DRY_RUN}" != "1" ]]; then
         # Install global packages
         if ! is_executable yarn; then
             npm install -g yarn
         fi
-        
+
         local npm_packages=(
             source-map-support
             prettier
@@ -1041,14 +1273,14 @@ setup_node_environments() {
             ts-node
             typescript
         )
-        
+
         if is_macos; then
             npm install -g "${npm_packages[@]}"
         else
             yarn global add "${npm_packages[@]}"
         fi
     fi
-    
+
     verify_installation "node"
 }
 
@@ -1059,28 +1291,28 @@ setup_node_environments() {
 #######################################
 setup_go_environments() {
     info "Setting up Go environment..."
-    
+
     local packages=(go)
     install_packages "${packages[@]}"
-    
+
     if [[ "${DRY_RUN}" != "1" ]]; then
         # Configure Go environment
         export GOPATH=$HOME/go
         export GOBIN=$HOME/go/bin
         export PATH=$PATH:$GOBIN
-        
+
         # Install Go packages
         local go_packages=(
             github.com/go-delve/delve/cmd/dlv@latest
             github.com/golangci/golangci-lint/cmd/golangci-lint@latest
             github.com/grafana/jsonnet-language-server@latest
         )
-        
+
         for pkg in "${go_packages[@]}"; do
             go install "$pkg"
         done
     fi
-    
+
     verify_installation "go"
 }
 
@@ -1091,14 +1323,14 @@ setup_go_environments() {
 #######################################
 setup_rust_environments() {
     info "Setting up Rust environment..."
-    
+
     if [[ "${DRY_RUN}" != "1" ]]; then
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
         source "$HOME/.cargo/env"
         rustup default nightly
         rustup component add rust-analyzer
     fi
-    
+
     verify_installation "rust"
 }
 
@@ -1109,11 +1341,11 @@ setup_rust_environments() {
 #######################################
 setup_c_environments() {
     info "Setting up C/C++ environment..."
-    
+
     local packages=(
         gcc llvm clang clangd gdb cgdb
     )
-    
+
     install_packages "${packages[@]}"
     verify_installation "c"
 }
@@ -1125,20 +1357,10 @@ setup_c_environments() {
 #######################################
 setup_vim() {
     info "Setting up Vim environment..."
-    
-    # Install Vim-plug
-    if [[ ! -f "${HOME}/.vim/autoload/plug.vim" ]]; then
-        curl -fLo "${HOME}/.vim/autoload/plug.vim" --create-dirs \
-            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    fi
-    
-    # Link configuration files
-    ln -sf "${SCRIPT_DIR}/vimrc.d/.vimrc" "${HOME}/.vimrc"
-    
-    if [[ "${DRY_RUN}" != "1" ]]; then
-        vim +PlugInstall +qall
-    fi
-    
+
+    # Install only vim configuration
+    INSTALL_CONFIGS=true install_configs "vim"
+
     verify_installation "vim"
 }
 
@@ -1152,7 +1374,7 @@ setup_vim() {
 verify_installation() {
     local component=$1
     local failed=false
-    
+
     case $component in
         "basic")
             local basic_tools=(zsh git curl)
@@ -1161,7 +1383,7 @@ verify_installation() {
             else
                 basic_tools+=(vim tmux)
             fi
-            
+
             for cmd in "${basic_tools[@]}"; do
                 if ! is_executable "$cmd"; then
                     error "Basic tool $cmd not found"
@@ -1240,7 +1462,7 @@ verify_installation() {
             fi
             ;;
     esac
-    
+
     $failed && return 1
     debug_log "Verification successful for $component"
     return 0
@@ -1322,6 +1544,7 @@ parse_args() {
                 INSTALL_WAYLAND=true
                 INSTALL_PROGRAMMING=true
                 INSTALL_VIM=true
+                INSTALL_CONFIGS=true
                 shift
                 ;;
             basic)
@@ -1349,6 +1572,10 @@ parse_args() {
                 INSTALL_C=true
                 shift
                 ;;
+            configs)
+                INSTALL_CONFIGS=true
+                shift
+                ;;
             *)
                 error "Unknown argument: $1"
                 show_usage
@@ -1359,31 +1586,63 @@ parse_args() {
 }
 
 #######################################
+# Initialize default values for script variables
+# Arguments:
+#   None
+#######################################
+init_defaults() {
+    # Installation flags
+    INSTALL_BASIC=${INSTALL_BASIC:-false}
+    INSTALL_GUI=${INSTALL_GUI:-false}
+    INSTALL_WAYLAND=${INSTALL_WAYLAND:-false}
+    INSTALL_PROGRAMMING=${INSTALL_PROGRAMMING:-false}
+    INSTALL_CONFIGS=${INSTALL_CONFIGS:-false}
+    INSTALL_VIM=${INSTALL_VIM:-false}
+
+    # System flags
+    FORCE_INSTALL=${FORCE_INSTALL:-0}
+    DRY_RUN=${DRY_RUN:-0}
+    VERBOSE=${VERBOSE:-0}
+    DEBUG_ENABLE=${DEBUG_ENABLE:-0}
+    PROXY_ENABLED=${PROXY_ENABLED:-1}
+}
+
+#######################################
 # Main function
 # Arguments:
 #   Command line arguments
 #######################################
 main() {
     # Initialize script
+    init_defaults
     setup_logging
     load_config
     parse_args "$@"
-    
-    # Perform pre-installation checks
-    check_dependencies
-    check_system_resources
-    check_network
-    
+
+    # Perform minimal pre-installation checks for configs
+    if [[ "${INSTALL_CONFIGS}" == "true" ]] && [[ -z "${INSTALL_BASIC}${INSTALL_GUI}${INSTALL_WAYLAND}${INSTALL_PROGRAMMING}${INSTALL_VIM}" ]]; then
+        # When only installing configs, we only need basic checks
+        check_dependencies_minimal
+    else
+        # Full checks for other installations
+        check_dependencies
+        check_system_resources
+        check_network
+    fi
+
     # Backup existing configurations
     [[ "${FORCE_INSTALL}" != "1" ]] && backup_configs
-    
+
+    # Install configuration files if enabled
+    [[ "${INSTALL_CONFIGS}" == "true" ]] && install_configs
+
     # Perform installation based on flags
     [[ "${INSTALL_BASIC}" == "true" ]] && setup_basic_environments
     [[ "${INSTALL_GUI}" == "true" ]] && setup_gui_environments
     [[ "${INSTALL_WAYLAND}" == "true" ]] && setup_wayland_environments
     [[ "${INSTALL_PROGRAMMING}" == "true" ]] && setup_programming_environments
     [[ "${INSTALL_VIM}" == "true" ]] && setup_vim
-    
+
     info "Installation completed successfully!"
 }
 

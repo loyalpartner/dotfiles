@@ -106,7 +106,7 @@ filetype plugin on
 syntax on
 
 " vimrc files
-for s:path in split(glob('~/.vim/vimrc.d/*.vim'), "\n")
+for s:path in split(glob('~/.config/vim/*.vim'), "\n")
   exe 'source ' . s:path
 endfor
 

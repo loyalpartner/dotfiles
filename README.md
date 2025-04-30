@@ -8,6 +8,7 @@ My personal dotfiles for macOS and Linux systems. Features a powerful setup scri
 - Full support for both macOS and Linux
 - Smart package management (Homebrew/apt/pacman)
 - Platform-specific optimizations and configurations
+- Flexible configuration file management with XDG compliance
 
 ### 💻 Development Environment
 - Shell: Zsh with Oh-My-Zsh and Powerlevel10k
@@ -32,7 +33,11 @@ My personal dotfiles for macOS and Linux systems. Features a powerful setup scri
 
 ### One-Line Install
 ```bash
+# Install everything (default)
 curl -fsSL https://raw.githubusercontent.com/loyalpartner/dotfiles/master/install.sh | bash
+
+# Or install specific components
+curl -fsSL https://raw.githubusercontent.com/loyalpartner/dotfiles/master/install.sh | bash -s -- configs
 ```
 
 ### Manual Installation
@@ -51,7 +56,12 @@ curl -fsSL https://raw.githubusercontent.com/loyalpartner/dotfiles/master/instal
    ./setup.sh basic      # Basic CLI tools
    ./setup.sh gui        # GUI applications
    ./setup.sh program    # Programming languages
-   ./setup.sh vim        # Vim configuration
+   ./setup.sh vim        # Vim configuration and plugins
+   ./setup.sh configs    # Install all configuration files
+   
+   # You can also install specific configurations:
+   ./setup.sh configs    # Install all configs
+   ./setup.sh vim       # Install only vim config
    ```
 
 ## Configuration
@@ -86,6 +96,7 @@ FORCE_INSTALL=0
 INSTALL_BASIC=true
 INSTALL_GUI=false
 INSTALL_PROGRAMMING=false
+INSTALL_CONFIGS=true      # Install configuration files
 ```
 
 ### Command Line Options
@@ -98,6 +109,7 @@ Commands:
     gui         Install GUI applications
     program     Install programming languages
     vim         Configure Vim editor
+    configs     Install configuration files only
 
 Options:
     -h, --help     Show help message
@@ -108,6 +120,17 @@ Options:
 ```
 
 ## Features in Detail
+
+### Configuration Management
+- XDG Base Directory compliant
+- Automated backup of existing configurations
+- Optional installation of dotfiles
+- Supports common tools and applications:
+  * Shell configurations (zsh)
+  * Terminal emulators (alacritty, foot)
+  * Development tools (ctags, gdb)
+  * Window managers (sway)
+  * Application launchers (rofi)
 
 ### Basic Environment
 - Core utilities and shell tools
