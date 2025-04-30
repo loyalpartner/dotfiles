@@ -1,7 +1,7 @@
 # workspace number 1
 output {
   * {
-    bg ../bg/medowar.png fill
+    bg ../../bg/medowar.png fill
     # scale 1
   }
 
