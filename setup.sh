@@ -260,6 +260,10 @@ INSTALL_VIM=true
 INSTALL_CONFIGS=true
 SETUP_ZSH=false
 
+# System behavior flags
+CHECK_NETWORK=false    # Only check network if explicitly requested
+INSTALLING_PACKAGES=false
+
 # Programming language flags
 INSTALL_PYTHON=false
 INSTALL_NODE=false
@@ -773,12 +777,12 @@ install_configs() {
         local config_name="${config_pair%%:*}"
         local src_dir="${configs_dir}/${config_name}"
         local dest_dir="${config_pair#*:}"
-    
+
         # Skip if specific config is requested and this isn't it
         if [[ -n "${specific_config}" ]] && [[ "${config_name}" != "${specific_config}" ]]; then
             continue
         fi
-    
+
         if [[ -d "${src_dir}" ]]; then
             # Backup existing config if it exists and isn't a symlink
             if [[ -d "${dest_dir}" && ! -L "${dest_dir}" ]]; then
@@ -803,8 +807,16 @@ install_configs() {
 
     # Process each single configuration file
     for config_pair in "${config_files[@]}"; do
-        local src_file="${config_pair%%:*}"
-        local dest_file="${config_pair#*:}"
+        # 解析三段式字符串 "类型:源文件:目标文件"
+        local config_type="${config_pair%%:*}"
+        local remaining="${config_pair#*:}"
+        local src_file="${remaining%%:*}"
+        local dest_file="${remaining#*:}"
+        
+        # 检查特定配置是否被请求
+        if [[ -n "${specific_config}" ]] && [[ "${config_type}" != "${specific_config}" ]]; then
+            continue
+        fi
 
         if [[ -f "${src_file}" ]]; then
             # Backup existing config if it exists and isn't a symlink
@@ -1458,7 +1470,7 @@ verify_installation() {
                 error "Zsh installation or configuration incomplete"
                 failed=true
             fi
-            
+
             if [[ ! -d "${OHMYZSH_HOME}" ]]; then
                 error "Oh My Zsh not installed"
                 failed=true
@@ -1693,7 +1705,11 @@ main() {
         # Full checks for other installations
         check_dependencies
         check_system_resources
-        check_network
+
+        # Only check network if explicitly requested or if installing packages
+        if [[ "${CHECK_NETWORK}" == "true" ]] || [[ "${INSTALLING_PACKAGES}" == "true" ]]; then
+            check_network
+        fi
     fi
 
     # Backup existing configurations
