@@ -732,11 +732,13 @@ install_configs() {
         "rofi:${CONFIG_HOME}/rofi"
         "sway:${CONFIG_HOME}/sway"
         "vim:${CONFIG_HOME}/vim"
+        "zsh:${CONFIG_HOME}/zsh"
     )
 
     # Single file configs (using individual symlinks)
     local config_files=(
         "tmux:${SCRIPT_DIR}/tmux.conf:${HOME}/.tmux.conf"
+        "zsh:${configs_dir}/zsh/zshrc.zsh:${HOME}/.zshrc"
     )
 
     # Special handling for vim config
@@ -834,6 +836,37 @@ install_configs() {
             fi
         else
             warning "vim not found, skipping plugin installation"
+        fi
+    fi
+
+    # Special handling for zsh: Install oh-my-zsh and plugins if needed
+    if [[ -d "${configs_dir}/zsh" ]] && { [[ -z "${specific_config}" ]] || [[ "${specific_config}" == "zsh" ]]; }; then
+        if [[ ! -d "${OHMYZSH_HOME}" ]]; then
+            info "Installing Oh My Zsh..."
+            if ! git clone --depth=1 "${REPO_OHMYZSH}" "${OHMYZSH_HOME}" 2>/dev/null; then
+                if [[ ! -d "${OHMYZSH_HOME}" ]]; then
+                    warning "Failed to install Oh My Zsh"
+                else
+                    info "Oh My Zsh already installed"
+                fi
+            else
+                info "Oh My Zsh installed successfully"
+            fi
+        fi
+
+        # Install custom plugins
+        if [[ -d "${OHMYZSH_HOME}" ]]; then
+            # Install Powerlevel10k theme
+            if [[ ! -d "${ZSH_CUSTOM}/themes/powerlevel10k" ]]; then
+                info "Installing Powerlevel10k theme..."
+                git clone --depth=1 "${REPO_P10K}" "${ZSH_CUSTOM}/themes/powerlevel10k"
+            fi
+
+            # Install zsh-autosuggestions
+            if [[ ! -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ]]; then
+                info "Installing zsh-autosuggestions..."
+                git clone --depth=1 "${REPO_ZSH_SUGGESTION}" "${ZSH_CUSTOM}/plugins/zsh-autosuggestions"
+            fi
         fi
     fi
 
