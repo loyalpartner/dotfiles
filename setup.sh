@@ -258,6 +258,7 @@ INSTALL_CHROMIUM_DEV=false
 INSTALL_DOOM=false
 INSTALL_VIM=true
 INSTALL_CONFIGS=true
+SETUP_ZSH=false
 
 # Programming language flags
 INSTALL_PYTHON=false
@@ -720,7 +721,8 @@ backup_configs() {
 #   $1 - Optional: specific config to install (e.g., "vim")
 #######################################
 install_configs() {
-    local specific_config="$1"
+    # Use parameter expansion with default empty string to avoid unbound variable
+    local specific_config="${1:-}"
     local configs_dir="${SCRIPT_DIR}/configs"
 
     # Directory-based configs (using symlinks)
@@ -1398,6 +1400,20 @@ setup_vim() {
 }
 
 #######################################
+# Setup Zsh environment
+# Arguments:
+#   None
+#######################################
+setup_zsh() {
+    info "Setting up Zsh environment..."
+
+    # Install only zsh configuration
+    INSTALL_CONFIGS=true install_configs "zsh"
+
+    verify_installation "zsh"
+}
+
+#######################################
 # Verify component installation
 # Arguments:
 #   Component name
@@ -1435,6 +1451,17 @@ verify_installation() {
                     error "Vim configuration not found"
                     failed=true
                 fi
+            fi
+            ;;
+        "zsh")
+            if ! is_executable zsh || [[ ! -f "${HOME}/.zshrc" ]]; then
+                error "Zsh installation or configuration incomplete"
+                failed=true
+            fi
+            
+            if [[ ! -d "${OHMYZSH_HOME}" ]]; then
+                error "Oh My Zsh not installed"
+                failed=true
             fi
             ;;
         "gui")
@@ -1596,6 +1623,11 @@ parse_args() {
                 INSTALL_VIM=true
                 shift
                 ;;
+            zsh)
+                # Just set a flag to call setup_zsh
+                SETUP_ZSH=true
+                shift
+                ;;
             program)
                 INSTALL_PROGRAMMING=true
                 INSTALL_PYTHON=true
@@ -1631,6 +1663,7 @@ init_defaults() {
     INSTALL_PROGRAMMING=${INSTALL_PROGRAMMING:-false}
     INSTALL_CONFIGS=${INSTALL_CONFIGS:-false}
     INSTALL_VIM=${INSTALL_VIM:-false}
+    SETUP_ZSH=${SETUP_ZSH:-false}
 
     # System flags
     FORCE_INSTALL=${FORCE_INSTALL:-0}
@@ -1675,6 +1708,7 @@ main() {
     [[ "${INSTALL_WAYLAND}" == "true" ]] && setup_wayland_environments
     [[ "${INSTALL_PROGRAMMING}" == "true" ]] && setup_programming_environments
     [[ "${INSTALL_VIM}" == "true" ]] && setup_vim
+    [[ "${SETUP_ZSH}" == "true" ]] && setup_zsh
 
     info "Installation completed successfully!"
 }
