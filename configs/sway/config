@@ -23,9 +23,10 @@ include {
 
     # Key bindings
     $HOME/dotfiles/configs/sway/config.d/bindings/global
-    $HOME/dotfiles/configs/sway/config.d/bindings/modes
-    $HOME/dotfiles/configs/sway/config.d/bindings/media
+    $HOME/dotfiles/configs/sway/config.d/bindings/resize_mode
     $HOME/dotfiles/configs/sway/config.d/bindings/workspaces
+    $HOME/dotfiles/configs/sway/config.d/bindings/application
+
 
     # Window rules
     $HOME/dotfiles/configs/sway/config.d/rules/windows

@@ -1,0 +1,35 @@
+# Application Keybindings
+# This file organizes all application-related keybindings for Sway
+
+# Workspace application shortcuts
+bindsym {
+    # Communication & Productivity Applications
+    $mod+ctrl+f workspace number 101  # Feishu
+    $mod+ctrl+t workspace number 102  # Chrome/Browser
+
+    # Floating window management
+    $mod+ctrl+n exec $hide_floatwin  # Hide all floating windows
+
+    # Scratchpad application controls 
+    $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
+    $mod+ctrl+c [title="^DevTools"] scratchpad show
+    $mod+ctrl+h [instance="hybridscope"] scratchpad show
+
+    # Chat & Messaging Applications
+    $mod+ctrl+w exec $switch_to_wechat
+    $mod+ctrl+s exec $switch_to_chatgpt
+}
+
+# Commented shortcuts (preserved for reference)
+# bindsym {
+    # $mod+ctrl+f [class="apifox"] scratchpad show
+    # $mod+ctrl+t [instance="google-chrome"] scratchpad show
+    # $mod+ctrl+s [app_id="chrome-chat.openai.com.*"] scratchpad show
+    # $mod+ctrl+s exec $switch_to_gemini
+    # Mod1+Tab exec swayr switch-to-urgent-or-lru-window
+    # $mod+Tab workspace back_and_forth
+    # $mod+p exec swayr switch-window
+    # $mod+t exec rofi -show tabs --show-icon
+    # $mod+slash exec $switch_to_warp
+    # $mod+slash [app_id="float"] exec swaymsg -t get_tree | jq -e '.. | select(.app_id?="float")'
+# }
