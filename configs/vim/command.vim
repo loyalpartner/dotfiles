@@ -122,8 +122,8 @@ function! s:Prefixer(line1, line2)
 endfunction
 
 function! s:ListVimrc(...)
-  return join(map(split(globpath('~/.vim/vimrc.d/', '*.vim'),'\n'),
-    \ "substitute(v:val, '" . expand('~'). "/.vim/vimrc.d/', '', '')")
+  return join(map(split(globpath('~/.config/vim/', '*.vim'),'\n'),
+    \ "substitute(v:val, '" . expand('~'). "/.config/vim/', '', '')")
     \ , "\n")
 endfunction
 
@@ -134,8 +134,8 @@ function! s:GrepArgs(...)
 endfunction
 
 function! s:EditVimrc(...)
-  let p = $HOME.'/dotfiles/vimrc.d/'.(a:0 == 0 ? '.vimrc' : a:1)
-  if getcwd() == $HOME.'/.vim/vimrc.d'
+  let p = $HOME.'/dotfiles/configs/vim/'.(a:0 == 0 ? 'vimrc' : a:1)
+  if getcwd() == $HOME.'/.config/vim'
     let p = p[len(getcwd()) + 1 : ]
   endif
   execute 'edit '.p
