@@ -12,7 +12,9 @@ import os
 from os.path import exists, expandvars, join
 
 # Import core functionality
-gdb.execute(f'source {expandvars("$HOME/dotfiles/configs/gdb/modules/core.py")}')
+import sys
+sys.path.append(expandvars("$HOME/dotfiles/configs/gdb/modules"))
+# gdb.execute(f'source {expandvars("$HOME/dotfiles/configs/gdb/modules/core.py")}')
 from core import load_module, validate_config, logger
 
 # Configuration directories
@@ -47,6 +49,7 @@ ENABLED_MODULES = {
 for module, enabled in ENABLED_MODULES.items():
     if enabled:
         load_module(module)
+end
 
 #######################
 #  Custom Commands   #

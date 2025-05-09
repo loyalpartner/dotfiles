@@ -3,14 +3,15 @@
 python
 import os.path
 import sys
-from os.path import dirname, join
+import gdb
+from os.path import dirname, join, expandvars
 
 def setup_qt5_printers():
     try:
-        # Add qt5printers to Python path
-        qt5_path = join(dirname(__file__), 'qt5printers')
-        if qt5_path not in sys.path:
-            sys.path.append(qt5_path)
+        # Add printers directory to Python path
+        printers_dir = expandvars("${HOME}/dotfiles/configs/gdb/modules/printers")
+        if printers_dir not in sys.path:
+            sys.path.append(printers_dir)
         
         import qt5printers
         qt5printers.register_printers(gdb.current_objfile())

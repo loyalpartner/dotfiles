@@ -3,10 +3,11 @@
 
 python
 import os
+import gdb
 from os.path import expandvars, dirname, join
 
 # Add module directory to Python path
-module_dir = dirname(__file__)
+module_dir = expandvars("${HOME}/dotfiles/configs/gdb/modules/break_history")
 if module_dir not in sys.path:
     sys.path.append(module_dir)
 

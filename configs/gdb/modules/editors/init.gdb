@@ -3,10 +3,11 @@
 
 python
 import os
-from os.path import dirname, join
+import gdb
+from os.path import dirname, join, expandvars
 
 # Add module directory to Python path
-module_dir = dirname(__file__)
+module_dir = expandvars("${HOME}/dotfiles/configs/gdb/modules/editors")
 if module_dir not in sys.path:
     sys.path.append(module_dir)
 

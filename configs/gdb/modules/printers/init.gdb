@@ -57,4 +57,4 @@ Usage: mybt
 end
 
 # Load Qt5 printers if available
-source ${HOME}/dotfiles/configs/gdb/modules/printers/qt5.gdb
+source ~/dotfiles/configs/gdb/modules/printers/qt5.gdb
