@@ -237,6 +237,8 @@ endfunction
   " nnoremap <silent><nowait> <C-p> :<C-u>:Files <cr>
   " nnoremap <silent><nowait> <C-p>       :<C-u>CocList files<cr>
   nnoremap <silent><nowait> <space><space> :<C-u>:RG <cr>
+  nnoremap <silent><nowait> g/ :<C-u>:RG <cr>
+  vnoremap <silent><nowait> g/ :<C-u>:RG <cr>
   nnoremap <silent><nowait> <space>fy      :<C-u>let @+="%"<CR>
   nnoremap <silent><nowait> <space>ff      :<C-u>Files %:h<CR>
   " nnoremap <silent><nowait> <space>fa      :<C-u>LeaderfFile chrome/browser/<cr>

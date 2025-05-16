@@ -19,7 +19,7 @@ let g:mapleader = ','
   " Replace all of current word
   nnoremap <leader>su :%s/\<<C-r><C-w>\>//g<left><left>
   " Reload vimrc file
-  nnoremap <leader>rl :source $HOME/.vim/vimrc<CR>
+  nnoremap <leader>rl :source $HOME/dotfiles/configs/vim/vimrc<CR>
   " Search with grep
   nnoremap <leader>/ :LeaderfRgInteractive<Cr>
   nnoremap <leader>* :Rg <c-r>=expand("<cword>")<cr> **<cr>
@@ -93,7 +93,7 @@ function! s:GrepFromSelected(type)
   let word = substitute(@@, '\n$', '', 'g')
   let word = escape(word, '| ')
   let @@ = saved_unnamed_register
-  execute 'CocList grep '.word
+  execute 'RG '.word
 endfunction
 " }}
 

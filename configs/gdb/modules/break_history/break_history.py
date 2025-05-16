@@ -88,7 +88,7 @@ gdb.events.exited.connect(lambda event: manager.save())
 
 # Auto-save/load on run
 def on_new_objfile(event):
-    manager.save()  # Save breakpoints from previous session
+    # manager.save()  # Save breakpoints from previous session
     manager.load()  # Load breakpoints for new session
 
 gdb.events.new_objfile.connect(on_new_objfile)
