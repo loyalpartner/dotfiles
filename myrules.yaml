@@ -28,3 +28,5 @@ payload:
   - '*.freedesktop.org'
   - '*.gnome.org'
   - 'netmaker.io'
+  - '*.posthog.com'
+  - '*.website-files.com'
