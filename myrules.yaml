@@ -27,3 +27,4 @@ payload:
   - '*.linuxcontainers.org'
   - '*.freedesktop.org'
   - '*.gnome.org'
+  - 'netmaker.io'
