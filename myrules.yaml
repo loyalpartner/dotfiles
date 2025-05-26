@@ -30,3 +30,5 @@ payload:
   - 'netmaker.io'
   - '*.posthog.com'
   - '*.website-files.com'
+  - '*.netmaker.yskm.top'
+  - 'open-vsx.org'

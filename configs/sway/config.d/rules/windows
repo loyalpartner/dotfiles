@@ -16,4 +16,6 @@ for_window {
     [instance="hybridscope"] $float
     [app_id="GTK Application" title="^Save File$"] $float
     [app_id="floatwin"] $float_center
+
+    [app_id="ToDesk"] border none
 }
