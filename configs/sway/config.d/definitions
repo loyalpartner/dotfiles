@@ -6,7 +6,7 @@ set $up k
 set $right l
 set $term foot
 # set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
-set $menu rofi -combi-modi "drun,run,ssh" -show combi \
+set $menu rofi -combi-modi "window,drun,run,ssh" -show combi \
       -terminal "$term" \
       -font "JetBrainsMono Nerd Font" \
       -show-icons -i
