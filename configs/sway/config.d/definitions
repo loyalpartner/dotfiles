@@ -6,13 +6,13 @@ set $up k
 set $right l
 set $term foot
 # set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
-set $menu rofi -combi-modi "window,drun,run,ssh" -show combi \
+set $menu rofi -combi-modi "window,drun,ssh" -show combi \
       -terminal "$term" \
       -font "JetBrainsMono Nerd Font" \
       -show-icons -i
 set $clipboard clipman pick -t rofi
 set $type_googleid \
-  xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
+  xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
 
 set $source_common source $HOME/dotfiles/bin/common.sh
 set $switch_to_warp $source_common && switch_to_ dev.warp.Warp warp-terminal

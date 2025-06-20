@@ -159,3 +159,9 @@ case ":$PATH:" in
 esac
 # pnpm end
 eval "$(gh copilot alias -- bash)"
+
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+source $HOME/.atuin/bin/env
+eval "$(atuin init zsh --disable-ctrl-r)"
+
+unset ARGV0

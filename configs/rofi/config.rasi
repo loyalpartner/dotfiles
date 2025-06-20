@@ -1,4 +1,4 @@
 configuration {
   terminal: "alacritty";
-  modes: "window,run,ssh,drun,tabs:~/dotfiles/bin/rofi-chrome-tabs.sh,win:~/dotfiles/bin/rofi-windows.sh";
+  modes: "window,ssh,drun";
 }

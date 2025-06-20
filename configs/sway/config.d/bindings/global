@@ -4,6 +4,7 @@
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec env WAYLNAD_DISPLAY= $menu
+bindsym $mod+i exec rofi -modi "incus:~/dotfiles/configs/rofi/scripts/rofi-incus.sh" -show incus
 bindsym $mod+ctrl+comma exec $type_googleid
 bindsym $mod+c exec $clipboard
 
