@@ -40,9 +40,9 @@ for setting in ['debugging', 'history', 'display']:
 
 # Module configuration
 ENABLED_MODULES = {
-    'printers': True,      # Pretty printers for various types
-    'break_history': True, # Breakpoint persistence
-    'editors': True       # Editor integration
+    'printers': False,      # Pretty printers for various types
+    'break_history': False, # Breakpoint persistence
+    'editors': False       # Editor integration
 }
 
 # Load enabled modules

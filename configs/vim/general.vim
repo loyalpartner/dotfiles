@@ -108,7 +108,7 @@ if has('gui_running')
   set antialias
 else
   set background=dark
-  colorscheme warlock
+  " colorscheme warlock
   hi Normal guibg=NONE ctermbg=NONE " transparent bg
   hi LineNr ctermbg=NONE
   hi SignColumn ctermbg=NONE
@@ -116,6 +116,7 @@ else
   hi TabLine ctermbg=NONE
   hi TabLineFill ctermbg=NONE
   hi TabLineSel ctermbg=NONE ctermfg=255
+  colorscheme gruvbox
   " hi CursorLine ctermbg=NONE
   " hi CursorLineNr ctermbg=214
   " hi CursorLineSign ctermbg=214 ctermfg=NONE

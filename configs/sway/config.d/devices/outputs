@@ -27,14 +27,15 @@ output {
 
   "JZM JZM27DC Unknown" {
     resolution 2560x1440
+    transform 270
     pos 0 0
-    # transform 90
   }
 
+
+  # rotate 170 degrees
   "JZM JZM27DC 0x30305153" {
-    resolution 2560x1440
-    # pos 1706 0
-    #pos 2560 0
+    resolution 2560x1440@60Hz
+    position 1440 1280
   }
 
 

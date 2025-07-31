@@ -56,7 +56,7 @@ alias loc="DB=/var/lib/mlocate/chromium.db _locate"
 #alias updb="sudo updatedb --add-prunepaths ~/.emacs.d/.local/cache"
 alias updb="sudo updatedb --add-prunenames '.git .cache .local .undodir'"
 alias myip="curl -s http://myip.ipip.net"
-alias xclip="xclip -selection clipboard"
+# alias xclip="xclip -selection clipboard"
 alias gite="git config -e --global"
 # -> mpc 
 alias mpca="mpc add"

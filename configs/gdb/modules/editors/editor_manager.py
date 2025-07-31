@@ -10,8 +10,8 @@ class EditorConfig:
         self.split_direction = "vertical"
         self.width = "50%"
         self.follow_source = True
-        self.server_name = "gdb-editor"
-        self.pane_title = "editor_pane"
+        self.server_name = "vim_pane_title"
+        self.pane_title = "gdb_pane_title"
         
     @classmethod
     def from_file(cls, config_file):
@@ -44,11 +44,11 @@ class EditorManager:
 
     def setup_tmux_pane(self):
         """Set up tmux pane for editor"""
-        os.system(f"tmux select-pane -T gdb_pane")
-        split_cmd = "split-window -h" if self.config.split_direction == "vertical" else "split-window"
-        os.system(f"tmux {split_cmd} -p {self.config.width} '{self.config.editor}'")
         os.system(f"tmux select-pane -T {self.config.pane_title}")
-        os.system("tmux select-pane -t gdb_pane")
+        os.system(f"tmux split-window vim")
+        os.system(f"tmux select-pane -T {self.config.server_name}")
+        os.system(f"tmux select-pane -l")
+        os.system(f"sleep 0.2")
 
     def goto_source(self, filename, line):
         """Navigate to source location in editor"""
@@ -64,13 +64,11 @@ class EditorManager:
         panes = os.popen('tmux list-panes -F "#{pane_title}"').read().splitlines()
         
         # Find editor pane or create it
-        if self.config.pane_title not in panes:
+        if self.config.pane_title not in panes and self.config.server_name not in panes:
             self.setup_tmux_pane()
         
-        # Get editor pane index
-        panes = os.popen('tmux list-panes -F "#{pane_title}"').read().splitlines()
         try:
-            target = panes.index(self.config.pane_title) + 1
+            target = panes.index(self.config.server_name) + 1
         except ValueError:
             print("Failed to find editor pane")
             return False
