@@ -43,8 +43,24 @@ Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree'
 Plug 'morhetz/gruvbox'
 Plug 'mzlogin/vim-markdown-toc'
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" LSP and completion
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'prabirshrestha/asyncomplete-necovim.vim'
+Plug 'wellle/tmux-complete.vim'
+
+" Snippets integration
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+Plug 'SirVer/ultisnips'
+
+" Git integration (replacing coc-git)
+Plug 'airblade/vim-gitgutter'
+
 Plug 'othree/xml.vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'posva/vim-vue'

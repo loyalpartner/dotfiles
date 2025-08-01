@@ -27,7 +27,7 @@
   " nnoremap gci :Gcommit -v<CR>
   " nnoremap gca :Gcommit -a -v<CR>
   " nnoremap gcc :Gcommit -v -- <C-R>=expand('%')<CR><CR>
-  nnoremap gP :CocCommand git.push<CR>
+  \" nnoremap gP :CocCommand git.push<CR>
   nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " }}
 
@@ -96,80 +96,40 @@
   " vim-exchange
   "xmap gx <Plug>(Exchange)
 
-  " coc.nvim
-  "nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-	"nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  "inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  "inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  " vim-lsp float scroll
+  " Float window scrolling is handled differently in vim-lsp
+  " Use default <C-f> and <C-b> for now
 
-  nmap <silent> <C-a> :call CocAction('runCommand', 'document.renameCurrentWord')<CR>
+  " Removed coc-specific mapping
   nmap <silent> [j :cn<CR>
   nmap <silent> [k :cp<CR>
   nmap <silent> [J :colder<CR>
   nmap <silent> [K :cafter<CR>
-  nmap <silent> <C-c> <Plug>(coc-cursors-position)
-  "nmap <silent> <C-d> <Plug>(coc-cursors-word)
-  xmap <silent> <C-d> <Plug>(coc-cursors-range)
-  nmap <silent> <C-s> <Plug>(coc-range-select)
-  xmap <silent> <C-s> <Plug>(coc-range-select)
-  xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
-  xmap <silent> <TAB> <Plug>(coc-repl-sendtext)
-  " nmap s <Plug>(coc-smartf-forward)
-  " nmap S <Plug>(coc-smartf-backward)
-  nmap [g <Plug>(coc-git-prevchunk)
-  nmap ]g <Plug>(coc-git-nextchunk)
-  " nmap gs <Plug>(coc-git-chunkinfo)
-  nmap <silent><nowait> gs       :<C-u>CocList --auto-preview outline<cr>
-  nmap gm <Plug>(coc-git-commit)
-  imap <C-l> <Plug>(coc-snippets-expand)
-  xmap <C-l> <Plug>(coc-snippets-select)
-  nmap <silent> [c <Plug>(coc-diagnostic-prev)
-  nmap <silent> ]c <Plug>(coc-diagnostic-next)
-  " nmap <silent> gd :call CocActionAsync('jumpDefinition', v:true)<CR>
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> <C-w>gd :call CocActionAsync('jumpDefinition', 'tabe')<CR>
-  nmap <silent> gD :call CocActionAsync('jumpTypeDefinition', v:false)<CR>
-  nmap <silent> gi :call CocActionAsync('jumpImplementation', v:false)<CR>
-  nmap <silent> gr :call CocActionAsync('jumpUsed', v:false)<CR>
-  nmap <silent> gR :call CocActionAsync('jumpReferences', v:false)<CR>
-  nnoremap <silent> K :call CocActionAsync('doHover')<CR>
-  " remap for complete to use tab and <C-n> and <C-p>
-  inoremap <silent><expr> <C-n>
-        \ coc#pum#visible() ? coc#pum#next(0):
-        \ CheckBackspace() ? "\<Tab>" :
-        \ coc#refresh()
-  inoremap <expr><C-p> coc#pum#visible() ? coc#pum#prev(0) : "\<C-h>"
-  inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-        \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
+  " vim-gitgutter mappings
+  nmap [g <Plug>(GitGutterPrevHunk)
+  nmap ]g <Plug>(GitGutterNextHunk)
+  nmap <Leader>hp <Plug>(GitGutterPreviewHunk)
+  nmap <Leader>hs <Plug>(GitGutterStageHunk)
+  nmap <Leader>hu <Plug>(GitGutterUndoHunk)
+  
+  nmap <silent><nowait> gs       :<C-u>Vista!!<cr>
+  
+  " Note: LSP mappings (gd, gi, gr, K, [c, ]c) are defined in lsp.vim
+  " Completion mappings are handled by asyncomplete.vim
+  " See asyncomplete.vim for <Tab>, <S-Tab>, <CR> mappings
+  
   function! CheckBackspace() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
 
-  inoremap <silent><expr> <c-space> coc#refresh()
+  " Float window scrolling will use default vim behavior
 
-  " Remap <C-f> and <C-b> for scroll float windows/popups.
-  if has('nvim-0.4.0') || has('patch-8.2.0750')
-    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  endif
-
-  
-  if !exists("*nvim_treesitter#foldexpr")
-    xmap if <Plug>(coc-funcobj-i)
-    xmap af <Plug>(coc-funcobj-a)
-    omap if <Plug>(coc-funcobj-i)
-    omap af <Plug>(coc-funcobj-a)
-  endif
-  omap ig <Plug>(coc-git-chunk-inner)
-  xmap ig <Plug>(coc-git-chunk-inner)
-  omap ag <Plug>(coc-git-chunk-outer)
-  xmap ag <Plug>(coc-git-chunk-outer)
+  " Text objects for git hunks (vim-gitgutter)
+  omap ih <Plug>(GitGutterTextObjectInnerPending)
+  omap ah <Plug>(GitGutterTextObjectOuterPending)
+  xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+  xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
   autocmd FileType info nmap <buffer> gu <Plug>(InfoUp)
         \ | nmap <buffer> gn <Plug>(InfoNext)
@@ -201,35 +161,28 @@ endfunction
 " }}
 
 " list {{
-  nnoremap <silent> \r                     :<C-u>CocList -N mru -A<cr>
-  nnoremap <silent><nowait> <space>h       :<C-u>CocList helptags<cr>
-  nnoremap <silent><nowait> <space>gs      :<C-u>CocCommand git.chunkStage<CR>
-  nnoremap <silent><nowait> <space>gu      :<C-u>CocCommand git.chunkUndo<CR>
+  nnoremap <silent> \r                     :<C-u>History<cr>
+  nnoremap <silent><nowait> <space>h       :<C-u>Helptags<cr>
+  nnoremap <silent><nowait> <space>gs      <Plug>(GitGutterStageHunk)
+  nnoremap <silent><nowait> <space>gu      <Plug>(GitGutterUndoHunk)
   nnoremap <silent><nowait> <space>gg      :<C-u>G<CR>
-  nnoremap <silent><nowait> <space>t       :<C-u>CocList buffers<cr>
+  nnoremap <silent><nowait> <space>t       :<C-u>Buffers<cr>
   nnoremap <silent><nowait> <space>n       :V<cr>
   nnoremap <silent><nowait> <space>N       :VL<cr>
-  nnoremap <silent><nowait> <space>y       :<C-u>CocList yank<cr>
-  nnoremap <silent><nowait> <space>u       :<C-u>CocList snippets<cr>
-  nnoremap <silent><nowait> <space>w       :exe 'CocList -A -I --normal --input='.expand('<cword>').' words -w'<CR>
-  " nnoremap <silent><nowait> <space>l     :<C-u>CocList -I --ignore-case lines<CR>
-  nnoremap <space>ll                       :<C-u>CocList<CR>
-  nnoremap <silent><nowait> <space>lm      :<C-u>CocList marketplace<CR>
-  nnoremap <silent><nowait> <space>ls      :<C-u>CocList snippets<CR>
+  nnoremap <silent><nowait> <space>y       :<C-u>reg<cr>
+  nnoremap <silent><nowait> <space>u       :<C-u>UltiSnipsEdit<cr>
+  " Removed coc-specific list commands
   nnoremap <silent><nowait> <space>lb      :<C-u>CtrlPBuffer<CR>
   nnoremap <silent><nowait> <leader>b      :<C-u>CtrlPBuffer<CR>
-  nnoremap <silent><nowait> <space>le      :<C-u>CocList extensions<CR>
-  nnoremap <silent><nowait> <space>lg      :<C-u>CocList gist<CR>
+  " Removed coc extensions and gist
   nnoremap <silent><nowait> <space>lt      :<C-u>Tags<CR>
   nnoremap <silent><nowait> <leader>lt      :<C-u>Tags<CR>
-  nnoremap <silent><nowait> <space>q       :<C-u>CocList quickfix<CR>
-  nnoremap <silent><nowait> <space>a       :<C-u>CocList diagnostics<cr>
-  nnoremap <silent><nowait> <space>e       :<C-u>CocList extensions<cr>
-  nnoremap <silent><nowait> <space>C       :<C-u>CocList commands<cr>
-  nnoremap <silent><nowait> <space>c       :<C-u>CocList vimcommands<cr>
-  nnoremap <silent><nowait> <space>o       :<C-u>CocList --auto-preview outline<cr>
-  nnoremap <silent><nowait> <space>s       :<C-u>CocList symbols<cr>
-  nnoremap <silent><nowait> <space>r       :<C-u>CocList mru<cr>
+  nnoremap <silent><nowait> <space>q       :<C-u>copen<CR>
+  nnoremap <silent><nowait> <space>a       :<C-u>LspDocumentDiagnostics<cr>
+  nnoremap <silent><nowait> <space>c       :<C-u>Commands<cr>
+  nnoremap <silent><nowait> <space>o       :<C-u>Vista!!<cr>
+  nnoremap <silent><nowait> <space>o       :<C-u>LspWorkspaceSymbolSearch<cr>
+  nnoremap <silent><nowait> <space>r       :<C-u>History<cr>
   nnoremap <silent><nowait> <space>lr       :<C-u>History<cr>
   " nnoremap <silent><nowait> <space>R       :<C-u>LeaderfMru<cr>
   " nnoremap <silent><nowait> <space>ff      :<C-u>call <SID>open_files()<cr>
@@ -246,25 +199,13 @@ endfunction
   nnoremap <silent><nowait> <space>fc      :<C-u>call CscopeFind('c', expand('<cword>'))<cr>
   nnoremap <silent><nowait> <space>fg      :<C-u>call CscopeFind('g', expand('<cword>'))<cr>
   nnoremap <silent><nowait> <space>fl      :<C-u>call ToggleLocationList()<cr>
-  nnoremap <silent><nowait> <space>j       :<C-u>CocNext<CR>
-  nnoremap <silent><nowait> <space>k       :<C-u>CocPrev<CR>
-  nnoremap <silent><nowait> <space>p       :<C-u>CocListResume<CR>
-  nnoremap <silent><nowait> <space>m       :<C-u>CocList maps<cr>
+  nnoremap <silent><nowait> <space>j       :<C-u>lnext<CR>
+  nnoremap <silent><nowait> <space>k       :<C-u>lprev<CR>
+  nnoremap <silent><nowait> <space>m       :<C-u>Maps<cr>
   nnoremap <silent><nowait> <space>ve      :<C-u>Vexplore<Cr>
   nnoremap <silent><nowait> <space>vv      :<C-u>e ./<Cr>
 
-  func s:open_files()
-    let total = 20000
-    if isdirectory('.git')
-      let total = system("git ls-files | wc -l")
-    endif
-
-    if total >= 20000
-      silent execute "LeaderfFile"
-    else
-      silent execute 'CocList files'
-    endif
-  endfunction
+  \" Removed coc-specific file search function
 " }}
 " debug {{
 

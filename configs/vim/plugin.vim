@@ -265,7 +265,6 @@
         \ 'coc-tsserver',
         \ 'coc-vimlsp',
         \ 'coc-yaml',
-        \ '@hexuhua/coc-copilot',
         \ '@yaegassy/coc-nginx',
         \ ]
   let g:coc_watch_extensions = []
