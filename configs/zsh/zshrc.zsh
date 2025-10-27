@@ -165,3 +165,9 @@ source $HOME/.atuin/bin/env
 eval "$(atuin init zsh --disable-ctrl-r --disable-up-arrow)"
 
 unset ARGV0
+
+# Added by microsandbox installer
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/opt/hybridscope/bin/:$PATH"
+export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
+

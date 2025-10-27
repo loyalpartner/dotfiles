@@ -96,7 +96,7 @@ Plug 'https://github.com/webosose/chromium-v8', {
 
 if v:version >= 900
   " Plug 'Exafunction/codeium.vim'
-  Plug 'github/copilot.vim'
+  " Plug 'github/copilot.vim'
 endif
 
 packadd! termdebug

@@ -57,7 +57,7 @@
   "rust-analyzer.checkOnSave": true,
   // "rust-analyzer.cargo.extraArgs": ["--target-dir=target_check"],
   "rust-analyzer.updates.checkOnStartup": false,
-  "rust-analyzer.procMacro.enable": true,
+  // "rust-analyzer.procMacro.enable": true,
   "rust-analyzer.diagnostics.enable": true,
 
   "workspace.rootPatterns": [".git", ".hg", ".projections.json"],

@@ -17,7 +17,7 @@ bindsym {
 
     # Chat & Messaging Applications
     $mod+ctrl+w exec $switch_to_wechat
-    $mod+ctrl+s exec $switch_to_chatgpt
+    $mod+ctrl+s exec $switch_to_claude
 }
 
 # Commented shortcuts (preserved for reference)

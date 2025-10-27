@@ -35,6 +35,8 @@ include {
     # System configurations
     $HOME/dotfiles/configs/sway/config.d/system/autostart
     $HOME/dotfiles/configs/sway/config.d/system/idle
+
+    $HOME/.sway.config
 }
 
 # Basic window behavior
