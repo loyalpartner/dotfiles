@@ -103,6 +103,7 @@ fuzzy_switch_to() {
   local focused_app_id=$(win_focused_appid)
 
   if [[ "$focused_app_id" =~ $app_id ]]; then
+    swaymsg move scratchpad
     floatwin_back_to_last_window
     return
   fi
