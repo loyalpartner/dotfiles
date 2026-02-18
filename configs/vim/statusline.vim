@@ -3,7 +3,7 @@ function! MyStatusLine()
         \. "%{winnr()} "
         \. "%4*%{MyStatusGit()}%*"
         \. "%5*%{MyStatusGitChanges()}%* %{MyStatusCoc()} "
-        \. "%6*%{get(b:, 'coc_current_function', '')}%*"
+        \. "%6*%*"
         \. " %f %{MyStatusModifySymbol()}"
         \. " %{MyStatusReadonly()}"
         \. "%=%-{&ft} %l,%c %P "
@@ -30,9 +30,6 @@ function! MyStatusReadonly()
 endfunction
 
 function! MyStatusCoc()
-  if get(g:, 'did_coc_loaded', 0)
-    return coc#status()
-  endif
   return ''
 endfunction
 
@@ -42,12 +39,12 @@ endfunction
 
 function! MyStatusGitChanges() abort
   if s:IsTempFile() | return '' | endif
-  return get(b:, 'coc_git_status', '')
+  return exists('*FugitiveStatusline') ? FugitiveStatusline() : ''
 endfunction
 
 function! MyStatusGit(...) abort
-  let status = get(g:, 'coc_git_status', '')
-  return empty(status) ? '' : '  '.status.' '
+  let head = exists('*FugitiveHead') ? FugitiveHead() : ''
+  return empty(head) ? '' : '  '.head.' '
 endfunction
 
 function! SetStatusLine()

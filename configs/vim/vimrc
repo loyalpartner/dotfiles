@@ -37,13 +37,13 @@ Plug 'liuchengxu/vista.vim'
 Plug 'loyalpartner/info.vim'
 Plug 'loyalpartner/termdebug-go'
 Plug 'loyalpartner/vim-rfc'
-" Plug 'loyalpartner/yac.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree'
 Plug 'morhetz/gruvbox'
 Plug 'mzlogin/vim-markdown-toc'
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'loyalpartner/yac.vim', {'branch': 'claude/zig-rewrite-xCujU', 'do': 'zig build', 'rtp': 'vim'}
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'othree/xml.vim'
 Plug 'peitalin/vim-jsx-typescript'

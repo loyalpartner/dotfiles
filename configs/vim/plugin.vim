@@ -233,50 +233,11 @@
   let g:macnote_unite_quickfix = 1
 " }}
 
-" coc.nvim {{
-  if has('nvim') && !has('nvim-0.4.3')
-    let g:coc_disable_startup_warning = 1
-  endif
-  "let g:coc_channel_timeout = 5
-  "let g:coc_data_home = '~/.config/a/b/coc'
-  "let g:coc_disable_startup_warning = 1
-  "let g:coc_quickfix_open_command = 'copen|cfirst'
-  let g:coc_config_home = '~/.vim/vimrc.d'
-  " let g:node_client_debug = 1
-  " let g:coc_node_args = ['--nolazy', '--inspect-brk=0.0.0.0:6045']
-  " let g:coc_node_args += [ '-r', expand('~/.config/yarn/global/node_modules/source-map-support/register') ]
-  let $NVIM_COC_LOG_LEVEL = 'trace'
-  let g:coc_global_extensions = [
-        \ 'coc-clangd',
-        \ 'coc-db',
-        \ 'coc-docker',
-        \ 'coc-eslint',
-        \ 'coc-git',
-        \ 'coc-go',
-        \ 'coc-html',
-        \ 'coc-json',
-        \ 'coc-lists',
-        \ 'coc-marketplace',
-        \ 'coc-prettier',
-        \ 'coc-pyright',
-        \ 'coc-rust-analyzer',
-        \ 'coc-sh',
-        \ 'coc-stylelint',
-        \ 'coc-tsserver',
-        \ 'coc-vimlsp',
-        \ 'coc-yaml',
-        \ '@hexuhua/coc-copilot',
-        \ '@yaegassy/coc-nginx',
-        \ ]
-  let g:coc_watch_extensions = []
-  "let g:coc_node_path = '/usr/local/bin/node'
-  let g:coc_filetype_map = {
-        \ 'html.swig': 'html',
-        \ 'wxss': 'css',
-        \ }
-  "call coc#add_command('mundoToggle', 'MundoToggle', 'toggle mundo window')
-  "call coc#add_command('tree', 'Vexplore', 'open netrw explorer')
-  "call coc#add_command('translate', 'TranslateW', 'translate word')
+" yac.vim {{
+  let g:yac_auto_complete = 1
+  let g:yac_auto_complete_delay = 300
+  let g:yac_auto_complete_min_chars = 2
+  let g:yac_auto_complete_triggers = ['.', ':', '::']
 " }}
 
 " indentLine {{

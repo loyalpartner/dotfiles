@@ -22,9 +22,6 @@ set mousehide
 set mouse=a
 set cursorline
 set novisualbell
-if exists('&tagfunc')
-  set tagfunc=CocTagFunc
-endif
 "set splitright
 set belloff=all
 set nobackup

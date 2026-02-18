@@ -1,30 +1,21 @@
 " vim: set sw=2 ts=2 sts=2 et tw=78:
 command! -nargs=0 Save                                 :call     s:Save()
-command! -nargs=1 SessionSave                          :call     CocAction('runCommand', 'session.save', <f-args>)
-command! -nargs=0 Format                               :call     CocAction('format')
-command! -nargs=0 PickColor                            :call     CocAction('pickColor')
-command! -nargs=0 CP                                   :call     CocAction('colorPresentation')
-command! -nargs=0 Prettier                             :call     CocAction('runCommand', 'prettier.formatFile')
-command! -nargs=0 Tslint                               :call     CocAction('runCommand', 'tslint.lintProject')
-command! -nargs=0 Tsc                                  :call     CocAction('runCommand', 'tsserver.watchBuild')
-command! -nargs=0 Webpack                              :call     CocAction('runCommand', 'webpack.watch')
-command! -nargs=0 OR                                   :call     CocAction('runCommand', 'editor.action.organizeImport')
-command! -nargs=0 Start                                :call     CocAction('runCommand', 'npm.run', 'start')
-command! -nargs=0 RestartVim                           :call     CocAction('runCommand', 'session.restart')
+command! -nargs=0 SessionSave                          :mksession!
+command! -nargs=0 Prettier                             :!npx prettier --write %
+command! -nargs=0 Tsc                                  :!npx tsc --watch
+command! -nargs=0 Start                                :!npm run start
 command! -nargs=0 V                                    :call     s:OpenTerminal(v:false)
 command! -nargs=0 VL                                   :call     s:OpenTerminal(v:true)
 command! -nargs=0 Cd                                   :call     s:Gcd()
 command! -nargs=0 Mouse                                :call     s:ToggleMouse()
 command! -nargs=0 Jsongen                              :call     s:Jsongen()
 command! -nargs=0 Reset                                :call     s:StatusReset()
-command! -nargs=? Fold                                 :call     CocAction('fold', <f-args>)
+command! -nargs=0 Fold                                 :YacFoldingRange
 command! -nargs=* Execute                              :call     s:Execute(<q-args>)
 command! -nargs=0 Ctags                                :execute  'Nrun ctags -R .'
 command! -nargs=0 -range=%                             Prefixer  call  s:Prefixer(<line1>, <line2>)
-command! -nargs=+ -complete=custom,s:GrepArgs          Rg        :exe 'CocList grep '.<q-args>
 command! -nargs=? -complete=custom,s:ListVimrc         EditVimrc :call s:EditVimrc(<f-args>)
 command! -nargs=? -complete=custom,s:ListDict          Dict      :call s:ToggleDictionary(<f-args>)
-command! -nargs=0 Jest :call  CocActionAsync('runCommand', 'jest.fileTest', ['%'])
 command! -nargs=0 Until                               :call      s:gdb_until()
 command! -nargs=0 Break                               :call      s:gdb_break()
 
@@ -125,12 +116,6 @@ function! s:ListVimrc(...)
   return join(map(split(globpath('~/.config/vim/', '*.vim'),'\n'),
     \ "substitute(v:val, '" . expand('~'). "/.config/vim/', '', '')")
     \ , "\n")
-endfunction
-
-function! s:GrepArgs(...)
-  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
-        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
-  return join(list, "\n")
 endfunction
 
 function! s:EditVimrc(...)

@@ -31,7 +31,7 @@ let g:mapleader = ','
   nnoremap <leader>hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-  noremap <leader>hd :CocCommand clangd.switchSourceHeader<CR>
+  " noremap <leader>hd :CocCommand clangd.switchSourceHeader<CR>
   nnoremap <silent> <leader>pp :set paste<cr>"+P:set paste!<cr>
   nnoremap <silent> <leader>o :call <SID>Open()<CR>
 " }}
@@ -45,34 +45,19 @@ let g:mapleader = ','
 
 " plugin {{
   "session helper
-  nmap <leader>ss :<C-u>CocCommand session.save<CR>
-  nmap <leader>sl :<C-u>CocCommand session.load<CR>
+  nmap <leader>ss :<C-u>mksession!<CR>
+  nmap <leader>sl :<C-u>source Session.vim<CR>
   nmap <leader>sr :call <SID>SessionReload()<CR>
   " svg.vim not used very often
   nmap <leader>se <Plug>SvgEdit
 
-  " coc.nvim
-  nmap <leader>x  <Plug>(coc-cursors-word)
-  nmap <leader>rr :<C-u>CocRestart<CR>
-  nmap <leader>rn <Plug>(coc-rename)
-  nmap <leader>rf <Plug>(coc-refactor)
-  "nmap <leader>ca <Plug>(coc-codelens-action)
-  xmap <leader>x  <Plug>(coc-convert-snippet)
-  xmap <leader>f  <Plug>(coc-format-selected)
-  nmap <leader>f :call CocAction('format')<CR>
-  xmap <leader>a  <Plug>(coc-codeaction-selected)
-  nmap <leader>a  <Plug>(coc-codeaction-selected)
-  nmap <leader>ac <Plug>(coc-codeaction-line)
-  nmap <leader>af <Plug>(coc-codeaction)
-  nmap <leader>di <Plug>(coc-diagnostic-info)
-  nmap <leader>qf <Plug>(coc-fix-current)
+  " yac.vim
+  nmap <leader>rr :<C-u>YacStop<CR>:YacStart<CR>
+  nmap <leader>a :YacCodeAction<CR>
+  xmap <leader>a :YacCodeAction<CR>
+  nmap <leader>ac :YacCodeAction<CR>
+  nmap <leader>af :YacCodeAction<CR>
 
-  nmap <leader>te :call CocAction('runCommand', 'jest.singleTest')<CR>
-  nmap <leader>dr <Plug>(coc-diagnostic-related)
-  nmap <leader>ms <Plug>(coc-menu-show)
-
-  nmap <silent> <Leader>tr <Plug>(coc-translator-p)
-  vmap <silent> <Leader>tr <Plug>(coc-translator-pv)
   nmap <silent> <Leader>tc :call <SID>en2zh('n')<CR>
   vmap <silent> <Leader>tc :<C-u>call <SID>en2zh('v')<CR>
 " }}
@@ -99,12 +84,7 @@ endfunction
 
 " functions {{
 function! s:SessionSave()
-  "if !empty(v:this_session)
-  "  execute 'SessionSave'
-  "else
-    "call feedkeys(':SessionSave ')
-  execute "CocCommand session.save"
-  "endif
+  execute "mksession!"
 endfunction
 
 function! s:ToggleBackground()
@@ -122,7 +102,8 @@ endfunction
 
 function! s:SessionReload()
   execute 'wa'
-  execute 'RestartVim'
+  execute 'mksession!'
+  execute 'source Session.vim'
 endfunction
 
 " Simple clean utility

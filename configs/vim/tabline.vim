@@ -217,7 +217,7 @@ function! MyTabLine()
   let s .= s:time
   let s .= '%#TabLineSepinactiveinactive_mod# '
   let s .= '%#TabLineSepinactive_modinactive_mod# '
-  let s .= get(g:, 'coc_weather', '')
+  let s .= ''
   let s .= ' % '
   return s
 endfunction
