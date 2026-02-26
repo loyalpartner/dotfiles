@@ -16,8 +16,8 @@ Plug 'AndrewRadev/splitjoin.vim'
 " Plug 'blindFS/vim-taskwarrior'
 Plug 'brookhong/cscope.vim'
 Plug 'dhruvasagar/vim-zoom'
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-Plug 'google/vim-jsonnet'
+" Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+" Plug 'google/vim-jsonnet'
 Plug 'hardselius/warlock'
 Plug 'heavenshell/vim-jsdoc', { 'do': 'make install' }
 Plug 'heavenshell/vim-pydocstring'
@@ -25,17 +25,17 @@ Plug 'heavenshell/vim-pydocstring'
 Plug 'honza/vim-snippets'
 Plug 'kien/ctrlp.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'lambdalisue/gina.vim'
-Plug 'lambdatoast/elm.vim'
+" Plug 'lambdatoast/elm.vim'
 Plug 'leafgarland/typescript-vim'
-Plug 'liuchengxu/vista.vim'
+" Plug 'liuchengxu/vista.vim'
 " Plug 'loyalpartner/coc-gn',  {'do': 'yarn install --frozen-lockfile'}
 " Plug 'loyalpartner/coc-lists',  {'do': 'yarn install --frozen-lockfile'}
 Plug 'loyalpartner/info.vim'
-Plug 'loyalpartner/termdebug-go'
+" Plug 'loyalpartner/termdebug-go'
 Plug 'loyalpartner/vim-rfc'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/emmet-vim'
@@ -51,7 +51,7 @@ Plug 'posva/vim-vue'
 " Plug 'puremourning/vimspector'
 Plug 'Raimondi/delimitMate'
 Plug 'romainl/vim-cool'        " search improve
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'simnalamburt/vim-mundo'
 Plug 'tommcdo/vim-exchange'
@@ -79,7 +79,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/gtags.vim'
 Plug 'vim-utils/vim-man'
 Plug 'Yggdroot/indentLine'
-Plug 'preservim/nerdtree'
+" Plug 'preservim/nerdtree'
 
 if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
