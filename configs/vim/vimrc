@@ -54,6 +54,7 @@ Plug 'yac-vim/typescript'
 Plug 'yac-vim/c'
 Plug 'yac-vim/cpp'
 Plug 'yac-vim/lua'
+Plug 'yac-vim/toml'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'othree/xml.vim'
 Plug 'peitalin/vim-jsx-typescript'
