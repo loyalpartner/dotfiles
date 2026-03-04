@@ -234,10 +234,10 @@
 " }}
 
 " yac.vim {{
-  let g:yac_auto_complete = 1
-  let g:yac_auto_complete_delay = 300
-  let g:yac_auto_complete_min_chars = 2
-  let g:yac_auto_complete_triggers = ['.', ':', '::']
+  " let g:yac_auto_complete = 1
+  " let g:yac_auto_complete_delay = 300
+  " let g:yac_auto_complete_min_chars = 2
+  " let g:yac_auto_complete_triggers = ['.', ':', '::']
 " }}
 
 " indentLine {{
