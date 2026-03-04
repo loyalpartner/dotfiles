@@ -44,17 +44,6 @@ Plug 'morhetz/gruvbox'
 Plug 'mzlogin/vim-markdown-toc'
 " Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'loyalpartner/yac.vim', {'branch': 'main', 'do': 'zig build', 'rtp': 'vim'}
-Plug 'yac-vim/zig'
-Plug 'yac-vim/rust'
-Plug 'yac-vim/go'
-Plug 'yac-vim/vim'
-Plug 'yac-vim/python'
-Plug 'yac-vim/javascript'
-Plug 'yac-vim/typescript'
-Plug 'yac-vim/c'
-Plug 'yac-vim/cpp'
-Plug 'yac-vim/lua'
-Plug 'yac-vim/toml'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'othree/xml.vim'
 Plug 'peitalin/vim-jsx-typescript'

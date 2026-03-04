@@ -161,8 +161,8 @@ esac
 eval "$(gh copilot alias -- bash)"
 
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
-source $HOME/.atuin/bin/env
-eval "$(atuin init zsh --disable-ctrl-r --disable-up-arrow)"
+# source $HOME/.atuin/bin/env
+# eval "$(atuin init zsh --disable-ctrl-r --disable-up-arrow)"
 
 unset ARGV0
 
