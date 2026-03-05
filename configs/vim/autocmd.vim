@@ -92,26 +92,26 @@ function! s:insert_gates()
 endfunction
 autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 
-if executable("fcitx5-remote")
-  autocmd! InsertLeavePre * call <SID>toggleInput(mode())
-  autocmd! InsertEnter * call <SID>toggleInput(mode())
-  " 0 close 1 inactive 2 active
-  let g:insert_mode_input_state = 0
-  function! s:inputState() abort
-    silent return system("fcitx5-remote")
-  endfunction
-  function s:rememberInsertModeInputState() abort
-    let g:insert_mode_input_state = s:inputState()
-  endfunction
-  function! s:toggleInput(from) abort
-    if a:from == "i"
-      call s:rememberInsertModeInputState()
-      silent call system("fcitx5-remote -c")
-    elseif a:from == 'n' && g:insert_mode_input_state == 2
-      silent call system("fcitx5-remote -o")
-    endif
-  endfunction
-endif
+" if executable("fcitx5-remote")
+"   autocmd! InsertLeavePre * call <SID>toggleInput(mode())
+"   autocmd! InsertEnter * call <SID>toggleInput(mode())
+"   " 0 close 1 inactive 2 active
+"   let g:insert_mode_input_state = 0
+"   function! s:inputState() abort
+"     silent return system("fcitx5-remote")
+"   endfunction
+"   function s:rememberInsertModeInputState() abort
+"     let g:insert_mode_input_state = s:inputState()
+"   endfunction
+"   function! s:toggleInput(from) abort
+"     if a:from == "i"
+"       call s:rememberInsertModeInputState()
+"       silent call system("fcitx5-remote -c")
+"     elseif a:from == 'n' && g:insert_mode_input_state == 2
+"       silent call system("fcitx5-remote -o")
+"     endif
+"   endfunction
+" endif
 
 augroup auto_read
   autocmd!

@@ -23,7 +23,7 @@ Plug 'heavenshell/vim-jsdoc', { 'do': 'make install' }
 Plug 'heavenshell/vim-pydocstring'
 " Plug 'HiPhish/info.vim'
 Plug 'honza/vim-snippets'
-Plug 'kien/ctrlp.vim'
+" Plug 'kien/ctrlp.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
@@ -49,7 +49,7 @@ Plug 'othree/xml.vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'posva/vim-vue'
 " Plug 'puremourning/vimspector'
-Plug 'Raimondi/delimitMate'
+" Plug 'Raimondi/delimitMate'
 Plug 'romainl/vim-cool'        " search improve
 " Plug 'rust-lang/rust.vim'
 Plug 'ryanoasis/vim-devicons'
