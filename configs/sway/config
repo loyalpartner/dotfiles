@@ -12,7 +12,7 @@ set $menu rofi -combi-modi "window,drun,ssh" -show combi \
       -terminal "$term" \
       -font "JetBrainsMono Nerd Font" \
       -show-icons -i
-set $clipboard clipman pick -t rofi
+set $clipboard zofi clipboard
 set $type_googleid \
   xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
 
@@ -98,7 +98,7 @@ output {
 # Terminal and launcher
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
-bindsym $mod+d exec zlauncher
+bindsym $mod+d exec zofi
 bindsym $mod+i exec rofi -modi "incus:~/dotfiles/configs/rofi/scripts/rofi-incus.sh" -show incus
 bindsym $mod+ctrl+comma exec $type_googleid
 bindsym $mod+c exec $clipboard
