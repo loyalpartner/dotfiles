@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -19,7 +12,7 @@ if [[ "$TTY" =~ "tty" ]]
 then
   ZSH_THEME="robbyrussell"
 else
-  ZSH_THEME="powerlevel10k/powerlevel10k"
+  ZSH_THEME=""
 fi
 
 # Set list of themes to pick from when loading at random
@@ -81,8 +74,6 @@ HYPHEN_INSENSITIVE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-zstyle ':omz:plugins:nvm' autoload yes
-
 plugins=(
   zsh-autosuggestions
   # lxd-completion-zsh
@@ -90,7 +81,7 @@ plugins=(
   # autojump
   pip
   npm
-  nvm
+  # nvm  # 手动懒加载，见文件末尾
   # ansible
   history
   # bazel
@@ -144,8 +135,21 @@ fi
 [[ -f $HOME/.work.sh ]] && source $HOME/.work.sh
 [[ -f $script_dir/zshrc.local.zsh ]] && source $script_dir/zshrc.local.zsh
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# nvm 懒加载：首次调用 nvm/node/npm/npx/yarn 时才 source nvm.sh
+export NVM_DIR="$HOME/.nvm"
+_nvm_lazy_load() {
+  unfunction nvm node npm npx yarn pnpm 2>/dev/null
+  [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+}
+for cmd in nvm node npm npx yarn pnpm; do
+  eval "${cmd}() { _nvm_lazy_load; ${cmd} \"\$@\" }"
+done
+
+# Starship prompt
+if [[ ! "$TTY" =~ "tty" ]]; then
+  export STARSHIP_CONFIG="$HOME/dotfiles/configs/starship/starship.toml"
+  eval "$(starship init zsh)"
+fi
 
 # . "$HOME/.atuin/bin/env"
 
@@ -158,7 +162,7 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-eval "$(gh copilot alias -- bash)"
+# eval "$(gh copilot alias -- bash)"
 
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
 # source $HOME/.atuin/bin/env

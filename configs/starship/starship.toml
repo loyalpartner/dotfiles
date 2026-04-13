@@ -1,0 +1,209 @@
+# Starship 配置 - 匹配原 p10k lean 风格
+# 单行, compact, nerdfont-v3, 透明背景
+
+format = """$directory$git_branch$git_status$character"""
+right_format = """$status$cmd_duration$jobs$direnv$python$nodejs$golang$rust$kubernetes$terraform$aws$gcloud$azure$username$hostname$time"""
+
+add_newline = false
+command_timeout = 1000
+
+# ── 左侧 prompt ──
+
+[directory]
+style = "bold blue"
+truncation_length = 5
+truncate_to_repo = true
+truncation_symbol = "…/"
+read_only = " 󰌾"
+
+[character]
+success_symbol = "[❯](green)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
+
+[git_branch]
+style = "green"
+format = "[$symbol$branch(:$remote_branch)]($style) "
+symbol = " "
+truncation_length = 32
+truncation_symbol = "…"
+
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+conflicted = "[~${count}](red)"
+ahead = "[⇡${count}](green)"
+behind = "[⇣${count}](green)"
+diverged = "[⇣${behind_count}⇡${ahead_count}](green)"
+stashed = "[*${count}](green)"
+modified = "[!${count}](yellow)"
+staged = "[+${count}](yellow)"
+untracked = "[?${count}](blue)"
+renamed = "[»${count}](yellow)"
+deleted = "[✘${count}](yellow)"
+
+# ── 右侧 prompt ──
+
+[status]
+disabled = false
+style = "red"
+format = '[$symbol$status( \($signal_name\))]($style) '
+symbol = "✘ "
+map_symbol = true
+pipestatus = true
+
+[cmd_duration]
+min_time = 3_000
+style = "243"
+format = "[$duration]($style) "
+show_milliseconds = false
+
+[jobs]
+style = "70"
+symbol = "✦"
+number_threshold = 1
+format = "[$symbol]($style) "
+
+[direnv]
+disabled = false
+style = "yellow"
+format = "[$symbol]($style) "
+
+[python]
+style = "cyan"
+format = '[$symbol]($style) '
+symbol = ""
+
+[nodejs]
+style = "green"
+format = "[$symbol]($style) "
+symbol = ""
+
+[golang]
+style = "cyan"
+format = "[$symbol]($style) "
+symbol = ""
+
+[rust]
+style = "cyan"
+format = "[$symbol]($style) "
+symbol = ""
+
+[kubernetes]
+disabled = false
+style = "purple"
+format = '[$symbol]($style) '
+symbol = "☸"
+
+[terraform]
+style = "blue"
+format = "[$symbol]($style) "
+symbol = "💠"
+
+[aws]
+style = "208"
+format = '[$symbol]($style) '
+symbol = ""
+
+[gcloud]
+style = "blue"
+format = '[$symbol]($style) '
+symbol = ""
+
+[azure]
+disabled = false
+style = "blue"
+format = "[$symbol]($style) "
+symbol = "󰠅"
+
+[username]
+style_user = "yellow"
+style_root = "bold red"
+format = "[$user]($style)"
+show_always = false
+detect_env_vars = ["SSH_CONNECTION", "SSH_CLIENT", "SSH_TTY"]
+
+[hostname]
+style = "yellow"
+format = "[@$hostname]($style) "
+ssh_only = true
+ssh_symbol = " "
+
+[time]
+disabled = false
+style = "243"
+format = "[$time]($style)"
+time_format = "%H:%M"
+
+[nix_shell]
+disabled = false
+style = "cyan"
+format = '[$symbol]($style) '
+symbol = ""
+
+# ── 禁用不需要的模块 ──
+
+[package]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[ruby]
+disabled = true
+
+[java]
+disabled = true
+
+[php]
+disabled = true
+
+[lua]
+disabled = true
+
+[perl]
+disabled = true
+
+[dotnet]
+disabled = true
+
+[haskell]
+disabled = true
+
+[scala]
+disabled = true
+
+[elixir]
+disabled = true
+
+[elm]
+disabled = true
+
+[erlang]
+disabled = true
+
+[nim]
+disabled = true
+
+[ocaml]
+disabled = true
+
+[swift]
+disabled = true
+
+[zig]
+disabled = true
+
+[vagrant]
+disabled = true
+
+[shell]
+disabled = true
+
+[shlvl]
+disabled = true
+
+[battery]
+disabled = true
+
+[memory_usage]
+disabled = true

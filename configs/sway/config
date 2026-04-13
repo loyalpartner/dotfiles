@@ -1,53 +1,321 @@
-# Sway Config File
-# Organization:
-# - definitions: Basic variable definitions
-# - appearance: Visual settings and theming
-# - devices: Input/output device configurations
-# - bindings: All key bindings
-# - rules: Window rules and behaviors
-# - system: System-level configurations
+# Sway Config
 
-include {
-    # Basic definitions (variables, modes, etc.)
-    $HOME/dotfiles/configs/sway/config.d/definitions
+# --- Definitions ---
 
-    # Appearance settings
-    $HOME/dotfiles/configs/sway/config.d/appearance/colors
-    $HOME/dotfiles/configs/sway/config.d/appearance/decorations
-    $HOME/dotfiles/configs/sway/config.d/appearance/gaps
+set $mod mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term foot
+set $menu rofi -combi-modi "window,drun,ssh" -show combi \
+      -terminal "$term" \
+      -font "JetBrainsMono Nerd Font" \
+      -show-icons -i
+set $clipboard clipman pick -t rofi
+set $type_googleid \
+  xdotool type --window $(xdotool search --name "Ozone X11")  "loyalpartner@163.com"
 
-    # Device configurations
-    $HOME/dotfiles/configs/sway/config.d/devices/keyboards
-    $HOME/dotfiles/configs/sway/config.d/devices/outputs
-    $HOME/dotfiles/configs/sway/config.d/devices/inputs
+set $source_common source $HOME/dotfiles/bin/common.sh
+set $switch_to_warp $source_common && switch_to_ dev.warp.Warp warp-terminal
+set $switch_to_chrome $source_common && switch_to_ google-chrome google-chrome-stable
+set $switch_to_chatgpt $source_common && fuzzy_switch_to 'chrome-chat.openai.com.*'  google-chrome-stable --app=https://chat.openai.com
+set $switch_to_claude $source_common && fuzzy_switch_to 'chrome-claude.ai*'  google-chrome-stable --app=https://claude.ai
+set $switch_to_gemini $source_common && fuzzy_switch_to 'chrome-gemini.google.com*'  chromium --app=https://gemini.google.com
+set $switch_to_feishu $source_common && switch_to_instance feishu feishu
+set $switch_to_wechat $source_common && switch_to_instance wechat wechat-universal
+set $hide_floatwin $source_common && hide_floatwin
 
-    # Key bindings
-    $HOME/dotfiles/configs/sway/config.d/bindings/global
-    $HOME/dotfiles/configs/sway/config.d/bindings/resize_mode
-    $HOME/dotfiles/configs/sway/config.d/bindings/workspaces
-    $HOME/dotfiles/configs/sway/config.d/bindings/application
+set $color1 #282a2b
+set $color5 #d6d6d6
+set $color10 #e6cd69
 
+# --- Appearance ---
 
-    # Window rules
-    $HOME/dotfiles/configs/sway/config.d/rules/windows
-    $HOME/dotfiles/configs/sway/config.d/rules/workspaces
+client.focused           "#44444400" "#9E9E9EDD" "#FFFFFF"
+client.focused_tab_title "#44444400" "#9E9E9EDD" "#FFFFFF"
+client.focused_inactive  "#44444400" "#444444DD" "#9E9E9E"
+client.unfocused        "#44444400" "#444444DD" "#9E9E9E"
 
-    # System configurations
-    $HOME/dotfiles/configs/sway/config.d/system/autostart
-    $HOME/dotfiles/configs/sway/config.d/system/idle
-
-    $HOME/.sway.config
+default_border pixel 3
+smart_gaps off
+gaps {
+    inner 0
+    outer 0
 }
+hide_edge_borders smart
+title_align center
+titlebar_border_thickness 0
+titlebar_padding 5 3
 
-# Basic window behavior
 show_marks yes
 focus_follows_mouse no
 workspace_auto_back_and_forth yes
 
-# Status bar configuration
-bar {
-    swaybar_command waybar
+# --- Devices ---
+
+input type:keyboard {
+    xkb_layout us,us
+    xkb_variant dvorak,
+    xkb_options altwin:swap_alt_win,caps:ctrl_modifier,grp:alt_space_toggle
+    repeat_delay 200
+    repeat_rate 30
 }
 
-# Include system defaults
+output {
+  * {
+    bg $HOME/dotfiles/configs/sway/bg/medowar.png fill
+  }
+
+  "JZM JZM27DC Unknown" {
+    resolution 2560x1440
+    transform 270
+    pos 0 0
+  }
+
+  "Apple Computer Inc Color LCD 0x00000000" {
+    resolution 2560x1600
+  }
+
+  "LG Electronics LG HDR 4K 0x0008E184" {
+    scale 1.5
+    pos 0 0
+  }
+
+  "BNQ BenQ PD2700U ETR1K02234CL0" {
+    pos 2160,0
+    resolution 3840x2160
+  }
+
+  "JZM JZM27DC 0x30305153" {
+    resolution 2560x1440@60Hz
+    position 1440 1280
+  }
+}
+
+# --- Key Bindings ---
+
+# Terminal and launcher
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec zlauncher
+bindsym $mod+i exec rofi -modi "incus:~/dotfiles/configs/rofi/scripts/rofi-incus.sh" -show incus
+bindsym $mod+ctrl+comma exec $type_googleid
+bindsym $mod+c exec $clipboard
+
+floating_modifier $mod normal
+bindsym $mod+Shift+c reload
+
+# Focus
+bindsym {
+    $mod+$left focus left
+    $mod+$down focus down
+    $mod+$up focus up
+    $mod+$right focus right
+    $mod+Left focus left
+    $mod+Down focus down
+    $mod+Up focus up
+    $mod+Right focus right
+}
+
+# Move windows
+bindsym {
+    $mod+Shift+$left move left
+    $mod+Shift+$down move down
+    $mod+Shift+$up move up
+    $mod+Shift+$right move right
+    $mod+Shift+Left move left
+    $mod+Shift+Down move down
+    $mod+Shift+Up move up
+    $mod+Shift+Right move right
+}
+
+# Layout
+bindsym {
+    $mod+b splith
+    $mod+v splitv
+    $mod+s layout stacking
+    $mod+w layout tabbed
+    $mod+e layout toggle split
+    $mod+f fullscreen
+    $mod+Shift+space floating toggle
+    $mod+space focus mode_toggle
+    $mod+a focus parent
+}
+
+# Scratchpad
+bindsym {
+    $mod+Shift+minus move scratchpad
+    $mod+minus scratchpad show
+}
+
+# Workspace navigation
+bindsym {
+    $mod+bracketleft  workspace prev
+    $mod+bracketright workspace next
+    $mod+Tab workspace back_and_forth
+    $mod+p   exec      swayr switch-window
+    $mod+t   exec      rofi  -show tabs --show-icon
+    Mod1+Tab exec      swayr switch-to-urgent-or-lru-window
+}
+
+# Switch to workspace
+bindsym {
+    $mod+1 workspace number 1
+    $mod+2 workspace number 2
+    $mod+3 workspace number 3
+    $mod+4 workspace number 4
+    $mod+5 workspace number 5
+    $mod+6 workspace number 6
+    $mod+7 workspace number 7
+    $mod+8 workspace number 8
+    $mod+9 workspace number 9
+    $mod+0 workspace number 10
+}
+
+# Move container to workspace
+bindsym {
+    $mod+Shift+1 move container to workspace number 1;workspace number 1
+    $mod+Shift+2 move container to workspace number 2;workspace number 2
+    $mod+Shift+3 move container to workspace number 3;workspace number 3
+    $mod+Shift+4 move container to workspace number 4;workspace number 4
+    $mod+Shift+5 move container to workspace number 5;workspace number 5
+    $mod+Shift+6 move container to workspace number 6;workspace number 6
+    $mod+Shift+7 move container to workspace number 7;workspace number 7
+    $mod+Shift+8 move container to workspace number 8;workspace number 8
+    $mod+Shift+9 move container to workspace number 9;workspace number 9
+    $mod+Shift+0 move container to workspace number 10;workspace number 10
+}
+
+bindsym {
+    $mod+Shift+n move container to workspace next; workspace next
+    $mod+Shift+p move container to workspace prev; workspace prev
+}
+
+# Application shortcuts
+bindsym {
+    $mod+ctrl+f workspace number 101
+    $mod+ctrl+t workspace number 102
+    $mod+ctrl+n exec $hide_floatwin
+    $mod+ctrl+d [title="^Ozone X11$"] scratchpad show
+    $mod+ctrl+c [title="^DevTools"] scratchpad show
+    $mod+ctrl+h [instance="hybridscope"] scratchpad show
+    $mod+ctrl+w exec $switch_to_wechat
+    $mod+ctrl+s exec $switch_to_claude
+}
+
+# --- Modes ---
+
+# Resize mode
+set $mode_resize "<span foreground='$color10'>󰉸</span>  \
+<span foreground='$color5'><b>Resize</b></span> <span foreground='$color10'>(<b>↑ ↓ ← →</b>)</span> \
+<span foreground='$color5'><b>Increase Gaps</b></span> <span foreground='$color10'>(<b>+</b>)</span> \
+<span foreground='$color5'><b>Decrease Gaps</b></span> <span foreground='$color10'>(<b>-</b>)</span>"
+
+mode --pango_markup $mode_resize {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    bindsym Shift+$left resize shrink width 50px
+    bindsym Shift+$down resize grow height 50px
+    bindsym Shift+$up resize shrink height 50px
+    bindsym Shift+$right resize grow width 50px
+
+    bindsym minus gaps inner current minus 5px
+    bindsym plus gaps inner current plus 5px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode $mode_resize
+
+# Shutdown mode
+set $mode_shutdown "\
+<span foreground='$color10'></span>  \
+<span foreground='$color5'> \
+<span foreground='$color10'>(<b>h</b>)</span>hibernate \
+<span foreground='$color10'>(<b>l</b>)</span>lock \
+<span foreground='$color10'>(<b>e</b>)</span>logout \
+<span foreground='$color10'>(<b>r</b>)</span>reboot \
+<span foreground='$color10'>(<b>u</b>)</span>suspend \
+<span foreground='$color10'>(<b>s</b>)</span>shutdown \
+</span>"
+
+set $purge_cliphist [ $purge_cliphist_logout == 'true' ] && rm -f $HOME/.cache/cliphist/db || exit 0
+
+mode --pango_markup $mode_shutdown {
+    bindsym l mode "default", exec $locking
+    bindsym e exec $purge_cliphist; exec loginctl terminate-user $USER
+    bindsym u mode "default", exec systemctl suspend
+    bindsym h mode "default", exec systemctl hibernate
+    bindsym s exec $purge_cliphist; exec systemctl poweroff
+    bindsym r exec $purge_cliphist; exec systemctl reboot
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+e mode $mode_shutdown
+
+# --- Window Rules ---
+
+for_window [class="XTerm"] opacity set 0.8
+for_window [class="Zathura"] opacity set 0.8
+for_window [app_id="floatwin"] opacity set 1
+
+set $float move scratchpad; scratchpad show
+set $float_center $float; resize set 95 ppt 95 ppt; move position center
+
+for_window {
+    [instance="(chat.openai.com|claude.ai__chat)"] $float_center
+    [app_id="(chrome-chat.openai.com.*|chrome-gemini.google.com.*|chrome-claude.ai*)"] $float_center
+    [instance="hybridscope"] $float
+    [app_id="GTK Application" title="^Save File$"] $float
+    [app_id="floatwin"] $float_center
+    [app_id="ToDesk"] border none
+}
+
+for_window [instance="hybridscope"] {
+    move to output 'JZM JZM27DC Unknown'
+    floating toggle
+}
+
+# --- Workspace Assignments ---
+
+assign [instance="(google-chrome|chromium)"] workspace number 102
+assign [app_id="(google-chrome|chromium|dev.warp.Warp)"] workspace number 102
+assign [app_id="" title="^Google Chrome$"] workspace number 102
+assign [class="(Bytedance-feishu)"] workspace number 101
+assign [instance="(feishu)"] workspace number 101
+
+for_window [class="(Emacs)"] {
+    move container to workspace number 12
+    workspace number 12
+}
+
+for_window [class="(Slack)"] {
+    move container to workspace number 13
+    workspace number 13
+}
+
+# --- Autostart ---
+
+exec fcitx5 -d --replace
+exec_always {
+    wl-paste -t text --watch clipman store --max-items=1000
+    swayrd
+    swayidle -w \
+        timeout 600 'swaylock -f -c 000000' \
+        timeout 1200 'swaymsg "output * power off"' \
+        resume 'swaymsg "output * power on"' \
+        before-sleep 'swaylock -f -c 000000'
+}
+
+# --- Bar ---
+
+bar {
+    swaybar_command zbar
+}
+
+# Machine-specific overrides
+include $HOME/.sway.config
 include /etc/sway/config.d/*

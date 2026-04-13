@@ -1,5 +1,5 @@
 " vim: set sw=2 ts=2 sts=2 et tw=78 foldmarker={{,}} foldmethod=marker foldlevel=0:
-let g:mapleader = ','
+" mapleader set in vimrc (before plug#end, so plugin <leader> mappings work)
 
 " basic {{
   " Edit file in current file folder
@@ -23,8 +23,8 @@ let g:mapleader = ','
   " Search with grep
   nnoremap <leader>/ :LeaderfRgInteractive<Cr>
   nnoremap <leader>* :Rg <c-r>=expand("<cword>")<cr> **<cr>
-  " generate doc
-  nnoremap <silent> <leader>d :<C-u>call <SID>GenDoc()<CR>
+  " generate doc (disabled: conflicts with yac DAP <leader>d* mappings)
+  " nnoremap <silent> <leader>d :<C-u>call <SID>GenDoc()<CR>
   " clean some dirty charactors
   nnoremap <silent> <leader>cl :<C-u>call <SID>Clean()<CR>
   " show vim highlight group under cursor
@@ -53,10 +53,10 @@ let g:mapleader = ','
 
   " yac.vim
   nmap <leader>rr :<C-u>YacStop<CR>:YacStart<CR>
-  nmap <leader>a :YacCodeAction<CR>
-  xmap <leader>a :YacCodeAction<CR>
-  nmap <leader>ac :YacCodeAction<CR>
-  nmap <leader>af :YacCodeAction<CR>
+  " nmap <leader>a :YacCodeAction<CR>
+  " xmap <leader>a :YacCodeAction<CR>
+  " nmap <leader>ac :YacCodeAction<CR>
+  " nmap <leader>af :YacCodeAction<CR>
 
   nmap <silent> <Leader>tc :call <SID>en2zh('n')<CR>
   vmap <silent> <Leader>tc :<C-u>call <SID>en2zh('v')<CR>

@@ -11,7 +11,7 @@ A comprehensive dotfiles configuration for macOS and Linux systems. This reposit
 - XDG Base Directory compliant configuration management
 
 ### 💻 Development Environment
-- Shell: Zsh with Oh-My-Zsh and Powerlevel10k theme
+- Shell: Zsh with Oh-My-Zsh and Starship prompt
 - Editor: Vim/MacVim with curated modern plugins
 - Terminal: tmux with optimized configurations
 - Git: Comprehensive configurations and global ignore patterns
@@ -209,7 +209,7 @@ Comprehensive setup for:
 - Shell Customization
   * Create `~/.zshrc.local` for machine-specific settings
   * Add custom functions to `~/.zsh/functions/`
-  * Modify prompt in `~/.p10k.zsh`
+  * Modify prompt in `~/dotfiles/configs/starship/starship.toml`
 - Vim/NeoVim Setup
   * Add plugins in `~/.vim/custom/plugins.vim`
   * Custom settings in `~/.vim/custom/settings.vim`
@@ -350,5 +350,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Acknowledgments
 
 - [Oh My Zsh](https://ohmyz.sh/)
-- [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
+- [Starship](https://starship.rs/)
 - [Various dotfiles communities](https://dotfiles.github.io/).

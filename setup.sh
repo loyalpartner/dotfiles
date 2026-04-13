@@ -229,7 +229,6 @@ readonly BACKUP_DIR="${HOME}/.config_backup/$(date +%Y%m%d_%H%M%S)"
 # Repository URLs
 readonly REPO_OHMYZSH="https://github.com/ohmyzsh/ohmyzsh"
 readonly REPO_DOOM="https://github.com/hlissner/doom-emacs"
-readonly REPO_P10K="https://github.com/romkatv/powerlevel10k.git"
 readonly REPO_ZSH_SUGGESTION="https://github.com/zsh-users/zsh-autosuggestions"
 readonly REPO_ZSH_LXD="https://github.com/endaaman/lxd-completion-zsh"
 readonly URL_PLUG="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
@@ -870,12 +869,6 @@ install_configs() {
 
         # Install custom plugins
         if [[ -d "${OHMYZSH_HOME}" ]]; then
-            # Install Powerlevel10k theme
-            if [[ ! -d "${ZSH_CUSTOM}/themes/powerlevel10k" ]]; then
-                info "Installing Powerlevel10k theme..."
-                git clone --depth=1 "${REPO_P10K}" "${ZSH_CUSTOM}/themes/powerlevel10k"
-            fi
-
             # Install zsh-autosuggestions
             if [[ ! -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ]]; then
                 info "Installing zsh-autosuggestions..."

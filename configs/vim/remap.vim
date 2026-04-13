@@ -14,10 +14,10 @@
   xnoremap > >gv
   inoremap <C-v> <C-o>"+]p
   xnoremap <C-c> "+y
-  nnoremap <expr> n  'Nn'[v:searchforward]
-  nnoremap <expr> N  'nN'[v:searchforward]
-  nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
-  nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+  " nnoremap <expr> n  'Nn'[v:searchforward]
+  " nnoremap <expr> N  'nN'[v:searchforward]
+  " nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
+  " nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
   nnoremap Y y$
   " no overwrite paste
   " xnoremap p "_dP
@@ -122,8 +122,8 @@
 
 " visual search {{
   "  In visual mode when you press * or # to search for the current selection
-  xnoremap    <silent> * :call <SID>visualSearch('f')<CR>
-  xnoremap    <silent> # :call <SID>visualSearch('b')<CR>
+  " xnoremap    <silent> * :call <SID>visualSearch('f')<CR>
+  " xnoremap    <silent> # :call <SID>visualSearch('b')<CR>
 " }}
 
 " functions {{

@@ -47,7 +47,7 @@
 " }}"
 
 " vim-markdown {{
-  let g:markdown_fenced_languages = ['css', 'javascript', 'js=javascript', 'typescript', 'rust']
+  " let g:markdown_fenced_languages = ['css', 'javascript', 'js=javascript', 'typescript', 'rust']
 " }}"
 
 " vim-run {{
@@ -234,6 +234,7 @@
 " }}
 
 " yac.vim {{
+  " let g:yac_daemon_command = ['/tmp/yac-stable/zig-out/bin/yacd']
   " let g:yac_auto_complete = 1
   " let g:yac_auto_complete_delay = 300
   " let g:yac_auto_complete_min_chars = 2
