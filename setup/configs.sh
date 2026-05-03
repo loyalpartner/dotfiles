@@ -1,79 +1,60 @@
 #!/usr/bin/env bash
-# Symlink dotfiles from configs/ into XDG config dirs.
+# Symlink dotfiles into ~/.config and $HOME.
 
 CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
-# Configs that map directly to $CONFIG_HOME/<name>
-ALL_CONFIGS=(
-    alacritty ctags foot gdb rofi starship
-    sway swayr sxhkd vim waybar zsh
+# src-relative-to-repo : dest-absolute
+LINKS=(
+    "configs/alacritty:$CONFIG_HOME/alacritty"
+    "configs/ctags:$CONFIG_HOME/ctags"
+    "configs/foot:$CONFIG_HOME/foot"
+    "configs/gdb:$CONFIG_HOME/gdb"
+    "configs/rofi:$CONFIG_HOME/rofi"
+    "configs/starship:$CONFIG_HOME/starship"
+    "configs/sway:$CONFIG_HOME/sway"
+    "configs/swayr:$CONFIG_HOME/swayr"
+    "configs/sxhkd:$CONFIG_HOME/sxhkd"
+    "configs/vim:$CONFIG_HOME/vim"
+    "configs/waybar:$CONFIG_HOME/waybar"
+    "configs/zsh:$CONFIG_HOME/zsh"
+    "tmux.conf:$HOME/.tmux.conf"
+    "configs/zsh/zshrc.zsh:$HOME/.zshrc"
+    "configs/vim/vimrc:$HOME/.vimrc"
 )
 
-_link_dir() {
-    local name=$1
-    local src="$SCRIPT_DIR/configs/$name"
-    local dst="$CONFIG_HOME/$name"
+install_configs() {
+    for pair in "${LINKS[@]}"; do
+        local rel=${pair%%:*} dst=${pair##*:}
 
-    [[ ! -d "$src" ]] && { warn "missing source: $src"; return 1; }
+        if [[ $# -gt 0 ]]; then
+            local match=0
+            for f in "$@"; do [[ "$rel" == *"$f"* ]] && match=1; done
+            (( match )) || continue
+        fi
 
-    mkdir -p "$CONFIG_HOME"
-    if [[ -L "$dst" ]]; then
-        rm "$dst"
-    elif [[ -e "$dst" ]]; then
-        warn "$dst exists and is not a symlink, skipping"
-        return 1
-    fi
-    ln -s "$src" "$dst"
-    info "linked $name -> $dst"
-}
+        local src="$SCRIPT_DIR/$rel"
+        [[ ! -e "$src" ]] && { warn "missing: $rel"; continue; }
 
-_link_tmux() {
-    ln -sfn "$SCRIPT_DIR/tmux.conf" "$HOME/.tmux.conf"
-    info "linked tmux.conf -> ~/.tmux.conf"
-}
+        mkdir -p "$(dirname "$dst")"
+        [[ -L "$dst" ]] && rm "$dst"
+        [[ -e "$dst" ]] && { warn "exists: $dst (skip)"; continue; }
 
-_link_zsh_extras() {
-    ln -sfn "$SCRIPT_DIR/configs/zsh/zshrc.zsh" "$HOME/.zshrc"
-    info "linked zshrc.zsh -> ~/.zshrc"
+        ln -s "$src" "$dst"
+        info "linked $rel -> $dst"
+    done
 
+    # Bootstrap frameworks needed by zsh/vim configs
     local omz="$HOME/.oh-my-zsh"
     if [[ ! -d "$omz" ]]; then
         info "Cloning oh-my-zsh..."
         git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh "$omz"
-    fi
-    local custom="${ZSH_CUSTOM:-$omz/custom}"
-    if [[ ! -d "$custom/plugins/zsh-autosuggestions" ]]; then
         git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions \
-            "$custom/plugins/zsh-autosuggestions"
+            "$omz/custom/plugins/zsh-autosuggestions"
     fi
-}
-
-_link_vim_extras() {
-    ln -sfn "$SCRIPT_DIR/configs/vim/vimrc" "$HOME/.vimrc"
-    info "linked vim/vimrc -> ~/.vimrc"
 
     local plug="$HOME/vim-dev/plug.nvim"
     if [[ ! -d "$plug" ]]; then
         info "Cloning vim-plug..."
-        mkdir -p "$(dirname "$plug")"
-        git clone https://github.com/junegunn/vim-plug.git "$plug"
+        git clone --depth=1 https://github.com/junegunn/vim-plug "$plug"
     fi
-}
-
-install_configs() {
-    local targets=()
-    if [[ $# -eq 0 ]]; then
-        targets=("${ALL_CONFIGS[@]}" tmux)
-    else
-        targets=("$@")
-    fi
-
-    for name in "${targets[@]}"; do
-        case "$name" in
-            tmux) _link_tmux ;;
-            vim)  _link_dir vim && _link_vim_extras ;;
-            zsh)  _link_dir zsh && _link_zsh_extras ;;
-            *)    _link_dir "$name" ;;
-        esac
-    done
 }
