@@ -1,88 +1,116 @@
-# GDB Configuration File
-# Organization:
-# - settings/: Basic GDB settings
-# - modules/: Feature modules
-#   - break_history/: Breakpoint persistence
-#   - editors/: Editor integration
-#   - printers/: Pretty printers
-# - local config support for machine-specific settings
-
-python
-import os
-from os.path import exists, expandvars, join
-
-# Import core functionality
-import sys
-sys.path.append(expandvars("$HOME/dotfiles/configs/gdb/modules"))
-# gdb.execute(f'source {expandvars("$HOME/dotfiles/configs/gdb/modules/core.py")}')
-from core import load_module, validate_config, logger
-
-# Configuration directories
-CONFIG_ROOT = expandvars('$HOME/dotfiles/configs/gdb')
-MODULE_DIR = join(CONFIG_ROOT, 'modules')
-SETTINGS_DIR = join(CONFIG_ROOT, 'settings')
-
-# Validate configuration
-if not validate_config(MODULE_DIR):
-    logger.error("Configuration validation failed")
-else:
-    logger.info("Configuration validation successful")
-
-# Load basic settings
-for setting in ['debugging', 'history', 'display']:
-    setting_file = join(SETTINGS_DIR, f'{setting}.gdb')
-    try:
-        if exists(setting_file):
-            gdb.execute(f'source {setting_file}')
-            logger.info(f"Loaded settings: {setting}")
-    except Exception as e:
-        logger.error(f"Failed to load {setting} settings: {e}")
-
-# Module configuration
-ENABLED_MODULES = {
-    'printers': False,      # Pretty printers for various types
-    'break_history': False, # Breakpoint persistence
-    'editors': False       # Editor integration
-}
-
-# Load enabled modules
-for module, enabled in ENABLED_MODULES.items():
-    if enabled:
-        load_module(module)
-end
+# GDB configuration
 
 #######################
-#  Custom Commands   #
+#  Settings           #
 #######################
 
-# Print values in hex format
+set debuginfod enabled off
+
+# Skip noisy library functions
+skip -rfu '^(absl|std|std::Cr)(::[a-zA-z0-9_]+)+'
+skip -rfu '([a-zA-z0-9_]+)::\1'
+skip -rfu 'operator.*'
+skip -gfi 'base/allocator/*.h'
+
+# x86 disassembly flavor
+set disassembly-flavor intel
+
+# History
+set pagination off
+set history save on
+set history size 10000
+set history remove-duplicates unlimited
+set history filename ~/.gdb_history
+
+# Pretty-printing
+set print pretty on
+set print object on
+set print array on
+set print array-indexes on
+set print static-members on
+set print vtbl on
+set print demangle on
+set print asm-demangle on
+set listsize 20
+
+# Prompt
+set prompt \033[01;31m(gdb) \033[0m
+
+#######################
+#  Custom Commands    #
+#######################
+
+# Print values in hex
 define px
-    set $i=0
+    set $i = 0
     while $i < $argc
-        eval "p/x $arg%d",$i
+        eval "p/x $arg%d", $i
         set $i = $i + 1
     end
 end
-
 document px
-Print values in hexadecimal format
+Print values in hexadecimal format.
 Usage: px expr1 expr2 ...
 end
 
+# Print a C++ string
+define ps
+    print $arg0.c_str()
+end
+document ps
+Print a C++ string using c_str().
+end
+
+# Print a C++ wstring
+define pws
+    printf "\""
+    set $c = (wchar_t*)$arg0
+    while ( *$c )
+        if ( *$c > 0x7f )
+            printf "[%x]", *$c
+        else
+            printf "%c", *$c
+        end
+        set $c++
+    end
+    printf "\"\n"
+end
+document pws
+Print a C++ wstring or wchar_t*.
+end
+
+# Stack trace with assertion scopes
+define mybt
+python
+import re
+frame_re = re.compile(r"^#(\d+)\s*(?:0x[a-f\d]+ in )?(\w*(::\w+|::\([\w\s]+\))*)\(")
+btl = gdb.execute("backtrace full", to_string=True).splitlines()
+for line in btl:
+    m = frame_re.match(line)
+    if m:
+        print("%-60s" % m.group(2))
+end
+end
+document mybt
+Print stack trace with assertion scopes.
+end
+
 #######################
-#  Local Settings    #
+#  Optional Modules   #
+#######################
+# Uncomment any line to enable.
+
+# source ~/dotfiles/configs/gdb/break_history.py    # save/load breakpoints per binary
+# source ~/dotfiles/configs/gdb/editor_manager.py   # vim integration
+# source ~/dotfiles/configs/gdb/qt5.gdb             # Qt5 pretty-printers
+
+#######################
+#  Local Override     #
 #######################
 
 python
-# Load local machine-specific settings if they exist
-local_config = expandvars('$HOME/.gdb.local.config')
-if exists(local_config):
-    try:
-        gdb.execute(f'source {local_config}')
-        logger.info("Loaded local configuration")
-    except Exception as e:
-        logger.error(f"Failed to load local configuration: {e}")
+from os.path import exists, expandvars
+local = expandvars('$HOME/.gdb.local')
+if exists(local):
+    gdb.execute(f'source {local}')
 end
-
-# Set better prompt
-set prompt \033[01;31m(gdb) \033[0m
